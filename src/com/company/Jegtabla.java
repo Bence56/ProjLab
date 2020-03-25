@@ -43,6 +43,10 @@ public class Jegtabla extends Mezo{
         for(int i=0;i<Tab.tab;i++)System.out.print("\t");
         System.out.println("Jegtabla.getTargy()");
         Tab.tab--;
+
+
+
+
         return this.fagyotttargy;
 
     }
@@ -56,6 +60,10 @@ public class Jegtabla extends Mezo{
         for(int i=0;i<Tab.tab;i++)System.out.print("\t");
         System.out.println("Jegtabla.setIglu(boolean iglu)");
         this.iglu=iglu;
+
+
+
+
         Tab.tab--;
     }
 
@@ -70,6 +78,10 @@ public class Jegtabla extends Mezo{
         for(int i=0;i<Tab.tab;i++)System.out.print("\t");
         System.out.println("Jegtabla.alkatreszNovel(Alkatresz a)");
         this.alkatreszek.add(a);
+
+
+
+
         Tab.tab--;
     }
 
@@ -80,6 +92,7 @@ public class Jegtabla extends Mezo{
         Tab.tab++;
         for(int i=0;i<Tab.tab;i++)System.out.print("\t");
         System.out.println("Jegtabla.getAlkatresz()");
+
         Tab.tab--;
     }
 
