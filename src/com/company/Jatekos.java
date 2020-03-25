@@ -19,7 +19,7 @@ public abstract class Jatekos {
     public void lep(Irany i){
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
-        System.out.println("lep(Irany i)");
+        System.out.println("Jatekos.lep(Irany i)");
 
         // Lekéri a szomszég mezőt
         Mezo szomszed = tartozkodasiMezo.getSzomszed(i);
@@ -50,7 +50,7 @@ public abstract class Jatekos {
     public void setMezo(Mezo m){
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
-        System.out.println("setMezo(Mezo m)");
+        System.out.println("Jatekos.setMezo(Mezo m)");
         this.tartozkodasiMezo = m;
         Tab.tab--;
     }
