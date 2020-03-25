@@ -7,7 +7,12 @@ public class Jegtabla extends Mezo{
     ArrayList<Alkatresz> alkatreszek;
     Alkatresz fagyottAlkatresz;
 
-    public void horetegCsokkent(){}
+    /**
+     * Csökkenti a saját maga hórétegét
+     */
+    public void horetegCsokkent(){
+
+    }
 
     /**
      * Elfogadja a  játékost, úgy hogy beállítja a mezőjének saját magát.
@@ -15,6 +20,7 @@ public class Jegtabla extends Mezo{
      */
     @Override
     public void elfogad(Jatekos j){
+
         j.setMezo(this);
     }
     public void getTargy(){}
