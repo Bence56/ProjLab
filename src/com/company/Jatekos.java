@@ -19,7 +19,6 @@ public abstract class Jatekos {
     public void lep(Irany i){
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
-
         System.out.println("lep(Irany i)");
 
         // Lekéri a szomszég mezőt
@@ -31,6 +30,7 @@ public abstract class Jatekos {
         //Átadja magát a szomszédos játékosnak
         szomszed.elfogad(this);
 
+        Tab.tab--;
     }
 
     public void jatszik(){}
