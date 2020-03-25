@@ -54,7 +54,23 @@ public abstract class Jatekos {
 
         Tab.tab--;
     }
-    public void Osszeszerel(){}
+
+    /**
+     * Ellenőrzi, hogy az adott mezőn van-e mindhárom alkatrész,
+     * és ha igen a játékos összeszereli és elsüti a jelzőrakétát
+     */
+    public void osszeszerel(){
+        Tab.tab++;
+        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
+        System.out.println("Jatekos.osszeszerel()");
+
+        ArrayList<Alkatresz> alkatreszek= this.tartozkodasiMezo.getAlkatreszek();
+        if(alkatreszek.size() == 3){
+            this.elsut();
+        }
+        
+        Tab.tab--;
+    }
 
     /**
      * Lerak egy alkatrészt a mezőre hogy azt majd el lehessen sütni
@@ -63,21 +79,36 @@ public abstract class Jatekos {
         Tab.tab++;
         for(int vari=0;vari<Tab.tab;vari++)System.out.print("\t");
         System.out.println("Jatekos.lerak()");
+
         if(alkatreszek.size()>0){
         Alkatresz alk=this.alkatreszek.remove(0);
         this.tartozkodasiMezo.alkatreszNovel(alk);
         }
         this.tartozkodasiMezo.alkatreszNovel(null);
+
         Tab.tab--;
     }
     public void munkaLevon(int i){}
-    public void elsut(){}
+
+    /**
+     * Ez a függvény az összeszerelés után automatikusan hívódik,
+     * elsüti a rakétát és  véget vet a játéknak
+     */
+    public void elsut(){
+        Tab.tab++;
+        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
+        System.out.println("Jatekos.elsut()");
+        Tab.tab--;
+
+    }
 
     public void setMezo(Mezo m){
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
         System.out.println("Jatekos.setMezo(Mezo m)");
+
         this.tartozkodasiMezo = m;
+
         Tab.tab--;
     }
 }

@@ -7,8 +7,10 @@ import java.util.Map;
 public abstract class Mezo {
     int teherbiras;
     int hotakaro;
-    Map<Irany, Mezo> Szomszedok = new HashMap<>();
-    ArrayList<Alkatresz>alkatreszek;
+    Map<Irany, Mezo> szomszedok = new HashMap<>();
+    ArrayList<Alkatresz>alkatreszek = new ArrayList<>();
+
+
     public void horetegNovel(){}
     public  abstract  void elfogad(Jatekos j);
 
@@ -33,7 +35,7 @@ public abstract class Mezo {
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
         System.out.println("Mezo.getSzomszed(" + i +")");
         Tab.tab--;
-        return this.Szomszedok.get(i);
+        return this.szomszedok.get(i);
     }
     /**
      *Ez annak a modellezése amikor leteszik az  alkatrészeket a mezőre, hogy majd el lehessen sütni
@@ -62,5 +64,19 @@ public abstract class Mezo {
     public void testhoCsokkent(){}
     public int getTeherbiras(){
         return teherbiras;
+    }
+
+    /**
+     * Visszadaj a mezőn lévő alkatrészeket
+     * @return
+     */
+    public ArrayList<Alkatresz> getAlkatreszek(){
+        Tab.tab++;
+        for(int i=0;i<Tab.tab;i++)System.out.print("\t");
+        System.out.println("Mezo.getAlkatreszek()");
+        Tab.tab--;
+
+        return this.alkatreszek;
+
     }
 }
