@@ -1,11 +1,12 @@
 package com.company;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Mezo {
     int teherbiras;
     int hotakaro;
-    Map<Irany, Mezo> Szomszedok;
+    Map<Irany, Mezo> Szomszedok = new HashMap<>();
 
     public void horetegNovel(){}
     public  abstract  void elfogad(Jatekos j);
@@ -15,6 +16,7 @@ public abstract class Mezo {
 
     public Mezo  getSzomszed(Irany i){
         System.out.println("getSzomszed(" + i +")");
+        System.out.println(this.Szomszedok.get(Irany.Jobb));
         return this.Szomszedok.get(i);
     }
 
