@@ -28,4 +28,7 @@ public abstract class Jatekos {
     public void munkaLevon(int i){}
     public void elsut(){}
     public void setMezo(Mezo m){}
+    public void CAUSEIMHEARTLESS(){
+        System.out.println("And im back to my ways caouse im heartless");
+    }
 }
