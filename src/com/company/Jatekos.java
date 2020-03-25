@@ -17,6 +17,8 @@ public abstract class Jatekos {
      * @param i Az az irány amerre lépni szeretnénk.
      */
     public void lep(Irany i){
+        Tab.tab++;
+        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
 
         System.out.println("lep(Irany i)");
 
@@ -28,6 +30,7 @@ public abstract class Jatekos {
 
         //Átadja magát a szomszédos játékosnak
         szomszed.elfogad(this);
+
     }
 
     public void jatszik(){}
@@ -44,5 +47,11 @@ public abstract class Jatekos {
     public void lerak(){}
     public void munkaLevon(int i){}
     public void elsut(){}
-    public void setMezo(Mezo m){}
+    public void setMezo(Mezo m){
+        Tab.tab++;
+        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
+        System.out.println("setMezo(Mezo m)");
+        this.tartozkodasiMezo = m;
+        Tab.tab--;
+    }
 }
