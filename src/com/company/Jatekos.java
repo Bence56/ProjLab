@@ -44,7 +44,21 @@ public abstract class Jatekos {
     public void lapatol(){}
     public void vizbeEsik(){}
     public void Osszeszerel(){}
-    public void lerak(){}
+
+    /**
+     * Lerak egy alkatrészt a mezőre hogy azt majd el lehessen sütni
+     */
+    public void lerak(){
+        Tab.tab++;
+        for(int vari=0;vari<Tab.tab;vari++)System.out.print("\t");
+        System.out.println("Jatekos.lerak()");
+        if(alkatreszek.size()>0){
+        Alkatresz alk=this.alkatreszek.remove(0);
+        this.tartozkodasiMezo.alkatreszNovel(alk);
+        }
+        this.tartozkodasiMezo.alkatreszNovel(null);
+        Tab.tab--;
+    }
     public void munkaLevon(int i){}
     public void elsut(){}
     public void setMezo(Mezo m){

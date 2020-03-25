@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Jegtabla extends Mezo{
     boolean iglu=false;
-    ArrayList<Alkatresz> alkatreszek;
+    //ArrayList<Alkatresz> alkatreszek;
     Alkatresz fagyottAlkatresz;
     Targy fagyotttargy;
 
@@ -27,7 +27,6 @@ public class Jegtabla extends Mezo{
     public void elfogad(Jatekos j){
         Tab.tab++;
         for(int i=0;i<Tab.tab;i++)System.out.print("\t");
-        j.setMezo(this);
         System.out.println("Jegtabla.elfogad(Jatekos j)");
 
         j.setMezo(this);
@@ -65,6 +64,7 @@ public class Jegtabla extends Mezo{
      * és így megnyerjék a játékot. Hozzáadja a paraméterül kapott alkatrészt a kollekciójukhoz
      * @param a amit hozzá kell adni a kollekcióhoz
      */
+    @Override
     public void alkatreszNovel(Alkatresz a){
         Tab.tab++;
         for(int i=0;i<Tab.tab;i++)System.out.print("\t");
