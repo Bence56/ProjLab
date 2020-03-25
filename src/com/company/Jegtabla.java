@@ -27,8 +27,10 @@ public class Jegtabla extends Mezo{
     public void elfogad(Jatekos j){
         Tab.tab++;
         for(int i=0;i<Tab.tab;i++)System.out.print("\t");
-        j.setMezo(this);
         System.out.println("Jegtabla.elfogad(Jatekos j)");
+
+        j.setMezo(this);
+
         Tab.tab--;
     }
 
