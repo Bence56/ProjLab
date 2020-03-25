@@ -6,12 +6,17 @@ public class Jegtabla extends Mezo{
     boolean iglu=false;
     ArrayList<Alkatresz> alkatreszek;
     Alkatresz fagyottAlkatresz;
+    Targy fagyotttargy;
 
     /**
      * Csökkenti a saját maga hórétegét
      */
     public void horetegCsokkent(){
-
+        Tab.tab++;
+        for(int i=0;i<Tab.tab;i++)System.out.print("\t");
+        System.out.println("Jegtabla.horetegCsokkent()");
+        this.hotakaro--;
+        Tab.tab--;
     }
 
     /**
@@ -20,13 +25,59 @@ public class Jegtabla extends Mezo{
      */
     @Override
     public void elfogad(Jatekos j){
-
+        Tab.tab++;
+        for(int i=0;i<Tab.tab;i++)System.out.print("\t");
         j.setMezo(this);
+        System.out.println("Jegtabla.elfogad(Jatekos j)");
+        Tab.tab--;
     }
-    public void getTargy(){}
 
-    public void setIglu(boolean iglu) {}
-    public void alkatreszNovel(Alkatresz a){}
-    public void getAlkatresz(){}
+    /**
+     *Visszaadja a befagyott tárgyat amit tárol/ha nem tárol null-t
+     * @return visszaadja a befagyott targyat
+     */
+    public Targy getTargy(){
+        Tab.tab++;
+        for(int i=0;i<Tab.tab;i++)System.out.print("\t");
+        System.out.println("Jegtabla.getTargy()");
+        Tab.tab--;
+        return this.fagyotttargy;
+
+    }
+
+    /**
+     *Beállítja a tábla iglu tulajdonságát
+     * @param iglu annak az értéke hogy a tábla iglu típusú lesz vagy nem
+     */
+    public void setIglu(boolean iglu) {
+        Tab.tab++;
+        for(int i=0;i<Tab.tab;i++)System.out.print("\t");
+        System.out.println("Jegtabla.setIglu(boolean iglu)");
+        this.iglu=iglu;
+        Tab.tab--;
+    }
+
+    /**
+     *Ez annak a modellezése amikor leteszik az  alkatrészeket a mezőre, hogy majd el lehessen sütni
+     * és így megnyerjék a játékot. Hozzáadja a paraméterül kapott alkatrészt a kollekciójukhoz
+     * @param a amit hozzá kell adni a kollekcióhoz
+     */
+    public void alkatreszNovel(Alkatresz a){
+        Tab.tab++;
+        for(int i=0;i<Tab.tab;i++)System.out.print("\t");
+        System.out.println("Jegtabla.alkatreszNovel(Alkatresz a)");
+        this.alkatreszek.add(a);
+        Tab.tab--;
+    }
+
+    /**
+     * Őszintén nem tudom mi akar ez lenni, meg hogy mi az értelme
+     */
+    public void getAlkatresz(){
+        Tab.tab++;
+        for(int i=0;i<Tab.tab;i++)System.out.print("\t");
+        System.out.println("Jegtabla.getAlkatresz()");
+        Tab.tab--;
+    }
 
 }
