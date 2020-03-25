@@ -9,7 +9,7 @@ public abstract class Jatekos {
     Mezo tartozkodasiMezo;
     ArrayList<Alkatresz> alkatreszek;
     ArrayList<Targy> targyak;
-    FulladasiAllpot allapot;
+    FulladasiAllapot allapot;
 
 
     public void lep(){}

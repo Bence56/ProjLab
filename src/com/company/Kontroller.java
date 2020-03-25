@@ -6,7 +6,12 @@ public class Kontroller {
     ArrayList<Mezo>palya;
 
     public void jatek(){}
-    public void vihar(){}
+    public void vihar() {
+        System.out.println("\tKONTROLLER.vihar()");
+        for (Mezo item:palya) {
+            item.horetegNovel();
+        }
+    }
     public void detektel(){}
     public void jatekVege(){}
 }
