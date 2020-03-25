@@ -12,10 +12,24 @@ public abstract class Jatekos {
     FulladasiAllapot allapot;
 
 
-    public void lep(){
-        Mezo szomszed = this.getSzomszed();
+    /**
+     * Átlépteti a játékost a szomszédos mezőre a megadott irányba.
+     * @param i Az az irány amerre lépni szeretnénk.
+     */
+    public void lep(Irany i){
 
+        System.out.println("lep(Irany i)");
+
+        // Lekéri a szomszég mezőt
+        Mezo szomszed = tartozkodasiMezo.getSzomszed(i);
+
+        //eltávolítja a játékost
+        this.tartozkodasiMezo.eltavolit(this);
+
+        //Átadja magát a szomszédos játékosnak
+        szomszed.elfogad(this);
     }
+
     public void jatszik(){}
     public void kapar(){}
     public void lapatFelvesz(Lapat l){}
@@ -31,7 +45,4 @@ public abstract class Jatekos {
     public void munkaLevon(int i){}
     public void elsut(){}
     public void setMezo(Mezo m){}
-    public void CAUSEIMHEARTLESS(){
-        System.out.println("And im back to my ways caouse im heartless");
-    }
 }

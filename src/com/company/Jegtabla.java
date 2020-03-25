@@ -8,8 +8,15 @@ public class Jegtabla extends Mezo{
     Alkatresz fagyottAlkatresz;
 
     public void horetegCsokkent(){}
+
+    /**
+     * Elfogadja a  játékost, úgy hogy beállítja a mezőjének saját magát.
+     * @param j A játékos amit el kell fogadni
+     */
     @Override
-    public void elfogad(Jatekos j){}
+    public void elfogad(Jatekos j){
+        j.setMezo(this);
+    }
     public void getTargy(){}
 
     public void setIglu(boolean iglu) {}
