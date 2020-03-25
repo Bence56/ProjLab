@@ -17,7 +17,7 @@ public abstract class Jatekos {
     public void kapar(){}
     public void lapatFelvesz(Lapat l){}
     public void kotelFelvesz(Kotel k){}
-    public void elelemFelvesz(Elem e){}
+    public void elelemFelvesz(Elelem e){}
     public void buvarruhaFelvesz(Buvarruha b){}
     public void alkatreszFelvesz(Alkatresz a){}
     public void kihuz(Irany i){}

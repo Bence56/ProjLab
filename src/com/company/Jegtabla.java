@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.ArrayList;
 
-public class Jegtabla implements Mezo{
+public class Jegtabla extends Mezo{
     boolean iglu=false;
     ArrayList<Alkatresz> alkatreszek;
     Alkatresz fagyottAlkatresz;

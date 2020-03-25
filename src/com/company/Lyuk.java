@@ -1,6 +1,6 @@
 package com.company;
 
-public class Lyuk implements Mezo {
+public class Lyuk extends Mezo {
     @Override
     public void elfogad(Jatekos j) { }
 

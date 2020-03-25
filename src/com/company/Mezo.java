@@ -12,5 +12,7 @@ public abstract class Mezo {
     public void  eltavolit(Jatekos j){}
     public void  getSzomszed(Irany i){}
     public void testhoCsokkent(){}
-    public int getTeherbiras(){}
+    public int getTeherbiras(){
+        return teherbiras;
+    }
 }
