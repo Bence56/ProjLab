@@ -13,14 +13,14 @@ public abstract class Mezo {
     public void  eltavolit(Jatekos j){
         Tab.tab++;
         for(int i=0; i<Tab.tab; i++)System.out.print("\t");
-        System.out.println("eltavolit(Jatekos j)");
+        System.out.println("Mezo.eltavolit(Jatekos j)");
         Tab.tab--;
     }
 
     public Mezo  getSzomszed(Irany i){
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
-        System.out.println("getSzomszed(" + i +")");
+        System.out.println("Mezo.getSzomszed(" + i +")");
         Tab.tab--;
         return this.Szomszedok.get(i);
     }
