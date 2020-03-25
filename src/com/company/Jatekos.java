@@ -31,9 +31,7 @@ public abstract class Jatekos {
     }
 
     public void jatszik(){}
-    public void kapar(){
-        System.out.println("Sajtos krumpli");
-    }
+    public void kapar(){}
     public void lapatFelvesz(Lapat l){}
     public void kotelFelvesz(Kotel k){}
     public void elelemFelvesz(Elelem e){}

@@ -4,8 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("helllllllo");
+        Jatekos j = new Eszkimo();
 
-        System.out.println("Jaj");
+        j.lep(Irany.Jobb);
     }
 }
