@@ -21,7 +21,6 @@ public abstract class Mezo {
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
         System.out.println("getSzomszed(" + i +")");
-        Tab.tab--;
         return this.Szomszedok.get(i);
     }
 
