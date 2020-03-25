@@ -1,10 +1,17 @@
 package com.company;
 
 public class Eszkimo extends Jatekos{
+    /**
+     * Eszkimo iglut tud építeni
+     */
     public void epit(){
-        System.out.print("\tESZKIMO.epit()");
-        //függvényhívás
-        System.out.println("");
+        Tab.tab++;
+        for(int vari=0;vari<Tab.tab;vari++)System.out.print("\t");
+        System.out.println("Eszkimo.epit()");
+        this.tartozkodasiMezo.setIglu(true);
+
+
+        Tab.tab--;
 
     }
 }
