@@ -12,7 +12,10 @@ public abstract class Jatekos {
     FulladasiAllapot allapot;
 
 
-    public void lep(){}
+    public void lep(){
+        Mezo szomszed = this.getSzomszed();
+
+    }
     public void jatszik(){}
     public void kapar(){}
     public void lapatFelvesz(Lapat l){}
