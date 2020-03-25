@@ -11,6 +11,11 @@ public abstract class Mezo {
     ArrayList<Alkatresz>alkatreszek;
     public void horetegNovel(){}
     public  abstract  void elfogad(Jatekos j);
+
+    /**
+     * Eltávolítja a Játékost erről a mezőről
+     * @param j A játékos akit le kell venni
+     */
     public void  eltavolit(Jatekos j){
         Tab.tab++;
         for(int i=0; i<Tab.tab; i++)System.out.print("\t");
@@ -18,6 +23,11 @@ public abstract class Mezo {
         Tab.tab--;
     }
 
+    /**
+     * Visszadja a szomszédos mezőt a paraméterként kapott irányba
+     * @param i Az irány
+     * @return A szomszédos mező
+     */
     public Mezo  getSzomszed(Irany i){
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");

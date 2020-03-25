@@ -42,7 +42,18 @@ public abstract class Jatekos {
     public void alkatreszFelvesz(Alkatresz a){}
     public void kihuz(Irany i){}
     public void lapatol(){}
-    public void vizbeEsik(){}
+
+    /**
+     * Beállítja a játékos allapot tagváltozójának értékét fuldoklikra,
+     * valamint lecsökkenti a elvégezhető munkák számát (munkakSzama tagváltozó) nullára, hogy a következő játékos jöjjön
+     */
+    public void vizbeEsik(){
+        Tab.tab++;
+        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
+        System.out.println("Jatekos.vízbeEsik()");
+
+        Tab.tab--;
+    }
     public void Osszeszerel(){}
 
     /**
@@ -61,6 +72,7 @@ public abstract class Jatekos {
     }
     public void munkaLevon(int i){}
     public void elsut(){}
+
     public void setMezo(Mezo m){
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
