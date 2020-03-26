@@ -9,7 +9,7 @@ public abstract class Mezo {
     int hotakaro;
     Map<Irany, Mezo> szomszedok = new HashMap<>();
     ArrayList<Alkatresz>alkatreszek = new ArrayList<>();
-
+    ArrayList<Jatekos> alloJatekos=new ArrayList<>();
 
     public void horetegNovel(){}
     public  abstract  void elfogad(Jatekos j);

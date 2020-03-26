@@ -7,8 +7,8 @@ public abstract class Jatekos {
     int testho;
     boolean vedett;
     Mezo tartozkodasiMezo;
-    ArrayList<Alkatresz> alkatreszek;
-    ArrayList<Targy> targyak;
+    ArrayList<Alkatresz> alkatreszek =new ArrayList<>();
+    ArrayList<Targy> targyak =new ArrayList<>();
     FulladasiAllapot allapot;
 
 
@@ -38,10 +38,32 @@ public abstract class Jatekos {
     public void lapatFelvesz(Lapat l){}
     public void kotelFelvesz(Kotel k){}
     public void elelemFelvesz(Elelem e){}
-    public void buvarruhaFelvesz(Buvarruha b){}
+
+    /**
+     * Beteszi a kikapart búvárruhát a játékos tárgyai közé
+     * @param b
+     */
+    public void buvarruhaFelvesz(Buvarruha b){
+        Tab.tab++;
+        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
+        System.out.println("Jatekos.buvarruhaFelvesz()");
+        targyak.add(b);
+    }
     public void alkatreszFelvesz(Alkatresz a){}
     public void kihuz(Irany i){}
     public void lapatol(){}
+
+    /**
+     * Az adott jégtáblán álló összes játékos vízbeEsik() függvényét meghívja.
+     */
+    public void mindenkiVizbeEsik(){
+        Tab.tab++;
+        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
+        System.out.println("Jatekos.mindenkiVizbeEsik()");
+        this.vizbeEsik();
+
+        Tab.tab--;
+        }
 
     /**
      * Beállítja a játékos allapot tagváltozójának értékét fuldoklikra,
@@ -51,6 +73,9 @@ public abstract class Jatekos {
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
         System.out.println("Jatekos.vízbeEsik()");
+        BuvarruhaVisitor br=new BuvarruhaVisitor();
+        Targy b=this.targyak.get(0);
+        b.accept(br);
 
         Tab.tab--;
     }
