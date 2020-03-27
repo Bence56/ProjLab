@@ -53,13 +53,7 @@ public abstract class Mezo {
      *Beállítja a tábla iglu tulajdonságát
      * @param iglu annak az értéke hogy a tábla iglu típusú lesz vagy nem
      */
-    public void setIglu(boolean iglu) {
-        Tab.tab++;
-        for(int i=0;i<Tab.tab;i++)System.out.print("\t");
-        System.out.println("Mezo.setIglu(boolean iglu)");
-        //this.iglu=iglu;
-        Tab.tab--;
-    }
+    public void setIglu(boolean iglu) { }
 
     public void testhoCsokkent(){}
     public int getTeherbiras(){

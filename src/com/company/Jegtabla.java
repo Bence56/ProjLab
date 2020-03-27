@@ -55,13 +55,13 @@ public class Jegtabla extends Mezo{
      *Beállítja a tábla iglu tulajdonságát
      * @param iglu annak az értéke hogy a tábla iglu típusú lesz vagy nem
      */
+    @Override
     public void setIglu(boolean iglu) {
         Tab.tab++;
         for(int i=0;i<Tab.tab;i++)System.out.print("\t");
         System.out.println("Jegtabla.setIglu(boolean iglu)");
+
         this.iglu=iglu;
-
-
 
 
         Tab.tab--;

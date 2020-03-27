@@ -7,9 +7,7 @@ public class ElelemVisitor implements TargyVisitor{
     public boolean visit(Lapat l){
         return false;
     };
-    public boolean visit(Buvarruha b){
-        return false;
-    };
+    public boolean visit(Buvarruha b){ return false;};
     public boolean visit(Elelem e){
         return true;
     };

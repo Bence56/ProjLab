@@ -3,14 +3,32 @@ package com.company;
 import java.util.ArrayList;
 
 public abstract class Jatekos {
-    int munkakSzama;
-    int testho;
-    boolean vedett;
-    Mezo tartozkodasiMezo;
-    ArrayList<Alkatresz> alkatreszek =new ArrayList<>();
-    ArrayList<Targy> targyak =new ArrayList<>();
-    FulladasiAllapot allapot;
+    private int munkakSzama;
+    private int testho;
+    private boolean vedett;
+    Mezo tartozkodasiMezo; /*private kene*/
+    private ArrayList<Alkatresz> alkatreszek =new ArrayList<>();
+    private ArrayList<Targy> targyak =new ArrayList<>();
+    private FulladasiAllapot allapot;
 
+    /**
+     * Beállítja a védett attribútumot
+     */
+    public void setVedett(boolean b){
+        Tab.tab++;
+        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
+        System.out.println("Jatekos.setVedett(boolean b)");
+        vedett = b;
+        Tab.tab--;
+    }
+
+    /**
+     * setter
+     * @return
+     */
+    public void setAllapot(FulladasiAllapot all){
+        allapot = all;
+    }
 
     /**
      * Átlépteti a játékost a szomszédos mezőre a megadott irányba.
@@ -40,7 +58,7 @@ public abstract class Jatekos {
     public void elelemFelvesz(Elelem e){}
 
     /**
-     * Beteszi a kikapart búvárruhát a játékos tárgyai közé
+     * Beteszi a kikapart búvárruhát a játékos tárgyai közé és védelmet nyújt
      * @param b
      */
     public void buvarruhaFelvesz(Buvarruha b){
@@ -48,9 +66,36 @@ public abstract class Jatekos {
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
         System.out.println("Jatekos.buvarruhaFelvesz()");
         targyak.add(b);
+        b.vedelem(this);
+
+        Tab.tab--;
     }
     public void alkatreszFelvesz(Alkatresz a){}
-    public void kihuz(Irany i){}
+
+    /**
+     * Kihúz egy másik játékost a saját táblájára
+     * @param i
+     */
+    //PROBLÉMA: A HUZ FV NINCS A TARGYBAN
+    public void kihuz(Irany i){
+        Tab.tab++;
+        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
+        System.out.println("Jatekos.mindenkiVizbeEsik()");
+
+        KotelVisitor kv = new KotelVisitor();
+        Mezo szomszed = this.tartozkodasiMezo.getSzomszed(i);
+        Jatekos mentett = szomszed.alloJatekos.get(0);
+        for (Targy t: targyak) {
+            if(t.accept(kv)) {     //ha a tárgy kötél akkor true
+                t.huz(mentett);
+                szomszed.eltavolit(mentett);
+                this.tartozkodasiMezo.elfogad(mentett);
+            }
+
+        }
+
+        Tab.tab--;
+    }
     public void lapatol(){}
 
     /**
@@ -73,10 +118,11 @@ public abstract class Jatekos {
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
         System.out.println("Jatekos.vízbeEsik()");
-        BuvarruhaVisitor br=new BuvarruhaVisitor();
-        Targy b=this.targyak.get(0);
-        b.accept(br);
-
+        if (!vedett){
+            allapot = FulladasiAllapot.fuldoklik;
+            munkakSzama = 0;
+        }
+        //ha védett nem történik semmi
         Tab.tab--;
     }
 

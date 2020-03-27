@@ -18,6 +18,9 @@ public class Lyuk extends Mezo {
 
         Tab.tab--;
     }
-
+    @Override
+    public void setIglu(boolean iglu) {
+        return;
+    }
 
 }
