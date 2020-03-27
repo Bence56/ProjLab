@@ -20,7 +20,7 @@ public class Jegtabla extends Mezo{
     }
 
     /**
-     * Elfogadja a  játékost, úgy hogy beállítja a mezőjének saját magát.
+     * Elfogadja a  játékost, úgy hogy beállítja a mezőjének saját magát, illetve beteszi az állójátékosok közé
      * @param j A játékos amit el kell fogadni
      */
     @Override
@@ -30,7 +30,12 @@ public class Jegtabla extends Mezo{
         System.out.println("Jegtabla.elfogad(Jatekos j)");
 
         j.setMezo(this);
+        /*this.alloJatekos.add(j);
 
+        if (teherbiras<alloJatekos.size()) {
+            for (Jatekos j2 : alloJatekos)
+                j2.vizbeEsik();
+        }*/
         Tab.tab--;
     }
 

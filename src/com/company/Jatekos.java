@@ -52,9 +52,16 @@ public abstract class Jatekos {
     }
 
     public void jatszik(){}
-    public void kapar(){}
+    public void kapar(){
+    }
     public void lapatFelvesz(Lapat l){}
-    public void kotelFelvesz(Kotel k){}
+    public void kotelFelvesz(Kotel k){
+        Tab.tab++;
+        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
+        System.out.println("Jatekos.kotelFelvesz()");
+        targyak.add(k);
+        Tab.tab--;
+    }
     public void elelemFelvesz(Elelem e){}
 
     /**
@@ -76,22 +83,23 @@ public abstract class Jatekos {
      * Kihúz egy másik játékost a saját táblájára
      * @param i
      */
-    //PROBLÉMA: A HUZ FV NINCS A TARGYBAN
+
     public void kihuz(Irany i){
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
-        System.out.println("Jatekos.mindenkiVizbeEsik()");
+        System.out.println("Jatekos.kihuz()");
 
         KotelVisitor kv = new KotelVisitor();
         Mezo szomszed = this.tartozkodasiMezo.getSzomszed(i);
-        Jatekos mentett = szomszed.alloJatekos.get(0);
         for (Targy t: targyak) {
             if(t.accept(kv)) {     //ha a tárgy kötél akkor true
-                t.huz(mentett);
-                szomszed.eltavolit(mentett);
-                this.tartozkodasiMezo.elfogad(mentett);
+                Kotel k=new Kotel(); //csinalunk egy kotelet, hogy kihúzhassuk a játékost.
+                for (Jatekos mentett: szomszed.alloJatekos) {  // a szomszéd mezőről minden játékost kihúz
+                    k.huz(mentett);
+                    szomszed.eltavolit(mentett);
+                    this.tartozkodasiMezo.elfogad(mentett);
+                }
             }
-
         }
 
         Tab.tab--;
@@ -99,20 +107,8 @@ public abstract class Jatekos {
     public void lapatol(){}
 
     /**
-     * Az adott jégtáblán álló összes játékos vízbeEsik() függvényét meghívja.
-     */
-    public void mindenkiVizbeEsik(){
-        Tab.tab++;
-        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
-        System.out.println("Jatekos.mindenkiVizbeEsik()");
-        this.vizbeEsik();
-
-        Tab.tab--;
-        }
-
-    /**
      * Beállítja a játékos allapot tagváltozójának értékét fuldoklikra,
-     * valamint lecsökkenti a elvégezhető munkák számát (munkakSzama tagváltozó) nullára, hogy a következő játékos jöjjön
+     * valamint, ha a játékosnak nincs búvárruhája lecsökkenti a elvégezhető munkák számát (munkakSzama tagváltozó) nullára, hogy a következő játékos jöjjön
      */
     public void vizbeEsik(){
         Tab.tab++;
@@ -125,6 +121,7 @@ public abstract class Jatekos {
         //ha védett nem történik semmi
         Tab.tab--;
     }
+
 
     /**
      * Ellenőrzi, hogy az adott mezőn van-e mindhárom alkatrész,
