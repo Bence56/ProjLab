@@ -18,7 +18,7 @@ public class Kotel extends Targy{
     public void huz(Jatekos jatekos){
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
-        System.out.println("Kotel.huz()");
+        System.out.println("Kotel.huz(Jatekos jatekos)");
 
         jatekos.setAllapot(FulladasiAllapot.aktiv);
 

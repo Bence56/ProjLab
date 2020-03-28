@@ -8,6 +8,7 @@ public class Jegtabla extends Mezo{
     Alkatresz fagyottAlkatresz;
     Targy fagyotttargy;
 
+
     /**
      * Csökkenti a saját maga hórétegét
      */
@@ -43,6 +44,7 @@ public class Jegtabla extends Mezo{
      *Visszaadja a befagyott tárgyat amit tárol/ha nem tárol null-t
      * @return visszaadja a befagyott targyat
      */
+    @Override
     public Targy getTargy(){
         Tab.tab++;
         for(int i=0;i<Tab.tab;i++)System.out.print("\t");
