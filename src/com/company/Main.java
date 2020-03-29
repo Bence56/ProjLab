@@ -5,9 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 
-/**
- * A játékos egy jégtáblára lép
- */
+
 
 public class Main {
 
@@ -73,6 +71,12 @@ public class Main {
         j.tartozkodasiMezo.szomszedok.put(Irany.Le, szomszed);
         szomszed.teherbiras=0;
         j.lep(Irany.Le);
+    }
+
+    public void szcenario8(Jatekos j){
+        System.out.println("JÁTÉKOS ÖSSZESZERELI A PISZTOLYT ÉS VÉGE A JÁTÉKNAK");
+        j.osszeszerel();
+
     }
 
     public static void main(String[] args) {

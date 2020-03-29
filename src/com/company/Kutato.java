@@ -1,6 +1,7 @@
 package com.company;
 
 public class Kutato extends Jatekos {
+    private int testho = 4;
     /**
      *Lekérdezi a mező teherbírását i irányú szomszéd
      * @param i ebben az irányba lévő szomszéd mezőjéről kérdezi le a teherbírást

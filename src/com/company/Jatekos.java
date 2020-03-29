@@ -3,8 +3,8 @@ package com.company;
 import java.util.ArrayList;
 
 public abstract class Jatekos {
-    Mezo tartozkodasiMezo; /*private kene*/
-    private int munkakSzama;
+    Mezo tartozkodasiMezo;
+    private int munkakSzama = 4;
     private int testho;
     private boolean vedett;
     private ArrayList<Alkatresz> alkatreszek = new ArrayList<>();
@@ -41,8 +41,6 @@ public abstract class Jatekos {
 
     /**
      * setter
-     *
-     * @return
      */
     public void setAllapot(FulladasiAllapot all) {
         allapot = all;
@@ -66,11 +64,20 @@ public abstract class Jatekos {
 
         //Átadja magát a szomszédos játékosnak
         szomszed.elfogad(this);
-
+        munkakSzama--;
         Tab.tab--;
     }
 
     public void jatszik() {
+        Tab.tab++;
+        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
+        System.out.println("Jatekos.jatszik()");
+
+        Tab.tab--;
+        //ha elfogytak a munkák a következő játékos jön
+        if(munkakSzama == 0)
+            return;
+
     }
 
     /**
@@ -82,7 +89,7 @@ public abstract class Jatekos {
         System.out.println("Jatekos.kapar()");
 
         Targy targy = this.tartozkodasiMezo.getTargy();
-       targy.felvesz(this);
+        targy.felvesz(this);
         munkakSzama --;
 
         Tab.tab--;
@@ -162,7 +169,23 @@ public abstract class Jatekos {
         Tab.tab--;
     }
 
+    /**
+     * A játékos lapátol ha van lapátja
+     */
     public void lapatol() {
+        Tab.tab++;
+        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
+        System.out.println("Jatekos.lapatol()");
+        LapatVisitor lv = new LapatVisitor();
+        for (Targy t: targyak) {
+            if(t.accept(lv)){
+                Lapat lapat = new Lapat();
+                lapat.as((Jegtabla)this.tartozkodasiMezo);
+                return;
+            }
+        }
+        ((Jegtabla)this.tartozkodasiMezo).horetegCsokkent();
+        Tab.tab--;
     }
 
     /**
@@ -217,6 +240,7 @@ public abstract class Jatekos {
     }
 
     public void munkaLevon(int i) {
+        munkakSzama = munkakSzama-i;
     }
 
     /**
@@ -227,6 +251,7 @@ public abstract class Jatekos {
         Tab.tab++;
         for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
         System.out.println("Jatekos.elsut()");
+
         Tab.tab--;
 
     }

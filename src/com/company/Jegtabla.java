@@ -65,7 +65,6 @@ public class Jegtabla extends Mezo{
 
         this.iglu=iglu;
 
-
         Tab.tab--;
     }
 
@@ -82,20 +81,19 @@ public class Jegtabla extends Mezo{
         this.alkatreszek.add(a);
 
 
-
-
         Tab.tab--;
     }
 
     /**
-     * Őszintén nem tudom mi akar ez lenni, meg hogy mi az értelme
+     * A jégtáblára letett alkatrészeket adja oda amikor a játékos meghívja az alkatreszFelvesz fv-t
      */
-    public void getAlkatresz(){
+    public Alkatresz getAlkatresz(){
         Tab.tab++;
         for(int i=0;i<Tab.tab;i++)System.out.print("\t");
         System.out.println("Jegtabla.getAlkatresz()");
-
         Tab.tab--;
+
+        return this.fagyottAlkatresz;
     }
 
 }

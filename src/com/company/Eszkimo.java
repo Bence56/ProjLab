@@ -1,6 +1,7 @@
 package com.company;
 
 public class Eszkimo extends Jatekos{
+    private int testho = 5;
     /**
      * Eszkimo iglut tud építeni
      */

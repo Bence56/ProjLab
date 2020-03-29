@@ -5,20 +5,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Mezo {
-    int teherbiras;
-    int hotakaro;
+    protected int teherbiras;
+    protected int hotakaro;
     Map<Irany, Mezo> szomszedok = new HashMap<>();
     ArrayList<Alkatresz> alkatreszek = new ArrayList<>();
     ArrayList<Jatekos> alloJatekos = new ArrayList<>();
-    boolean iglu;
+    private boolean iglu;
 
 
 
 //Ezt üresen kell hagyni
     Targy getTargy(){return null;}
 
-    public void horetegNovel() {
-    }
+    public void horetegNovel() {}
 
 
     public abstract void elfogad(Jatekos j);
@@ -32,6 +31,7 @@ public abstract class Mezo {
         Tab.tab++;
         for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
         System.out.println("Mezo.eltavolit(Jatekos j)");
+
         Tab.tab--;
     }
 

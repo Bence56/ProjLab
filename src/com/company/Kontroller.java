@@ -6,15 +6,37 @@ public class Kontroller {
     ArrayList<Mezo>palya;
     ArrayList<Jatekos> jatekosok;
 
-    public void jatek(){}
+    /**
+     * A játék menete, minden játékos köre előtt detektálás van, utána pedig vihar
+     */
+    public void jatek(){
+        Tab.tab++;
+        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
+        System.out.println("Kontroller.jatek()");
+        for(Jatekos j : jatekosok){
+            detektal();
+            j.jatszik();
+            vihar();
+        }
+        Tab.tab--;
+    }
+
+
     public void vihar() {
-        System.out.println("\tKontroller.vihar()");
+        Tab.tab++;
+        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
+        System.out.println("Kontroller.vihar()");
         for (Mezo item:palya) {
             item.horetegNovel();
         }
+
+        Tab.tab--;
     }
 
-    public void detektel(){
+    /**
+     * vizsgaljuk a játékosok állapotát, nem e hűlt ki, nem e fulladt meg
+     */
+    public void detektal(){
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
         System.out.println("Kontroller.detektal()");
@@ -48,5 +70,11 @@ public class Kontroller {
     }
 
 
-    public void jatekVege(){}
+    public void jatekVege(){
+        Tab.tab++;
+        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
+        System.out.println("Kontroller.jatekVege()");
+
+        Tab.tab--;
+    }
 }
