@@ -41,6 +41,10 @@ public class Main {
                 case 7:
                     m.szcenario7(e);
                     break;
+                case 8:
+                    m.szcenario8(e);
+                case 9:
+                    m.szcenario9();
 
 
             }
@@ -127,7 +131,41 @@ public class Main {
 
     public void szcenario8(Jatekos j) {
         System.out.println("JÁTÉKOS ÖSSZESZERELI A PISZTOLYT ÉS VÉGE A JÁTÉKNAK");
-        j.osszeszerel();
 
+        j.osszeszerel();
+    }
+
+    public void szcenario9() {
+        System.out.println("JÁTÉK");
+
+        boolean game = true;
+
+        Kontroller kontroller = new Kontroller();
+
+        Jatekos j1 = new Eszkimo();
+        Jatekos j2 = new Kutato();
+
+        Mezo m1 = new Lyuk();
+        Mezo m2 = new Jegtabla();
+
+        kontroller.jatekosok.add(j1);
+        kontroller.jatekosok.add(j2);
+
+        kontroller.palya.add(m1);
+        kontroller.palya.add(m2);
+
+
+
+        while(kontroller.aktiv){
+            kontroller.detektal();
+
+            if(kontroller.aktiv){
+                for (Jatekos j: kontroller.jatekosok) {
+                    j.jatszik();
+                }
+
+                kontroller.vihar();
+            }
+        }
     }
 }

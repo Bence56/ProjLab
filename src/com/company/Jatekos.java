@@ -11,6 +11,10 @@ public abstract class Jatekos {
     private ArrayList<Targy> targyak = new ArrayList<>();
     private FulladasiAllapot allapot;
 
+    Jatekos(){
+        this.testho = 5;
+    }
+
     public int getTestho() {
         Tab.tab++;
         for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
@@ -228,8 +232,10 @@ public abstract class Jatekos {
         System.out.println("Jatekos.osszeszerel()");
 
         ArrayList<Alkatresz> alkatreszek = this.tartozkodasiMezo.getAlkatreszek();
-        if (alkatreszek.size() == 3) {
-            this.elsut();
+        if(alkatreszek != null){
+            if (alkatreszek.size() == 3) {
+                this.elsut();
+            }
         }
 
         Tab.tab--;

@@ -3,8 +3,10 @@ package com.company;
 import java.util.ArrayList;
 
 public class Kontroller {
-    ArrayList<Mezo>palya;
-    ArrayList<Jatekos> jatekosok;
+    ArrayList<Mezo>palya = new ArrayList<>();
+    ArrayList<Jatekos> jatekosok = new ArrayList<>();
+
+    boolean aktiv = true;
 
     /**
      * A játék menete, minden játékos köre előtt detektálás van, utána pedig vihar
@@ -58,7 +60,10 @@ public class Kontroller {
         }
         for (Mezo m : palya) {
             ArrayList<Alkatresz> alkatreszek =  m.getAlkatreszek();
-            alkatreszSzam += alkatreszek.size();
+            if(alkatreszek != null){
+                alkatreszSzam += alkatreszek.size();
+            }
+
         }
 
         if(alkatreszSzam <= 3)
@@ -74,6 +79,8 @@ public class Kontroller {
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
         System.out.println("Kontroller.jatekVege()");
+
+        this.aktiv = false;
 
         Tab.tab--;
     }
