@@ -10,4 +10,12 @@ public class Elelem extends Targy{
         Tab.tab--;
         return v.visit(this);
     }
+
+    @Override
+    public void felvesz(Jatekos jatekos){
+        Tab.tab++;
+        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
+        System.out.println("Elelem.felvesz()");
+        jatekos.elelemFelvesz(this);
+    }
 }

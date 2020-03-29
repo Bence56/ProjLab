@@ -11,6 +11,14 @@ public class Kotel extends Targy{
         return v.visit(this);
     }
 
+    public void felvesz(Jatekos jatekos){
+        Tab.tab++;
+        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
+        System.out.println("" +
+                "kotel.felvesz()");
+        jatekos.kotelFelvesz(this);
+    }
+
     /**
      * Beállítja a játékos állapotát aktívra
      * @param jatekos akinek az állapotát állítja

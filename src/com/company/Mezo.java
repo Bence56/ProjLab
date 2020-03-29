@@ -12,11 +12,14 @@ public abstract class Mezo {
     ArrayList<Jatekos> alloJatekos = new ArrayList<>();
     boolean iglu;
 
-    //Ezt üresen kell hagyni
+
+
+//Ezt üresen kell hagyni
     Targy getTargy(){return null;}
 
     public void horetegNovel() {
     }
+
 
     public abstract void elfogad(Jatekos j);
 
@@ -65,8 +68,7 @@ public abstract class Mezo {
      *
      * @param iglu annak az értéke hogy a tábla iglu típusú lesz vagy nem
      */
-    public void setIglu(boolean iglu) {
-    }
+    public void setIglu(boolean iglu){};
 
     /**
      * Ellenőrzi, hogy van-e a mezőn iglu, és ha nincs, a mezőn álló játékosok testhőjét csökkenti 1-gyel.

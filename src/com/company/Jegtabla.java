@@ -8,7 +8,6 @@ public class Jegtabla extends Mezo{
     Alkatresz fagyottAlkatresz;
     Targy fagyotttargy;
 
-
     /**
      * Csökkenti a saját maga hórétegét
      */
@@ -31,12 +30,12 @@ public class Jegtabla extends Mezo{
         System.out.println("Jegtabla.elfogad(Jatekos j)");
 
         j.setMezo(this);
-        /*this.alloJatekos.add(j);
+        this.alloJatekos.add(j);
 
         if (teherbiras<alloJatekos.size()) {
             for (Jatekos j2 : alloJatekos)
                 j2.vizbeEsik();
-        }*/
+        }
         Tab.tab--;
     }
 
@@ -50,13 +49,9 @@ public class Jegtabla extends Mezo{
         for(int i=0;i<Tab.tab;i++)System.out.print("\t");
         System.out.println("Jegtabla.getTargy()");
         Tab.tab--;
-
-
-
-
         return this.fagyotttargy;
-
     }
+
 
     /**
      *Beállítja a tábla iglu tulajdonságát

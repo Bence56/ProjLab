@@ -11,6 +11,13 @@ public class Buvarruha extends Targy{
         return x;
     }
 
+    public void felvesz(Jatekos jatekos){
+        Tab.tab++;
+        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
+        System.out.println("Buvarruha.felvesz()");
+        jatekos.buvarruhaFelvesz(this);
+    }
+
     /**
      * Védettséget kap a játékos a búvárruhától
      * @param j a játékos aki védett lesz

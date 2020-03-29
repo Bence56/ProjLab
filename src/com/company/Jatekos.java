@@ -82,13 +82,18 @@ public abstract class Jatekos {
         System.out.println("Jatekos.kapar()");
 
         Targy targy = this.tartozkodasiMezo.getTargy();
-        targyak.add(targy);
+       targy.felvesz(this);
         munkakSzama --;
 
         Tab.tab--;
     }
 
     public void lapatFelvesz(Lapat l) {
+        Tab.tab++;
+        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
+        System.out.println("Jatekos.lapatFelvesz()");
+        targyak.add(l);
+        Tab.tab--;
     }
 
     public void kotelFelvesz(Kotel k) {
@@ -100,6 +105,11 @@ public abstract class Jatekos {
     }
 
     public void elelemFelvesz(Elelem e) {
+        Tab.tab++;
+        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
+        System.out.println("Jatekos.elelemFelvesz()");
+        testho++;
+        Tab.tab--;
     }
 
     /**
@@ -118,6 +128,11 @@ public abstract class Jatekos {
     }
 
     public void alkatreszFelvesz(Alkatresz a) {
+        Tab.tab++;
+        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
+        System.out.println("Jatekos.alkatreszFelvesz()");
+        alkatreszek.add(a);
+        Tab.tab--;
     }
 
     /**
