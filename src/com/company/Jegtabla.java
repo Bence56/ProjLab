@@ -4,9 +4,17 @@ import java.util.ArrayList;
 
 public class Jegtabla extends Mezo{
     boolean iglu=false;
-    //ArrayList<Alkatresz> alkatreszek;
+
+    ArrayList<Alkatresz> alkatreszek;
     Alkatresz fagyottAlkatresz;
     Targy fagyotttargy;
+
+
+    Jegtabla(){}
+    // A létrehozáshoz majd kell hogy tárgyakat lehessen tenni a jégtáblára
+    Jegtabla(Targy targy){
+        this.fagyotttargy = targy;
+    }
 
     /**
      * Csökkenti a saját maga hórétegét
@@ -85,15 +93,30 @@ public class Jegtabla extends Mezo{
     }
 
     /**
-     * A jégtáblára letett alkatrészeket adja oda amikor a játékos meghívja az alkatreszFelvesz fv-t
+     * Visszadja a jégtáblába fagyott alkatrészeket.
      */
-    public Alkatresz getAlkatresz(){
+    @Override
+    public Alkatresz getFagyottAlkatresz(){
         Tab.tab++;
         for(int i=0;i<Tab.tab;i++)System.out.print("\t");
-        System.out.println("Jegtabla.getAlkatresz()");
+        System.out.println("Jegtabla.getFagyottAlkatresz()");
         Tab.tab--;
 
         return this.fagyottAlkatresz;
+    }
+
+    /**
+     * A jégtáblára letett alkatrészeket adja oda amikor a játékos meghívja az alkatreszFelvesz fv-t
+     * @return
+     */
+    @Override
+    public ArrayList<Alkatresz> getAlkatreszek(){
+        Tab.tab++;
+        for(int i=0;i<Tab.tab;i++)System.out.print("\t");
+        System.out.println("Jegtabla.getFagyottAlkatresz()");
+        Tab.tab--;
+
+        return this.alkatreszek;
     }
 
 }

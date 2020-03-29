@@ -5,19 +5,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Mezo {
+
     protected int teherbiras;
     protected int hotakaro;
     Map<Irany, Mezo> szomszedok = new HashMap<>();
-    ArrayList<Alkatresz> alkatreszek = new ArrayList<>();
     ArrayList<Jatekos> alloJatekos = new ArrayList<>();
+
+
     private boolean iglu;
 
 
+    //Ezt üresen kell hagyni
+    Targy getTargy() {
+        Tab.tab++;
+        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
+        System.out.println("Mezo.getTargy()");
+        Tab.tab--;
+        return null;
+    }
 
-//Ezt üresen kell hagyni
-    Targy getTargy(){return null;}
-
-    public void horetegNovel() {}
+    public void horetegNovel() {
+    }
 
 
     public abstract void elfogad(Jatekos j);
@@ -55,20 +63,17 @@ public abstract class Mezo {
      *
      * @param a amit hozzá kell adni a kollekcióhoz
      */
-    public void alkatreszNovel(Alkatresz a) {
-        Tab.tab++;
-        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
-        System.out.println("Mezo.alkatreszNovel(Alkatresz a)");
-        this.alkatreszek.add(a);
-        Tab.tab--;
-    }
+    public abstract void alkatreszNovel(Alkatresz a);
 
     /**
      * Beállítja a tábla iglu tulajdonságát
      *
      * @param iglu annak az értéke hogy a tábla iglu típusú lesz vagy nem
      */
-    public void setIglu(boolean iglu){};
+    public void setIglu(boolean iglu) {
+    }
+
+    ;
 
     /**
      * Ellenőrzi, hogy van-e a mezőn iglu, és ha nincs, a mezőn álló játékosok testhőjét csökkenti 1-gyel.
@@ -77,10 +82,10 @@ public abstract class Mezo {
         Tab.tab++;
         for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
         System.out.println("Mezo.testhoCsokkent()");
-        if(!this.iglu){
-            for (Jatekos jatekos: alloJatekos) {
+        if (!this.iglu) {
+            for (Jatekos jatekos : alloJatekos) {
                 int ho = jatekos.getTestho();
-                jatekos.setTestho(ho-1);
+                jatekos.setTestho(ho - 1);
             }
         }
         Tab.tab--;
@@ -91,17 +96,16 @@ public abstract class Mezo {
     }
 
     /**
-     * Visszadaj a mezőn lévő alkatrészeket
+     * Visszadaj a mezőn lévő fagyott alkatrészt
      *
      * @return
      */
-    public ArrayList<Alkatresz> getAlkatreszek() {
-        Tab.tab++;
-        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
-        System.out.println("Mezo.getAlkatreszek()");
-        Tab.tab--;
+    public abstract Alkatresz getFagyottAlkatresz();
 
-        return this.alkatreszek;
-
-    }
+    /**
+     * Visszadaj a mezőnre letett alkatrészeket
+     *
+     * @return
+     */
+    public abstract ArrayList<Alkatresz> getAlkatreszek();
 }

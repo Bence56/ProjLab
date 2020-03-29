@@ -11,6 +11,7 @@ public class Kotel extends Targy{
         return v.visit(this);
     }
 
+    @Override
     public void felvesz(Jatekos jatekos){
         Tab.tab++;
         for (int j = 0; j < Tab.tab; j++) System.out.print("\t");

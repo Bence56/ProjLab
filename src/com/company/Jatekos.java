@@ -88,12 +88,24 @@ public abstract class Jatekos {
         for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
         System.out.println("Jatekos.kapar()");
 
+        // Ezekből csak egy futhat le mert egy mezőn vagy alkatrész vagy tárgy van
         Targy targy = this.tartozkodasiMezo.getTargy();
-        targy.felvesz(this);
-        munkakSzama --;
+        if (targy != null)
+        {
+            targy.felvesz(this);
+        }
+
+        Alkatresz alk = this.tartozkodasiMezo.getFagyottAlkatresz();
+        if(alk != null){
+                alk.felvesz(this);
+        }
+
+        this.munkakSzama--;
+
 
         Tab.tab--;
     }
+
 
     public void lapatFelvesz(Lapat l) {
         Tab.tab++;
@@ -141,6 +153,7 @@ public abstract class Jatekos {
         alkatreszek.add(a);
         Tab.tab--;
     }
+
 
     /**
      * Kihúz egy másik játékost a saját táblájára

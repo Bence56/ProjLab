@@ -11,6 +11,8 @@ public class Buvarruha extends Targy{
         return x;
     }
 
+
+    @Override
     public void felvesz(Jatekos jatekos){
         Tab.tab++;
         for (int j = 0; j < Tab.tab; j++) System.out.print("\t");

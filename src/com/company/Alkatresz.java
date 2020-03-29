@@ -14,5 +14,6 @@ public class Alkatresz extends Targy{
         System.out.println("Alkatresz.felvesz()");
         jatekos.alkatreszFelvesz(this);
     }
+
 }
 
