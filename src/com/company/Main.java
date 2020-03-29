@@ -9,9 +9,9 @@ public class Main {
 
         Main m = new Main();
         Mezo aktualisTabla = new Jegtabla();
-        Eszkimo e = new Eszkimo();
+        Jatekos e = new Eszkimo();
         e.tartozkodasiMezo = aktualisTabla;
-        Kutato k = new Kutato();
+        Jatekos k = new Kutato();
         k.tartozkodasiMezo = aktualisTabla;
 
         int i = 1;
@@ -86,29 +86,17 @@ public class Main {
     }
 
 
-    public void szcenario4(Eszkimo e) {
+    public void szcenario4(Jatekos j) {
         System.out.println("ESZKIMO IGLUT ÉPíT");
-        e.epit();
+        j.epit();
     }
 
-    public void szcenario5(Kutato k) {
+    public void szcenario5(Jatekos j) {
         System.out.println("KUTATÓ VIZSGAL");
         Mezo szomszed = new Jegtabla();
-        k.tartozkodasiMezo.szomszedok.put(Irany.Jobb, szomszed);
-        k.vizsgal(Irany.Jobb);
+        j.tartozkodasiMezo.szomszedok.put(Irany.Jobb, szomszed);
+        j.vizsgal(Irany.Jobb);
     }
-
-    /*
-    public void szcenario6() {
-        System.out.println("LAPATOT FELVESZ");
-        Eszkimo e = new Eszkimo();
-        Lapat l = new Lapat();
-        Jegtabla j = new Jegtabla();
-        j.fagyotttargy = l;
-        e.tartozkodasiMezo = j;
-        e.kapar();
-    }
-     */
 
     public void szcenario6() {
         System.out.println("LAPATOT FELVESZ");

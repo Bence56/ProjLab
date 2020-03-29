@@ -299,4 +299,15 @@ public abstract class Jatekos {
         return this.alkatreszek;
 
     }
+
+    /**
+     * az eszkimó valósítja meg
+     */
+    public void epit(){};
+
+    /**
+     * a kutató valósíja meg
+     * @param i Az adott irányban vizsgálja a mezőt
+     */
+    public void vizsgal(Irany i){};
 }

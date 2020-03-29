@@ -108,4 +108,5 @@ public abstract class Mezo {
      * @return
      */
     public abstract ArrayList<Alkatresz> getAlkatreszek();
+
 }
