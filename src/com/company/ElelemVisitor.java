@@ -13,5 +13,12 @@ public class ElelemVisitor implements TargyVisitor{
     };
     public boolean visit(Alkatresz a){
         return false;
-    };
+    }
+
+    @Override
+    public boolean visit(Sator s) {
+        return false;
+    }
+
+    ;
 }

@@ -2,7 +2,8 @@ package com.company;
 
 import java.util.ArrayList;
 
-public abstract class Jatekos {
+public abstract class Jatekos extends Mozgathato {
+    Kontroller kontroller;
     Mezo tartozkodasiMezo;
     private int munkakSzama = 4;
     private int testho;
@@ -11,7 +12,9 @@ public abstract class Jatekos {
     private ArrayList<Targy> targyak = new ArrayList<>();
     private FulladasiAllapot allapot;
 
-    Jatekos(){
+    Jatekos(){this.testho=testho;}
+    Jatekos(Kontroller k){
+        this.kontroller=k;
         this.testho = 5;
     }
 
@@ -84,6 +87,16 @@ public abstract class Jatekos {
 
     }
 
+
+    public void meghal() {
+
+        Tab.tab++;
+        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
+        System.out.println("Jatekos.meghal()");
+        kontroller.jatekVege(false);
+        Tab.tab--;
+    }
+
     /**
      * A saját mezőjén lévő tárgyat a  felveszi a játékos és a munkái számát egyel csökkenti.
      */
@@ -150,6 +163,10 @@ public abstract class Jatekos {
         Tab.tab--;
     }
 
+    public void satorFelvesz(Sator s){
+        targyak.add(s);
+    }
+
     public void alkatreszFelvesz(Alkatresz a) {
         Tab.tab++;
         for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
@@ -174,9 +191,8 @@ public abstract class Jatekos {
         Mezo szomszed = this.tartozkodasiMezo.getSzomszed(i);
         for (Targy t : targyak) {
             if (t.accept(kv)) {     //ha a tárgy kötél akkor true
-                Kotel k = new Kotel(); //csinalunk egy kotelet, hogy kihúzhassuk a játékost.
                 for (Jatekos mentett : szomszed.alloJatekos) {  // a szomszéd mezőről minden játékost kihúz
-                    k.huz(mentett);
+                    t.hasznal(mentett);
                     szomszed.eltavolit(mentett);
                     this.tartozkodasiMezo.elfogad(mentett);
                 }
@@ -194,15 +210,25 @@ public abstract class Jatekos {
         for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
         System.out.println("Jatekos.lapatol()");
         LapatVisitor lv = new LapatVisitor();
+
         for (Targy t: targyak) {
             if(t.accept(lv)){
-                Lapat lapat = new Lapat();
-                lapat.as((Jegtabla)this.tartozkodasiMezo);
+                t.hasznal(this);
                 return;
             }
         }
-        ((Jegtabla)this.tartozkodasiMezo).horetegCsokkent();
+        this.tartozkodasiMezo.horetegCsokkent();
         Tab.tab--;
+    }
+
+    public void satratEpit() {
+        SatorVisitor sv = new SatorVisitor();
+        for (Targy t : targyak) {
+            if (t.accept(sv)) {
+                t.hasznal(this);
+                return;
+            }
+        }
     }
 
     /**
@@ -275,15 +301,6 @@ public abstract class Jatekos {
 
     }
 
-    public void setMezo(Mezo m) {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.setMezo(Mezo m)");
-
-        this.tartozkodasiMezo = m;
-
-        Tab.tab--;
-    }
 
     /**
      * Visszadaj a játékosnál lévő alkatrészeket

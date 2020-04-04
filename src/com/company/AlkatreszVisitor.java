@@ -15,5 +15,12 @@ public class AlkatreszVisitor implements TargyVisitor{
     };
     public boolean visit(Alkatresz a){
         return true;
-    };
+    }
+
+    @Override
+    public boolean visit(Sator s) {
+        return false;
+    }
+
+
 }

@@ -12,14 +12,14 @@ public class Lapat extends Targy{
 
     /**
      * A lapáttal való ásás két réteg havat takarít el
-     * @param tabla
+     * @param j
      */
-    public void as(Jegtabla tabla){
+    public void hasznal(Jatekos j){
         Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
+        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
         System.out.println("Lapat.as()");
-        tabla.horetegCsokkent();
-        tabla.horetegCsokkent();
+        j.tartozkodasiMezo.horetegCsokkent();
+        j.tartozkodasiMezo.horetegCsokkent();
         Tab.tab--;
     }
 

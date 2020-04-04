@@ -14,4 +14,5 @@ public class KotelVisitor implements TargyVisitor{
     public boolean visit(Alkatresz a){
         return false;
     };
+    public boolean visit(Sator s) { return false;}
 }

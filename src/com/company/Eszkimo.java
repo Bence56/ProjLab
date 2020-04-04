@@ -5,6 +5,11 @@ public class Eszkimo extends Jatekos{
     /**
      * Eszkimo iglut tud építeni
      */
+
+    public Eszkimo(){}
+    public Eszkimo(Kontroller k){
+        super(k);
+    }
     @Override
     public void epit(){
         Tab.tab++;

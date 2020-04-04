@@ -10,9 +10,13 @@ public abstract class Mezo {
     protected int hotakaro;
     Map<Irany, Mezo> szomszedok = new HashMap<>();
     ArrayList<Jatekos> alloJatekos = new ArrayList<>();
+    Jegesmedve alloJegesmedve;
 
-
-    private boolean iglu;
+    public Mezo(){}
+    public Mezo(int teherbiras, int hotakaro){
+    this.teherbiras=teherbiras;
+    this.hotakaro=hotakaro;
+    }
 
 
     //Ezt üresen kell hagyni
@@ -24,11 +28,31 @@ public abstract class Mezo {
         return null;
     }
 
+
     public void horetegNovel() {
+    }
+
+    public void horetegCsokkent(){
+        Tab.tab++;
+        for(int i=0;i<Tab.tab;i++)System.out.print("\t");
+        System.out.println("Jegtabla.horetegCsokkent()");
+        if (hotakaro>0)
+        this.hotakaro--;
+        Tab.tab--;
     }
 
 
     public abstract void elfogad(Jatekos j);
+
+    public void elfogad(Jegesmedve j) { // a Jegesmedve nem esik vízbe csak odalép vhova, mindegy hogy jégtábla vagy lyuk..
+        Tab.tab++;
+        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
+        System.out.println("Mezo.elfogad(Jegesmedve j)");
+
+        j.setMezo(this);
+        this.alloJegesmedve = j;
+        Tab.tab--;
+    }
 
     /**
      * Eltávolítja a Játékost erről a mezőről
@@ -42,6 +66,43 @@ public abstract class Mezo {
 
         Tab.tab--;
     }
+
+    public void eltavolit(Jegesmedve j) {
+        Tab.tab++;
+        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
+        System.out.println("Mezo.eltavolit(Jegesmedve j)");
+
+        Tab.tab--;
+    }
+
+    public void utkozik(Jegesmedve j){
+        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
+        System.out.println("Mezo.utkozik(Jegesmedve j)");
+
+        if (!isIglu()){
+            alloJatekos.get(0).meghal();
+        }
+
+        Tab.tab--;
+    }
+
+    public ArrayList<Jatekos> getAlloJatekos() {
+        return alloJatekos;
+    }
+
+    public boolean isIglu() {
+        return false;
+    }
+    public void setIglu(boolean iglu) {}
+
+    public void satorIdoNovel() {}
+
+    public void satratNullaz() {}
+
+    public int getSatorMiotaVan(){
+        return 0;
+    }
+
 
     /**
      * Visszadja a szomszédos mezőt a paraméterként kapott irányba
@@ -70,8 +131,6 @@ public abstract class Mezo {
      *
      * @param iglu annak az értéke hogy a tábla iglu típusú lesz vagy nem
      */
-    public void setIglu(boolean iglu) {
-    }
 
     ;
 
@@ -82,7 +141,7 @@ public abstract class Mezo {
         Tab.tab++;
         for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
         System.out.println("Mezo.testhoCsokkent()");
-        if (!this.iglu) {
+        if (!this.isIglu()) {
             for (Jatekos jatekos : alloJatekos) {
                 int ho = jatekos.getTestho();
                 jatekos.setTestho(ho - 1);

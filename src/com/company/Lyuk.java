@@ -17,14 +17,11 @@ public class Lyuk extends Mezo {
 
 
         j.setMezo(this);
+        this.alloJatekos.add(j);
+        utkozik(alloJegesmedve);
         j.vizbeEsik();
 
         Tab.tab--;
-    }
-
-    @Override
-    public void setIglu(boolean iglu) {
-        return;
     }
 
 

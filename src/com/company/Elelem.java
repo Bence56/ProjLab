@@ -18,4 +18,9 @@ public class Elelem extends Targy{
         System.out.println("Elelem.felvesz()");
         jatekos.elelemFelvesz(this);
     }
+
+    @Override
+    public void hasznal(Jatekos j) {
+
+    }
 }

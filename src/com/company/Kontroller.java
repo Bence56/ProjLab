@@ -1,10 +1,12 @@
 package com.company;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
-public class Kontroller {
+public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud a kontroller osztályra referenciát tartalmazni a játékos osztály
     ArrayList<Mezo>palya = new ArrayList<>();
-    ArrayList<Jatekos> jatekosok = new ArrayList<>();
+    ArrayList<Jatekos> jatekosok =new ArrayList<>();
+    Jegesmedve jegesmedve=new Jegesmedve();
 
     boolean aktiv = true;
 
@@ -15,11 +17,15 @@ public class Kontroller {
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
         System.out.println("Kontroller.jatek()");
-        for(Jatekos j : jatekosok){
-            detektal();
-            j.jatszik();
-            vihar();
+        while (aktiv) {
+            for (Jatekos j : jatekosok) {
+                detektal();
+                j.jatszik();
+                vihar();
+            }
+            jegesmedve.jatszik();
         }
+
         Tab.tab--;
     }
 
@@ -30,7 +36,14 @@ public class Kontroller {
         System.out.println("Kontroller.vihar()");
         for (Mezo item:palya) {
             item.horetegNovel();
+
+            Integer i=item.getSatorMiotaVan();
+            if (!(item.isIglu()) || i.equals(0)) // ha nincs sátor ill iglu, csökken a testhő
+                for (Jatekos j: item.alloJatekos){
+                    j.setTestho(j.getTestho()-1);
+                }
         }
+
 
         Tab.tab--;
     }
@@ -50,7 +63,7 @@ public class Kontroller {
 
             if( ho == 0){
                 j.setAllapot(FulladasiAllapot.halott);
-                jatekVege();
+                jatekVege(false);
             }
         }
 
@@ -68,20 +81,34 @@ public class Kontroller {
 
         if(alkatreszSzam <= 3)
         {
-            jatekVege();
+            jatekVege(false);
+        }
+
+        for (Mezo m: palya) {
+            Integer satorMiotaVan=m.getSatorMiotaVan();
+            if (satorMiotaVan.equals((jatekosok.size()))) { // ha lement egy kör eltűnteti a sátrat
+                m.satratNullaz();
+            } else {
+                if (m.getSatorMiotaVan()>0) // ha van a mezőn sátor
+                    m.satorIdoNovel();  // 1-gyel nő a felállítástúl eltelt idő
+            }
         }
 
         Tab.tab--;
     }
 
 
-    public void jatekVege(){
+    public void jatekVege(boolean nyer){
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
         System.out.println("Kontroller.jatekVege()");
 
         this.aktiv = false;
 
+        if (nyer)
+            System.out.println("NYERTEL");
+        else
+            System.out.println("GAME OVER");
         Tab.tab--;
     }
 }

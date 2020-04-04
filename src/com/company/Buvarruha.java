@@ -20,6 +20,11 @@ public class Buvarruha extends Targy{
         jatekos.buvarruhaFelvesz(this);
     }
 
+    @Override
+    public void hasznal(Jatekos j) {
+
+    }
+
     /**
      * Védettséget kap a játékos a búvárruhától
      * @param j a játékos aki védett lesz

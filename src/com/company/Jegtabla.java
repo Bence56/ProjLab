@@ -3,30 +3,40 @@ package com.company;
 import java.util.ArrayList;
 
 public class Jegtabla extends Mezo{
-    boolean iglu=false;
 
     ArrayList<Alkatresz> alkatreszek;
     Alkatresz fagyottAlkatresz;
     Targy fagyotttargy;
-
+    int satorMiotaVan;
+    boolean iglu;  //nem jo a mezoben is van iglu attributum.
 
     Jegtabla(){}
     // A létrehozáshoz majd kell hogy tárgyakat lehessen tenni a jégtáblára
     Jegtabla(Targy targy){
         this.fagyotttargy = targy;
     }
+    Jegtabla(int teherbiras, int hotakaro, Targy targy){
+        super(teherbiras,hotakaro);
+        this.fagyotttargy = targy;
+    }
 
     /**
      * Csökkenti a saját maga hórétegét
      */
-    public void horetegCsokkent(){
-        Tab.tab++;
-        for(int i=0;i<Tab.tab;i++)System.out.print("\t");
-        System.out.println("Jegtabla.horetegCsokkent()");
-        this.hotakaro--;
-        Tab.tab--;
+
+    @Override
+    public void satorIdoNovel(){
+        satorMiotaVan+=1;
+    }
+    @Override
+    public void satratNullaz() {
+        satorMiotaVan=0;
     }
 
+    @Override
+    public int getSatorMiotaVan(){
+        return satorMiotaVan;
+    }
     /**
      * Elfogadja a  játékost, úgy hogy beállítja a mezőjének saját magát, illetve beteszi az állójátékosok közé
      * @param j A játékos amit el kell fogadni
@@ -39,7 +49,9 @@ public class Jegtabla extends Mezo{
 
         j.setMezo(this);
         this.alloJatekos.add(j);
-
+        utkozik(alloJegesmedve);
+        //if (alloJegesmedve!=null)
+         //   j.meghal();
         if (teherbiras<alloJatekos.size()) {
             for (Jatekos j2 : alloJatekos)
                 j2.vizbeEsik();
@@ -74,6 +86,12 @@ public class Jegtabla extends Mezo{
         this.iglu=iglu;
 
         Tab.tab--;
+    }
+
+    @Override
+    public boolean isIglu() {
+        return iglu;
+
     }
 
     /**

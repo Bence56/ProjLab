@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -8,11 +9,14 @@ public class Main {
     public static void main(String[] args) {
 
         Main m = new Main();
+        Kontroller kont=new Kontroller();
         Mezo aktualisTabla = new Jegtabla();
-        Jatekos e = new Eszkimo();
+        Jatekos e = new Eszkimo(kont);
         e.tartozkodasiMezo = aktualisTabla;
-        Jatekos k = new Kutato();
+        Jatekos k = new Kutato(kont);
         k.tartozkodasiMezo = aktualisTabla;
+        kont.jatekosok.add(e);
+        kont.jatekosok.add(k);
 
         int i = 1;
         Scanner sc = new Scanner(System.in);
@@ -27,7 +31,7 @@ public class Main {
                     m.szcenario2(e, aktualisTabla);
                     break;
                 case 3:
-                    m.szcenario3(e, aktualisTabla);
+                    m.szcenario3(kont, e, aktualisTabla);
                     break;
                 case 4:
                     m.szcenario4(e);
@@ -43,9 +47,22 @@ public class Main {
                     break;
                 case 8:
                     m.szcenario8(e);
+                    break;
                 case 9:
                     m.szcenario9();
-
+                    break;
+                case 10:
+                    m.szcenario10();
+                    break;
+                case 11:
+                    m.szcenario11();
+                    break;
+                case 12:
+                    m.szcenario12();
+                    break;
+                case 13:
+                    m.szcenario12();
+                    break;
 
             }
         }
@@ -72,10 +89,10 @@ public class Main {
 
     }
 
-    public void szcenario3(Jatekos j, Mezo aktualisTabla) {
+    public void szcenario3(Kontroller kont, Jatekos j, Mezo aktualisTabla) {
         System.out.println("A JÁTÉKOS KIHÚZZA A SZOMSZÉD MEZŐN VÍZBE ESETT JÁTÉKOST");
         Mezo szomszed = new Lyuk();
-        Jatekos j2 = new Eszkimo();
+        Jatekos j2 = new Eszkimo(kont);
         szomszed.alloJatekos.add(j2);
         j.tartozkodasiMezo.szomszedok.put(Irany.Le, szomszed);
 
@@ -110,10 +127,9 @@ public class Main {
     }
 
     public void szcenario7(Jatekos j) {
-        System.out.println("JÉGTÁBLÁRA LÉP? AMI ELSÜLLYED");
-        Jegtabla szomszed = new Jegtabla();
+        System.out.println("JÉGTÁBLÁRA LÉP AMI ELSÜLLYED");
+        Jegtabla szomszed = new Jegtabla(0,0, null);
         j.tartozkodasiMezo.szomszedok.put(Irany.Le, szomszed);
-        szomszed.teherbiras = 0;
         j.lep(Irany.Le);
     }
 
@@ -143,17 +159,105 @@ public class Main {
         kontroller.palya.add(m2);
 
 
-
-        while(kontroller.aktiv){
+        while (kontroller.aktiv) {
             kontroller.detektal();
 
-            if(kontroller.aktiv){
-                for (Jatekos j: kontroller.jatekosok) {
+            if (kontroller.aktiv) {
+                for (Jatekos j : kontroller.jatekosok) {
                     j.jatszik();
                 }
 
                 kontroller.vihar();
             }
         }
+    }
+
+    public void szcenario10() {
+        System.out.println("9 RETEG HÓ VAN A MEZŐN, EGY JATEKOS FELVESZI A TOREKENY LAPATOT ÉS LAPATOL 4X TÖREKENY LAPATTAL. A 4. PRÓBÁLKOZÁS MÁR HIÁBA");
+        Jatekos j = new Eszkimo();
+        Targy t = new TorekenyLapat();
+        int teherbiras = 5;
+        int hotakaro = 9;
+        Mezo m = new Jegtabla(teherbiras, hotakaro, t);
+        j.tartozkodasiMezo = m;
+
+        System.out.println(m.hotakaro);
+        j.kapar();
+        j.lapatol();
+        System.out.println(m.hotakaro);
+        j.lapatol();
+        System.out.println(m.hotakaro);
+        j.lapatol();
+        System.out.println(m.hotakaro);
+        j.lapatol();
+        System.out.println(m.hotakaro);
+        j.lapatol();
+        System.out.println(m.hotakaro);
+    }
+
+    public void szcenario11() {
+        System.out.println("A MEDVE A SZOMSZÉD MEZŐN ÁLL ÉS ODALÉP A JÁTÉKOS HOZZÁ");
+        Kontroller k = new Kontroller();
+        Jatekos j = new Eszkimo(k);
+        Jegesmedve medve = new Jegesmedve();
+
+        k.jatekosok.add(j);
+        k.jegesmedve = medve;
+
+        Mezo m = new Jegtabla();
+        Jegtabla szomszed = new Jegtabla(2, 2, null);
+        j.tartozkodasiMezo = m;
+        m.szomszedok.put(Irany.Le, szomszed);
+        medve.tartozkodasiMezo = szomszed;
+        szomszed.alloJegesmedve = medve;
+
+        j.lep(Irany.Le);
+    }
+
+    public void szcenario12() {
+        System.out.println(" A JÁTÉKOS A SZOMSZED MEZŐN ÁLL ÉS ODALÉP A MEDVE A MEZEJÉRE");
+        Kontroller k = new Kontroller();
+        Jatekos j = new Eszkimo(k);
+        Jegesmedve medve = new Jegesmedve();
+
+        k.jatekosok.add(j);
+        k.jegesmedve = medve;
+
+        Mezo m = new Jegtabla();
+        Mezo szomszed = new Jegtabla(2, 2, null);
+        m.szomszedok.put(Irany.Le, szomszed);
+
+        szomszed.alloJatekos.add(j);
+        j.tartozkodasiMezo=szomszed;
+
+        medve.tartozkodasiMezo=m;
+        m.alloJegesmedve=medve;
+
+        medve.lep(Irany.Le);
+    }
+
+    public void szcenario13() {
+        System.out.println(" A JÁTÉKOS A LYukon ÁLL ÉS ODALÉP A MEDVE A MEZEJÉRE");
+        Kontroller k = new Kontroller();
+        Jatekos j = new Eszkimo(k);
+        Jegesmedve medve = new Jegesmedve();
+        k.jatekosok.add(j);
+        k.jegesmedve = medve;
+
+        Mezo m = new Jegtabla();
+        Mezo szomszed = new Lyuk();
+        m.szomszedok.put(Irany.Le, szomszed);
+
+        szomszed.alloJatekos.add(j);
+        j.tartozkodasiMezo=szomszed;
+
+        medve.tartozkodasiMezo=m;
+        m.alloJegesmedve=medve;
+
+        medve.lep(Irany.Le);
+    }
+
+    public void szcenario14(){
+        System.out.println("TOREKENY LAPATOT FELVESZ MAJD HASZNAL");
     }
 }

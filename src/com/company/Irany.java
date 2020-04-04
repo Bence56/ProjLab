@@ -5,6 +5,7 @@ public enum Irany{
     Le,
     Bal,
     Jobb;
+
     public Irany ellentetes() {
         if(this==Irany.Fel)
         {

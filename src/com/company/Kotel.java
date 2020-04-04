@@ -24,7 +24,7 @@ public class Kotel extends Targy{
      * Beállítja a játékos állapotát aktívra
      * @param jatekos akinek az állapotát állítja
      */
-    public void huz(Jatekos jatekos){
+    public void hasznal(Jatekos jatekos){
         Tab.tab++;
         for(int j=0; j<Tab.tab; j++)System.out.print("\t");
         System.out.println("Kotel.huz(Jatekos jatekos)");
