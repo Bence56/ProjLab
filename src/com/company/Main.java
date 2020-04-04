@@ -1,6 +1,6 @@
 package com.company;
 
-import java.util.ArrayList;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 
@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
         Main m = new Main();
-        Kontroller kont=new Kontroller();
+        Kontroller kont = new Kontroller();
         Mezo aktualisTabla = new Jegtabla();
         Jatekos e = new Eszkimo(kont);
         e.tartozkodasiMezo = aktualisTabla;
@@ -62,6 +62,32 @@ public class Main {
                     break;
                 case 13:
                     m.szcenario12();
+                    break;
+                case 14:
+                    // Egy feldolgozoval ertelmezni kell a szoveget
+
+                    String input = "epit";
+                    JatekosTest j = new JatekosTest();
+                    java.lang.reflect.Method method;
+                    try {
+                        method = j.getClass().getMethod("epit");
+                        try {
+                            method.invoke(j);
+                        } catch (IllegalArgumentException ex) {
+                            ex.printStackTrace();
+                        } catch (IllegalAccessException ex) {
+                            ex.printStackTrace();
+                        } catch (InvocationTargetException ex) {
+                            ex.printStackTrace();
+                        }
+                    } catch (SecurityException ex) {
+                        ex.printStackTrace();
+                    } catch (NoSuchMethodException ex) {
+                        ex.printStackTrace();
+                        ;
+                    }
+
+
                     break;
 
             }
@@ -128,7 +154,7 @@ public class Main {
 
     public void szcenario7(Jatekos j) {
         System.out.println("JÉGTÁBLÁRA LÉP AMI ELSÜLLYED");
-        Jegtabla szomszed = new Jegtabla(0,0, null);
+        Jegtabla szomszed = new Jegtabla(0, 0, null);
         j.tartozkodasiMezo.szomszedok.put(Irany.Le, szomszed);
         j.lep(Irany.Le);
     }
@@ -228,10 +254,10 @@ public class Main {
         m.szomszedok.put(Irany.Le, szomszed);
 
         szomszed.alloJatekos.add(j);
-        j.tartozkodasiMezo=szomszed;
+        j.tartozkodasiMezo = szomszed;
 
-        medve.tartozkodasiMezo=m;
-        m.alloJegesmedve=medve;
+        medve.tartozkodasiMezo = m;
+        m.alloJegesmedve = medve;
 
         medve.lep(Irany.Le);
     }
@@ -249,15 +275,15 @@ public class Main {
         m.szomszedok.put(Irany.Le, szomszed);
 
         szomszed.alloJatekos.add(j);
-        j.tartozkodasiMezo=szomszed;
+        j.tartozkodasiMezo = szomszed;
 
-        medve.tartozkodasiMezo=m;
-        m.alloJegesmedve=medve;
+        medve.tartozkodasiMezo = m;
+        m.alloJegesmedve = medve;
 
         medve.lep(Irany.Le);
     }
 
-    public void szcenario14(){
+    public void szcenario14() {
         System.out.println("TOREKENY LAPATOT FELVESZ MAJD HASZNAL");
     }
 }
