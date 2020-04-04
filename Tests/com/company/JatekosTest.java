@@ -12,7 +12,7 @@ class JatekosTest {
     public static final String ANSI_RESET = "\u001B[0m";
 
     @Test
-    public void epit() {
+    public void epit(boolean file) {
         Mezo m = new Jegtabla();
         Jatekos j = new Eszkimo();
         j.tartozkodasiMezo = m;
@@ -20,11 +20,11 @@ class JatekosTest {
         j.epit();
 
         try {
-            assertTrue(j.tartozkodasiMezo.isIglu());
+            assertTrue(!j.tartozkodasiMezo.isIglu());
             System.out.println(ANSI_GREEN + "Siker" + ANSI_RESET);
         }
         catch(AssertionFailedError e){
-            System.out.println(ANSI_RED + "Fail: Épül iglu" + ANSI_RESET);
+            System.out.println(ANSI_RED + "Fail: Nem épül iglu" + ANSI_RESET);
             }
     }
     //@AfterEach

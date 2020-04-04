@@ -1,5 +1,7 @@
 package com.company;
 
+import com.sun.javafx.scene.control.behavior.TwoLevelFocusBehavior;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
@@ -67,11 +69,11 @@ public class Main {
                     // Egy feldolgozoval ertelmezni kell a szoveget
 
                     String input = "epit";
-                    JatekosTest j = new JatekosTest();
                     java.lang.reflect.Method method;
                     try {
-                        method = j.getClass().getMethod("epit");
+                        method = JatekosTest.class.getMethod("epit");
                         try {
+                            JatekosTest j = new JatekosTest();
                             method.invoke(j);
                         } catch (IllegalArgumentException ex) {
                             ex.printStackTrace();
@@ -86,9 +88,11 @@ public class Main {
                         ex.printStackTrace();
                         ;
                     }
-
-
                     break;
+                case 15:
+                    Tester t = new Tester();
+                    t.runJatekosTest();
+
 
             }
         }
