@@ -20,7 +20,7 @@ class JatekosTest {
         j.epit();
 
         try {
-            assertTrue(!j.tartozkodasiMezo.isIglu());
+            assertTrue(j.tartozkodasiMezo.isIglu());
             System.out.println(ANSI_GREEN + "Siker" + ANSI_RESET);
         }
         catch(AssertionFailedError e){

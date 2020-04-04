@@ -1,7 +1,5 @@
 package com.company;
 
-import com.sun.javafx.scene.control.behavior.TwoLevelFocusBehavior;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
@@ -92,8 +90,6 @@ public class Main {
                 case 15:
                     Tester t = new Tester();
                     t.runJatekosTest();
-
-
             }
         }
         sc.close();
