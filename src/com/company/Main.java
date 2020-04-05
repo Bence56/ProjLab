@@ -64,41 +64,7 @@ public class Main {
                 case 13:
                     m.szcenario12();
                     break;
-                case 14:
-                    // Egy feldolgozoval ertelmezni kell a szoveget
-
-                    String input = "epit";
-                    //Feldolgozva lesz valami ilyen |
-                    //                              ˇ
-                    String[] parancs1 = {"create", "Eszkimo", "e"};
-                    String[] parancs2 = {"e","lep", "Irany.jobb"};
-
-                    ArrayList<String[]> parancsok = new ArrayList<>();
-
-                    java.lang.reflect.Method method;
-                    try {
-                        method = JatekosTest.class.getMethod(input);
-                        try {
-                            JatekosTest j = new JatekosTest();
-                            method.invoke(j);
-                        } catch (IllegalArgumentException ex) {
-                            ex.printStackTrace();
-                        } catch (IllegalAccessException ex) {
-                            ex.printStackTrace();
-                        } catch (InvocationTargetException ex) {
-                            ex.printStackTrace();
-                        }
-                    } catch (SecurityException ex) {
-                        ex.printStackTrace();
-                    } catch (NoSuchMethodException ex) {
-                        ex.printStackTrace();
-                        ;
-                    }
-                    break;
-                case 15:
-                    Tester t = new Tester();
-                    t.runJatekosTest();
-                case 16:{
+                case 14:{
                     Tester tester = new Tester();
                     tester.test();
                 }
