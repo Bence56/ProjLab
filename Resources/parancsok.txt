@@ -1,0 +1,3 @@
+JatekosTest jt create
+JatekosTest jt epit
+JatekosTest jt uresreLep String jobb

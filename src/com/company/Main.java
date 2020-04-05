@@ -1,6 +1,7 @@
 package com.company;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -67,9 +68,16 @@ public class Main {
                     // Egy feldolgozoval ertelmezni kell a szoveget
 
                     String input = "epit";
+                    //Feldolgozva lesz valami ilyen |
+                    //                              ˇ
+                    String[] parancs1 = {"create", "Eszkimo", "e"};
+                    String[] parancs2 = {"e","lep", "Irany.jobb"};
+
+                    ArrayList<String[]> parancsok = new ArrayList<>();
+
                     java.lang.reflect.Method method;
                     try {
-                        method = JatekosTest.class.getMethod("epit");
+                        method = JatekosTest.class.getMethod(input);
                         try {
                             JatekosTest j = new JatekosTest();
                             method.invoke(j);
@@ -90,6 +98,10 @@ public class Main {
                 case 15:
                     Tester t = new Tester();
                     t.runJatekosTest();
+                case 16:{
+                    Tester tester = new Tester();
+                    tester.test();
+                }
             }
         }
         sc.close();

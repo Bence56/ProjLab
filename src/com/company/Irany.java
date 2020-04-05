@@ -16,4 +16,20 @@ public enum Irany{
         else return Jobb;
     }
 
+    public static Irany StringToIrany(String string){
+        if (string.equals("Fel")){
+            return Fel;
+        }
+        else if(string.equals("Le")){
+            return Le;
+        }
+        else if(string.equals("Bal")){
+            return Bal;
+        }
+        else if(string.equals("Jobb")){
+            return Jobb;
+        }
+        else return null;
+    }
+
 }
