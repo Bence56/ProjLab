@@ -18,7 +18,7 @@ public class Sator extends Targy{
 
     @Override
     public void hasznal(Jatekos j){
-        j.tartozkodasiMezo.satorIdoNovel();
+        j.getTartozkodasiMezo().satorIdoNovel();
     }
 
 

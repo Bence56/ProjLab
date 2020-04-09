@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class Lyuk extends Mezo {
 
+    public Lyuk(int hotakaro) {   // a nulla teherbírású a Lyuk..
+        super(0, hotakaro);
+    }
+
     /**
      * Vízbe ejti a játékost
      *
@@ -17,8 +21,8 @@ public class Lyuk extends Mezo {
 
 
         j.setMezo(this);
-        this.alloJatekos.add(j);
-        utkozik(alloJegesmedve);
+        this.getAlloJatekos().add(j);
+        utkozik(getAlloJegesmedve());
         j.vizbeEsik();
 
         Tab.tab--;

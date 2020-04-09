@@ -11,13 +11,13 @@ public class Main {
 
         Main m = new Main();
         Kontroller kont = new Kontroller();
-        Mezo aktualisTabla = new Jegtabla();
+        Mezo aktualisTabla = new Jegtabla(4,4, null);
         Jatekos e = new Eszkimo(kont);
-        e.tartozkodasiMezo = aktualisTabla;
+        e.setTartozkodasiMezo(aktualisTabla);
         Jatekos k = new Kutato(kont);
-        k.tartozkodasiMezo = aktualisTabla;
-        kont.jatekosok.add(e);
-        kont.jatekosok.add(k);
+        k.setTartozkodasiMezo(aktualisTabla);
+        kont.getJatekosok().add(e);
+        kont.getJatekosok().add(k);
 
         int i = 1;
         Scanner sc = new Scanner(System.in);
@@ -76,8 +76,8 @@ public class Main {
     public void szcenario1(Jatekos j, Mezo aktualisTabla) {
         System.out.println("A JÁTÉKOS JÉGTÁBLÁRA LÉP");
 
-        Mezo szomszed = new Jegtabla();
-        j.tartozkodasiMezo.szomszedok.put(Irany.Jobb, szomszed);
+        Mezo szomszed = new Jegtabla(4, 4, null);
+        j.getTartozkodasiMezo().szomszedok.put(Irany.Jobb, szomszed);
         j.lep(Irany.Jobb);
 
     }
@@ -87,18 +87,18 @@ public class Main {
         Buvarruha buvarruha = new Buvarruha();
         j.buvarruhaFelvesz(buvarruha);  // adunk neki búvárruhát, hogy legyen nála.
 
-        Mezo szomszed2 = new Lyuk();
-        j.tartozkodasiMezo.szomszedok.put(Irany.Fel, szomszed2);
+        Mezo szomszed2 = new Lyuk(4);
+        j.getTartozkodasiMezo().szomszedok.put(Irany.Fel, szomszed2);
         j.lep(Irany.Fel);
 
     }
 
     public void szcenario3(Kontroller kont, Jatekos j, Mezo aktualisTabla) {
         System.out.println("A JÁTÉKOS KIHÚZZA A SZOMSZÉD MEZŐN VÍZBE ESETT JÁTÉKOST");
-        Mezo szomszed = new Lyuk();
+        Mezo szomszed = new Lyuk(4);
         Jatekos j2 = new Eszkimo(kont);
-        szomszed.alloJatekos.add(j2);
-        j.tartozkodasiMezo.szomszedok.put(Irany.Le, szomszed);
+        szomszed.getAlloJatekos().add(j2);
+        j.getTartozkodasiMezo().szomszedok.put(Irany.Le, szomszed);
 
         Kotel kotel = new Kotel();
         j.kotelFelvesz(kotel); // a mentő játékosnak adunk kötelet
@@ -114,18 +114,18 @@ public class Main {
 
     public void szcenario5(Jatekos j) {
         System.out.println("KUTATÓ VIZSGAL");
-        Mezo szomszed = new Jegtabla();
-        j.tartozkodasiMezo.szomszedok.put(Irany.Jobb, szomszed);
+        Mezo szomszed = new Jegtabla(4, 4, null);
+        j.getTartozkodasiMezo().szomszedok.put(Irany.Jobb, szomszed);
         j.vizsgal(Irany.Jobb);
     }
 
     public void szcenario6() {
         System.out.println("LAPATOT FELVESZ");
-        Jatekos j = new Eszkimo();
-        Targy t = new Lapat();
-        Mezo m = new Jegtabla(t);
+        Kontroller kontr=new Kontroller();
+        Jatekos j = new Eszkimo(kontr);
+        Mezo m = new Jegtabla(4, 4, new Lapat());
 
-        j.tartozkodasiMezo = m;
+        j.setTartozkodasiMezo(m);
         j.kapar();
 
     }
@@ -133,7 +133,7 @@ public class Main {
     public void szcenario7(Jatekos j) {
         System.out.println("JÉGTÁBLÁRA LÉP AMI ELSÜLLYED");
         Jegtabla szomszed = new Jegtabla(0, 0, null);
-        j.tartozkodasiMezo.szomszedok.put(Irany.Le, szomszed);
+        j.getTartozkodasiMezo().szomszedok.put(Irany.Le, szomszed);
         j.lep(Irany.Le);
     }
 
@@ -150,14 +150,14 @@ public class Main {
 
         Kontroller kontroller = new Kontroller();
 
-        Jatekos j1 = new Eszkimo();
-        Jatekos j2 = new Kutato();
+        Jatekos j1 = new Eszkimo(kontroller);
+        Jatekos j2 = new Kutato(kontroller);
 
-        Mezo m1 = new Lyuk();
-        Mezo m2 = new Jegtabla();
+        Mezo m1 = new Lyuk(4);
+        Mezo m2 = new Jegtabla(4, 4, null);
 
-        kontroller.jatekosok.add(j1);
-        kontroller.jatekosok.add(j2);
+        kontroller.getJatekosok().add(j1);
+        kontroller.getJatekosok().add(j2);
 
         kontroller.palya.add(m1);
         kontroller.palya.add(m2);
@@ -167,7 +167,7 @@ public class Main {
             kontroller.detektal();
 
             if (kontroller.aktiv) {
-                for (Jatekos j : kontroller.jatekosok) {
+                for (Jatekos j : kontroller.getJatekosok()) {
                     j.jatszik();
                 }
 
@@ -178,25 +178,26 @@ public class Main {
 
     public void szcenario10() {
         System.out.println("9 RETEG HÓ VAN A MEZŐN, EGY JATEKOS FELVESZI A TOREKENY LAPATOT ÉS LAPATOL 4X TÖREKENY LAPATTAL. A 4. PRÓBÁLKOZÁS MÁR HIÁBA");
-        Jatekos j = new Eszkimo();
+       Kontroller kontr=new Kontroller();
+        Jatekos j = new Eszkimo(kontr);
         Targy t = new TorekenyLapat();
         int teherbiras = 5;
         int hotakaro = 9;
         Mezo m = new Jegtabla(teherbiras, hotakaro, t);
-        j.tartozkodasiMezo = m;
+        j.setTartozkodasiMezo(m);
 
-        System.out.println(m.hotakaro);
+        System.out.println(m.getHotakaro());
         j.kapar();
         j.lapatol();
-        System.out.println(m.hotakaro);
+        System.out.println(m.getHotakaro());
         j.lapatol();
-        System.out.println(m.hotakaro);
+        System.out.println(m.getHotakaro());
         j.lapatol();
-        System.out.println(m.hotakaro);
+        System.out.println(m.getHotakaro());
         j.lapatol();
-        System.out.println(m.hotakaro);
+        System.out.println(m.getHotakaro());
         j.lapatol();
-        System.out.println(m.hotakaro);
+        System.out.println(m.getHotakaro());
     }
 
     public void szcenario11() {
@@ -205,15 +206,15 @@ public class Main {
         Jatekos j = new Eszkimo(k);
         Jegesmedve medve = new Jegesmedve();
 
-        k.jatekosok.add(j);
-        k.jegesmedve = medve;
+        k.getJatekosok().add(j);
+        k.setJegesmedve(medve);
 
-        Mezo m = new Jegtabla();
+        Mezo m = new Jegtabla(4, 4, null);
         Jegtabla szomszed = new Jegtabla(2, 2, null);
-        j.tartozkodasiMezo = m;
+        j.setTartozkodasiMezo(m);
         m.szomszedok.put(Irany.Le, szomszed);
-        medve.tartozkodasiMezo = szomszed;
-        szomszed.alloJegesmedve = medve;
+        medve.setTartozkodasiMezo(szomszed);
+        szomszed.setAlloJegesmedve(medve);
 
         j.lep(Irany.Le);
     }
@@ -224,18 +225,18 @@ public class Main {
         Jatekos j = new Eszkimo(k);
         Jegesmedve medve = new Jegesmedve();
 
-        k.jatekosok.add(j);
-        k.jegesmedve = medve;
+        k.getJatekosok().add(j);
+        k.setJegesmedve(medve);
 
-        Mezo m = new Jegtabla();
+        Mezo m = new Jegtabla(4, 4, null);
         Mezo szomszed = new Jegtabla(2, 2, null);
         m.szomszedok.put(Irany.Le, szomszed);
 
-        szomszed.alloJatekos.add(j);
-        j.tartozkodasiMezo = szomszed;
+        szomszed.getAlloJatekos().add(j);
+        j.setTartozkodasiMezo(szomszed);
 
-        medve.tartozkodasiMezo = m;
-        m.alloJegesmedve = medve;
+        medve.setTartozkodasiMezo(m);
+        m.setAlloJegesmedve(medve);
 
         medve.lep(Irany.Le);
     }
@@ -245,18 +246,18 @@ public class Main {
         Kontroller k = new Kontroller();
         Jatekos j = new Eszkimo(k);
         Jegesmedve medve = new Jegesmedve();
-        k.jatekosok.add(j);
-        k.jegesmedve = medve;
+        k.getJatekosok().add(j);
+        k.setJegesmedve(medve);
 
-        Mezo m = new Jegtabla();
-        Mezo szomszed = new Lyuk();
+        Mezo m = new Jegtabla(4, 4, null);
+        Mezo szomszed = new Lyuk(4);
         m.szomszedok.put(Irany.Le, szomszed);
 
-        szomszed.alloJatekos.add(j);
-        j.tartozkodasiMezo = szomszed;
+        szomszed.getAlloJatekos().add(j);
+        j.setTartozkodasiMezo(szomszed);
 
-        medve.tartozkodasiMezo = m;
-        m.alloJegesmedve = medve;
+        medve.setTartozkodasiMezo(m);
+        m.setAlloJegesmedve(medve);
 
         medve.lep(Irany.Le);
     }

@@ -3,17 +3,16 @@ package com.company;
 import java.util.ArrayList;
 
 public abstract class Jatekos extends Mozgathato {
-    Kontroller kontroller;
-    Mezo tartozkodasiMezo;
+    private Kontroller kontroller;
     private int munkakSzama = 4;
     private int testho;
     private boolean vedett;
     private ArrayList<Alkatresz> alkatreszek = new ArrayList<>();
     private ArrayList<Targy> targyak = new ArrayList<>();
-    private FulladasiAllapot allapot;
+    private FulladasiAllapot allapot = FulladasiAllapot.aktiv;
 
-    Jatekos(){this.testho=testho;}
-    Jatekos(Kontroller k){
+    //Jatekos(){this.testho=testho;}
+    Jatekos(Kontroller k, int testho){
         this.kontroller=k;
         this.testho = 5;
     }
@@ -64,10 +63,11 @@ public abstract class Jatekos extends Mozgathato {
         System.out.println("Jatekos.lep(Irany i)");
 
         // Lekéri a szomszég mezőt
-        Mezo szomszed = tartozkodasiMezo.getSzomszed(i);
+        Mezo aktualis=getTartozkodasiMezo();
+        Mezo szomszed = aktualis.getSzomszed(i);
 
         //eltávolítja a játékost
-        this.tartozkodasiMezo.eltavolit(this);
+        aktualis.eltavolit(this);
 
         //Átadja magát a szomszédos játékosnak
         szomszed.elfogad(this);
@@ -106,13 +106,13 @@ public abstract class Jatekos extends Mozgathato {
         System.out.println("Jatekos.kapar()");
 
         // Ezekből csak egy futhat le mert egy mezőn vagy alkatrész vagy tárgy van
-        Targy targy = this.tartozkodasiMezo.getTargy();
+        Targy targy = this.getTartozkodasiMezo().getTargy();
         if (targy != null)
         {
             targy.felvesz(this);
         }
 
-        Alkatresz alk = this.tartozkodasiMezo.getFagyottAlkatresz();
+        Alkatresz alk = this.getTartozkodasiMezo().getFagyottAlkatresz();
         if(alk != null){
                 alk.felvesz(this);
         }
@@ -188,13 +188,13 @@ public abstract class Jatekos extends Mozgathato {
         System.out.println("Jatekos.kihuz()");
 
         KotelVisitor kv = new KotelVisitor();
-        Mezo szomszed = this.tartozkodasiMezo.getSzomszed(i);
+        Mezo szomszed = this.getTartozkodasiMezo().getSzomszed(i);
         for (Targy t : targyak) {
             if (t.accept(kv)) {     //ha a tárgy kötél akkor true
-                for (Jatekos mentett : szomszed.alloJatekos) {  // a szomszéd mezőről minden játékost kihúz
+                for (Jatekos mentett : szomszed.getAlloJatekos()) {  // a szomszéd mezőről minden játékost kihúz
                     t.hasznal(mentett);
                     szomszed.eltavolit(mentett);
-                    this.tartozkodasiMezo.elfogad(mentett);
+                    this.getTartozkodasiMezo().elfogad(mentett);
                 }
             }
         }
@@ -217,7 +217,7 @@ public abstract class Jatekos extends Mozgathato {
                 return;
             }
         }
-        this.tartozkodasiMezo.horetegCsokkent();
+        this.getTartozkodasiMezo().horetegCsokkent();
         Tab.tab--;
     }
 
@@ -257,7 +257,7 @@ public abstract class Jatekos extends Mozgathato {
         for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
         System.out.println("Jatekos.osszeszerel()");
 
-        ArrayList<Alkatresz> alkatreszek = this.tartozkodasiMezo.getAlkatreszek();
+        ArrayList<Alkatresz> alkatreszek = this.getTartozkodasiMezo().getAlkatreszek();
         if(alkatreszek != null){
             if (alkatreszek.size() == 3) {
                 this.elsut();
@@ -277,9 +277,9 @@ public abstract class Jatekos extends Mozgathato {
 
         if (alkatreszek.size() > 0) {
             Alkatresz alk = this.alkatreszek.remove(0);
-            this.tartozkodasiMezo.alkatreszNovel(alk);
+            this.getTartozkodasiMezo().alkatreszNovel(alk);
         }
-        this.tartozkodasiMezo.alkatreszNovel(null);
+        this.getTartozkodasiMezo().alkatreszNovel(null);
 
         Tab.tab--;
     }

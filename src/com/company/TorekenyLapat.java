@@ -1,12 +1,12 @@
 package com.company;
 
 public class TorekenyLapat extends Lapat{
-    int hasznalatSzama;
+   private int hasznalatSzama;
 
     public void hasznal(Jatekos j){
     if (hasznalatSzama<3) {
-        j.tartozkodasiMezo.horetegCsokkent();
-        j.tartozkodasiMezo.horetegCsokkent();
+        j.getTartozkodasiMezo().horetegCsokkent();
+        j.getTartozkodasiMezo().horetegCsokkent();
         hasznalatSzama++;
     }
 

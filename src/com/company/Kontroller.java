@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud a kontroller osztályra referenciát tartalmazni a játékos osztály
-    ArrayList<Mezo>palya = new ArrayList<>();
-    ArrayList<Jatekos> jatekosok =new ArrayList<>();
-    Jegesmedve jegesmedve=new Jegesmedve();
+    protected ArrayList<Mezo>palya = new ArrayList<>();
+    private ArrayList<Jatekos> jatekosok =new ArrayList<>();
+    private Jegesmedve jegesmedve=new Jegesmedve();
 
     boolean aktiv = true;
 
@@ -39,7 +39,7 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
 
             Integer i=item.getSatorMiotaVan();
             if (!(item.isIglu()) || i.equals(0)) // ha nincs sátor ill iglu, csökken a testhő
-                for (Jatekos j: item.alloJatekos){
+                for (Jatekos j: item.getAlloJatekos()){
                     j.setTestho(j.getTestho()-1);
                 }
         }
@@ -111,4 +111,14 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
             System.out.println("GAME OVER");
         Tab.tab--;
     }
+
+    public ArrayList<Jatekos> getJatekosok() {
+        return jatekosok;
+    }
+
+
+    public void setJegesmedve(Jegesmedve jegesmedve) {
+        this.jegesmedve = jegesmedve;
+    }
 }
+

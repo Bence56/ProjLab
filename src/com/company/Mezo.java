@@ -6,16 +6,21 @@ import java.util.Map;
 
 public abstract class Mezo {
 
-    protected int teherbiras;
-    protected int hotakaro;
-    Map<Irany, Mezo> szomszedok = new HashMap<>();
-    ArrayList<Jatekos> alloJatekos = new ArrayList<>();
-    Jegesmedve alloJegesmedve;
+    private int teherbiras;
+    private int hotakaro;
+    protected Map<Irany, Mezo> szomszedok = new HashMap<>();
+    private ArrayList<Jatekos> alloJatekos = new ArrayList<>();
+    private Jegesmedve alloJegesmedve;
 
-    public Mezo(){}
     public Mezo(int teherbiras, int hotakaro){
+        this.teherbiras=teherbiras;
+        this.hotakaro=hotakaro;
+    }
+
+    public Mezo(int teherbiras, int hotakaro, Jegesmedve medve){
     this.teherbiras=teherbiras;
     this.hotakaro=hotakaro;
+    this.alloJegesmedve=medve;
     }
 
 
@@ -168,4 +173,19 @@ public abstract class Mezo {
      */
     public abstract ArrayList<Alkatresz> getAlkatreszek();
 
+    public Jegesmedve getAlloJegesmedve() {
+        return alloJegesmedve;
+    }
+
+    public int getHotakaro() {
+        return hotakaro;
+    }
+
+    public void setHotakaro(int hotakaro) {
+        this.hotakaro = hotakaro;
+    }
+
+    public void setAlloJegesmedve(Jegesmedve alloJegesmedve) {
+        this.alloJegesmedve = alloJegesmedve;
+    }
 }

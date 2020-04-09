@@ -4,20 +4,22 @@ import java.util.ArrayList;
 
 public class Jegtabla extends Mezo{
 
-    ArrayList<Alkatresz> alkatreszek;
-    Alkatresz fagyottAlkatresz;
-    Targy fagyotttargy;
-    int satorMiotaVan;
-    boolean iglu;  //nem jo a mezoben is van iglu attributum.
+    private ArrayList<Alkatresz> alkatreszek;
+    private Alkatresz fagyottAlkatresz;
+    private Targy fagyotttargy;
+    private int satorMiotaVan;
+    private boolean iglu;  //nem jo a mezoben is van iglu attributum.
 
-    Jegtabla(){}
+   // Jegtabla(){}
     // A létrehozáshoz majd kell hogy tárgyakat lehessen tenni a jégtáblára
-    Jegtabla(Targy targy){
-        this.fagyotttargy = targy;
-    }
+   // Jegtabla(Targy targy){
+     //   this.fagyotttargy = targy;
+   // }
     Jegtabla(int teherbiras, int hotakaro, Targy targy){
         super(teherbiras,hotakaro);
         this.fagyotttargy = targy;
+        this.satorMiotaVan=0;
+        this.iglu=false;
     }
 
     /**
@@ -48,12 +50,12 @@ public class Jegtabla extends Mezo{
         System.out.println("Jegtabla.elfogad(Jatekos j)");
 
         j.setMezo(this);
-        this.alloJatekos.add(j);
-        if (alloJegesmedve!=null)
-            utkozik(alloJegesmedve);
+        this.getAlloJatekos().add(j);
+        if (getAlloJegesmedve()!=null)
+            utkozik(getAlloJegesmedve());
          //   j.meghal();
-        if (teherbiras<alloJatekos.size()) {
-            for (Jatekos j2 : alloJatekos)
+        if (getTeherbiras()<getAlloJatekos().size()) {
+            for (Jatekos j2 : getAlloJatekos())
                 j2.vizbeEsik();
         }
         Tab.tab--;

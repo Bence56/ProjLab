@@ -24,14 +24,15 @@ class JatekosTest {
 
     @Test
     public void epit() {
-        Mezo m = new Jegtabla();
-        Jatekos j = new Eszkimo();
-        j.tartozkodasiMezo = m;
+        Kontroller k=new Kontroller();
+        Mezo m = new Jegtabla(4, 4, null);
+        Jatekos j = new Eszkimo(k);
+        j.setTartozkodasiMezo(m);
 
         j.epit();
 
         try {
-            assertTrue(j.tartozkodasiMezo.isIglu());
+            assertTrue(j.getTartozkodasiMezo().isIglu());
             System.out.println(ANSI_GREEN + "Siker" + ANSI_RESET);
         } catch (AssertionFailedError e) {
             System.out.println(ANSI_RED + "Fail: Nem épül iglu" + ANSI_RESET);
@@ -40,18 +41,19 @@ class JatekosTest {
 
     @Test
     public void uresreLep(String irany) {
+        Kontroller k=new Kontroller();
         Irany i = Irany.StringToIrany(irany);
-        Jatekos j = new Eszkimo();
-        Mezo m = new Jegtabla();
-        Mezo m2 = new Jegtabla();
+        Jatekos j = new Eszkimo(k);
+        Mezo m = new Jegtabla(4, 4, null);
+        Mezo m2 = new Jegtabla(4, 4, null);
         m.szomszedok.put(i, m2);
-        j.tartozkodasiMezo = m;
+        j.setTartozkodasiMezo(m);
         j.lep(i);
 
         try {
-            assertFalse(m.alloJatekos.isEmpty());
+            assertFalse(m.getAlloJatekos().isEmpty());
             System.out.println(ANSI_RED + "Fail: Nem üres a mező amiről elléptek" + ANSI_RESET);
-            assertTrue(m2.alloJatekos.isEmpty());
+            assertTrue(m2.getAlloJatekos().isEmpty());
             System.out.println(ANSI_RED + "Fail: Nem lépett át a játékos" + ANSI_RESET);
 
         } catch (AssertionFailedError e) {

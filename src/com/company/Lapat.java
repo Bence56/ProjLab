@@ -18,8 +18,8 @@ public class Lapat extends Targy{
         Tab.tab++;
         for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
         System.out.println("Lapat.as()");
-        j.tartozkodasiMezo.horetegCsokkent();
-        j.tartozkodasiMezo.horetegCsokkent();
+        j.getTartozkodasiMezo().horetegCsokkent();
+        j.getTartozkodasiMezo().horetegCsokkent();
         Tab.tab--;
     }
 

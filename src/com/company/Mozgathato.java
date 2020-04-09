@@ -1,7 +1,7 @@
 package com.company;
 
 public abstract class Mozgathato {
-    Mezo tartozkodasiMezo;
+    private Mezo tartozkodasiMezo;
 
     public abstract void jatszik();
     public abstract void lep(Irany i);
@@ -14,5 +14,13 @@ public abstract class Mozgathato {
         this.tartozkodasiMezo = m;
 
         Tab.tab--;
+    }
+
+    public Mezo getTartozkodasiMezo() {
+        return tartozkodasiMezo;
+    }
+
+    public void setTartozkodasiMezo(Mezo tartozkodasiMezo) {
+        this.tartozkodasiMezo = tartozkodasiMezo;
     }
 }

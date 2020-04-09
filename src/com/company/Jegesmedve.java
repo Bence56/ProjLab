@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Jegesmedve extends Mozgathato {
-    Mezo tartozkodasiMezo;
-
 
     @Override
     public void jatszik() {  // random irányba meghí@ja a lép fv-t
@@ -36,10 +34,10 @@ public class Jegesmedve extends Mozgathato {
                 System.out.println("Jegesmedve.lep(Irany i)");
 
                 // Lekéri a szomszég mezőt
-                Mezo szomszed = tartozkodasiMezo.getSzomszed(i);
+                Mezo szomszed = getTartozkodasiMezo().getSzomszed(i);
 
                 //eltávolítja a játékost
-                this.tartozkodasiMezo.eltavolit(this);
+                this.getTartozkodasiMezo().eltavolit(this);
 
                 //Átadja magát a szomszédos játékosnak
                 szomszed.elfogad(this);
