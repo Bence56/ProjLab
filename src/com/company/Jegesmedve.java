@@ -45,6 +45,5 @@ public class Jegesmedve extends Mozgathato {
                 szomszed.utkozik(this);
                 Tab.tab--;
             }
-
 }
 

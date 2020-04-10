@@ -1,7 +1,5 @@
 package com.company;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -64,7 +62,7 @@ public class Main {
                 case 13:
                     m.szcenario12();
                     break;
-                case 14:{
+                case 14: {
                     Tester tester = new Tester();
                     tester.test();
                 }

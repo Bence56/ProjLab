@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Executer {
 
-    private Map<String, Object> objects = new HashMap<>();
+    public Map<String, Object> objects = new HashMap<>();
 
     public Object get(String key) {
         return this.objects.get(key);
@@ -52,7 +52,6 @@ public class Executer {
         catch (ClassNotFoundException e){
             //Ilynekor megpróbáljuk hátha ebben a package-ben van ez is
             className = this.getClass().getPackage().toString().substring(8) + "." + className;
-            System.out.println(className);
             Class<?> cls = Class.forName(className);
             //Visszadja az előbb létrehozott osztály megfelelő konstruktorát
             Constructor<?> ctor = cls.getDeclaredConstructor(classes);
@@ -95,6 +94,9 @@ public class Executer {
             name = "java.lang.Integer";
         } else if (name.equals("Bool")) {
             name = "java.lang.Boolean";
+        }
+        else{
+            name = "com.company." + name;
         }
         return name;
     }

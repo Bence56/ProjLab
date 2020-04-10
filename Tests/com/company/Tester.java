@@ -26,6 +26,9 @@ public class Tester {
         launcher.execute(request);
     }
 
+    /**
+     * Egymás után futtatja a parancsokat
+     */
     public void test() {
         Executer e = new Executer();
         Parser parser = new Parser();
@@ -41,7 +44,6 @@ public class Tester {
                 String fuggveny = p.getFuggvenynev();
                 Class<?>[] paramTypes = e.argClasses(p.getParamTypes());
                 String[] params = p.getParams();
-
 
                 if (fuggveny.equals("create")) {
                     Object obj = e.construct(tipus, paramTypes, params);

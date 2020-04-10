@@ -11,7 +11,7 @@ public abstract class Jatekos extends Mozgathato {
     private ArrayList<Targy> targyak = new ArrayList<>();
     private FulladasiAllapot allapot = FulladasiAllapot.aktiv;
 
-    //Jatekos(){this.testho=testho;}
+    Jatekos(){this.testho=testho;}
     Jatekos(Kontroller k, int testho){
         this.kontroller=k;
         this.testho = 5;
@@ -82,7 +82,7 @@ public abstract class Jatekos extends Mozgathato {
 
         Tab.tab--;
         //ha elfogytak a munkák a következő játékos jön
-        if(munkakSzama == 0)
+        if (munkakSzama == 0)
             return;
 
     }
@@ -163,7 +163,7 @@ public abstract class Jatekos extends Mozgathato {
         Tab.tab--;
     }
 
-    public void satorFelvesz(Sator s){
+    public void satorFelvesz(Sator s) {
         targyak.add(s);
     }
 

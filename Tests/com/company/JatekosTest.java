@@ -2,6 +2,8 @@ package com.company;
 
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.opentest4j.AssertionFailedError;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -16,10 +18,6 @@ class JatekosTest {
 
     JatekosTest() {
         this.konzol = true;
-    }
-
-    JatekosTest(Boolean konzol) {
-        this.konzol = konzol;
     }
 
     @Test
@@ -39,7 +37,8 @@ class JatekosTest {
         }
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {"jobb", "bal", "fel", "le" })
     public void uresreLep(String irany) {
         Kontroller k=new Kontroller();
         Irany i = Irany.StringToIrany(irany);
@@ -51,17 +50,20 @@ class JatekosTest {
         j.lep(i);
 
         try {
-            assertFalse(m.getAlloJatekos().isEmpty());
-            System.out.println(ANSI_RED + "Fail: Nem üres a mező amiről elléptek" + ANSI_RESET);
-            assertTrue(m2.getAlloJatekos().isEmpty());
-            System.out.println(ANSI_RED + "Fail: Nem lépett át a játékos" + ANSI_RESET);
-
-        } catch (AssertionFailedError e) {
+            assertFalse(m2.getAlloJatekos().isEmpty());
             System.out.println(ANSI_GREEN + "Siker" + ANSI_RESET);
+            assertTrue(m.getAlloJatekos().isEmpty());
+            System.out.println(ANSI_GREEN + "Siker" + ANSI_RESET);
+        } catch (AssertionFailedError e) {
+            System.out.println(ANSI_RED + "Fail: Nem lépett át a játékos" + ANSI_RESET);
         }
+    }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"ASD", "ADS"})
+    public void test1(String jatek){
 
-    }    //@AfterEach
+    }
 
 
 }
