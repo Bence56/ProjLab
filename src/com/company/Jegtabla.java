@@ -115,6 +115,17 @@ public class Jegtabla extends Mezo{
     }
 
     /**
+     * Teszteléshez kell. Berakja az alkatrészeket a mező alkatrész tömbjébe.
+     */
+    @Override
+    public void setAlkatreszek(Alkatresz a1, Alkatresz a2, Alkatresz a3){
+        alkatreszek.add(0,a1);
+        alkatreszek.add(1,a2);
+        alkatreszek.add(2,a3);
+    }
+
+
+    /**
      * Visszadja a jégtáblába fagyott alkatrészeket.
      */
     @Override

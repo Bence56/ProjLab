@@ -141,4 +141,22 @@ class JatekosTest {
         }
     }
 
+    @Test
+    public void osszeszerelTest(){
+        Jegtabla jegtabla=new Jegtabla(5,0,null);
+        Eszkimo eszkimo=new Eszkimo();
+        ezskimo.setTartozkodasiMezo(jegtabla);
+        jegtabla.elfogad(eszkimo);
+        Alkatresz a1 = new Alkatresz();
+        Alkatresz a2 = new Alkatresz();
+        Alkatresz a3 = new Alkatresz();
+        jegtabla.setAlkatreszek(a1,a2,a3);
+        eszkimo.osszeszerel();
+        try{
+
+        } catch(AssertionFailedError e){
+
+        }
+    }
+
 }

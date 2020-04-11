@@ -34,6 +34,7 @@ public abstract class Jatekos extends Mozgathato {
         Tab.tab--;
     }
 
+
     /**
      * Beállítja a védett attribútumot
      */
