@@ -29,6 +29,11 @@ public class Jegtabla extends Mezo{
     }
 
     @Override
+    public void setFagyottAlk(Alkatresz t){
+        fagyottAlkatresz = t;
+    }
+
+    @Override
     public void satorIdoNovel(){
         satorMiotaVan+=1;
     }

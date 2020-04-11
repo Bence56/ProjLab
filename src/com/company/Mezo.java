@@ -37,6 +37,7 @@ public abstract class Mezo {
 
     public void setFagyottTargy(Targy t){ }
 
+    public void setFagyottAlk(Alkatresz t){ }
 
     public void horetegNovel() {
     }

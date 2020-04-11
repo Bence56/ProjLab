@@ -245,6 +245,10 @@ public abstract class Jatekos extends Mozgathato {
         Tab.tab++;
         for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
         System.out.println("Jatekos.vízbeEsik()");
+        //a beszakadt mezőn lévő tárgyak eltűnnek
+        Mezo m = this.getTartozkodasiMezo();
+        m.setFagyottTargy(null);
+        m.setFagyottAlk(null);
         if (!vedett) {
             allapot = FulladasiAllapot.fuldoklik;
             munkakSzama = 0;
