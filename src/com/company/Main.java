@@ -65,6 +65,27 @@ public class Main {
                 case 14: {
                     Tester tester = new Tester();
                     tester.test();
+                    break;
+                }
+                case 15: {
+                    Tester tester = new Tester();
+                    tester.testfromfile("Resources/lapatolastest.txt");
+                    break;
+                }
+                case 16: {
+                    Tester tester = new Tester();
+                    tester.testfromfile("Resources/kihuztest.txt");
+                    break;
+                }
+                case 17: {
+                    Tester tester = new Tester();
+                    tester.testfromfile("Resources/jegesmedvetest.txt");
+                    break;
+                }
+                case 18: {
+                    Tester tester = new Tester();
+                    tester.testfromfile("Resources/vihartest.txt");
+                    break;
                 }
             }
         }
@@ -262,5 +283,8 @@ public class Main {
 
     public void szcenario14() {
         System.out.println("TOREKENY LAPATOT FELVESZ MAJD HASZNAL");
+    }
+    public void szcenario15(){
+        System.out.println("LAPATOLAS LAPATTAL ES ANELKUL");
     }
 }

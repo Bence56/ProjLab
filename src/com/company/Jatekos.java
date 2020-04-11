@@ -93,7 +93,7 @@ public abstract class Jatekos extends Mozgathato {
         Tab.tab++;
         for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
         System.out.println("Jatekos.meghal()");
-        kontroller.jatekVege(false);
+        //kontroller.jatekVege(false);
         Tab.tab--;
     }
 
@@ -195,6 +195,7 @@ public abstract class Jatekos extends Mozgathato {
                     t.hasznal(mentett);
                     szomszed.eltavolit(mentett);
                     this.getTartozkodasiMezo().elfogad(mentett);
+                    mentett.setTartozkodasiMezo(this.getTartozkodasiMezo());
                 }
             }
         }
@@ -210,14 +211,16 @@ public abstract class Jatekos extends Mozgathato {
         for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
         System.out.println("Jatekos.lapatol()");
         LapatVisitor lv = new LapatVisitor();
-
+        boolean van_lapat=false;
         for (Targy t: targyak) {
             if(t.accept(lv)){
                 t.hasznal(this);
+                van_lapat=true;
                 return;
             }
         }
-        this.getTartozkodasiMezo().horetegCsokkent();
+        if(!van_lapat && this.getTartozkodasiMezo().getHotakaro()>=1)
+            this.getTartozkodasiMezo().horetegCsokkent();
         Tab.tab--;
     }
 

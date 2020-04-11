@@ -5,7 +5,10 @@ public class Eszkimo extends Jatekos{
     /**
      * Eszkimo iglut tud építeni
      */
-
+    public Eszkimo(){
+        super.setTestho(5);
+        super.setVedett(false);
+    }
     //public Eszkimo(){}
     public Eszkimo(Kontroller k){
         super(k, 5);

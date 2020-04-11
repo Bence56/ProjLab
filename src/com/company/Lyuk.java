@@ -8,6 +8,7 @@ public class Lyuk extends Mezo {
         super(0, hotakaro);
     }
 
+
     /**
      * Vízbe ejti a játékost
      *
@@ -22,8 +23,8 @@ public class Lyuk extends Mezo {
 
         j.setMezo(this);
         this.getAlloJatekos().add(j);
-        utkozik(getAlloJegesmedve());
-        j.vizbeEsik();
+        //utkozik(getAlloJegesmedve());
+        //j.vizbeEsik();
 
         Tab.tab--;
     }

@@ -84,8 +84,9 @@ public abstract class Mezo {
         for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
         System.out.println("Mezo.utkozik(Jegesmedve j)");
 
-        if (!isIglu()){
+        if (!isIglu() && alloJatekos.size()>=1){
             alloJatekos.get(0).meghal();
+            alloJatekos.remove(0);
         }
 
         Tab.tab--;

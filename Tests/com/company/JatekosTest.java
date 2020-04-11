@@ -6,8 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.opentest4j.AssertionFailedError;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class JatekosTest {
 
@@ -65,5 +64,64 @@ class JatekosTest {
 
     }
 
+
+    @Test
+    public void lapatolTest(){
+        Kontroller k=new Kontroller();
+        Eszkimo eszkimo=new Eszkimo();
+        Kutato kutato=new Kutato(k);
+        Jegtabla j1=new Jegtabla(5,4,new Lapat());
+        Jegtabla j2=new Jegtabla(5,4,new Buvarruha());
+        Jegtabla j3=new Jegtabla(5,1,new Buvarruha());
+        eszkimo.setTartozkodasiMezo(j1);
+        kutato.setTartozkodasiMezo(j2);
+        Lapat l=new Lapat();
+        eszkimo.lapatFelvesz(l);
+        j1.elfogad(eszkimo);
+        j2.elfogad(kutato);
+        eszkimo.lapatol();
+        kutato.lapatol();
+        try {
+            assertEquals(2,j1.getHotakaro());
+            System.out.println(ANSI_GREEN + "Siker, amikor van lapát" + ANSI_RESET);
+            assertEquals(3,j2.getHotakaro());
+            System.out.println(ANSI_GREEN + "Siker, amikor nincs lapát" + ANSI_RESET);
+        } catch (AssertionFailedError e) {
+            System.out.println(ANSI_RED + "Fail: Nincs jól beállítva a lapátolás" + ANSI_RESET);
+        }
+        eszkimo.setTartozkodasiMezo(j3);
+        j3.elfogad(eszkimo);
+        eszkimo.lapatol();
+        try {
+            assertEquals(0,j3.getHotakaro());
+            System.out.println(ANSI_GREEN + "Siker, amikor van lapát és 1 a hóréteg" + ANSI_RESET);
+        } catch (AssertionFailedError e) {
+            System.out.println(ANSI_RED + "Fail: Nincs jól beállítva amikor van lapát és 1 a hóréteg" + ANSI_RESET);
+        }
+    }
+    @Test
+    public void kihuzTest(){
+        Jegtabla jegtabla=new Jegtabla(5,4,new Buvarruha());
+        Lyuk lyuk=new Lyuk(0);
+        Eszkimo megmento=new Eszkimo();
+        Eszkimo fulldoklo=new Eszkimo();
+        Kotel k=new Kotel();
+        megmento.kotelFelvesz(k);
+        megmento.setTartozkodasiMezo(jegtabla);
+        jegtabla.elfogad(megmento);
+        fulldoklo.setTartozkodasiMezo(lyuk);
+        lyuk.elfogad(fulldoklo);
+        jegtabla.szomszedok.put(Irany.Jobb,lyuk);
+        lyuk.szomszedok.put(Irany.Bal,jegtabla);
+        megmento.kihuz(Irany.Jobb);
+
+        try {
+            assertTrue(megmento.getTartozkodasiMezo()==jegtabla);
+            assertTrue(jegtabla==fulldoklo.getTartozkodasiMezo());
+            System.out.println(ANSI_GREEN + "Siker, ugyan azon a mezőn vannak" + ANSI_RESET);
+        } catch (AssertionFailedError e) {
+            System.out.println(ANSI_RED + "Fail: Nem működik a kihúzó rendszer" + ANSI_RESET);
+        }
+    }
 
 }

@@ -28,6 +28,9 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
 
         Tab.tab--;
     }
+    public void addJatekos(Jatekos j){
+        jatekosok.add(j);
+    }
 
 
     public void vihar() {
