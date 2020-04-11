@@ -106,10 +106,13 @@ public abstract class Jatekos extends Mozgathato {
         System.out.println("Jatekos.kapar()");
 
         // Ezekből csak egy futhat le mert egy mezőn vagy alkatrész vagy tárgy van
-        Targy targy = this.getTartozkodasiMezo().getTargy();
+        Mezo m = this.getTartozkodasiMezo();
+        Targy targy = m.getTargy();
         if (targy != null)
         {
             targy.felvesz(this);
+            Targy t = m.getTargy();
+            t = null;
         }
 
         Alkatresz alk = this.getTartozkodasiMezo().getFagyottAlkatresz();

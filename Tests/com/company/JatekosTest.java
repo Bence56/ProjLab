@@ -124,4 +124,21 @@ class JatekosTest {
         }
     }
 
+
+    @Test
+    public void kikaparTest(){
+        Jegtabla jegtabla=new Jegtabla(5,0,new Kotel());
+        Eszkimo eszkimo=new Eszkimo();
+        ezskimo.setTartozkodasiMezo(jegtabla);
+        jegtabla.elfogad(eszkimo);
+        ezskimo.kapar();
+        try{
+            assertNotNull(eszkimo.targyak[0]);
+            assertNull(jegtabla.getTargy());
+            System.out.println(ANSI_GREEN + "Siker: A tárgy a játékoshoz került." + ANSI_RESET);
+        } catch(AssertionFailedError e){
+            System.out.println(ANSI_RED + "Fail: Nem működik a tárgy felvétel" +ANSI_RESET);
+        }
+    }
+
 }
