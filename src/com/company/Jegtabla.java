@@ -22,9 +22,11 @@ public class Jegtabla extends Mezo{
         this.iglu=false;
     }
 
-    /**
-     * Csökkenti a saját maga hórétegét
-     */
+
+    @Override
+    public void setFagyottTargy(Targy t){
+        fagyotttargy = t;
+    }
 
     @Override
     public void satorIdoNovel(){

@@ -33,6 +33,8 @@ public abstract class Mezo {
         return null;
     }
 
+    void setFagyottTargy(Targy t){ }
+
 
     public void horetegNovel() {
     }
