@@ -302,6 +302,7 @@ public abstract class Jatekos extends Mozgathato {
         Tab.tab++;
         for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
         System.out.println("Jatekos.elsut()");
+        kontroller.jatekVege(true);
 
         Tab.tab--;
 

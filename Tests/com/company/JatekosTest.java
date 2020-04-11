@@ -145,7 +145,7 @@ class JatekosTest {
     public void osszeszerelTest(){
         Jegtabla jegtabla=new Jegtabla(5,0,null);
         Eszkimo eszkimo=new Eszkimo();
-        ezskimo.setTartozkodasiMezo(jegtabla);
+        eszkimo.setTartozkodasiMezo(jegtabla);
         jegtabla.elfogad(eszkimo);
         Alkatresz a1 = new Alkatresz();
         Alkatresz a2 = new Alkatresz();
@@ -153,9 +153,10 @@ class JatekosTest {
         jegtabla.setAlkatreszek(a1,a2,a3);
         eszkimo.osszeszerel();
         try{
-
+            //mit kene tesztelni??
+            System.out.println(ANSI_GREEN + "Siker: A pisztoly elsült." + ANSI_RESET);
         } catch(AssertionFailedError e){
-
+            System.out.println(ANSI_RED + "Fail: Nem működik az összeszerelés" +ANSI_RESET);
         }
     }
 

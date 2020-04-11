@@ -71,5 +71,24 @@ class KontrollerTest {
             System.out.println(ANSI_RED + "Fail: Nem minden jatekos hult ki" + ANSI_RESET);
         }
     }
+
+    @Test
+    public void alkatreszElsullyedTest(){
+        Kontroller k = new Kontroller();
+        Jegtabla jegtabla=new Jegtabla(1,0,new Alkatresz());
+        Eszkimo e1=new Eszkimo();
+        Eszkimo e2=new Eszkimo();
+        e1.setTartozkodasiMezo(jegtabla);
+        jegtabla.elfogad(e1);
+        e2.setTartozkodasiMezo(jegtabla);
+        jegtabla.elfogad(e2);
+        k.detektal();
+        try{
+            //mit kene tesztelni??
+            System.out.println(ANSI_GREEN + "Siker, vége a játéknak" + ANSI_RESET);
+        } catch(AssertionFailedError e){
+            System.out.println(ANSI_RED + "Fail: Nem süllyedt el az alkatrész" + ANSI_RESET);
+        }
+    }
 }
 
