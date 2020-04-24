@@ -21,6 +21,13 @@ public class Jegtabla extends Mezo {
         this.satorMiotaVan = 0;
         this.iglu = false;
     }
+    Jegtabla(int teherbiras, int hotakaro, Targy targy,Alkatresz alkatresz) {
+        super(teherbiras, hotakaro);
+        this.fagyotttargy = targy;
+        this.satorMiotaVan = 0;
+        this.alkatreszek.add(alkatresz);
+        this.iglu = false;
+    }
 
 
     @Override
