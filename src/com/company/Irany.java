@@ -3,8 +3,12 @@ package com.company;
 public enum Irany{
     Fel,
     Le,
+    BalFel,
     Bal,
-    Jobb;
+    BalLe,
+    JobbFel,
+    Jobb,
+    JobbLe;
 
     public Irany ellentetes() {
         if(this==Irany.Fel)
@@ -23,11 +27,23 @@ public enum Irany{
         else if(string.equals("Le")){
             return Le;
         }
+        else if(string.equals("BalFel")){
+            return BalFel;
+        }
         else if(string.equals("Bal")){
             return Bal;
         }
+        else if(string.equals("BalLe")){
+            return BalLe;
+        }
+        else if(string.equals("JobbFel")){
+            return JobbFel;
+        }
         else if(string.equals("Jobb")){
             return Jobb;
+        }
+        else if(string.equals("JobbLe")){
+            return JobbLe;
         }
         else return null;
     }
