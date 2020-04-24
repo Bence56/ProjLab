@@ -3,3 +3,4 @@ JatekosTest jt epit
 JatekosTest jt uresreLep String jobb
 JegesmedveTest ts create
 JegesmedveTest ts lep
+JatekosTest jt vizsgalTest String jobb

@@ -14,11 +14,13 @@ public class Kutato extends Jatekos {
 
     @Override
     public void vizsgal(Irany i){
-            Tab.tab++;
+           Tab.tab++;
             for(int var=0;var<Tab.tab;var++)System.out.print("\t");
             System.out.println("Kutato.Vizsgal(Irany i)");
             Mezo m=this.getTartozkodasiMezo().getSzomszed(i);
             m.getTeherbiras();
             Tab.tab--;
+        /*Mezo m=this.getTartozkodasiMezo().getSzomszed(i);
+        m.getTeherbiras();*/
     }
 }

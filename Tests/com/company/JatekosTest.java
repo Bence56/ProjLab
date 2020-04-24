@@ -161,5 +161,43 @@ class JatekosTest {
             System.out.println(ANSI_RED + "Fail: Nem működik az összeszerelés" +ANSI_RESET);
         }
     }
+    @Test
+    public void alkatreszFelveszTest(){
+        Kontroller k=new Kontroller();
+        Jegtabla jegtabla=new Jegtabla(5,0, new Alkatresz());
+        Eszkimo eszkimo=new Eszkimo(k);
+        k.addJatekos(eszkimo);
+        eszkimo.setTartozkodasiMezo(jegtabla);
+        jegtabla.elfogad(eszkimo);
+        eszkimo.kapar();
+        try{
+            assertEquals(1, eszkimo.getAlkatreszek().size());
+            assertNull(jegtabla.getTargy());
+            System.out.println(ANSI_GREEN + "Siker: Az alkatrész a játékoshoz került." + ANSI_RESET);
+        } catch(AssertionFailedError e){
+            System.out.println(ANSI_RED + "Fail: Nem működik az alkatrész felvétel" +ANSI_RESET);
+        }
+    }
+
+
+    @ParameterizedTest
+    @ValueSource(strings = {"jobb", "bal", "fel", "le" })
+    public void vizsgalTest(String irany) {
+        Kontroller k=new Kontroller();
+        Irany i = Irany.StringToIrany(irany);
+        Jatekos j = new Kutato(k);
+        Mezo m = new Jegtabla(3, 4, null);
+        Mezo m2 = new Jegtabla(2, 4, null);
+        m.szomszedok.put(i, m2);
+        j.setTartozkodasiMezo(m);
+        j.vizsgal(i);
+
+        try {
+            assertEquals(2, m2.getTeherbiras());
+            System.out.println(ANSI_GREEN + "A vizsgáló teherbírás vizsgálatának eredménye helyes" + ANSI_RESET);
+        } catch (AssertionFailedError e) {
+            System.out.println(ANSI_RED + "Fail: Nem egyezik a szomszéd tábla teherbírásával a kutató vizsgálatának eredménye" + ANSI_RESET);
+        }
+    }
 
 }
