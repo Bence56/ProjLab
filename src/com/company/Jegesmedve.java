@@ -29,17 +29,14 @@ public class Jegesmedve extends Mozgathato {
 
             @Override
     public void lep(Irany i) { // miután a mezőre lépett csekkolja, hogy van-e iglu, ha nincs, akkor öl.
-                Tab.tab++;
-                for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-                System.out.println("Jegesmedve.lep(Irany i)");
 
                 // Lekéri a szomszég mezőt
                 Mezo szomszed = getTartozkodasiMezo().getSzomszed(i);
 
-                //eltávolítja a játékost
+                //eltávolítja magát
                 this.getTartozkodasiMezo().eltavolit(this);
 
-                //Átadja magát a szomszédos játékosnak
+                //Átadja magát a szomszédos mezőnek
                 szomszed.elfogad(this);
 
                 szomszed.utkozik(this);

@@ -93,12 +93,8 @@ public abstract class Jatekos extends Mozgathato {
 
 
     public void meghal() {
+        kontroller.jatekVege(false);
 
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.meghal()");
-        //kontroller.jatekVege(false);
-        Tab.tab--;
     }
 
     /**
@@ -319,8 +315,10 @@ public abstract class Jatekos extends Mozgathato {
      * A kutató valósíja meg
      *
      * @param i Az adott irányban vizsgálja a mezőt
+     * @return
      */
-    public void vizsgal(Irany i) {
+    public int vizsgal(Irany i) {
+        return 0;
     }
 
     ;

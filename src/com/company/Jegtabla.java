@@ -93,19 +93,12 @@ public class Jegtabla extends Mezo {
      */
     @Override
     public void setIglu(boolean iglu) {
-        Tab.tab++;
-        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
-        System.out.println("Jegtabla.setIglu(boolean iglu)");
-
         this.iglu = iglu;
-
-        Tab.tab--;
     }
 
     @Override
     public boolean isIglu() {
         return iglu;
-
     }
 
     /**

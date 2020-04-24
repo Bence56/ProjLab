@@ -7,18 +7,15 @@ public class Kutato extends Jatekos {
     public Kutato(Kontroller k){
         super(k, 4);
     }
+
+
     /**
      *Lekérdezi a mező teherbírását i irányú szomszéd
-     * @param i ebben az irányba lévő szomszéd mezőjéről kérdezi le a teherbírást
+     * @return mennyi az olyan irányú szomszédjának a teherbírása
      */
-
     @Override
-    public void vizsgal(Irany i){
-            Tab.tab++;
-            for(int var=0;var<Tab.tab;var++)System.out.print("\t");
-            System.out.println("Kutato.Vizsgal(Irany i)");
+    public int vizsgal(Irany i){
             Mezo m=this.getTartozkodasiMezo().getSzomszed(i);
-            m.getTeherbiras();
-            Tab.tab--;
+            return m.getTeherbiras();
     }
 }

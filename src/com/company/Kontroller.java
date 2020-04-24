@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud a kontroller osztályra referenciát tartalmazni a játékos osztály
     protected ArrayList<Mezo> palya = new ArrayList<>();
@@ -106,10 +107,6 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
 
 
     public void jatekVege(boolean nyer) {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Kontroller.jatekVege()");
-
         this.aktiv = false;
 
         if (nyer) {
@@ -117,7 +114,6 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
             nyert = true;
         } else
             System.out.println("GAME OVER");
-        Tab.tab--;
     }
 
     public ArrayList<Jatekos> getJatekosok() {

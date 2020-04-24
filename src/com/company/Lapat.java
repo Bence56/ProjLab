@@ -23,6 +23,10 @@ public class Lapat extends Targy{
         Tab.tab--;
     }
 
+    /**
+     * hozzáaadja a játékos eszközeihez magát
+     * @param jatekos ennek a játékosank
+     */
     @Override
     public void felvesz(Jatekos jatekos){
         Tab.tab++;

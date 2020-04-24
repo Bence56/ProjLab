@@ -16,6 +16,11 @@ public class Sator extends Targy{
         j.satorFelvesz(this);
     }
 
+
+    /**
+     * A paraméterül kapott játékos tartózkodási mezőjére épít egy sátrat.
+     * @param j ez a játékos állít sátrat
+     */
     @Override
     public void hasznal(Jatekos j){
         j.getTartozkodasiMezo().satorIdoNovel();

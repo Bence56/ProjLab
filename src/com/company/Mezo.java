@@ -8,6 +8,9 @@ public abstract class Mezo {
 
     private int teherbiras;
     private int hotakaro;
+
+
+
     protected Map<Irany, Mezo> szomszedok = new HashMap<>();
     private ArrayList<Jatekos> alloJatekos = new ArrayList<>();
     private Jegesmedve alloJegesmedve;
@@ -87,8 +90,6 @@ public abstract class Mezo {
     }
 
     public void utkozik(Jegesmedve j){
-        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
-        System.out.println("Mezo.utkozik(Jegesmedve j)");
 
         if (!isIglu() && alloJatekos.size()>=1){
             alloJatekos.get(0).meghal();
@@ -105,15 +106,12 @@ public abstract class Mezo {
     public boolean isIglu() {
         return false;
     }
-    public void setIglu(boolean iglu) {}
-
-    public void satorIdoNovel() {}
-
-    public void satratNullaz() {}
-
-    public int getSatorMiotaVan(){
-        return 0;
+    public void setIglu(boolean iglu) {
     }
+
+    public void satorIdoNovel(){}
+    public int getSatorMiotaVan() {return 0;}
+    public void satratNullaz() {}
 
 
     /**

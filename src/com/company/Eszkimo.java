@@ -15,13 +15,6 @@ public class Eszkimo extends Jatekos{
     } // amikor létrejön, 5 a testhője
     @Override
     public void epit(){
-        Tab.tab++;
-        for(int vari=0;vari<Tab.tab;vari++)System.out.print("\t");
-        System.out.println("Eszkimo.epit()");
         this.getTartozkodasiMezo().setIglu(true);
-
-
-        Tab.tab--;
-
     }
 }
