@@ -81,11 +81,28 @@ public class Parser {
         return lista;
     }
 
-    public void palyaParse() throws IOException {
+    public void palyaParse(Kontroller kontroller) throws IOException {
         String jsonString = new String(Files.readAllBytes(Paths.get("Resources/palya.json")));
         JSONObject obj = new JSONObject(jsonString);
         JSONObject palya = obj.getJSONObject("palya");
         JSONArray mezok = palya.getJSONArray("mezok");
+        for (int i = 0; i < mezok.length(); i++)
+        {
+            String id = mezok.getJSONObject(i).getString("id");
+            Mezo mezo;
+            if(id.charAt(0) == 'J'){
+                String targyString = mezok.getJSONObject(i).getString("targy");
+                Targy targy =
+                        // 0-3 között random teherbírás
+                mezo = new Jegtabla((int)(Math.random() * (3+1)),0,targy);
+                kontroller.addMezo(mezo);
+            }
+            else if (id.charAt(0) == 'Y'){
+                mezo = new Lyuk(0);
+                kontroller.addMezo(mezo);
+            }
+        }
+
     }
 
     public void printAllCommand() {
@@ -101,5 +118,7 @@ public class Parser {
             System.out.println();
         }
     }
+
+
 
 }

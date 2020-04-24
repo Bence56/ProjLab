@@ -33,6 +33,10 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
         jatekosok.add(j);
     }
 
+    public void addMezo(Mezo mezo){
+        this.palya.add(mezo);
+    }
+
 
     /**
      * Végig megy az összes mezőn és megnöveli a hóréteget egy random számmal (negatív lineáris eloszlással)
@@ -95,8 +99,8 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
         }
 
         for (Mezo m : palya) {
-            Integer satorMiotaVan = m.getSatorMiotaVan();
-            if (satorMiotaVan.equals((jatekosok.size()))) { // ha lement egy kör eltűnteti a sátrat
+            int satorMiotaVan = m.getSatorMiotaVan();
+            if (satorMiotaVan == ((jatekosok.size()))) { // ha lement egy kör eltűnteti a sátrat
                 m.satratNullaz();
             } else {
                 if (m.getSatorMiotaVan() > 0) // ha van a mezőn sátor
