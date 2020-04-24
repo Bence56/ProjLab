@@ -10,6 +10,9 @@ public abstract class Mezo {
     private int hotakaro;
 
 
+    public void addSzomszedok(Irany i, Mezo m) {
+        this.szomszedok.put(i,m);
+    }
 
     protected Map<Irany, Mezo> szomszedok = new HashMap<>();
     private ArrayList<Jatekos> alloJatekos = new ArrayList<>();

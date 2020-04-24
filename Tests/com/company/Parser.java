@@ -102,7 +102,48 @@ public class Parser {
                 kontroller.addMezo(mezo);
             }
         }
-
+        for (int i=0;i<mezok.length();i++){
+            String tmp = mezok.getJSONObject(i).getString("Fel");
+            if (tmp.length()>1){
+                int cnt=tmp.charAt(1);
+                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+            }
+            tmp = mezok.getJSONObject(i).getString("JobbFel");
+            if (tmp.length()>1){
+                int cnt=tmp.charAt(1);
+                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+            }
+            tmp = mezok.getJSONObject(i).getString("Jobb");
+            if (tmp.length()>1){
+                int cnt=tmp.charAt(1);
+                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+            }
+            tmp = mezok.getJSONObject(i).getString("JobbLe");
+            if (tmp.length()>1){
+                int cnt=tmp.charAt(1);
+                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+            }
+            tmp = mezok.getJSONObject(i).getString("Le");
+            if (tmp.length()>1){
+                int cnt=tmp.charAt(1);
+                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+            }
+            tmp = mezok.getJSONObject(i).getString("BalLe");
+            if (tmp.length()>1){
+                int cnt=tmp.charAt(1);
+                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+            }
+            tmp = mezok.getJSONObject(i).getString("Bal");
+            if (tmp.length()>1){
+                int cnt=tmp.charAt(1);
+                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+            }
+            tmp = mezok.getJSONObject(i).getString("BalFel");
+            if (tmp.length()>1){
+                int cnt=tmp.charAt(1);
+                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+            }
+        }
     }
 
     public void printAllCommand() {

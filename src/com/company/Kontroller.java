@@ -10,6 +10,10 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
     private ArrayList<Jatekos> jatekosok = new ArrayList<>();
     private Jegesmedve jegesmedve = new Jegesmedve();
 
+
+    public Mezo getPalya(int i){
+        return palya.get(i);
+    }
     /**
      * A játék menete, minden játékos köre előtt detektálás van, utána pedig vihar
      */
