@@ -1,22 +1,20 @@
 package com.company;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud a kontroller osztályra referenciát tartalmazni a játékos osztály
-    protected ArrayList<Mezo>palya = new ArrayList<>();
-    private ArrayList<Jatekos> jatekosok =new ArrayList<>();
-    private Jegesmedve jegesmedve=new Jegesmedve();
-
+    protected ArrayList<Mezo> palya = new ArrayList<>();
     boolean aktiv = true;
     boolean nyert = false;
+    private ArrayList<Jatekos> jatekosok = new ArrayList<>();
+    private Jegesmedve jegesmedve = new Jegesmedve();
 
     /**
      * A játék menete, minden játékos köre előtt detektálás van, utána pedig vihar
      */
-    public void jatek(){
+    public void jatek() {
         Tab.tab++;
-        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
+        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
         System.out.println("Kontroller.jatek()");
         while (aktiv) {
             for (Jatekos j : jatekosok) {
@@ -29,82 +27,87 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
 
         Tab.tab--;
     }
-    public void addJatekos(Jatekos j){
+
+    public void addJatekos(Jatekos j) {
         jatekosok.add(j);
     }
 
 
+    /**
+     * Végig megy az összes mezőn és megnöveli a hóréteget egy random számmal (negatív lineáris eloszlással)
+     * 0 és a maxHoreteg kozott Között, tehát jóval kisebb a valószínűsége nagy hónak mint a semminek.
+     * Lecsökkenti a mezőkön álló játékosok testhőjét, ha nincs iglu a mezőn vagy a sátor már
+     */
     public void vihar() {
-        Tab.tab++;
-        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
-        System.out.println("Kontroller.vihar()");
-        for (Mezo item:palya) {
-            item.horetegNovel();
+        int maxHoreteg = 5;
 
-            Integer i=item.getSatorMiotaVan();
-            if (!(item.isIglu()) || i.equals(0)) // ha nincs sátor ill iglu, csökken a testhő
-                for (Jatekos j: item.getAlloJatekos()){
-                    j.setTestho(j.getTestho()-1);
+        for (Mezo mezo : palya) {
+            //Megnöveljük a hóréteget egy random számmal (negatív lineáris eloszlással) 0 és a maxHoreteg kozott Között
+            while (true) {
+                double r1 = Math.random();
+                double r2 = Math.random();
+                if (r2 > r1) {
+                    mezo.horetegNovel((int) (r1 * (maxHoreteg + 1)));
+                    break;
+                }
+            }
+
+            int i = mezo.getSatorMiotaVan();
+            // ha nincs sátor ill iglu, csökken a testhő
+            if (!(mezo.isIglu()) || i == 0)
+                for (Jatekos j : mezo.getAlloJatekos()) {
+                    j.setTestho(j.getTestho() - 1);
                 }
         }
-
-
-        Tab.tab--;
     }
 
     /**
      * vizsgaljuk a játékosok állapotát, nem e hűlt ki, nem e fulladt meg
      */
-    public void detektal(){
-        Tab.tab++;
-        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
-        System.out.println("Kontroller.detektal()");
+    public void detektal() {
 
         int alkatreszSzam = 0;
 
-        for (Jatekos j: jatekosok) {
+        for (Jatekos j : jatekosok) {
             int ho = j.getTestho();
 
-            if( ho == 0){
+            if (ho == 0) {
                 j.setAllapot(FulladasiAllapot.halott);
                 jatekVege(false);
             }
         }
 
-        for (Jatekos j: jatekosok) {
-            ArrayList<Alkatresz> alkatreszek =  j.getAlkatreszek();
+        for (Jatekos j : jatekosok) {
+            ArrayList<Alkatresz> alkatreszek = j.getAlkatreszek();
             alkatreszSzam += alkatreszek.size();
         }
         for (Mezo m : palya) {
-            ArrayList<Alkatresz> alkatreszek =  m.getAlkatreszek();
-            if(alkatreszek != null){
+            ArrayList<Alkatresz> alkatreszek = m.getAlkatreszek();
+            if (alkatreszek != null) {
                 alkatreszSzam += alkatreszek.size();
             }
 
         }
 
-        if(alkatreszSzam <= 3)
-        {
+        if (alkatreszSzam <= 3) {
             jatekVege(false);
         }
 
-        for (Mezo m: palya) {
-            Integer satorMiotaVan=m.getSatorMiotaVan();
+        for (Mezo m : palya) {
+            Integer satorMiotaVan = m.getSatorMiotaVan();
             if (satorMiotaVan.equals((jatekosok.size()))) { // ha lement egy kör eltűnteti a sátrat
                 m.satratNullaz();
             } else {
-                if (m.getSatorMiotaVan()>0) // ha van a mezőn sátor
+                if (m.getSatorMiotaVan() > 0) // ha van a mezőn sátor
                     m.satorIdoNovel();  // 1-gyel nő a felállítástúl eltelt idő
             }
         }
-
-        Tab.tab--;
     }
 
 
-    public void jatekVege(boolean nyer){
+    public void jatekVege(boolean nyer) {
         Tab.tab++;
-        for(int j=0; j<Tab.tab; j++)System.out.print("\t");
+        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
         System.out.println("Kontroller.jatekVege()");
 
         this.aktiv = false;
@@ -112,8 +115,7 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
         if (nyer) {
             System.out.println("NYERTEL");
             nyert = true;
-        }
-        else
+        } else
             System.out.println("GAME OVER");
         Tab.tab--;
     }

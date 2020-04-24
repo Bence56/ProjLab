@@ -39,7 +39,8 @@ public abstract class Mezo {
 
     public void setFagyottAlk(Alkatresz t){ }
 
-    public void horetegNovel() {
+    public void horetegNovel(int num) {
+        this.hotakaro += num;
     }
 
     public void horetegCsokkent(){
