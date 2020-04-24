@@ -22,38 +22,35 @@ public abstract class Jatekos extends Mozgathato {
         this.testho = 5;
     }
 
+    /**
+     * Lekérdezi a tárgyak listát
+     */
     public ArrayList<Targy> getTargyak() {
         return targyak;
     }
 
-
+    /**
+     * Lekérdezi a testhő attribútumot
+     */
     public int getTestho() {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.getTestho()");
-        Tab.tab--;
         return testho;
-
     }
 
+
+    /**
+     * Testhő beállítása
+     *
+     * @param testho A testhőérték, amire be szeretnénk állítani
+     */
     public void setTestho(int testho) {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.setTestho(int testho)");
         this.testho = testho;
-        Tab.tab--;
     }
-
 
     /**
      * Beállítja a védett attribútumot
      */
     public void setVedett(boolean b) {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.setVedett(boolean b)");
         vedett = b;
-        Tab.tab--;
     }
 
     /**
@@ -62,6 +59,7 @@ public abstract class Jatekos extends Mozgathato {
     public void setAllapot(FulladasiAllapot all) {
         allapot = all;
     }
+
 
     /**
      * Átlépteti a játékost a szomszédos mezőre a megadott irányba.
@@ -107,10 +105,6 @@ public abstract class Jatekos extends Mozgathato {
      * A saját mezőjén lévő tárgyat a  felveszi a játékos és a munkái számát egyel csökkenti.
      */
     public void kapar() {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.kapar()");
-
         // Ezekből csak egy futhat le mert egy mezőn vagy alkatrész vagy tárgy van
         Mezo m = this.getTartozkodasiMezo();
         Targy targy = m.getTargy();
@@ -125,55 +119,63 @@ public abstract class Jatekos extends Mozgathato {
         }
 
         this.munkakSzama--;
-
-
-        Tab.tab--;
     }
 
-
+    /**
+     * Hozzáadja a tárgyak listájához a felvevendő lapátot.
+     *
+     * @param l A lapát amit fel szeretnénk venni.
+     */
     public void lapatFelvesz(Lapat l) {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.lapatFelvesz()");
         targyak.add(l);
-        Tab.tab--;
     }
 
+
+    /**
+     * Hozzáadja a tárgyak listájához a felvevendő kötelet.
+     *
+     * @param k A kötél amit fel szeretnénk venni.
+     */
     public void kotelFelvesz(Kotel k) {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.kotelFelvesz()");
         targyak.add(k);
-        Tab.tab--;
     }
 
+
+    /**
+     * Megnöveli a testhőt 1-el.
+     *
+     * @param e Az élelem, amit fel szeretnénk venni.
+     */
     public void elelemFelvesz(Elelem e) {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.elelemFelvesz()");
         testho++;
-        Tab.tab--;
     }
 
     /**
      * Beteszi a kikapart búvárruhát a játékos tárgyai közé és védelmet nyújt
      *
-     * @param b
+     * @param b A felvevendő búvárruha
      */
     public void buvarruhaFelvesz(Buvarruha b) {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.buvarruhaFelvesz()");
         targyak.add(b);
         b.vedelem(this);
-
-        Tab.tab--;
     }
 
+
+    /**
+     * Hozzáadja a tárgyak listájához a felvevendő sátrat.
+     *
+     * @param s A sátor amit fel szeretnénk venni.
+     */
     public void satorFelvesz(Sator s) {
         targyak.add(s);
     }
 
+
+    /**
+     * Hozzáadja az alkatrészek listájához a felvevendő alkatrészt.
+     *
+     * @param a Az alkatrész, amit fel szeretnénk venni.
+     */
     public void alkatreszFelvesz(Alkatresz a) {
         alkatreszek.add(a);
     }
@@ -182,9 +184,8 @@ public abstract class Jatekos extends Mozgathato {
     /**
      * Kihúz egy másik játékost a saját táblájára
      *
-     * @param i
+     * @param i Az irány, amerre lévő játékost szeretnénk kihúzni.
      */
-
     public void kihuz(Irany i) {
         KotelVisitor kv = new KotelVisitor();
         Mezo szomszed = this.getTartozkodasiMezo().getSzomszed(i);
@@ -198,17 +199,12 @@ public abstract class Jatekos extends Mozgathato {
                 }
             }
         }
-
-        Tab.tab--;
     }
 
     /**
-     * A játékos lapátol ha van lapátja
+     * A játékos lapátol, ha van lapátja.
      */
     public void lapatol() {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.lapatol()");
         LapatVisitor lv = new LapatVisitor();
         boolean van_lapat = false;
         for (Targy t : targyak) {
@@ -220,9 +216,12 @@ public abstract class Jatekos extends Mozgathato {
         }
         if (!van_lapat && this.getTartozkodasiMezo().getHotakaro() >= 1)
             this.getTartozkodasiMezo().horetegCsokkent();
-        Tab.tab--;
     }
 
+    /**
+     * A játékos sátrat épít, ha van neki sátra.
+     *
+     */
     public void satratEpit() {
         SatorVisitor sv = new SatorVisitor();
         for (Targy t : targyak) {
@@ -238,9 +237,6 @@ public abstract class Jatekos extends Mozgathato {
      * valamint, ha a játékosnak nincs búvárruhája lecsökkenti a elvégezhető munkák számát (munkakSzama tagváltozó) nullára, hogy a következő játékos jöjjön
      */
     public void vizbeEsik() {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.vízbeEsik()");
         //a beszakadt mezőn lévő tárgyak eltűnnek
         Mezo m = this.getTartozkodasiMezo();
         m.setFagyottTargy(null);
@@ -250,7 +246,6 @@ public abstract class Jatekos extends Mozgathato {
             munkakSzama = 0;
         }
         //ha védett nem történik semmi
-        Tab.tab--;
     }
 
 
@@ -259,37 +254,31 @@ public abstract class Jatekos extends Mozgathato {
      * és ha igen a játékos összeszereli és elsüti a jelzőrakétát
      */
     public void osszeszerel() {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.osszeszerel()");
-
         ArrayList<Alkatresz> alkatreszek = this.getTartozkodasiMezo().getAlkatreszek();
         if (alkatreszek != null) {
             if (alkatreszek.size() == 3) {
                 this.elsut();
             }
         }
-
-        Tab.tab--;
     }
+
 
     /**
      * Lerak egy alkatrészt a mezőre hogy azt majd el lehessen sütni
      */
     public void lerak() {
-        Tab.tab++;
-        for (int vari = 0; vari < Tab.tab; vari++) System.out.print("\t");
-        System.out.println("Jatekos.lerak()");
-
-        if (alkatreszek.size() > 0) {
+            if (alkatreszek.size() > 0) {
             Alkatresz alk = this.alkatreszek.remove(0);
             this.getTartozkodasiMezo().alkatreszNovel(alk);
         }
         this.getTartozkodasiMezo().alkatreszNovel(null);
-
-        Tab.tab--;
     }
 
+    /**
+     * Csökkenti a hátramaradó munkát számát.
+     *
+     * @param i Ennyivel csökkentjük a munkák számát.
+     */
     public void munkaLevon(int i) {
         munkakSzama = munkakSzama - i;
     }
@@ -315,25 +304,19 @@ public abstract class Jatekos extends Mozgathato {
      * @return
      */
     public ArrayList<Alkatresz> getAlkatreszek() {
-        Tab.tab++;
-        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
-        System.out.println("Jatekos.getAlkatreszek()");
-        Tab.tab--;
-
         return this.alkatreszek;
-
     }
 
     /**
-     * az eszkimó valósítja meg
+     * Az eszkimó valósítja meg
      */
     public void epit() {
     }
 
-    ;
+
 
     /**
-     * a kutató valósíja meg
+     * A kutató valósíja meg
      *
      * @param i Az adott irányban vizsgálja a mezőt
      */
