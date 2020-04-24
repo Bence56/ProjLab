@@ -1,9 +1,11 @@
 package com.company;
 
+import org.json.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.IOException;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -79,7 +81,7 @@ public class Parser {
         return lista;
     }
 
-    public void palyaParse(){
+    public void palyaParse() throws IOException {
         String jsonString = new String(Files.readAllBytes(Paths.get("Resources/palya.json")));
         JSONObject obj = new JSONObject(jsonString);
         JSONObject palya = obj.getJSONObject("palya");
