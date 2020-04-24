@@ -116,6 +116,7 @@ public class Main {
         System.out.println("A JÁTÉKOS KIHÚZZA A SZOMSZÉD MEZŐN VÍZBE ESETT JÁTÉKOST");
         Mezo szomszed = new Lyuk(4);
         Jatekos j2 = new Eszkimo(kont);
+        szomszed.elfogad(j2);
         szomszed.getAlloJatekos().add(j2);
         j.getTartozkodasiMezo().szomszedok.put(Irany.Le, szomszed);
 

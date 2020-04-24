@@ -98,7 +98,7 @@ public abstract class Jatekos extends Mozgathato {
     }
 
     /**
-     * A saját mezőjén lévő tárgyat a  felveszi a játékos és a munkái számát egyel csökkenti.
+     * A saját mezőjén lévő tárgyat a játékos felveszi, a mezőn a felvett tárgy értékét nullra állítja, és a munkái számát egyel csökkenti.
      */
     public void kapar() {
         // Ezekből csak egy futhat le mert egy mezőn vagy alkatrész vagy tárgy van
@@ -107,11 +107,6 @@ public abstract class Jatekos extends Mozgathato {
         if (targy != null) {
             targy.felvesz(this);
             m.setFagyottTargy(null);
-        }
-
-        Alkatresz alk = this.getTartozkodasiMezo().getFagyottAlkatresz();
-        if (alk != null) {
-            alk.felvesz(this);
         }
 
         this.munkakSzama--;
@@ -191,25 +186,27 @@ public abstract class Jatekos extends Mozgathato {
                     t.hasznal(mentett);
                     szomszed.eltavolit(mentett);
                     this.getTartozkodasiMezo().elfogad(mentett);
-                    mentett.setTartozkodasiMezo(this.getTartozkodasiMezo());
+                    // mentett.setTartozkodasiMezo(this.getTartozkodasiMezo());
+
                 }
             }
         }
     }
 
     /**
-     * A játékos lapátol, ha van lapátja.
+     * A játékos lapátol, ha van lapátja, a lapáttal, ha nincs, akkor lapát nélkül, de úgy csak 1 hóréteget tud eltávolítani.
      */
     public void lapatol() {
         LapatVisitor lv = new LapatVisitor();
         boolean van_lapat = false;
-        for (Targy t : targyak) {
-            if (t.accept(lv)) {
-                t.hasznal(this);
-                van_lapat = true;
-                return;
+            for (Targy t : targyak) {
+                if (t.accept(lv)) {
+                    t.hasznal(this);
+                    van_lapat = true;
+                    return;
+                }
             }
-        }
+
         if (!van_lapat && this.getTartozkodasiMezo().getHotakaro() >= 1)
             this.getTartozkodasiMezo().horetegCsokkent();
     }

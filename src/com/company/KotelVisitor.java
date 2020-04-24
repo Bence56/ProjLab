@@ -1,5 +1,8 @@
 package com.company;
 
+/**
+ * A KotelVisitor visit függvényei közül az az egy ad vissza true értéket, amelyik Kotelet kap paraméterül, az összes többi false-t.
+ */
 public class KotelVisitor implements TargyVisitor{
     public boolean visit(Kotel k){
         return true;

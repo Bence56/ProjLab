@@ -1,5 +1,7 @@
 package com.company;
-
+/**
+ * A LapatVisitor visit függvényei közül az az egy ad vissza true értéket, amelyik Lapátot kap paraméterül, az összes többi false-t.
+ */
 public class LapatVisitor implements TargyVisitor{
     public boolean visit(Kotel k){
         return false;

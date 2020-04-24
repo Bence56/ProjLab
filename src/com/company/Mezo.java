@@ -55,9 +55,17 @@ public abstract class Mezo {
         Tab.tab--;
     }
 
+    /**
+     * Absztrakt függvény, implementációja befogadja a rálépő játékost (attól függően, hogy jégtábla, vagy lyuk az adott mező)
+     * @param j a mezőre lépő játékos
+     */
 
     public abstract void elfogad(Jatekos j);
 
+    /**
+     * A paraméterül kapott jegesmedvét a jégtáblára teszi
+     * @param j a jegesmedve akit rá kell tenni a jégtáblára
+     */
     public void elfogad(Jegesmedve j) { // a Jegesmedve nem esik vízbe csak odalép vhova, mindegy hogy jégtábla vagy lyuk..
         Tab.tab++;
         for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
@@ -74,19 +82,21 @@ public abstract class Mezo {
      * @param j A játékos akit le kell venni
      */
     public void eltavolit(Jatekos j) {
-        Tab.tab++;
-        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
-        System.out.println("Mezo.eltavolit(Jatekos j)");
 
-        Tab.tab--;
+        //alloJatekos.remove(j);
     }
 
+    /**
+     * Eltávolítja a rajta álló jegesmedvét
+     * @param j a jegesmedve akit el kell távolítani
+     */
     public void eltavolit(Jegesmedve j) {
         Tab.tab++;
         for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
         System.out.println("Mezo.eltavolit(Jegesmedve j)");
 
         Tab.tab--;
+        alloJegesmedve=null;
     }
 
     public void utkozik(Jegesmedve j){
