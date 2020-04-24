@@ -111,37 +111,37 @@ public class Parser {
             tmp = mezok.getJSONObject(i).getString("JobbFel");
             if (tmp.length()>1){
                 int cnt=tmp.charAt(1);
-                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+                kontroller.getPalya(i).addSzomszedok(Irany.JobbFel,kontroller.getPalya(cnt));
             }
             tmp = mezok.getJSONObject(i).getString("Jobb");
             if (tmp.length()>1){
                 int cnt=tmp.charAt(1);
-                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+                kontroller.getPalya(i).addSzomszedok(Irany.Jobb,kontroller.getPalya(cnt));
             }
             tmp = mezok.getJSONObject(i).getString("JobbLe");
             if (tmp.length()>1){
                 int cnt=tmp.charAt(1);
-                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+                kontroller.getPalya(i).addSzomszedok(Irany.JobbLe,kontroller.getPalya(cnt));
             }
             tmp = mezok.getJSONObject(i).getString("Le");
             if (tmp.length()>1){
                 int cnt=tmp.charAt(1);
-                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+                kontroller.getPalya(i).addSzomszedok(Irany.Le,kontroller.getPalya(cnt));
             }
             tmp = mezok.getJSONObject(i).getString("BalLe");
             if (tmp.length()>1){
                 int cnt=tmp.charAt(1);
-                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+                kontroller.getPalya(i).addSzomszedok(Irany.BalLe,kontroller.getPalya(cnt));
             }
             tmp = mezok.getJSONObject(i).getString("Bal");
             if (tmp.length()>1){
                 int cnt=tmp.charAt(1);
-                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+                kontroller.getPalya(i).addSzomszedok(Irany.Bal,kontroller.getPalya(cnt));
             }
             tmp = mezok.getJSONObject(i).getString("BalFel");
             if (tmp.length()>1){
                 int cnt=tmp.charAt(1);
-                kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
+                kontroller.getPalya(i).addSzomszedok(Irany.BalFel,kontroller.getPalya(cnt));
             }
         }
     }
