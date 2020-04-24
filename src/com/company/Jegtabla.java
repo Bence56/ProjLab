@@ -61,9 +61,9 @@ public class Jegtabla extends Mezo {
 
         j.setMezo(this);
         this.getAlloJatekos().add(j);
+
         if (getAlloJegesmedve() != null)
             utkozik(getAlloJegesmedve());
-        //   j.meghal();
         if (getTeherbiras() < getAlloJatekos().size()) {
             for (Jatekos j2 : getAlloJatekos())
                 j2.vizbeEsik();

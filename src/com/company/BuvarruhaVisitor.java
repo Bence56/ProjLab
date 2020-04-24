@@ -1,5 +1,8 @@
 package com.company;
 
+/**
+ * A BuvarruhaVisitor visit függvényei közül az az egy ad vissza true értéket, amelyik Búvárruhát kap paraméterül, az összes többi false-t.
+ */
 public class BuvarruhaVisitor implements TargyVisitor{
 
     public BuvarruhaVisitor(){
