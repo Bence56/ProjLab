@@ -8,6 +8,8 @@ public abstract class Jatekos extends Mozgathato {
     private int testho;
     private boolean vedett;
     private ArrayList<Alkatresz> alkatreszek = new ArrayList<>();
+
+
     private ArrayList<Targy> targyak = new ArrayList<>();
     private FulladasiAllapot allapot = FulladasiAllapot.aktiv;
 
@@ -16,6 +18,11 @@ public abstract class Jatekos extends Mozgathato {
         this.kontroller=k;
         this.testho = 5;
     }
+
+    public ArrayList<Targy> getTargyak() {
+        return targyak;
+    }
+
 
     public int getTestho() {
         Tab.tab++;

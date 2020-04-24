@@ -129,11 +129,11 @@ class JatekosTest {
     public void kikaparTest(){
         Jegtabla jegtabla=new Jegtabla(5,0,new Kotel());
         Eszkimo eszkimo=new Eszkimo();
-        ezskimo.setTartozkodasiMezo(jegtabla);
+        eszkimo.setTartozkodasiMezo(jegtabla);
         jegtabla.elfogad(eszkimo);
-        ezskimo.kapar();
+        eszkimo.kapar();
         try{
-            assertNotNull(eszkimo.targyak[0]);
+            assertNotNull(eszkimo.getTargyak());
             assertNull(jegtabla.getTargy());
             System.out.println(ANSI_GREEN + "Siker: A tárgy a játékoshoz került." + ANSI_RESET);
         } catch(AssertionFailedError e){
