@@ -69,21 +69,16 @@ public abstract class Jatekos extends Mozgathato {
      * @param i Az az irány amerre lépni szeretnénk.
      */
     public void lep(Irany i) {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.lep(Irany i)");
-
-        // Lekéri a szomszég mezőt
+        // Lekéri a szomszéd mezőt
         Mezo aktualis = getTartozkodasiMezo();
         Mezo szomszed = aktualis.getSzomszed(i);
-
-        //eltávolítja a játékost
-        aktualis.eltavolit(this);
-
-        //Átadja magát a szomszédos játékosnak
-        szomszed.elfogad(this);
-        munkakSzama--;
-        Tab.tab--;
+        if(szomszed!=null) {
+            //eltávolítja a játékost
+            aktualis.eltavolit(this);
+            //Átadja magát a szomszédos játékosnak
+            szomszed.elfogad(this);
+            munkakSzama--;
+        }
     }
 
     public void jatszik() {
@@ -180,11 +175,7 @@ public abstract class Jatekos extends Mozgathato {
     }
 
     public void alkatreszFelvesz(Alkatresz a) {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.alkatreszFelvesz()");
         alkatreszek.add(a);
-        Tab.tab--;
     }
 
 
@@ -195,10 +186,6 @@ public abstract class Jatekos extends Mozgathato {
      */
 
     public void kihuz(Irany i) {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.kihuz()");
-
         KotelVisitor kv = new KotelVisitor();
         Mezo szomszed = this.getTartozkodasiMezo().getSzomszed(i);
         for (Targy t : targyak) {
