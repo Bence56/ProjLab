@@ -1,0 +1,62 @@
+szereplők, karakterek
+tenger
+jégmező
+jégtábla
+tábla
+stabil jégtábla
+instabil jégtábla
+átfordul
+beszakad
+jégtábla tiszta
+hóval fedett lyuk
+hóvihar
+lyuk
+jégtábla teherbírása
+
+
+
+vízbe esik
+megfullad
+meghal
+fuldokló
+kihül
+
+
+tárgy
+eszköz
+lapát
+kötél
+búvárruha
+élelem
+befagyott tárgy/eszköz
+
+
+
+kiment
+kihúz
+munka
+kör
+lépés
+egy munka felhasználása
+hó eltakarítás
+lapátolás
+kaparás
+
+
+eszkimó
+kutató/sarkkutató
+testhő
+lép/halad
+iglu
+jelzőrakéta
+alkatrész
+pisztoly
+jelzőfény
+patron
+összeszerel
+elsüt
+nyer
+veszít
+
+
+

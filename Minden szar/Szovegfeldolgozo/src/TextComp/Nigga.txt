@@ -1,0 +1,2 @@
+CarBean cb create String Zold String Bentley
+CarBean cn getBrand

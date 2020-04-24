@@ -1,0 +1,53 @@
+játék: A tárgy előírásai szerint elkészítendő szoftver.
+játékos: Egy karaktert irányító, szerepét eljátszó felhasználó.
+pálya: Játéktér összessége, mező, lyuk, tenger, stabil jégmező, instabil jégmező gyűjtőszava.
+szereplők: Karakterek szinonímája, különböző munkákat végezni képes játékbeli szerepkör.
+karakterek: Szereplők szinonímája, különböző munkákat végezni képes játékbeli szerepkör.
+tenger: A pálya széle, a tenger típusú mezőnek hasonló tulajdonságai vannak, mint a lyuk típusú mezőnek.
+jégmező: Pálya összessége. Részei: instabil jégtábla, instabil jégtábla, lyuk.
+jégtábla: A pálya egy-egy mezője, lehet: instabil jégtábla, instabil jégtábla, lyuk. Szinonimája a tábla és a mező.
+tábla: A pálya egy-egy mezője, lehet: instabil jégtábla, instabil jégtábla, lyuk. Szinonimája a jégtábla és a mező.
+mező: A pálya egy-egy mezője, lehet: instabil jégtábla, instabil jégtábla, lyuk. Szinonimája a jégtábla és a mező.
+stabil jégtábla: Olyan mező amelyen a jétkos tartózkodhat és korlátlan számú játékos ott-tartózkodása esetén sem fordul át.
+instabil jégtábla: Olyan mező amely csak bizonyos számú szereplőt bír el. Ha többen próbálnak rálépni beszakad.
+átfordul: Instabil jégtábla tud átfordulni, ha többen tartózkodnának az instabil jégtáblán, mint a teherbírása akkor az átfordul és az ott tartózkodó játékosok fuldokolni kezdenek. Szinonimája a beszakad.
+beszakad: Instabil jégtábla beszakad, ha többen tartózkodnának az instabil jégtáblán, mint a teherbírása akkor az átfordul és az ott tartózkodó játékosok fuldokolni kezdenek. Szinonimája az átfordul.
+tiszta mező: Mező amelyet nem borít hóréteg. 
+hóval fedett mező: Mező amelyet borít hóréteg. 
+hóvihar: Rendszer által generált esemény. Hóvihar elől el lehet bújni az igluban és a hóvihar hó réteget generál a mezőkre. 
+lyuk: Olyan mező melyen nem állhat játékos. Ha rálép egy játékos fulladozni kezd.
+jégtábla teherbírása: Stabil jégtábla jellemzője, legfeljebb ennyi játékos állhat a mezőn amíg az biztosan nem szakad be.
+megfullad: Ha játékos alatt instabil jégtábla átfordul és nem húzza ki  másik játékos, akkor megfullad és kiesik a játékból (nem játszhat tovább). Szinonima: meghal.
+meghal: Ha játékos alatt instabil jégtábla átfordul és nem húzza ki  másik játékos, akkor megfullad és kiesik a játékból (nem játszhat tovább). Szinonima: megfullad.
+fuldokló: Játékos fuldokol ha átfordul alatta egy instabil jégtábla. Egy játékos kihúzhatja.
+játékos kihül: Ha egy játékos elveszti az összes testhőjét. 
+tárgy: Dolgok melyekkel nem lehet munkát végezni. Pl.: pisztoly részei.
+eszköz: Dolgok melyekkel munkát lehet végezni. Pl.: kötél, lapát.
+befagyott tárgy: Tárgyak melyeket ki kell kaparni a mezőből és azután lesz a játékos tulajdonában.
+lapát: Eszköz amit arra lehet használni, hogy csökkentsük egy mezőn a hóréteget.
+kötél: Eszköz amivel ki lehet menteni a fuldokló társunkat.
+búvárruha: Eszköz mellyel túl lehet élni a fuldokolást. 
+élelem: Tárgy, amit ha a játékos használ megnöveli a testhőmérsékletét.
+befagyott tárgy/eszköz: Eszköz/tárgy ami be van fagyva és azok kikaparása után magáévá tudja tenni.
+kiment: Kihúz szinonimája. Egy fuldokló játékost ki lehet menteni amíg 0-ra nem csökken a testhőmérséklete. 
+kihúz: Kiment szinonimája. Egy fuldokló játékost ki lehet húzni kötéllel amíg 0-ra nem csökken a testhőmérséklete. 
+munka: Munkának minősül minden cselekvés amit a játékos egy körben végez pl.: ás, kapar, lép, épít, kihúz.
+kör: A négy egység munka elvégzésének egységbe foglaló neve.
+lépés: Egy játékos lép amikor pozíciót vált egy szomszédos mezőre.
+egy munka felhasználása: Amikor egy játékos ás, kapar, lép, épít, kihúz st. akkor felhasznál egy munkát,
+hó eltakarítás: Egy játékos havat takarít el, amikor kézzel vagy lapáttal csökkenti a hóréteget lapát meglétének függvényében 1-el vagy 2-vel. 
+lapátolás: Egy játékos lapátol, ha van lapátja és csökkenti a hóréteget 2-vel.
+kaparás: Egy játékos kapar amikor nincs hóréteg a mezőn és magáévá tesz egy tárgyat.
+eszkimó: Karatker típus. Iglút tud építeni és alapból 5 testhőmérséklete van. 
+kutató/sarkkutató: Karatker típus. Meg tudja mérni egy jégtábla teherbírását.
+testhő: Karaktereket jellemző tulajdonság ami csökken ha beszakad alatta a jégtábla és növekszik ha ételt használ a játékos.
+iglu: Eszkimó tudja építeni, ha ebben tartózkodik játékos át tudja vészelni a hóvihart.
+jelzőrakéta: Részei a pisztoly, jelzőfény és patron. A játék célja megépíteni.
+alkatrész: A jelzőrakéta részei. Bele vannak fagyva egy-egy jégtáblába.
+pisztoly: A jelzőrakéta egy részei.
+jelzőfény: A jelzőrakéta egy részei.
+patron: A jelzőrakéta egy részei.
+összeszerel: Egy munkát igénylő cselekvés, ha rendelkezik a csapat az összes alkatrésszel. Ezt elvégezve a csapatnak már csak el kell sütni a jelzőrakétát és nyer.
+elsüt: Cselekvés, ha a csapat elsüti a rakétát megnyeri a játékot.
+nyer: Ha a csapat megtalálja minden alkatrészét a jelzőrakétának és összeszereli majd elsüti a csapat megnyeri a játékot.
+veszít: A csapat veszít ha nem nyer.
