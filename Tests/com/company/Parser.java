@@ -2,6 +2,8 @@ package com.company;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -75,6 +77,13 @@ public class Parser {
 
     public ArrayList<Parancs> getLista() {
         return lista;
+    }
+
+    public void palyaParse(){
+        String jsonString = new String(Files.readAllBytes(Paths.get("Resources/palya.json")));
+        JSONObject obj = new JSONObject(jsonString);
+        JSONObject palya = obj.getJSONObject("palya");
+        JSONArray mezok = palya.getJSONArray("mezok");
     }
 
     public void printAllCommand() {
