@@ -23,4 +23,8 @@ public abstract class Mozgathato {
     public void setTartozkodasiMezo(Mezo tartozkodasiMezo) {
         this.tartozkodasiMezo = tartozkodasiMezo;
     }
+
+    // public void setTartozkodasiMezo(Mezo tartozkodasiMezo) {
+       // this.tartozkodasiMezo = tartozkodasiMezo;
+   // }
 }

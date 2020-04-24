@@ -11,9 +11,9 @@ public class Main {
         Kontroller kont = new Kontroller();
         Mezo aktualisTabla = new Jegtabla(4,4, null);
         Jatekos e = new Eszkimo(kont);
-        e.setTartozkodasiMezo(aktualisTabla);
+        e.setMezo(aktualisTabla);
         Jatekos k = new Kutato(kont);
-        k.setTartozkodasiMezo(aktualisTabla);
+        k.setMezo(aktualisTabla);
         kont.getJatekosok().add(e);
         kont.getJatekosok().add(k);
 
@@ -144,7 +144,7 @@ public class Main {
         Jatekos j = new Eszkimo(kontr);
         Mezo m = new Jegtabla(4, 4, new Lapat());
 
-        j.setTartozkodasiMezo(m);
+        j.setMezo(m);
         j.kapar();
 
     }
@@ -203,7 +203,7 @@ public class Main {
         int teherbiras = 5;
         int hotakaro = 9;
         Mezo m = new Jegtabla(teherbiras, hotakaro, t);
-        j.setTartozkodasiMezo(m);
+        j.setMezo(m);
 
         System.out.println(m.getHotakaro());
         j.kapar();
@@ -230,9 +230,9 @@ public class Main {
 
         Mezo m = new Jegtabla(4, 4, null);
         Jegtabla szomszed = new Jegtabla(2, 2, null);
-        j.setTartozkodasiMezo(m);
+        j.setMezo(m);
         m.szomszedok.put(Irany.Le, szomszed);
-        medve.setTartozkodasiMezo(szomszed);
+        medve.setMezo(szomszed);
         szomszed.setAlloJegesmedve(medve);
 
         j.lep(Irany.Le);
@@ -252,9 +252,9 @@ public class Main {
         m.szomszedok.put(Irany.Le, szomszed);
 
         szomszed.getAlloJatekos().add(j);
-        j.setTartozkodasiMezo(szomszed);
+        j.setMezo(szomszed);
 
-        medve.setTartozkodasiMezo(m);
+        medve.setMezo(m);
         m.setAlloJegesmedve(medve);
 
         medve.lep(Irany.Le);
@@ -273,9 +273,9 @@ public class Main {
         m.szomszedok.put(Irany.Le, szomszed);
 
         szomszed.getAlloJatekos().add(j);
-        j.setTartozkodasiMezo(szomszed);
+        j.setMezo(szomszed);
 
-        medve.setTartozkodasiMezo(m);
+        medve.setMezo(m);
         m.setAlloJegesmedve(medve);
 
         medve.lep(Irany.Le);
