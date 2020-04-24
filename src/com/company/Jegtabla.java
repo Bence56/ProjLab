@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Jegtabla extends Mezo{
 
-    private ArrayList<Alkatresz> alkatreszek;
+    private ArrayList<Alkatresz> alkatreszek = new ArrayList<>();
     private Alkatresz fagyottAlkatresz;
     private Targy fagyotttargy;
     private int satorMiotaVan;

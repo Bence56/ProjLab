@@ -13,9 +13,12 @@ public abstract class Jatekos extends Mozgathato {
     private ArrayList<Targy> targyak = new ArrayList<>();
     private FulladasiAllapot allapot = FulladasiAllapot.aktiv;
 
-    Jatekos(){this.testho=testho;}
-    Jatekos(Kontroller k, int testho){
-        this.kontroller=k;
+    Jatekos() {
+        this.testho = testho;
+    }
+
+    Jatekos(Kontroller k, int testho) {
+        this.kontroller = k;
         this.testho = 5;
     }
 
@@ -71,7 +74,7 @@ public abstract class Jatekos extends Mozgathato {
         System.out.println("Jatekos.lep(Irany i)");
 
         // Lekéri a szomszég mezőt
-        Mezo aktualis=getTartozkodasiMezo();
+        Mezo aktualis = getTartozkodasiMezo();
         Mezo szomszed = aktualis.getSzomszed(i);
 
         //eltávolítja a játékost
@@ -116,15 +119,14 @@ public abstract class Jatekos extends Mozgathato {
         // Ezekből csak egy futhat le mert egy mezőn vagy alkatrész vagy tárgy van
         Mezo m = this.getTartozkodasiMezo();
         Targy targy = m.getTargy();
-        if (targy != null)
-        {
+        if (targy != null) {
             targy.felvesz(this);
             m.setFagyottTargy(null);
         }
 
         Alkatresz alk = this.getTartozkodasiMezo().getFagyottAlkatresz();
-        if(alk != null){
-                alk.felvesz(this);
+        if (alk != null) {
+            alk.felvesz(this);
         }
 
         this.munkakSzama--;
@@ -221,15 +223,15 @@ public abstract class Jatekos extends Mozgathato {
         for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
         System.out.println("Jatekos.lapatol()");
         LapatVisitor lv = new LapatVisitor();
-        boolean van_lapat=false;
-        for (Targy t: targyak) {
-            if(t.accept(lv)){
+        boolean van_lapat = false;
+        for (Targy t : targyak) {
+            if (t.accept(lv)) {
                 t.hasznal(this);
-                van_lapat=true;
+                van_lapat = true;
                 return;
             }
         }
-        if(!van_lapat && this.getTartozkodasiMezo().getHotakaro()>=1)
+        if (!van_lapat && this.getTartozkodasiMezo().getHotakaro() >= 1)
             this.getTartozkodasiMezo().horetegCsokkent();
         Tab.tab--;
     }
@@ -275,7 +277,7 @@ public abstract class Jatekos extends Mozgathato {
         System.out.println("Jatekos.osszeszerel()");
 
         ArrayList<Alkatresz> alkatreszek = this.getTartozkodasiMezo().getAlkatreszek();
-        if(alkatreszek != null){
+        if (alkatreszek != null) {
             if (alkatreszek.size() == 3) {
                 this.elsut();
             }
@@ -302,7 +304,7 @@ public abstract class Jatekos extends Mozgathato {
     }
 
     public void munkaLevon(int i) {
-        munkakSzama = munkakSzama-i;
+        munkakSzama = munkakSzama - i;
     }
 
     /**
@@ -338,11 +340,18 @@ public abstract class Jatekos extends Mozgathato {
     /**
      * az eszkimó valósítja meg
      */
-    public void epit(){};
+    public void epit() {
+    }
+
+    ;
 
     /**
      * a kutató valósíja meg
+     *
      * @param i Az adott irányban vizsgálja a mezőt
      */
-    public void vizsgal(Irany i){};
+    public void vizsgal(Irany i) {
+    }
+
+    ;
 }

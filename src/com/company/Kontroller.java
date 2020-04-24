@@ -9,6 +9,7 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
     private Jegesmedve jegesmedve=new Jegesmedve();
 
     boolean aktiv = true;
+    boolean nyert = false;
 
     /**
      * A játék menete, minden játékos köre előtt detektálás van, utána pedig vihar
@@ -108,8 +109,10 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
 
         this.aktiv = false;
 
-        if (nyer)
+        if (nyer) {
             System.out.println("NYERTEL");
+            nyert = true;
+        }
         else
             System.out.println("GAME OVER");
         Tab.tab--;
