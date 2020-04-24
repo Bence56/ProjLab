@@ -15,7 +15,7 @@ public class Kutato extends Jatekos {
     @Override
     public int vizsgal(Irany i){
             Mezo m=this.getTartozkodasiMezo().getSzomszed(i);
-            m.getTeherbiras();
-            Tab.tab--;
+            return m.getTeherbiras();
+
     }
 }

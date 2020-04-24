@@ -321,5 +321,5 @@ public abstract class Jatekos extends Mozgathato {
         return 0;
     }
 
-    ;
+
 }
