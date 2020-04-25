@@ -170,7 +170,7 @@ class JatekosTest {
         eszkimo.kapar();
         try{
             assertEquals(1, eszkimo.getAlkatreszek().size());
-            assertNull(jegtabla.getTargy());
+            assertNull(jegtabla.getFagyottAlkatresz());
             System.out.println(ANSI_GREEN + "Siker: Az alkatrész a játékoshoz került." + ANSI_RESET);
         } catch(AssertionFailedError e){
             System.out.println(ANSI_RED + "Fail: Nem működik az alkatrész felvétel" +ANSI_RESET);

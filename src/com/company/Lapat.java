@@ -24,9 +24,6 @@ public class Lapat extends Targy{
      */
     @Override
     public void hasznal(Jatekos j){
-        Tab.tab++;
-        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
-        System.out.println("Lapat.as()");
         int horeteg=j.getTartozkodasiMezo().getHotakaro();
         if (horeteg>=2) {
             j.getTartozkodasiMezo().horetegCsokkent();
@@ -34,8 +31,8 @@ public class Lapat extends Targy{
         }
             else if (horeteg==1)
                 j.getTartozkodasiMezo().horetegCsokkent();
+            j.munkaLevon(1);
 
-        Tab.tab--;
     }
 
     /**

@@ -119,7 +119,6 @@ public abstract class Jatekos extends Mozgathato {
             alk.felvesz(this);
         }
 
-
         this.munkakSzama--;
     }
 
@@ -247,6 +246,7 @@ public abstract class Jatekos extends Mozgathato {
         Mezo m = this.getTartozkodasiMezo();
         m.setFagyottTargy(null);
         m.setFagyottAlk(null);
+        m.setAlkatreszek(null, null, null);
         if (!vedett) {
             allapot = FulladasiAllapot.fuldoklik;
             munkakSzama = 0;
