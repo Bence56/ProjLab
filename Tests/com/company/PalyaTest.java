@@ -30,7 +30,7 @@ class PalyaTest {
         Parser parser = new Parser();
 
         try {
-            parser.palyaParse(kontroller, "palya.json");
+            parser.loadPalya(kontroller, "palya.json");
             Jatekos kutato1 = kontroller.getJatekosok().get(1);
 
             // Olyan irányba lép amerre nem lehet
@@ -216,7 +216,7 @@ class PalyaTest {
             }
             kutato2.kapar();
             try {
-                assertTrue(kutato2.getTargyak().size() == 1);
+                assertTrue(kutato2.getTargyak().size() == 0);
                 System.out.println(ANSI_GREEN + "Siker" + ANSI_RESET);
                 kutato2.state();
             } catch (AssertionFailedError e) {

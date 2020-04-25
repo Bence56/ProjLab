@@ -19,6 +19,9 @@ class JatekosTest {
         this.konzol = true;
     }
 
+    /**
+     * Az eszkimó iglut épít a mezőre, ellenőrzi megjelenik e az iglu.
+     */
     @Test
     public void epit() {
         Kontroller k=new Kontroller();
@@ -31,19 +34,24 @@ class JatekosTest {
         try {
             assertTrue(j.getTartozkodasiMezo().isIglu());
             System.out.println(ANSI_GREEN + "Siker" + ANSI_RESET);
+            m.state();
         } catch (AssertionFailedError e) {
             System.out.println(ANSI_RED + "Fail: Nem épül iglu" + ANSI_RESET);
         }
     }
 
+    /**
+     *
+     * @param irany
+     */
     @ParameterizedTest
-    @ValueSource(strings = {"jobb", "bal", "fel", "le" })
-    public void uresreLep(String irany) {
+    @ValueSource(strings = {"Jobb", "Bal", "Fel", "Le", "JobbFel", "JobbLe", "BalFel", "BalLe" })
+    public void lep(String irany) {
         Kontroller k=new Kontroller();
         Irany i = Irany.StringToIrany(irany);
         Jatekos j = new Eszkimo(k);
-        Mezo m = new Jegtabla(4, 4, null);
-        Mezo m2 = new Jegtabla(4, 4, null);
+        Mezo m = new Jegtabla("kezdomezo", 4, 4, null);
+        Mezo m2 = new Jegtabla("szomszed " + irany, 4, 4, null);
         m.szomszedok.put(i, m2);
         j.setTartozkodasiMezo(m);
         j.lep(i);
@@ -53,15 +61,45 @@ class JatekosTest {
             System.out.println(ANSI_GREEN + "Siker" + ANSI_RESET);
             assertTrue(m.getAlloJatekos().isEmpty());
             System.out.println(ANSI_GREEN + "Siker" + ANSI_RESET);
+            j.state();
         } catch (AssertionFailedError e) {
             System.out.println(ANSI_RED + "Fail: Nem lépett át a játékos" + ANSI_RESET);
         }
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"ASD", "ADS"})
-    public void test1(String jatek){
+    @Test
+    public void lyukraLep() {
+        String iranyString = "Fel";
+        Irany irany = Irany.StringToIrany(iranyString);
+        Kontroller k=new Kontroller();
+        Jatekos j = new Eszkimo(k);
+        j.setAllapot(FulladasiAllapot.aktiv);
+        Mezo m = new Jegtabla("kezdomezo", 4, 4, null);
+        Mezo m2 = new Lyuk("szomszed " + iranyString, 0);
+        m.szomszedok.put(irany, m2);
+        j.setTartozkodasiMezo(m);
 
+        j.lep(irany);
+        try {
+            assertEquals(j.getAllapot(), FulladasiAllapot.fuldoklik);
+            System.out.println(ANSI_GREEN + "Siker" + ANSI_RESET);
+            j.state();
+        } catch (AssertionFailedError e) {
+            System.out.println(ANSI_RED + "Fail: Nem fuldoklik a játékos" + ANSI_RESET);
+        }
+
+        //Visszaállítjuk
+        j.setMezo(m);
+        j.setAllapot(FulladasiAllapot.aktiv);
+        j.buvarruhaFelvesz(new Buvarruha());
+        j.lep(irany);
+        try {
+            assertEquals(j.getAllapot(), FulladasiAllapot.aktiv);
+            System.out.println(ANSI_GREEN + "Siker" + ANSI_RESET);
+            j.state();
+        } catch (AssertionFailedError e) {
+            System.out.println(ANSI_RED + "Fail: Fuldoklik a játékos" + ANSI_RESET);
+        }
     }
 
 

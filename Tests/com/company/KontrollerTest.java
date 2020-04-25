@@ -2,8 +2,6 @@ package com.company;
 
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.opentest4j.AssertionFailedError;
 
 import java.io.IOException;
@@ -100,7 +98,7 @@ class KontrollerTest {
         Kontroller kontroller = new Kontroller();
         Parser parser = new Parser();
         try {
-            parser.palyaParse(kontroller, "palya.json");
+            parser.loadPalya(kontroller, "palya.json");
             System.out.println("ADAS");
 
 

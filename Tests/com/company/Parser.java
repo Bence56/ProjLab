@@ -83,7 +83,7 @@ public class Parser {
         return lista;
     }
 
-    public void palyaParse(Kontroller kontroller, String palyaPath) throws IOException {
+    public void loadPalya(Kontroller kontroller, String palyaPath) throws IOException {
         String jsonString = new String(Files.readAllBytes(Paths.get("Resources/" +palyaPath)));
         JSONObject obj = new JSONObject(jsonString);
         JSONObject palya = obj.getJSONObject("palya");
