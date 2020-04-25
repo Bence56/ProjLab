@@ -64,7 +64,7 @@ class KontrollerTest {
         try {
             boolean jo = true;
             for (Jatekos j : k.getJatekosok()) {
-                if (!(j.getTestho() > 5)) jo = false;
+                if (!(j.getTestho() <= 5)) jo = false;
             }
             assertTrue(jo);
             System.out.println(ANSI_GREEN + "Siker, minden jatekos meghult" + ANSI_RESET);
