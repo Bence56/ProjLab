@@ -13,6 +13,10 @@ public class Jegesmedve extends Mozgathato {
         System.out.println("Tartozkodasi mezo: " + id);
     }
 
+    /**
+     * Random számot generál és ezáltal véletlen irányba lépteti a jegesmedvét.
+     */
+
     @Override
     public void jatszik() {  // random irányba meghí@ja a lép fv-t
         Random rand = new Random();
@@ -46,6 +50,11 @@ public class Jegesmedve extends Mozgathato {
         }
     }
 
+    /**
+     * A jegesmedve a paraméterként kapott irányba lép. Ha olyan irányba lépne, amerre nincs szomszéd,
+     * a jatszik() függvény hívásával új random irányba lépteti a medvét.
+     * @param i az irány amerre a jegesmedve lépjen
+     */
 
             @Override
     public void lep(Irany i) { // miután a mezőre lépett csekkolja, hogy van-e iglu, ha nincs, akkor öl.

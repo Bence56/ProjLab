@@ -1,5 +1,7 @@
 package com.company;
-
+/**
+ * Az AlkatreszVisitor visit függvényei közül az az egy ad vissza true értéket, amelyik Alkatrészt kap paraméterül, az összes többi false-t.
+ */
 public class AlkatreszVisitor implements TargyVisitor{
     public boolean visit(Kotel k){
         return false;
@@ -16,11 +18,7 @@ public class AlkatreszVisitor implements TargyVisitor{
     public boolean visit(Alkatresz a){
         return true;
     }
-
-    @Override
-    public boolean visit(Sator s) {
-        return false;
-    }
+    public boolean visit(Sator s) { return false; }
 
 
 }

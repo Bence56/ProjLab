@@ -8,13 +8,8 @@ public class Jegtabla extends Mezo {
     private Alkatresz fagyottAlkatresz;
     private Targy fagyotttargy;
     private int satorMiotaVan;
-    private boolean iglu;  //nem jo a mezoben is van iglu attributum.
+    private boolean iglu;
 
-    // Jegtabla(){}
-    // A létrehozáshoz majd kell hogy tárgyakat lehessen tenni a jégtáblára
-    // Jegtabla(Targy targy){
-    //   this.fagyotttargy = targy;
-    // }
     public Jegtabla(int teherbiras, int hotakaro, Targy targy) {
         super(teherbiras, hotakaro);
         this.fagyotttargy = targy;

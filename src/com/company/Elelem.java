@@ -6,7 +6,7 @@ public class Elelem extends Targy{
 
     /**
      * Mivel az élelmet már a felvételkor "használjuk", ezért az accept függvényre nincs szükség, így false visszatérési értékkel implementáljuk.
-     * @param t a paraméterül kapott visitor
+     * @param v a paraméterül kapott visitor
      * @return
      */
     @Override
@@ -21,7 +21,7 @@ public class Elelem extends Targy{
         jatekos.elelemFelvesz(this);
     }
     /**
-     * Üresen implementáljuk, mert az élelmet már a felvételkor "felveszi" a játékos.
+     * Üresen implementáljuk, mert az élelem már a felvétel során megnöveli a játékos testhőjét.
      * @param j
      */
     @Override
