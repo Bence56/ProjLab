@@ -67,10 +67,10 @@ class KontrollerTest {
                 if (!(j.getTestho() <= 5)) jo = false;
             }
             assertTrue(jo);
-            System.out.println(ANSI_GREEN + "Siker, minden jatekos meghult" + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "Siker, minden jatekos meghűlt" + ANSI_RESET);
         }
         catch(AssertionFailedError e){
-            System.out.println(ANSI_RED + "Fail: Nem minden jatekos hult ki" + ANSI_RESET);
+            System.out.println(ANSI_RED + "Fail: Nem minden jatekos hűlt ki" + ANSI_RESET);
         }
     }
 
