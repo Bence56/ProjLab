@@ -16,5 +16,7 @@ public class Eszkimo extends Jatekos{
     @Override
     public void epit(){
         this.getTartozkodasiMezo().setIglu(true);
+        if (this.getTartozkodasiMezo().getTeherbiras() !=0)
+            this.munkaLevon(1);
     }
 }
