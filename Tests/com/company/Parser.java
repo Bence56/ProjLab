@@ -135,6 +135,12 @@ public class Parser {
                mezo.setAlloJegesmedve(jm);
                kontroller.setJegesmedve(jm);
             }
+            //Ha van alkatrész hozzáadja az alkatrészhez
+            boolean alkatresz = mezok.getJSONObject(i).getBoolean("alkatresz");
+            if(alkatresz){
+                Alkatresz a = new Alkatresz();
+                mezo.alkatreszNovel(a);
+            }
 
             //Hozzáadja a mezőt a kontrollerhez
             kontroller.addMezo(mezo);
@@ -183,6 +189,7 @@ public class Parser {
                 kontroller.getPalya(i).addSzomszedok(Irany.BalFel,kontroller.getPalya(cnt));
             }
         }
+        System.out.println("a");
     }
 
     public void printAllCommand() {
