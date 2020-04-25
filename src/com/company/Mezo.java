@@ -95,7 +95,8 @@ public abstract class Mezo {
      */
     public void eltavolit(Jatekos j) {
 
-        //alloJatekos.remove(j);
+        alloJatekos.remove(j);
+        System.out.println(alloJatekos.size());
     }
 
     /**

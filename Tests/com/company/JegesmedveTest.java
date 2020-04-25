@@ -18,8 +18,8 @@ class JegesmedveTest {
     public void lep() {
         System.out.println("Jegesmedve lép és nem öl(Nincs tag)");
         Jegesmedve jegesmedve=new Jegesmedve();
-        Eszkimo e1=new Eszkimo();
-        Eszkimo e2=new Eszkimo();
+        Eszkimo e1=new Eszkimo(new Kontroller());
+        Eszkimo e2=new Eszkimo(new Kontroller());
         Jegtabla j1=new Jegtabla(4,5,new Kotel());
         Jegtabla j2=new Jegtabla(4,5,new Kotel());
         Jegtabla j3=new Jegtabla(4,5,new Kotel());

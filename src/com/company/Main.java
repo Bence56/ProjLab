@@ -92,7 +92,7 @@ public class Main {
                     Kontroller kontroller = new Kontroller();
                     Parser parser = new Parser();
                     try {
-                        parser.palyaParse(kontroller);
+                        parser.palyaParse(kontroller, "palya.json");
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
