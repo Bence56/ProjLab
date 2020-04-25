@@ -1,6 +1,9 @@
 package com.company;
 
 public class Buvarruha extends Targy{
+    public Buvarruha() {
+    }
+
     /**
      * Mivel a búvárruhát már a felvételkor "használjuk", ezért az accept függvényre nincs szükség, így false visszatérési értékkel implementáljuk.
      * @param t a paraméterül kapott visitor

@@ -1,6 +1,9 @@
 package com.company;
 
 public class Elelem extends Targy{
+    public Elelem() {
+    }
+
     /**
      * Mivel az élelmet már a felvételkor "használjuk", ezért az accept függvényre nincs szükség, így false visszatérési értékkel implementáljuk.
      * @param t a paraméterül kapott visitor

@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -86,6 +87,15 @@ public class Main {
                     Tester tester = new Tester();
                     tester.testfromfile("Resources/vihartest.txt");
                     break;
+                }
+                case 19:{
+                    Kontroller kontroller = new Kontroller();
+                    Parser parser = new Parser();
+                    try {
+                        parser.palyaParse(kontroller);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
                 }
             }
         }

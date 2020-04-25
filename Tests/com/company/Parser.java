@@ -5,9 +5,11 @@ import org.json.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.Executor;
 
 public class Parser {
 
@@ -86,61 +88,98 @@ public class Parser {
         JSONObject obj = new JSONObject(jsonString);
         JSONObject palya = obj.getJSONObject("palya");
         JSONArray mezok = palya.getJSONArray("mezok");
+
+        // Végigmegy a JSON mezőin és betölti őket a kontrollerbe
         for (int i = 0; i < mezok.length(); i++)
         {
             String id = mezok.getJSONObject(i).getString("id");
             Mezo mezo;
             if(id.charAt(0) == 'J'){
                 String targyString = mezok.getJSONObject(i).getString("targy");
-                Targy targy =
-                        // 0-3 között random teherbírás
-                mezo = new Jegtabla((int)(Math.random() * (3+1)),0,targy);
-                kontroller.addMezo(mezo);
+                Targy targy = CreateTargy(targyString);
+                // 0-3 között random teherbírás
+                mezo = new Jegtabla(id, (int)(Math.random() * (3+1)),0,targy);
             }
             else if (id.charAt(0) == 'Y'){
-                mezo = new Lyuk(0);
-                kontroller.addMezo(mezo);
+                mezo = new Lyuk(id,0);
             }
+            //Ez nem kéne lefusson
+            else {
+                mezo = null;
+                System.out.println("Ez nem kellett volna lefusson\nA mező null ra lett beállítva\n" +
+                                    "Valószínűleg nem jó a" + i +".mező id-je");
+            }
+
+            // Ha van kutató a mezőn hozzáadjuk
+            int kutatoNum = mezok.getJSONObject(i).getInt("kutato");
+            for(int j = 0; j < kutatoNum; j++){
+                Jatekos jatekos = new Kutato(kontroller);
+                jatekos.setMezo(mezo);
+                mezo.addAlloJatekos(jatekos);
+                kontroller.addJatekos(jatekos);
+            }
+            // Ha van eszkimó a mezőn hozzáadjuk
+            int eszkimoNum = mezok.getJSONObject(i).getInt("eszkimo");
+            for(int j = 0; j < eszkimoNum; j++){
+                Jatekos jatekos = new Eszkimo(kontroller);
+                jatekos.setMezo(mezo);
+                mezo.addAlloJatekos(jatekos);
+                kontroller.addJatekos(jatekos);
+            }
+
+            //Ha van a mezőn medve hozzáadjuk
+            boolean medve = mezok.getJSONObject(i).getBoolean("jegesmedve");
+            if(medve){
+               Jegesmedve jm = new Jegesmedve();
+               jm.setMezo(mezo);
+               mezo.setAlloJegesmedve(jm);
+               kontroller.setJegesmedve(jm);
+            }
+
+            //Hozzáadja a mezőt a kontrollerhez
+            kontroller.addMezo(mezo);
         }
-        for (int i=0;i<mezok.length();i++){
+
+        for (int i = 0; i < mezok.length(); i++){
+
             String tmp = mezok.getJSONObject(i).getString("Fel");
             if (tmp.length()>1){
-                int cnt=tmp.charAt(1);
+                int cnt= Integer.parseInt(tmp.substring(1));
                 kontroller.getPalya(i).addSzomszedok(Irany.Fel,kontroller.getPalya(cnt));
             }
             tmp = mezok.getJSONObject(i).getString("JobbFel");
             if (tmp.length()>1){
-                int cnt=tmp.charAt(1);
+                int cnt= Integer.parseInt(tmp.substring(1));
                 kontroller.getPalya(i).addSzomszedok(Irany.JobbFel,kontroller.getPalya(cnt));
             }
             tmp = mezok.getJSONObject(i).getString("Jobb");
             if (tmp.length()>1){
-                int cnt=tmp.charAt(1);
+                int cnt= Integer.parseInt(tmp.substring(1));
                 kontroller.getPalya(i).addSzomszedok(Irany.Jobb,kontroller.getPalya(cnt));
             }
             tmp = mezok.getJSONObject(i).getString("JobbLe");
             if (tmp.length()>1){
-                int cnt=tmp.charAt(1);
+                int cnt= Integer.parseInt(tmp.substring(1));
                 kontroller.getPalya(i).addSzomszedok(Irany.JobbLe,kontroller.getPalya(cnt));
             }
             tmp = mezok.getJSONObject(i).getString("Le");
             if (tmp.length()>1){
-                int cnt=tmp.charAt(1);
+                int cnt= Integer.parseInt(tmp.substring(1));
                 kontroller.getPalya(i).addSzomszedok(Irany.Le,kontroller.getPalya(cnt));
             }
             tmp = mezok.getJSONObject(i).getString("BalLe");
             if (tmp.length()>1){
-                int cnt=tmp.charAt(1);
+                int cnt= Integer.parseInt(tmp.substring(1));
                 kontroller.getPalya(i).addSzomszedok(Irany.BalLe,kontroller.getPalya(cnt));
             }
             tmp = mezok.getJSONObject(i).getString("Bal");
             if (tmp.length()>1){
-                int cnt=tmp.charAt(1);
+                int cnt= Integer.parseInt(tmp.substring(1));
                 kontroller.getPalya(i).addSzomszedok(Irany.Bal,kontroller.getPalya(cnt));
             }
             tmp = mezok.getJSONObject(i).getString("BalFel");
             if (tmp.length()>1){
-                int cnt=tmp.charAt(1);
+                int cnt= Integer.parseInt(tmp.substring(1));
                 kontroller.getPalya(i).addSzomszedok(Irany.BalFel,kontroller.getPalya(cnt));
             }
         }
@@ -160,6 +199,39 @@ public class Parser {
         }
     }
 
+    /**
+     * Létrehoz egy tárgyat a JSON-ből beolvasott TargyString-ből
+     * A pálya beolvasásánál van hasznosítva
+     * @param targyString A táegy típusa pl: Lapat, Sator...
+     * @return A Létrehoztott tárgyat adja vissza
+     */
+    private Targy CreateTargy(String targyString) {
 
+        if(targyString.equals("-")){
+            return null;
+        }
 
+        Executer executer = new Executer();
+        //com.company.valamiTargy
+        String targyClass = executer.convertString(targyString);
+
+        //Üres osztály tömb, mert nincs paramétere ezeknek a konstruktoroknak
+        Class<?>[] classes = new Class<?>[]{};
+        try {
+            Targy t = executer.construct(targyString, classes);
+            return t;
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

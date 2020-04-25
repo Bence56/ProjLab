@@ -14,12 +14,12 @@ public abstract class Jatekos extends Mozgathato {
     private FulladasiAllapot allapot = FulladasiAllapot.aktiv;
 
     Jatekos() {
-        this.testho = testho;
+        this.testho = 5;
     }
 
     Jatekos(Kontroller k, int testho) {
         this.kontroller = k;
-        this.testho = 5;
+        this.testho = testho;
     }
 
     /**
@@ -70,7 +70,7 @@ public abstract class Jatekos extends Mozgathato {
         // Lekéri a szomszéd mezőt
         Mezo aktualis = getTartozkodasiMezo();
         Mezo szomszed = aktualis.getSzomszed(i);
-        if(szomszed!=null) {
+        if (szomszed != null) {
             //eltávolítja a játékost
             aktualis.eltavolit(this);
             //Átadja magát a szomszédos játékosnak
@@ -199,13 +199,13 @@ public abstract class Jatekos extends Mozgathato {
     public void lapatol() {
         LapatVisitor lv = new LapatVisitor();
         boolean van_lapat = false;
-            for (Targy t : targyak) {
-                if (t.accept(lv)) {
-                    t.hasznal(this);
-                    van_lapat = true;
-                    return;
-                }
+        for (Targy t : targyak) {
+            if (t.accept(lv)) {
+                t.hasznal(this);
+                van_lapat = true;
+                return;
             }
+        }
 
         if (!van_lapat && this.getTartozkodasiMezo().getHotakaro() >= 1)
             this.getTartozkodasiMezo().horetegCsokkent();
@@ -213,7 +213,6 @@ public abstract class Jatekos extends Mozgathato {
 
     /**
      * A játékos sátrat épít, ha van neki sátra.
-     *
      */
     public void satratEpit() {
         SatorVisitor sv = new SatorVisitor();
@@ -260,7 +259,7 @@ public abstract class Jatekos extends Mozgathato {
      * Lerak egy alkatrészt a mezőre hogy azt majd el lehessen sütni
      */
     public void lerak() {
-            if (alkatreszek.size() > 0) {
+        if (alkatreszek.size() > 0) {
             Alkatresz alk = this.alkatreszek.remove(0);
             this.getTartozkodasiMezo().alkatreszNovel(alk);
         }
@@ -305,7 +304,6 @@ public abstract class Jatekos extends Mozgathato {
      */
     public void epit() {
     }
-
 
 
     /**

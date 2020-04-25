@@ -1,6 +1,9 @@
 package com.company;
 
 public class Lapat extends Targy{
+    public Lapat() {
+    }
+
     /**
      * A függvény a kapott TargyVisitor visit(this) függvényét meghívja.
      * @param v a TargyVisitor, akinek a visit függvényét meghívja.

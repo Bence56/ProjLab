@@ -15,13 +15,21 @@ public class Jegtabla extends Mezo {
     // Jegtabla(Targy targy){
     //   this.fagyotttargy = targy;
     // }
-    Jegtabla(int teherbiras, int hotakaro, Targy targy) {
+    public Jegtabla(int teherbiras, int hotakaro, Targy targy) {
         super(teherbiras, hotakaro);
         this.fagyotttargy = targy;
         this.satorMiotaVan = 0;
         this.iglu = false;
     }
-    Jegtabla(int teherbiras, int hotakaro, Targy targy,Alkatresz alkatresz) {
+
+    public Jegtabla(String id, int teherbiras, int hotakaro, Targy targy) {
+        super(id, teherbiras, hotakaro);
+        this.fagyotttargy = targy;
+        this.satorMiotaVan = 0;
+        this.iglu = false;
+    }
+
+    public Jegtabla(int teherbiras, int hotakaro, Targy targy,Alkatresz alkatresz) {
         super(teherbiras, hotakaro);
         this.fagyotttargy = targy;
         this.satorMiotaVan = 0;

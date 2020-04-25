@@ -7,6 +7,9 @@ public class Lyuk extends Mezo {
     public Lyuk(int hotakaro) {   // a nulla teherbírású a Lyuk..
         super(0, hotakaro);
     }
+    public Lyuk(String id, int hotakaro) {   // a nulla teherbírású a Lyuk..
+        super(id,0, hotakaro);
+    }
 
 
     /**

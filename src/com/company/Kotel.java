@@ -15,6 +15,10 @@ public class Kotel extends Targy{
         Tab.tab--;
         return v.visit(this);
     }
+
+    public Kotel() {
+    }
+
     /**
      * A tárgy felvétele során (amennyiben a kikapart tárgy kötél) a this-t paraméterül adja a játékos KotelFelvesz(Kotel k) függvényének.
      * @param jatekos a kötelet kikaparó játékos

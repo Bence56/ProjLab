@@ -2,6 +2,9 @@ package com.company;
 
 public class Sator extends Targy{
 
+    public Sator() {
+    }
+
     @Override
     public boolean accept(TargyVisitor v) {
         Tab.tab++;
