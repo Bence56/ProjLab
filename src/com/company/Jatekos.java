@@ -113,6 +113,11 @@ public abstract class Jatekos extends Mozgathato {
             targy.felvesz(this);
             m.setFagyottTargy(null);
         }
+        Alkatresz alk = this.getTartozkodasiMezo().getFagyottAlkatresz();
+        if (alk != null) {
+            alk.felvesz(this);
+        }
+
 
         this.munkakSzama--;
     }
