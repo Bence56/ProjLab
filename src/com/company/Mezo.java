@@ -149,8 +149,9 @@ public abstract class Mezo {
     public void setIglu(boolean iglu) {
     }
 
-    public void satorIdoNovel() {
-    }
+   public void satorIdoNovel() {
+   }
+
 
     public int getSatorMiotaVan() {
         return 0;

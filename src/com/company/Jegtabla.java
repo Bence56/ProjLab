@@ -78,9 +78,9 @@ public class Jegtabla extends Mezo {
      * Megnöveli a sátor felállítása óta eltelt időt.
      */
     @Override
-    public void satorIdoNovel() {
+     public void satorIdoNovel() {
         satorMiotaVan += 1;
-    }
+     }
 
     /**
      * Nullára állítja a sátor idejét.

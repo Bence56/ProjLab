@@ -109,17 +109,20 @@ public abstract class Jatekos extends Mozgathato {
     public void kapar() {
         // Ezekből csak egy futhat le mert egy mezőn vagy alkatrész vagy tárgy van
         Mezo m = this.getTartozkodasiMezo();
-        Targy targy = m.getTargy();
-        if (targy != null) {
-            targy.felvesz(this);
-            m.setFagyottTargy(null);
-        }
-        Alkatresz alk = this.getTartozkodasiMezo().getFagyottAlkatresz();
-        if (alk != null) {
-            alk.felvesz(this);
-        }
+        int hotakaro=m.getHotakaro();
+        if (hotakaro==0) {
+            Targy targy = m.getTargy();
+            if (targy != null) {
+                targy.felvesz(this);
+                m.setFagyottTargy(null);
+            }
+            Alkatresz alk = this.getTartozkodasiMezo().getFagyottAlkatresz();
+            if (alk != null) {
+                alk.felvesz(this);
+            }
 
-        this.munkakSzama--;
+            this.munkakSzama--;
+        }
     }
 
     /**
@@ -193,13 +196,14 @@ public abstract class Jatekos extends Mozgathato {
         for (Targy t : targyak) {
             if (t.accept(kv)) {     //ha a tárgy kötél akkor true
                 int size = szomszed.getAlloJatekos().size();
-                for (int j = 0; j< size; j++) {  // a szomszéd mezőről minden játékost kihúz.
-                    Jatekos mentett = szomszed.getAlloJatekos().get(0);
-                    t.hasznal(mentett);
-                    szomszed.eltavolit(mentett);
-                    this.getTartozkodasiMezo().elfogad(mentett);
-                    // mentett.setTartozkodasiMezo(this.getTartozkodasiMezo());
-
+                if (size != 0) {
+                    for (int j = 0; j < size; j++) {  // a szomszéd mezőről minden játékost kihúz.
+                        Jatekos mentett = szomszed.getAlloJatekos().get(0);
+                        t.hasznal(mentett);
+                        szomszed.eltavolit(mentett);
+                        this.getTartozkodasiMezo().elfogad(mentett);
+                    }
+                    munkakSzama--;
                 }
             }
         }
@@ -208,7 +212,7 @@ public abstract class Jatekos extends Mozgathato {
     /**
      * A játékos lapátol, ha van lapátja, a lapáttal, ha nincs, akkor lapát nélkül, de úgy csak 1 hóréteget tud eltávolítani.
      */
-    public void lapatol() {
+    public void lapatol(){
         LapatVisitor lv = new LapatVisitor();
         boolean van_lapat = false;
         for (Targy t : targyak) {

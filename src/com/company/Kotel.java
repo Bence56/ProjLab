@@ -23,7 +23,6 @@ public class Kotel extends Targy{
     @Override
     public void felvesz(Jatekos jatekos){
         jatekos.kotelFelvesz(this);
-        jatekos.munkaLevon(1);
     }
 
     /**

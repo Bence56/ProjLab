@@ -28,6 +28,7 @@ public class Sator extends Targy{
     public void hasznal(Jatekos j){
         j.getTartozkodasiMezo().satorIdoNovel();
 
+
     }
 
 
