@@ -91,6 +91,7 @@ public abstract class Jatekos extends Mozgathato {
     public void jatszik() {
         //ha elfogytak a munkák a következő játékos jön
         if (munkakSzama == 0)
+
             return;
 
     }

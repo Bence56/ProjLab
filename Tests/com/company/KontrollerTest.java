@@ -6,6 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.opentest4j.AssertionFailedError;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class KontrollerTest {
@@ -51,7 +53,7 @@ class KontrollerTest {
         try {
             boolean jo=true;
             for (Mezo m : k.palya) {
-                if(!(m.getHotakaro()>5))jo=false;
+                if(!(m.getHotakaro()>=5))jo=false;
             }
             assertTrue(jo);
             System.out.println(ANSI_GREEN + "Siker, minden mezon tobb a ho" + ANSI_RESET);
@@ -90,6 +92,20 @@ class KontrollerTest {
             System.out.println(ANSI_GREEN + "Siker, vége a játéknak" + ANSI_RESET);
         } catch(AssertionFailedError e){
             System.out.println(ANSI_RED + "Fail: Nem süllyedt el az alkatrész" + ANSI_RESET);
+        }
+    }
+
+    @Test
+    public void PalyaTest(){
+        Kontroller kontroller = new Kontroller();
+        Parser parser = new Parser();
+        try {
+            parser.palyaParse(kontroller, "palya.json");
+            System.out.println("ADAS");
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

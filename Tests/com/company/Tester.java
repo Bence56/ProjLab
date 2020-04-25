@@ -65,7 +65,7 @@ public class Tester {
         ArrayList<Parancs> parancsok = null;
         try {
 
-            parancsok = parser.parse(filename);
+            parancsok = parser.parse("Resources/" + filename);
 
             for (int i = 0; i < parancsok.size(); i++) {
                 Parancs p = parancsok.get(i);
