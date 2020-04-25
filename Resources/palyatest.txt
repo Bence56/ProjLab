@@ -1,2 +1,2 @@
 PalyaTest pt create
-PalyaTest pt lepTest
+PalyaTest pt jatekTest

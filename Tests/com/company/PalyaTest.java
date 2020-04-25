@@ -21,13 +21,12 @@ class PalyaTest {
 
 
     @Test
-    public void lepTest(){
+    public void jatekTest(){
         Kontroller kontroller = new Kontroller();
         Parser parser = new Parser();
         try {
             parser.palyaParse(kontroller, "palya.json");
-            System.out.println("ADAS");
-
+            System.out.println("A");
 
         } catch (IOException e) {
             e.printStackTrace();

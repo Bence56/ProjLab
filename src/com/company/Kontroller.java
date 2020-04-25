@@ -90,7 +90,9 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
             if (alkatreszek != null) {
                 alkatreszSzam += alkatreszek.size();
             }
-
+            if(m.getFagyottAlkatresz()!= null){
+                alkatreszSzam ++;
+            }
         }
 
         if (alkatreszSzam <= 3) {

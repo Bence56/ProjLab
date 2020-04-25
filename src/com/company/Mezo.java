@@ -17,6 +17,11 @@ public abstract class Mezo {
         this.teherbiras = teherbiras;
         this.hotakaro = hotakaro;
     }
+
+    public void setTeherbiras(int teherbiras) {
+        this.teherbiras = teherbiras;
+    }
+
     public Mezo(String id, int teherbiras, int hotakaro) {
         this.id = id;
         this.teherbiras = teherbiras;

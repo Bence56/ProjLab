@@ -142,6 +142,10 @@ public class Parser {
                 mezo.alkatreszNovel(a);
             }
 
+            if(mezo.getTeherbiras() < mezo.getAlloJatekos().size()){
+                mezo.setTeherbiras( mezo.getTeherbiras() + mezo.getAlloJatekos().size());
+            }
+
             //Hozzáadja a mezőt a kontrollerhez
             kontroller.addMezo(mezo);
         }
