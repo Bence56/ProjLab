@@ -41,8 +41,8 @@ public class Lyuk extends Mezo {
 
         j.setMezo(this);
         this.getAlloJatekos().add(j);
-        //utkozik(getAlloJegesmedve());
-        //j.vizbeEsik(); --- kéne
+        utkozik(getAlloJegesmedve());
+        j.vizbeEsik();
 
     }
 

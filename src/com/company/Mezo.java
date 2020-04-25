@@ -18,10 +18,6 @@ public abstract class Mezo {
         this.hotakaro = hotakaro;
     }
 
-    public void setTeherbiras(int teherbiras) {
-        this.teherbiras = teherbiras;
-    }
-
     public Mezo(String id, int teherbiras, int hotakaro) {
         this.id = id;
         this.teherbiras = teherbiras;
@@ -41,7 +37,7 @@ public abstract class Mezo {
         this.alloJegesmedve = medve;
     }
 
-    public String getID(){
+    public String getID() {
         return id;
     }
 
@@ -115,19 +111,21 @@ public abstract class Mezo {
 
     /**
      * A játékos és a jegesmedve találkozik.
+     *
      * @param j a jegesmedve
      */
     public void utkozik(Jegesmedve j) {
-
-        if (!isIglu() && alloJatekos.size() >= 1) {
-            alloJatekos.get(0).meghal();
-            alloJatekos.remove(0);
+        if (j != null) {
+            if (!isIglu() && alloJatekos.size() >= 1) {
+                alloJatekos.get(0).meghal();
+                alloJatekos.remove(0);
+            }
         }
-
     }
 
     /**
      * Visszaadja a mezőn álló játokosokat.
+     *
      * @return A játékosok listája.
      */
     public ArrayList<Jatekos> getAlloJatekos() {
@@ -136,6 +134,7 @@ public abstract class Mezo {
 
     /**
      * Hozzáad egy játékost a mezőhöz.
+     *
      * @param alloJatekos a játékos akit hozzáad.
      */
     public void addAlloJatekos(Jatekos alloJatekos) {
@@ -149,9 +148,8 @@ public abstract class Mezo {
     public void setIglu(boolean iglu) {
     }
 
-   public void satorIdoNovel() {
-   }
-
+    public void satorIdoNovel() {
+    }
 
     public int getSatorMiotaVan() {
         return 0;
@@ -159,7 +157,6 @@ public abstract class Mezo {
 
     public void satratNullaz() {
     }
-
 
     /**
      * Visszadja a szomszédos mezőt a paraméterként kapott irányba
@@ -179,7 +176,6 @@ public abstract class Mezo {
      */
     public abstract void alkatreszNovel(Alkatresz a);
 
-
     /**
      * Ellenőrzi, hogy van-e a mezőn iglu, és ha nincs, a mezőn álló játékosok testhőjét csökkenti 1-gyel.
      */
@@ -194,10 +190,15 @@ public abstract class Mezo {
 
     /**
      * Megmondja mennyi a mező teherbírása.
+     *
      * @return a teherbírás értéke.
      */
     public int getTeherbiras() {
         return teherbiras;
+    }
+
+    public void setTeherbiras(int teherbiras) {
+        this.teherbiras = teherbiras;
     }
 
     /**
@@ -216,6 +217,7 @@ public abstract class Mezo {
 
     /**
      * Visszadja a mezőn lévő jegesmedvét.
+     *
      * @return a jegesmedve
      */
     public Jegesmedve getAlloJegesmedve() {
@@ -224,6 +226,7 @@ public abstract class Mezo {
 
     /**
      * Elhelyez egy jegesmdvét a mezőn.
+     *
      * @param alloJegesmedve akit elhelyez.
      */
     public void setAlloJegesmedve(Jegesmedve alloJegesmedve) {
@@ -232,6 +235,7 @@ public abstract class Mezo {
 
     /**
      * Visszadja mennyi hóréteg van a mezőn.
+     *
      * @return a hóréteg értéke.
      */
     public int getHotakaro() {
@@ -240,9 +244,12 @@ public abstract class Mezo {
 
     /**
      * Beállítja a hóréteget a mezőn.
+     *
      * @param hotakaro a hótakaró rétegeinek száma.
      */
     public void setHotakaro(int hotakaro) {
         this.hotakaro = hotakaro;
     }
+
+    public abstract void state();
 }

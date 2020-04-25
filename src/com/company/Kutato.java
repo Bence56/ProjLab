@@ -15,9 +15,10 @@ public class Kutato extends Jatekos {
     @Override
     public int vizsgal(Irany i){
             Mezo m=this.getTartozkodasiMezo().getSzomszed(i);
-            if (m!=null)
+            if (m!=null){
                 munkaLevon(1);
-            return m.getTeherbiras();
-
+                return m.getTeherbiras();
+            }
+            return -1;
     }
 }

@@ -43,14 +43,14 @@ public class Jegtabla extends Mezo {
     public void state(){
         System.out.println("Mezo ID: " + super.getID() + " "+ "Horeteg: "+super.getHotakaro() + " "
                 + "Teherbiras: " + super.getTeherbiras());
-        String m1 = super.getSzomszed(Irany.Fel).getID();
-        String m2 = super.getSzomszed(Irany.JobbFel).getID();
-        String m3 = super.getSzomszed(Irany.Jobb).getID();
-        String m4 = super.getSzomszed(Irany.JobbLe).getID();
-        String m5 = super.getSzomszed(Irany.Le).getID();
-        String m6 = super.getSzomszed(Irany.BalLe).getID();
-        String m7 = super.getSzomszed(Irany.Bal).getID();
-        String m8 = super.getSzomszed(Irany.BalFel).getID();
+        String m1 = super.getSzomszed(Irany.Fel) != null ? super.getSzomszed(Irany.Fel).getID() : "-";
+        String m2 = super.getSzomszed(Irany.JobbFel)!= null ? super.getSzomszed(Irany.JobbFel).getID() : "-";
+        String m3 = super.getSzomszed(Irany.Jobb)!= null ? super.getSzomszed(Irany.Jobb).getID() : "-";
+        String m4 = super.getSzomszed(Irany.JobbLe)!= null ? super.getSzomszed(Irany.JobbLe).getID() : "-";
+        String m5 = super.getSzomszed(Irany.Le)!= null ? super.getSzomszed(Irany.Le).getID() : "-";
+        String m6 = super.getSzomszed(Irany.BalLe)!= null ? super.getSzomszed(Irany.BalLe).getID() : "-";
+        String m7 = super.getSzomszed(Irany.Bal)!= null ? super.getSzomszed(Irany.Bal).getID() : "-";
+        String m8 = super.getSzomszed(Irany.BalFel)!= null ? super.getSzomszed(Irany.BalFel).getID() : "-";
 
         System.out.println("Szomszédok (fentről kezdve jobbra haladva): " +
                 m1 + " " + m2 + " " + m3 + " " + m4 + " " + m5 + " " + m6 + " " + m7 + " " + m8);

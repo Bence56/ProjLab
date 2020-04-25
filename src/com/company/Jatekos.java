@@ -23,9 +23,9 @@ public abstract class Jatekos extends Mozgathato {
     /**
      * kiírja a játékos állapotát
      */
-    public void state(){
+    public void state() {
         String id = this.getTartozkodasiMezo().getID();
-        System.out.println("Tartozkodasi mezo: " + id + " "+ "Testho: "+ testho + " "+ "Allapot: " + allapot);
+        System.out.println("Tartozkodasi mezo: " + id + " " + "Testho: " + testho + " " + "Allapot: " + allapot);
     }
 
     /**
@@ -58,14 +58,6 @@ public abstract class Jatekos extends Mozgathato {
     public void setVedett(boolean b) {
         vedett = b;
     }
-
-    /**
-     * setter
-     */
-    public void setAllapot(FulladasiAllapot all) {
-        allapot = all;
-    }
-
 
     /**
      * Átlépteti a játékost a szomszédos mezőre a megadott irányba.
@@ -109,8 +101,8 @@ public abstract class Jatekos extends Mozgathato {
     public void kapar() {
         // Ezekből csak egy futhat le mert egy mezőn vagy alkatrész vagy tárgy van
         Mezo m = this.getTartozkodasiMezo();
-        int hotakaro=m.getHotakaro();
-        if (hotakaro==0) {
+        int hotakaro = m.getHotakaro();
+        if (hotakaro == 0) {
             Targy targy = m.getTargy();
             if (targy != null) {
                 targy.felvesz(this);
@@ -134,7 +126,6 @@ public abstract class Jatekos extends Mozgathato {
         targyak.add(l);
     }
 
-
     /**
      * Hozzáadja a tárgyak listájához a felvevendő kötelet.
      *
@@ -143,7 +134,6 @@ public abstract class Jatekos extends Mozgathato {
     public void kotelFelvesz(Kotel k) {
         targyak.add(k);
     }
-
 
     /**
      * Megnöveli a testhőt 1-el.
@@ -164,7 +154,6 @@ public abstract class Jatekos extends Mozgathato {
         b.vedelem(this);
     }
 
-
     /**
      * Hozzáadja a tárgyak listájához a felvevendő sátrat.
      *
@@ -174,7 +163,6 @@ public abstract class Jatekos extends Mozgathato {
         targyak.add(s);
     }
 
-
     /**
      * Hozzáadja az alkatrészek listájához a felvevendő alkatrészt.
      *
@@ -183,7 +171,6 @@ public abstract class Jatekos extends Mozgathato {
     public void alkatreszFelvesz(Alkatresz a) {
         alkatreszek.add(a);
     }
-
 
     /**
      * Kihúz egy másik játékost a saját táblájára
@@ -212,7 +199,7 @@ public abstract class Jatekos extends Mozgathato {
     /**
      * A játékos lapátol, ha van lapátja, a lapáttal, ha nincs, akkor lapát nélkül, de úgy csak 1 hóréteget tud eltávolítani.
      */
-    public void lapatol(){
+    public void lapatol() {
         LapatVisitor lv = new LapatVisitor();
         boolean van_lapat = false;
         for (Targy t : targyak) {
@@ -258,7 +245,6 @@ public abstract class Jatekos extends Mozgathato {
         //ha védett nem történik semmi
     }
 
-
     /**
      * Ellenőrzi, hogy az adott mezőn van-e mindhárom alkatrész,
      * és ha igen a játékos összeszereli és elsüti a jelzőrakétát
@@ -271,7 +257,6 @@ public abstract class Jatekos extends Mozgathato {
             }
         }
     }
-
 
     /**
      * Lerak egy alkatrészt a mezőre hogy azt majd el lehessen sütni
@@ -301,7 +286,6 @@ public abstract class Jatekos extends Mozgathato {
         kontroller.jatekVege(true);
     }
 
-
     /**
      * Visszadaj a játékosnál lévő alkatrészeket
      *
@@ -317,6 +301,16 @@ public abstract class Jatekos extends Mozgathato {
     public void epit() {
     }
 
+    public FulladasiAllapot getAllapot() {
+        return allapot;
+    }
+
+    /**
+     * setter
+     */
+    public void setAllapot(FulladasiAllapot all) {
+        allapot = all;
+    }
 
     /**
      * A kutató valósíja meg
@@ -325,7 +319,7 @@ public abstract class Jatekos extends Mozgathato {
      * @return
      */
     public int vizsgal(Irany i) {
-        return 0;
+        return -1;
     }
 
 
