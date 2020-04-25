@@ -18,9 +18,6 @@ public class Elelem extends Targy{
      */
     @Override
     public void felvesz(Jatekos jatekos){
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Elelem.felvesz()");
         jatekos.elelemFelvesz(this);
     }
     /**
@@ -28,7 +25,5 @@ public class Elelem extends Targy{
      * @param j
      */
     @Override
-    public void hasznal(Jatekos j) {
-
-    }
+    public void hasznal(Jatekos j) { }
 }

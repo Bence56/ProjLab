@@ -36,16 +36,16 @@ public abstract class Mezo {
         this.alloJegesmedve = medve;
     }
 
+    public String getID(){
+        return id;
+    }
+
     public void addSzomszedok(Irany i, Mezo m) {
         this.szomszedok.put(i, m);
     }
 
     //Ezt üresen kell hagyni
     Targy getTargy() {
-        Tab.tab++;
-        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
-        System.out.println("Mezo.getTargy()");
-        Tab.tab--;
         return null;
     }
 
@@ -62,13 +62,12 @@ public abstract class Mezo {
         this.hotakaro += num;
     }
 
+    /**
+     * Csökkenti a mezőn lévő hóréteget egyel.
+     */
     public void horetegCsokkent() {
-        Tab.tab++;
-        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
-        System.out.println("Jegtabla.horetegCsokkent()");
         if (hotakaro > 0)
             this.hotakaro--;
-        Tab.tab--;
     }
 
     /**
@@ -85,13 +84,8 @@ public abstract class Mezo {
      * @param j a jegesmedve akit rá kell tenni a jégtáblára
      */
     public void elfogad(Jegesmedve j) { // a Jegesmedve nem esik vízbe csak odalép vhova, mindegy hogy jégtábla vagy lyuk..
-        Tab.tab++;
-        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
-        System.out.println("Mezo.elfogad(Jegesmedve j)");
-
         j.setMezo(this);
         this.alloJegesmedve = j;
-        Tab.tab--;
     }
 
     /**
@@ -110,14 +104,13 @@ public abstract class Mezo {
      * @param j a jegesmedve akit el kell távolítani
      */
     public void eltavolit(Jegesmedve j) {
-        Tab.tab++;
-        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
-        System.out.println("Mezo.eltavolit(Jegesmedve j)");
-
-        Tab.tab--;
         alloJegesmedve = null;
     }
 
+    /**
+     * A játékos és a jegesmedve találkozik.
+     * @param j a jegesmedve
+     */
     public void utkozik(Jegesmedve j) {
 
         if (!isIglu() && alloJatekos.size() >= 1) {
@@ -125,13 +118,20 @@ public abstract class Mezo {
             alloJatekos.remove(0);
         }
 
-        Tab.tab--;
     }
 
+    /**
+     * Visszaadja a mezőn álló játokosokat.
+     * @return A játékosok listája.
+     */
     public ArrayList<Jatekos> getAlloJatekos() {
         return alloJatekos;
     }
 
+    /**
+     * Hozzáad egy játékost a mezőhöz.
+     * @param alloJatekos a játékos akit hozzáad.
+     */
     public void addAlloJatekos(Jatekos alloJatekos) {
         this.alloJatekos.add(alloJatekos);
     }
@@ -161,10 +161,6 @@ public abstract class Mezo {
      * @return A szomszédos mező
      */
     public Mezo getSzomszed(Irany i) {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Mezo.getSzomszed(" + i + ")");
-        Tab.tab--;
         return this.szomszedok.get(i);
     }
 
@@ -176,30 +172,23 @@ public abstract class Mezo {
      */
     public abstract void alkatreszNovel(Alkatresz a);
 
-    /**
-     * Beállítja a tábla iglu tulajdonságát
-     *
-     * @param iglu annak az értéke hogy a tábla iglu típusú lesz vagy nem
-     */
-
-    ;
 
     /**
      * Ellenőrzi, hogy van-e a mezőn iglu, és ha nincs, a mezőn álló játékosok testhőjét csökkenti 1-gyel.
      */
     public void testhoCsokkent() {
-        Tab.tab++;
-        for (int i = 0; i < Tab.tab; i++) System.out.print("\t");
-        System.out.println("Mezo.testhoCsokkent()");
         if (!this.isIglu()) {
             for (Jatekos jatekos : alloJatekos) {
                 int ho = jatekos.getTestho();
                 jatekos.setTestho(ho - 1);
             }
         }
-        Tab.tab--;
     }
 
+    /**
+     * Megmondja mennyi a mező teherbírása.
+     * @return a teherbírás értéke.
+     */
     public int getTeherbiras() {
         return teherbiras;
     }
@@ -218,18 +207,34 @@ public abstract class Mezo {
      */
     public abstract ArrayList<Alkatresz> getAlkatreszek();
 
+    /**
+     * Visszadja a mezőn lévő jegesmedvét.
+     * @return a jegesmedve
+     */
     public Jegesmedve getAlloJegesmedve() {
         return alloJegesmedve;
     }
 
+    /**
+     * Elhelyez egy jegesmdvét a mezőn.
+     * @param alloJegesmedve akit elhelyez.
+     */
     public void setAlloJegesmedve(Jegesmedve alloJegesmedve) {
         this.alloJegesmedve = alloJegesmedve;
     }
 
+    /**
+     * Visszadja mennyi hóréteg van a mezőn.
+     * @return a hóréteg értéke.
+     */
     public int getHotakaro() {
         return hotakaro;
     }
 
+    /**
+     * Beállítja a hóréteget a mezőn.
+     * @param hotakaro a hótakaró rétegeinek száma.
+     */
     public void setHotakaro(int hotakaro) {
         this.hotakaro = hotakaro;
     }

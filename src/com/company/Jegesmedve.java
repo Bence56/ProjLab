@@ -5,6 +5,14 @@ import java.util.Random;
 
 public class Jegesmedve extends Mozgathato {
 
+    /**
+     * kiírja a jegesmedve állapotát
+     */
+    public void state(){
+        String id = this.getTartozkodasiMezo().getID();
+        System.out.println("Tartozkodasi mezo: " + id);
+    }
+
     @Override
     public void jatszik() {  // random irányba meghí@ja a lép fv-t
         Random rand = new Random();

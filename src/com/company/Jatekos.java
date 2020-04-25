@@ -8,8 +8,6 @@ public abstract class Jatekos extends Mozgathato {
     private int testho;
     private boolean vedett;
     private ArrayList<Alkatresz> alkatreszek = new ArrayList<>();
-
-
     private ArrayList<Targy> targyak = new ArrayList<>();
     private FulladasiAllapot allapot = FulladasiAllapot.aktiv;
 
@@ -20,6 +18,14 @@ public abstract class Jatekos extends Mozgathato {
     Jatekos(Kontroller k, int testho) {
         this.kontroller = k;
         this.testho = testho;
+    }
+
+    /**
+     * kiírja a játékos állapotát
+     */
+    public void state(){
+        String id = this.getTartozkodasiMezo().getID();
+        System.out.println("Tartozkodasi mezo: " + id + " "+ "Testho: "+ testho + " "+ "Allapot: " + allapot);
     }
 
     /**
@@ -79,22 +85,21 @@ public abstract class Jatekos extends Mozgathato {
         }
     }
 
+    /**
+     * A játékos játszik, cselekvéseket végezhet amíg a 4 munka el nem fogy.
+     */
     public void jatszik() {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.jatszik()");
-
-        Tab.tab--;
         //ha elfogytak a munkák a következő játékos jön
         if (munkakSzama == 0)
             return;
 
     }
 
-
+    /**
+     * A játékos meghal.
+     */
     public void meghal() {
         kontroller.jatekVege(false);
-
     }
 
     /**
@@ -226,7 +231,8 @@ public abstract class Jatekos extends Mozgathato {
 
     /**
      * Beállítja a játékos allapot tagváltozójának értékét fuldoklikra,
-     * valamint, ha a játékosnak nincs búvárruhája lecsökkenti a elvégezhető munkák számát (munkakSzama tagváltozó) nullára, hogy a következő játékos jöjjön
+     * valamint, ha a játékosnak nincs búvárruhája lecsökkenti a elvégezhető munkák számát
+     * (munkakSzama tagváltozó) nullára, hogy a következő játékos jöjjön
      */
     public void vizbeEsik() {
         //a beszakadt mezőn lévő tárgyak eltűnnek
@@ -280,13 +286,7 @@ public abstract class Jatekos extends Mozgathato {
      * elsüti a rakétát és  véget vet a játéknak
      */
     public void elsut() {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Jatekos.elsut()");
         kontroller.jatekVege(true);
-
-        Tab.tab--;
-
     }
 
 
