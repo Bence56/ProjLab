@@ -193,7 +193,7 @@ public abstract class Jatekos extends Mozgathato {
         for (Targy t : targyak) {
             if (t.accept(kv)) {     //ha a tárgy kötél akkor true
                 int size = szomszed.getAlloJatekos().size();
-                for (int j = 0; j< size; j++) {  // a szomszéd mezőről minden játékost kihúz
+                for (int j = 0; j< size; j++) {  // a szomszéd mezőről minden játékost kihúz.
                     Jatekos mentett = szomszed.getAlloJatekos().get(0);
                     t.hasznal(mentett);
                     szomszed.eltavolit(mentett);
