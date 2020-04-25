@@ -16,7 +16,7 @@ public class Jegesmedve extends Mozgathato {
     @Override
     public void jatszik() {  // random irányba meghí@ja a lép fv-t
         Random rand = new Random();
-        int i = rand.nextInt(4);
+        int i = rand.nextInt(8);
 
         switch (i) {
             case 0:
@@ -30,6 +30,18 @@ public class Jegesmedve extends Mozgathato {
                 break;
             case 3:
                 lep(Irany.Bal);
+                break;
+            case 4:
+                lep(Irany.JobbFel);
+                break;
+            case 5:
+                lep(Irany.JobbLe);
+                break;
+            case 6:
+                lep(Irany.BalLe);
+                break;
+            case 7:
+                lep(Irany.BalFel);
                 break;
         }
     }
