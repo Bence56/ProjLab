@@ -114,7 +114,6 @@ class JatekosTest {
         jegtabla.szomszedok.put(Irany.Jobb,lyuk);
         lyuk.szomszedok.put(Irany.Bal,jegtabla);
         megmento.kihuz(Irany.Jobb);
-
         try {
             assertTrue(megmento.getTartozkodasiMezo()==jegtabla);
             assertTrue(jegtabla==fulldoklo.getTartozkodasiMezo());
@@ -123,7 +122,6 @@ class JatekosTest {
             System.out.println(ANSI_RED + "Fail: Nem működik a kihúzó rendszer" + ANSI_RESET);
         }
     }
-
 
     @Test
     public void kikaparTest(){
