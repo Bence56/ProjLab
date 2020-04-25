@@ -18,9 +18,6 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
      * A játék menete, minden játékos köre előtt detektálás van, utána pedig vihar
      */
     public void jatek() {
-        Tab.tab++;
-        for (int j = 0; j < Tab.tab; j++) System.out.print("\t");
-        System.out.println("Kontroller.jatek()");
         while (aktiv) {
             for (Jatekos j : jatekosok) {
                 detektal();
@@ -29,8 +26,6 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
             }
             jegesmedve.jatszik();
         }
-
-        Tab.tab--;
     }
 
     public void addJatekos(Jatekos j) {

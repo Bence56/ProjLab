@@ -68,7 +68,7 @@ class JatekosTest {
     @Test
     public void lapatolTest(){
         Kontroller k=new Kontroller();
-        Eszkimo eszkimo=new Eszkimo();
+        Eszkimo eszkimo=new Eszkimo(k);
         Kutato kutato=new Kutato(k);
         Jegtabla j1=new Jegtabla(5,4,new Lapat());
         Jegtabla j2=new Jegtabla(5,4,new Buvarruha());
