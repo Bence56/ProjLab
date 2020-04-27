@@ -22,7 +22,11 @@ public class Alkatresz extends Targy{
         jatekos.alkatreszFelvesz(this);
     }
 
-
+    /**
+     * Üresen implementáljuk
+     * @param  j
+     */
+    @Override
     public void hasznal(Jatekos j){};
 
 }

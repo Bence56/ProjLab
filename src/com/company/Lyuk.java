@@ -57,12 +57,19 @@ public class Lyuk extends Mezo {
     public void alkatreszNovel(Alkatresz a) {
     }
 
-
+    /**
+     * getter
+     * @return Lyuk típusú mezőn nincs alkatrész elásva, ezért visszatérési értéke null
+     */
     @Override
     public Alkatresz getFagyottAlkatresz() {
         return null;
     }
 
+    /**
+     * getter
+     * @return Lyuk típusú mezőn nem lehet alkatrész letéve, ezért visszatérési értéke null
+     */
     @Override
     public ArrayList<Alkatresz> getAlkatreszek() {
         return null;

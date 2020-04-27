@@ -145,12 +145,11 @@ public abstract class Jatekos extends Mozgathato {
     }
 
     /**
-     * Beteszi a kikapart búvárruhát a játékos tárgyai közé és védelmet nyújt
+     * Védelmet nyújt a játékosnak vízbe esés ellen a védelem attribútum trueba állításával
      *
      * @param b A felvevendő búvárruha
      */
     public void buvarruhaFelvesz(Buvarruha b) {
-        targyak.add(b);
         b.vedelem(this);
     }
 
@@ -210,8 +209,10 @@ public abstract class Jatekos extends Mozgathato {
             }
         }
 
-        if (!van_lapat && this.getTartozkodasiMezo().getHotakaro() >= 1)
+        if (!van_lapat && this.getTartozkodasiMezo().getHotakaro() >= 1) {
             this.getTartozkodasiMezo().horetegCsokkent();
+            munkakSzama--;
+        }
     }
 
     /**
@@ -230,10 +231,10 @@ public abstract class Jatekos extends Mozgathato {
     /**
      * Beállítja a játékos allapot tagváltozójának értékét fuldoklikra,
      * valamint, ha a játékosnak nincs búvárruhája lecsökkenti a elvégezhető munkák számát
-     * (munkakSzama tagváltozó) nullára, hogy a következő játékos jöjjön
+     * (munkakSzama tagváltozó) nullára, hogy a következő játékos jöjjön. Beállítja a beszakadt mezőn levő
+     * befagyott tárgy/alkatrész és a rá letett alkatrész értékét nullra.
      */
     public void vizbeEsik() {
-        //a beszakadt mezőn lévő tárgyak eltűnnek
         Mezo m = this.getTartozkodasiMezo();
         m.setFagyottTargy(null);
         m.setFagyottAlk(null);
@@ -300,6 +301,11 @@ public abstract class Jatekos extends Mozgathato {
      */
     public void epit() {
     }
+
+    /**
+     * visszaadja a játékos fulladási állapotát
+     * @return FulladasiAllapot a játékos aktuális fulladási állapota
+     */
 
     public FulladasiAllapot getAllapot() {
         return allapot;

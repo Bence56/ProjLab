@@ -1,18 +1,19 @@
 package com.company;
 
 public class Kotel extends Targy{
+
+    public Kotel() {
+    }
+
     /**
      * A függvény a kapott TargyVisitor visit(this) függvényét meghívja.
      * @param v a TargyVisitor, akinek a visit függvényét meghívja.
-     * @return Amennyiben a paraméterül kapott TargyVisitor Kotel,
+     * @return Amennyiben a paraméterül kapott TargyVisitor KotelVisitor,
      * úgy a függvény visszatérési értéke true, ha bármi más TargyVisitor leszármazott, a visszatérési értéke false.
      */
     @Override
     public boolean accept(TargyVisitor v) {
         return v.visit(this);
-    }
-
-    public Kotel() {
     }
 
     /**

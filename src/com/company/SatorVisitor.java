@@ -1,5 +1,7 @@
 package com.company;
-
+/**
+ * A SatorVisitor visit függvényei közül az az egy ad vissza true értéket, amelyik Sátrat kap paraméterül, az összes többi false-t.
+ */
 public class SatorVisitor implements TargyVisitor {
     @Override
     public boolean visit(Kotel k) { return false; }

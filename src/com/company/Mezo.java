@@ -37,28 +37,58 @@ public abstract class Mezo {
         this.alloJegesmedve = medve;
     }
 
+    /**
+     * visszaadja a mező ID-ját.
+     * @return
+     */
     public String getID() {
         return id;
     }
 
+    /**
+     * setter, beállítja a mező szomszédját
+     * @param i az irány amibe a szomszédot teszi
+     * @param m a szomszéd mező
+     */
     public void addSzomszedok(Irany i, Mezo m) {
         this.szomszedok.put(i, m);
     }
 
-    //Ezt üresen kell hagyni
+    /**
+     * visszaadja a mezőn befagyott tárgyat. A Jegtabla osztály felüldefiniálja
+     * @return alapesetben nullt ad vissza.
+     */
     Targy getTargy() {
         return null;
     }
 
+    /**
+     * setter, beállítja a mezőre letett alkatrészek értékeit.
+     * @param a1 alkatrész
+     * @param a2 alkatrész
+     * @param a3 alkatrész
+     */
     public void setAlkatreszek(Alkatresz a1, Alkatresz a2, Alkatresz a3) {
     }
 
+    /**
+     * setter, beálllítja a táblába befagyott tárgyat. A leszármazottak felüldefiniálják.
+     * @param t a kapott tárgy
+     */
     public void setFagyottTargy(Targy t) {
     }
 
+    /**
+     * setter, beálllítja a táblába befagyott alkatrészt. A leszármazottak felüldefiniálják.
+     * @param t a kapott alkatrész
+     */
     public void setFagyottAlk(Alkatresz t) {
     }
 
+    /**
+     * Növeli a mező hórétegének értékét a paraméterben kapott értékkel.
+     * @param num ahány egységgel növelni kell a hóréteget.
+     */
     public void horetegNovel(int num) {
         this.hotakaro += num;
     }
@@ -141,20 +171,40 @@ public abstract class Mezo {
         this.alloJatekos.add(alloJatekos);
     }
 
+    /**
+     * getter
+     * @return visszaadja, hogy az adott mezőn van-e iglu. Ha a mező jégtábla, a függvény felüldefiniálódik, egyébként visszatérési értéke false.
+     */
     public boolean isIglu() {
         return false;
     }
 
+    /**
+     * AAmennyiben a mező jégtábla, úgy beállítja a jégtábla iglu attribútumának értékét truera, egyébként nem csinál semmit.
+     * @param iglu
+     */
     public void setIglu(boolean iglu) {
     }
 
+    /**
+     * A Jegtabla típusú mező felülírja ezt a függvényt (növeli 1-gyel a sátor felépítése óta eltelt időt 1-gyel),
+     * egyébként nem csinál semmit.
+     */
     public void satorIdoNovel() {
     }
 
+    /**
+     * getter
+     * @return Ha a mező egy jégtábla, őgy a Jegtabla osztály felülírja ezt a függvényt(visszaadja, hogy mióta
+     * áll a sátor az adott jégtáblán), amennyiben a mező Lyuk, úgy 0 a visszatérési érték.
+     */
     public int getSatorMiotaVan() {
         return 0;
     }
 
+    /**
+     * Amennyiben a mező jégtábla, úgy nullára állítja az adott jégtáblán lévő sátor satorIdo attribútumát (eltűnik a sátor a jégtábláról)
+     */
     public void satratNullaz() {
     }
 
@@ -197,6 +247,11 @@ public abstract class Mezo {
         return teherbiras;
     }
 
+    /**
+     * setter, beállítja a tábla teherbírásának értékét
+     * @param teherbiras
+     */
+
     public void setTeherbiras(int teherbiras) {
         this.teherbiras = teherbiras;
     }
@@ -209,7 +264,7 @@ public abstract class Mezo {
     public abstract Alkatresz getFagyottAlkatresz();
 
     /**
-     * Visszadaj a mezőnre letett alkatrészeket
+     * Visszadja a mezőre letett alkatrészeket
      *
      * @return
      */

@@ -22,7 +22,7 @@ public class Buvarruha extends Targy{
     }
 
     /**
-     * Üresen implementáljuk, mert a búvárruhát már a felvételkor "felveszi" a játékos.
+     * Üresen implementáljuk, mert a játékos már a búvárruha felvételekor védettséget szerez a fulladással szemben.
      * @param j
      */
     @Override

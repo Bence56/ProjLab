@@ -110,7 +110,10 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
         }
     }
 
-
+    /**
+     * Véget vet a játéknak
+     * @param nyer true érték esetén nyeréssel, false esetén vesztéssel ér véget a játék
+     */
     public void jatekVege(boolean nyer) {
         this.aktiv = false;
 
@@ -121,11 +124,18 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
             System.out.println("GAME OVER");
     }
 
+    /**
+     * getter
+     * @return a játékban részt vevő játékosok listája
+     */
     public ArrayList<Jatekos> getJatekosok() {
         return jatekosok;
     }
 
-
+    /**
+     * setter
+     * @param jegesmedve a játék jegesmedvéje
+     */
     public void setJegesmedve(Jegesmedve jegesmedve) {
         this.jegesmedve = jegesmedve;
     }

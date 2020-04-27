@@ -19,7 +19,4 @@ public abstract class Mozgathato {
         this.tartozkodasiMezo = tartozkodasiMezo;
     }
 
-    // public void setTartozkodasiMezo(Mezo tartozkodasiMezo) {
-       // this.tartozkodasiMezo = tartozkodasiMezo;
-   // }
 }
