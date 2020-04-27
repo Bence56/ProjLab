@@ -1,3 +1,0 @@
-KontrollerTest kt create
-KontrollerTest kt viharTest
-KontrollerTest kt alkatreszElsullyedTest
