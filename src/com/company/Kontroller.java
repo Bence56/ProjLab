@@ -11,6 +11,9 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
     private Jegesmedve jegesmedve = new Jegesmedve();
 
 
+    Kontroller(){
+        
+    }
     public Mezo getPalya(int i){
         return palya.get(i);
     }
