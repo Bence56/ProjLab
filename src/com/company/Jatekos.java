@@ -219,11 +219,13 @@ public abstract class Jatekos extends Mozgathato {
      * A játékos sátrat épít, ha van neki sátra.
      */
     public void satratEpit() {
-        SatorVisitor sv = new SatorVisitor();
-        for (Targy t : targyak) {
-            if (t.accept(sv)) {
-                t.hasznal(this);
-                return;
+        if (!this.getTartozkodasiMezo().isIglu()) {
+            SatorVisitor sv = new SatorVisitor();
+            for (Targy t : targyak) {
+                if (t.accept(sv)) {
+                    t.hasznal(this);
+                    return;
+                }
             }
         }
     }
