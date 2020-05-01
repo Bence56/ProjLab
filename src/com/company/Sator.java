@@ -18,7 +18,7 @@ public class Sator extends Targy{
     /**
      * A tárgy felvétele során (amennyiben a kikapart tárgy sátor) a
      * this-t paraméterül adja a játékos SatorFelvesz(Sator s) függvényének.
-     * @param j a sátrat kikaparó játékos
+     * @param j a sátrat kikaparó játékos.
      */
     @Override
     public void felvesz(Jatekos j) {
@@ -29,7 +29,7 @@ public class Sator extends Targy{
     /**
      * A paraméterül kapott játékos tartózkodási mezőjére épít egy sátrat és ha sikerül felépíteni (nem lyuk a mező)
      * csökkenti a játékos munkáinak számát 1-gyel.
-     * @param j ez a játékos állít sátrat
+     * @param j ez a játékos állít sátrat.
      */
     @Override
     public void hasznal(Jatekos j){
