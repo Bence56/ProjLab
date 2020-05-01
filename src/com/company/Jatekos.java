@@ -215,6 +215,8 @@ public abstract class Jatekos extends Mozgathato {
         }
     }
 
+
+
     /**
      * A játékos sátrat épít, ha van neki sátra.
      */
@@ -229,6 +231,15 @@ public abstract class Jatekos extends Mozgathato {
             }
         }
     }
+
+    public void lapatTorol(TorekenyLapat t){
+        targyak.remove(t);
+    }
+
+    public void satratTorol(Sator s){
+        targyak.remove(s);
+    }
+
 
     /**
      * Beállítja a játékos allapot tagváltozójának értékét fuldoklikra,

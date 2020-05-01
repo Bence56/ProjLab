@@ -19,6 +19,5 @@ public class Main {
             Tester tester = new Tester();
             tester.testfromfile(parancs);
         }
-
     }
 }
