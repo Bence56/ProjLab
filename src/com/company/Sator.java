@@ -33,9 +33,11 @@ public class Sator extends Targy{
      */
     @Override
     public void hasznal(Jatekos j){
-        j.getTartozkodasiMezo().satorIdoNovel();
-        if (j.getTartozkodasiMezo().getTeherbiras()!=0)
+        if (j.getTartozkodasiMezo().getTeherbiras()!=0) {
+            j.getTartozkodasiMezo().satorIdoNovel();
+            j.satratTorol(this);
             j.munkaLevon(1);
+        }
 
 
 

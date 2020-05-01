@@ -1,7 +1,7 @@
 package com.company;
 
 public class TorekenyLapat extends Lapat {
-    private int hasznalatSzama;
+    private int hasznalatSzama=0;
 
     /**
      * A törékeny lapát csak akkor takarít havat, ha kevesebb mint háromszor használták. A törékeny lapáttal való ásás két réteg havat takarít el, amennyiben 2 egység, vagy annál több hó van a mezőn, 1-et, ha csak 1, és semennyit, ha nincs.
@@ -9,6 +9,7 @@ public class TorekenyLapat extends Lapat {
      * @param j a havat lapátoló játékos
      */
     public void hasznal(Jatekos j) {
+        hasznalatSzama++;
         if (hasznalatSzama < 3) {
             int horeteg = j.getTartozkodasiMezo().getHotakaro();
             if (horeteg >= 2) {
@@ -19,7 +20,11 @@ public class TorekenyLapat extends Lapat {
                 j.getTartozkodasiMezo().horetegCsokkent();
                 j.munkaLevon(1);
             }
-            hasznalatSzama++;
+            if (hasznalatSzama==2)
+                j.lapatTorol(this);
+
         }
     }
+
+
 }
