@@ -2,6 +2,8 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -60,6 +62,7 @@ public class JatekosView extends JPanel {
 
         this.setPreferredSize(new Dimension(200, 758));
         this.setBackground(Color.DARK_GRAY);
+        this.addMouseListener(kontroller.getMouseListener());
     }
 
         private void update(){

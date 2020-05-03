@@ -40,7 +40,7 @@ public class PalyaView extends JPanel {
             // Összehasonlítani és azt a részt újra rajzolni
             update();
         }
-        else if (event.getPropertyName().equals("palya")) {
+        else if (event.getPropertyName().equals("mezo")) {
             //TODO
             // Csak azt a mezőt kell újra kirajzolni amit paraméternek kap
         }

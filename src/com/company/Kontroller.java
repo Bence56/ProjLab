@@ -2,32 +2,65 @@ package com.company;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.security.KeyStore;
 import java.util.ArrayList;
 
 public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud a kontroller osztályra referenciát tartalmazni a játékos osztály
-    protected ArrayList<Mezo> palya = new ArrayList<>();
-    boolean aktiv = true;
-    boolean nyert = false;
-    private ArrayList<Jatekos> jatekosok = new ArrayList<>();
-    private volatile Jatekos aktivJatekos;
-    private Jegesmedve jegesmedve = new Jegesmedve();
-    ArrayList<View> views = new ArrayList<>();
     /**
      * Egy segéd objektum ami Listener-ek listáját kezeli, és PropertyChangeEvent-eket küld nekik.
      * Ezek a PropertyChangeLister-ek regisztrálhatnak egy bizonyos nevű attribútum/property -re, vagy
      * akár az összesre is.
      */
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    protected ArrayList<Mezo> palya = new ArrayList<>();
+    boolean aktiv = true;
+    boolean nyert = false;
+    ArrayList<View> views = new ArrayList<>();
+    MouseListener mouseListener;
+    private ArrayList<Jatekos> jatekosok = new ArrayList<>();
+    private volatile Jatekos aktivJatekos;
+    private Jegesmedve jegesmedve = new Jegesmedve();
+    Kontroller() {
+        mouseListener = new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Click");
+            }
 
-    Kontroller() {}
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        };
+    }
+
+    public MouseListener getMouseListener() {
+        return mouseListener;
+    }
 
     /**
      * Hozzáad egy PropertyChangeListener-t a kontrollerhez, ami egy bizonyos property változása esetén
      * valamilyen műveletet hajt végre.
      * (A programunkban ezt a modell változásának megfigyelésére fogjuk használni)
+     *
      * @param listener A Listener ami valamilyen property változásra reagál.
      */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -35,14 +68,17 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
     }
 
     /**
-     *  Eltávolít egy PropertyChangeListener-t a kontroller Listener-jei közűl.
+     * Eltávolít egy PropertyChangeListener-t a kontroller Listener-jei közűl.
+     *
      * @param listener
      */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         support.removePropertyChangeListener(listener);
     }
+
     /**
      * Visszadja a jelenleg aktív játékost.
+     *
      * @return Visszadja a jelenleg aktív játékost.
      */
     public Jatekos getAktivJatekos() {
@@ -52,6 +88,7 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
     /**
      * Beállít aktív játékosnak egy új játékost,
      * értesíti a View-t, hogy megváltozott a játékos és frissíteni kell magát
+     *
      * @param ujAktivJatekos Az új aktív játékos akit be akarunk állítani
      */
     public void setAktivJatekos(Jatekos ujAktivJatekos) {
@@ -62,6 +99,7 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
 
     /**
      * Hozzáad egy új nézetet a kontroller nézeteihez, és felveszi hozzá a mod kontrollerillenytű eseménykezelőjét.
+     *
      * @param view Egy új nézet ami hozzáad a kontroller nézeteihez.
      */
     public void addView(View view) {
@@ -87,7 +125,9 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
                 j.jatszik();
                 vihar();
             }
-            //TODO Ezt szerintem feljebb kell tenni
+            //TODO
+            // Le kell másolni a jegesmedve mezőjét előtte meg utánna, majd FIrePropertyChange("jegesemedve", regi, uj);
+
             jegesmedve.jatszik();
         }
     }
@@ -223,15 +263,18 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
 
         /**
          * Nem csinál semmit
+         *
          * @param e
          */
         @Override
-        public void keyTyped(KeyEvent e) {}
+        public void keyTyped(KeyEvent e) {
+        }
 
         /**
          * A billenytű lenyomások kezelő függvénye.
          * Egy billenytű lenyomásra végrehajt egy műveletet az aktív játékoson, majd értesíti a nézeteket,
          * hogy azok tudják frissíteni magukat.
+         *
          * @param e A lenyomott billenytű KeyEvent-je
          */
         @Override
@@ -241,39 +284,31 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
 
                 // Ez az állapota a cselekvés előtt a Játékosnak, mindegy, hogy mennyire Deep a másolat,
                 // Csak az számít, hogy ne legyen azonos a két objektum, és akkor felül lesz írva
-                Jatekos regiJatekos = (Jatekos)aktivJatekos.clone();
+                Jatekos regiJatekos = (Jatekos) aktivJatekos.clone();
 
                 // A mezőket is le kell másolni az előzőhöz hasonló okok miatt
                 ArrayList<Mezo> regiPalya = new ArrayList<>();
-                for(Mezo m : palya) {
-                    regiPalya.add((Mezo)m.clone());
+                for (Mezo m : palya) {
+                    regiPalya.add((Mezo) m.clone());
                 }
 
-                if(e.getKeyCode() == (KeyEvent.VK_NUMPAD8) || e.getKeyCode() == KeyEvent.VK_UP){
+                if (e.getKeyCode() == (KeyEvent.VK_NUMPAD8) || e.getKeyCode() == KeyEvent.VK_UP) {
                     aktivJatekos.lep(Irany.Fel);
-                }
-                else if(e.getKeyCode() == (KeyEvent.VK_NUMPAD9)){
+                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD9)) {
                     aktivJatekos.lep(Irany.JobbFel);
-                }
-                else if(e.getKeyCode() == (KeyEvent.VK_NUMPAD6) || e.getKeyCode() == KeyEvent.VK_RIGHT){
+                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD6) || e.getKeyCode() == KeyEvent.VK_RIGHT) {
                     aktivJatekos.lep(Irany.Jobb);
-                }
-                else if(e.getKeyCode() == (KeyEvent.VK_NUMPAD3)){
+                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD3)) {
                     aktivJatekos.lep(Irany.JobbLe);
-                }
-                else if(e.getKeyCode() == (KeyEvent.VK_NUMPAD2) || e.getKeyCode() == KeyEvent.VK_DOWN){
+                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD2) || e.getKeyCode() == KeyEvent.VK_DOWN) {
                     aktivJatekos.lep(Irany.Le);
-                }
-                else if(e.getKeyCode() == (KeyEvent.VK_NUMPAD1)){
+                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD1)) {
                     aktivJatekos.lep(Irany.BalLe);
-                }
-                else if(e.getKeyCode() == (KeyEvent.VK_NUMPAD4) || e.getKeyCode() == KeyEvent.VK_LEFT){
+                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD4) || e.getKeyCode() == KeyEvent.VK_LEFT) {
                     aktivJatekos.lep(Irany.Bal);
-                }
-                else if(e.getKeyCode() == (KeyEvent.VK_NUMPAD7)){
+                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD7)) {
                     aktivJatekos.lep(Irany.BalFel);
-                }
-                else {
+                } else {
                     return;
                 }
 
@@ -287,7 +322,7 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
                 // Ilyenkor a View csakk azt a mezőt rajzolja újra amit kell
 
                 //Frissíteni kell a View Aktív Játékosát
-                support.firePropertyChange("aktivJatekos",regiJatekos, aktivJatekos);
+                support.firePropertyChange("aktivJatekos", regiJatekos, aktivJatekos);
 
                 //Frisíteni kell a View pályályát
                 support.firePropertyChange("palya", regiPalya, palya);
@@ -300,10 +335,11 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
 
         /**
          * Nem csinál semmit
+         *
          * @param e
          */
         @Override
-        public void keyReleased(KeyEvent e) {}
+        public void keyReleased(KeyEvent e) {
+        }
     }
 }
-
