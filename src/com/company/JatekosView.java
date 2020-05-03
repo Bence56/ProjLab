@@ -27,6 +27,8 @@ public class JatekosView extends JPanel {
                 // Az aktív játékos frissítése
                 aktivJatekos = (Jatekos) event.getNewValue();
                 //TODO Az inventory újrarajzolása
+                // végig kell mennia az öszes mezőn mielőttaz aktív játékost kicsréli
+                // Összehasonlítani és azt a részt újra rajzolni
                 update();
             }
         }

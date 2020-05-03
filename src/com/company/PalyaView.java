@@ -30,6 +30,9 @@ public class PalyaView extends JPanel {
                 // A pálya frissítése
                 palya = (ArrayList<Mezo>) event.getNewValue();
                 //Újra rajzolás
+                //TODO
+                // végig kell mennia az öszes mezőn mielőtt a páylát kicsréli
+                // Összehasonlítani és azt a részt újra rajzolni
                 update();
             }
         }

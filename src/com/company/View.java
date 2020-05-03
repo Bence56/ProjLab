@@ -16,36 +16,6 @@ class View extends JFrame {
      */
     JPanel palyaView;
 
-    JLabel label;
-
-    /**
-     * Egy Listener ami tagváltozók változását figyeli más osztályokban
-     * Most csak egyet, de meg lehet írni máshogy is
-     */
-    /*
-    PropertyChangeListener listener = new PropertyChangeListener() {
-
-        @Override
-        public void propertyChange(PropertyChangeEvent event) {
-
-            String property = event.getPropertyName();
-
-            if (property.equals("aktivJatekos")) {
-                aktivJatekos = (Jatekos) event.getNewValue();
-                //TODO Az inventory újrarajzolása
-                updateView();
-            }
-            else if(property.equals("palya")){
-                // A pálya frissítése
-                palya = (ArrayList<Mezo>) event.getNewValue();
-
-                //TODO A pálya újra rajzolása
-
-            }
-        }
-    };
-     */
-
 
     // Konstruktor
     View(Kontroller kontroller) {
