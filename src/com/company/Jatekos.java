@@ -2,14 +2,25 @@ package com.company;
 
 import java.util.ArrayList;
 
-public abstract class Jatekos extends Mozgathato {
+public abstract class Jatekos extends Mozgathato implements Cloneable {
     private Kontroller kontroller;
-    private int munkakSzama = 4;
-    private int testho;
-    private boolean vedett;
+    //Ha ez nem volatile akkor nem breakel a while loop
+    private volatile int munkakSzama = 4;
+    private volatile int testho;
+    private volatile boolean vedett;
     private ArrayList<Alkatresz> alkatreszek = new ArrayList<>();
     private ArrayList<Targy> targyak = new ArrayList<>();
-    private FulladasiAllapot allapot = FulladasiAllapot.aktiv;
+    private volatile FulladasiAllapot allapot = FulladasiAllapot.aktiv;
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Jatekos jatekos = (Jatekos)super.clone();
+        jatekos.alkatreszek = new ArrayList<>();
+        jatekos.alkatreszek.addAll(this.alkatreszek);
+        jatekos.targyak = new ArrayList<>();
+        jatekos.targyak.addAll(this.targyak);
+        return jatekos;
+    }
 
     Jatekos() {
         this.testho = 5;
@@ -25,7 +36,8 @@ public abstract class Jatekos extends Mozgathato {
      */
     public void state() {
         String id = this.getTartozkodasiMezo().getID();
-        System.out.println("Tartozkodasi mezo: " + id + " " + "Testho: " + testho + " " + "Allapot: " + allapot);
+        System.out.println("Tartozkodasi mezo: " + id + " " + "Testho: " + testho + " " + "Allapot: " + allapot
+                         + " " + "Munkák száma: " + munkakSzama);
     }
 
     /**
@@ -75,6 +87,7 @@ public abstract class Jatekos extends Mozgathato {
             szomszed.elfogad(this);
             munkakSzama--;
         }
+        this.state();
     }
 
     /**
@@ -82,10 +95,18 @@ public abstract class Jatekos extends Mozgathato {
      */
     public void jatszik() {
         //ha elfogytak a munkák a következő játékos jön
+        /*
         if (munkakSzama == 0)
 
             return;
-
+        */
+        while (true) {
+            if(allapot.equals(FulladasiAllapot.fuldoklik) || this.munkakSzama <= 0){
+                System.out.println("végeztem");
+                break;
+            }
+        }
+        System.out.println("Vége a munknak");
     }
 
     /**

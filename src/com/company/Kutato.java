@@ -1,6 +1,6 @@
 package com.company;
 
-public class Kutato extends Jatekos {
+public class Kutato extends Jatekos implements Cloneable{
     private int testho = 4;
 
 
@@ -20,5 +20,10 @@ public class Kutato extends Jatekos {
                 return m.getTeherbiras();
             }
             return -1;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

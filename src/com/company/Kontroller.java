@@ -1,41 +1,103 @@
 package com.company;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.security.KeyStore;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud a kontroller osztályra referenciát tartalmazni a játékos osztály
     protected ArrayList<Mezo> palya = new ArrayList<>();
     boolean aktiv = true;
     boolean nyert = false;
     private ArrayList<Jatekos> jatekosok = new ArrayList<>();
+    private volatile Jatekos aktivJatekos;
     private Jegesmedve jegesmedve = new Jegesmedve();
+    ArrayList<View> views = new ArrayList<>();
+    /**
+     * Egy segéd objektum ami Listener-ek listáját kezeli, és PropertyChangeEvent-eket küld nekik.
+     * Ezek a PropertyChangeLister-ek regisztrálhatnak egy bizonyos nevű attribútum/property -re, vagy
+     * akár az összesre is.
+     */
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
+    Kontroller() {}
 
-    Kontroller(){
-        
+    /**
+     * Hozzáad egy PropertyChangeListener-t a kontrollerhez, ami egy bizonyos property változása esetén
+     * valamilyen műveletet hajt végre.
+     * (A programunkban ezt a modell változásának megfigyelésére fogjuk használni)
+     * @param listener A Listener ami valamilyen property változásra reagál.
+     */
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
     }
-    public Mezo getPalya(int i){
+
+    /**
+     *  Eltávolít egy PropertyChangeListener-t a kontroller Listener-jei közűl.
+     * @param listener
+     */
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
+    }
+    /**
+     * Visszadja a jelenleg aktív játékost.
+     * @return Visszadja a jelenleg aktív játékost.
+     */
+    public Jatekos getAktivJatekos() {
+        return aktivJatekos;
+    }
+
+    /**
+     * Beállít aktív játékosnak egy új játékost,
+     * értesíti a View-t, hogy megváltozott a játékos és frissíteni kell magát
+     * @param ujAktivJatekos Az új aktív játékos akit be akarunk állítani
+     */
+    public void setAktivJatekos(Jatekos ujAktivJatekos) {
+        Jatekos regiJatekos = aktivJatekos;
+        this.aktivJatekos = ujAktivJatekos;
+        support.firePropertyChange("aktivJatekos", regiJatekos, ujAktivJatekos);
+    }
+
+    /**
+     * Hozzáad egy új nézetet a kontroller nézeteihez, és felveszi hozzá a mod kontrollerillenytű eseménykezelőjét.
+     * @param view Egy új nézet ami hozzáad a kontroller nézeteihez.
+     */
+    public void addView(View view) {
+        KeyboardListener keyboardListener = new KeyboardListener();
+        view.addKeyListener(keyboardListener);
+        this.views.add(view);
+    }
+
+
+    public Mezo getPalya(int i) {
         return palya.get(i);
     }
+
     /**
      * A játék menete, minden játékos köre előtt detektálás van, utána pedig vihar
      */
     public void jatek() {
         while (aktiv) {
             for (Jatekos j : jatekosok) {
+                this.setAktivJatekos(j);
+                System.out.println("Játékos váltás");
                 detektal();
                 j.jatszik();
                 vihar();
             }
+            //TODO Ezt szerintem feljebb kell tenni
             jegesmedve.jatszik();
         }
     }
+
 
     public void addJatekos(Jatekos j) {
         jatekosok.add(j);
     }
 
-    public void addMezo(Mezo mezo){
+    public void addMezo(Mezo mezo) {
         this.palya.add(mezo);
     }
 
@@ -93,12 +155,12 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
             if (alkatreszek != null) {
                 alkatreszSzam += alkatreszek.size();
             }
-            if(m.getFagyottAlkatresz()!= null){
-                alkatreszSzam ++;
+            if (m.getFagyottAlkatresz() != null) {
+                alkatreszSzam++;
             }
         }
 
-        if (alkatreszSzam <= 3) {
+        if (alkatreszSzam < 3) {
             jatekVege(false);
         }
 
@@ -115,6 +177,7 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
 
     /**
      * Véget vet a játéknak
+     *
      * @param nyer true érték esetén nyeréssel, false esetén vesztéssel ér véget a játék
      */
     public void jatekVege(boolean nyer) {
@@ -129,6 +192,7 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
 
     /**
      * getter
+     *
      * @return a játékban részt vevő játékosok listája
      */
     public ArrayList<Jatekos> getJatekosok() {
@@ -137,10 +201,96 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
 
     /**
      * setter
+     *
      * @param jegesmedve a játék jegesmedvéje
      */
     public void setJegesmedve(Jegesmedve jegesmedve) {
         this.jegesmedve = jegesmedve;
+    }
+
+    public ArrayList<Mezo> getPalya() {
+        return this.palya;
+    }
+
+    /**
+     * A billenytűk eseménykezelőjének belső osztálya.
+     */
+    class KeyboardListener implements KeyListener {
+
+        /**
+         * Nem csinál semmit
+         * @param e
+         */
+        @Override
+        public void keyTyped(KeyEvent e) {}
+
+        /**
+         * A billenytű lenyomások kezelő függvénye.
+         * Egy billenytű lenyomásra végrehajt egy műveletet az aktív játékoson, majd értesíti a nézeteket,
+         * hogy azok tudják frissíteni magukat.
+         * @param e A lenyomott billenytű KeyEvent-je
+         */
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+            try {
+
+                // Ez az állapota a cselekvés előtt a Játékosnak, mindegy, hogy mennyire Deep a másolat,
+                // Csak az számít, hogy ne legyen azonos a két objektum, és akkor felül lesz írva
+                Jatekos regiJatekos = (Jatekos)aktivJatekos.clone();
+
+                // A mezőket is le kell másolni az előzőhöz hasonló okok miatt
+                ArrayList<Mezo> regiPalya = new ArrayList<>();
+                for(Mezo m : palya) {
+                    regiPalya.add((Mezo)m.clone());
+                }
+
+                if(e.getKeyCode() == (KeyEvent.VK_NUMPAD8) || e.getKeyCode() == KeyEvent.VK_UP){
+                    aktivJatekos.lep(Irany.Fel);
+                }
+                else if(e.getKeyCode() == (KeyEvent.VK_NUMPAD9)){
+                    aktivJatekos.lep(Irany.JobbFel);
+                }
+                else if(e.getKeyCode() == (KeyEvent.VK_NUMPAD6) || e.getKeyCode() == KeyEvent.VK_RIGHT){
+                    aktivJatekos.lep(Irany.Jobb);
+                }
+                else if(e.getKeyCode() == (KeyEvent.VK_NUMPAD3)){
+                    aktivJatekos.lep(Irany.JobbLe);
+                }
+                else if(e.getKeyCode() == (KeyEvent.VK_NUMPAD2) || e.getKeyCode() == KeyEvent.VK_DOWN){
+                    aktivJatekos.lep(Irany.Le);
+                }
+                else if(e.getKeyCode() == (KeyEvent.VK_NUMPAD1)){
+                    aktivJatekos.lep(Irany.BalLe);
+                }
+                else if(e.getKeyCode() == (KeyEvent.VK_NUMPAD4) || e.getKeyCode() == KeyEvent.VK_LEFT){
+                    aktivJatekos.lep(Irany.Bal);
+                }
+                else if(e.getKeyCode() == (KeyEvent.VK_NUMPAD7)){
+                    aktivJatekos.lep(Irany.BalFel);
+                }
+                else {
+                    return;
+                }
+
+                //Frissíteni kell a View Aktív Játékosát
+                support.firePropertyChange("aktivJatekos",regiJatekos, aktivJatekos);
+
+                //Frisíteni kell a View pályályát
+                support.firePropertyChange("palya", regiPalya, palya);
+
+                //System.out.println(aktivJatekos.getTartozkodasiMezo().getID());
+            } catch (CloneNotSupportedException cloneNotSupportedException) {
+                cloneNotSupportedException.printStackTrace();
+            }
+        }
+
+        /**
+         * Nem csinál semmit
+         * @param e
+         */
+        @Override
+        public void keyReleased(KeyEvent e) {}
     }
 }
 

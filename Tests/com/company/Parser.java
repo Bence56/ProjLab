@@ -162,6 +162,8 @@ public class Parser {
                 }
             }
         }
+
+        kontroller.setAktivJatekos(kontroller.getJatekosok().get(0));
     }
 
     /**

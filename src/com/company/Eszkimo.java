@@ -1,6 +1,6 @@
 package com.company;
 
-public class Eszkimo extends Jatekos{
+public class Eszkimo extends Jatekos implements Cloneable{
 
     public Eszkimo(){
         super.setTestho(5);
@@ -19,5 +19,10 @@ public class Eszkimo extends Jatekos{
         this.getTartozkodasiMezo().setIglu(true);
         if (this.getTartozkodasiMezo().getTeherbiras() !=0)
             this.munkaLevon(1);
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

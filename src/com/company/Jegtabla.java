@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.ArrayList;
 
-public class Jegtabla extends Mezo {
+public class Jegtabla extends Mezo{
 
     private ArrayList<Alkatresz> alkatreszek = new ArrayList<>();
     private Alkatresz fagyottAlkatresz;

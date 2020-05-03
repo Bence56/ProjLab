@@ -4,7 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Mezo {
+public abstract class Mezo implements Cloneable {
+
+    /**
+     * Leklónoz egy mezőt, nem túl deep copy, de egy pálya lemásolásánál és összehasonlításánál,
+     * és ellenőrzésénél hogy megegyeznek e a pályák ha ezt a függvényt használjuk,
+     * már különböző lesz az eredmény és ennyi elég is.
+     * @return Egy Shallow Copyt a mezőről
+     * @throws CloneNotSupportedException
+     */
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
     protected Map<Irany, Mezo> szomszedok = new HashMap<>();
     private String id;
