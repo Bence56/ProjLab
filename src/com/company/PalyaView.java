@@ -25,18 +25,29 @@ public class PalyaView extends JPanel {
          */
         @Override
         public void propertyChange(PropertyChangeEvent event) {
-            if (event.getPropertyName().equals("palya")) {
-                System.out.println("Pálya változott");
-                // A pálya frissítése
-                palya = (ArrayList<Mezo>) event.getNewValue();
-                //Újra rajzolás
-                //TODO
-                // végig kell mennia az öszes mezőn mielőtt a páylát kicsréli
-                // Összehasonlítani és azt a részt újra rajzolni
-                update();
-            }
+           propertyChangeHandler(event);
         }
     };
+
+    private void propertyChangeHandler(PropertyChangeEvent event){
+        if (event.getPropertyName().equals("palya")) {
+            System.out.println("Pálya változott");
+            // A pálya frissítése
+            palya = (ArrayList<Mezo>) event.getNewValue();
+            //Újra rajzolás
+            //TODO
+            // végig kell mennia az öszes mezőn mielőtt a páylát kicsréli
+            // Összehasonlítani és azt a részt újra rajzolni
+            update();
+        }
+        else if (event.getPropertyName().equals("palya")) {
+            //TODO
+            // Csak azt a mezőt kell újra kirajzolni amit paraméternek kap
+        }
+        else if (event.getPropertyName().equals("vege")) {
+            // TODO ...
+        }
+    }
 
     /**
      * Létrehozza a pálya nézetet

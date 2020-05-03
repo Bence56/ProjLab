@@ -22,17 +22,26 @@ public class JatekosView extends JPanel {
          */
         @Override
         public void propertyChange(PropertyChangeEvent event) {
-            if (event.getPropertyName().equals("aktivJatekos")) {
-                System.out.println("Aktív Játékos változott");
-                // Az aktív játékos frissítése
-                aktivJatekos = (Jatekos) event.getNewValue();
-                //TODO Az inventory újrarajzolása
-                // végig kell mennia az öszes mezőn mielőttaz aktív játékost kicsréli
-                // Összehasonlítani és azt a részt újra rajzolni
-                update();
-            }
+            propertyChangeHandler(event);
         }
     };
+
+    /**
+     *
+     *
+     * @param event
+     */
+    private void propertyChangeHandler(PropertyChangeEvent event){
+        if (event.getPropertyName().equals("aktivJatekos")) {
+            System.out.println("Aktív Játékos változott");
+            // Az aktív játékos frissítése
+            aktivJatekos = (Jatekos) event.getNewValue();
+            //TODO Az inventory újrarajzolása
+            // végig kell mennia az öszes mezőn mielőttaz aktív játékost kicsréli
+            // Összehasonlítani és azt a részt újra rajzolni
+            update();
+        }
+    }
 
     /**
      * Létrehozza az aktív játékos inventory-jének nézetét

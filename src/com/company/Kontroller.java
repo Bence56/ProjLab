@@ -107,6 +107,8 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
      * 0 és a maxHoreteg kozott Között, tehát jóval kisebb a valószínűsége nagy hónak mint a semminek.
      * Lecsökkenti a mezőkön álló játékosok testhőjét, ha nincs iglu a mezőn vagy a sátor már
      */
+    //TODO
+    // Akkor kell fire "palya", miután a lement a vihar
     public void vihar() {
         int maxHoreteg = 5;
 
@@ -180,6 +182,8 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
      *
      * @param nyer true érték esetén nyeréssel, false esetén vesztéssel ér véget a játék
      */
+    //TODO
+    // Fire "vege" meg kell jeleníteni a vége képernyőt
     public void jatekVege(boolean nyer) {
         this.aktiv = false;
 
@@ -272,6 +276,15 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
                 else {
                     return;
                 }
+
+                //TODO
+                // -Comparable-t implementálja: Mező, Pály, Lyuk, Játékos Eszkimó
+                // Itt össze kell hasonlítani a régi játékost az új al
+                // De ez úgyis megváltozik ezt valószínű minden cselekvés után újra kell rajzolni
+                // ...
+                // A pályán végig kell menni, összehasonlítani az összes új mezőt a régiekkel
+                // Akkor kell fire "mezo", ha a mező nem ugyan olyan mint a régi
+                // Ilyenkor a View csakk azt a mezőt rajzolja újra amit kell
 
                 //Frissíteni kell a View Aktív Játékosát
                 support.firePropertyChange("aktivJatekos",regiJatekos, aktivJatekos);
