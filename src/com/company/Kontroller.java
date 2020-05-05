@@ -286,11 +286,33 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
                 // Csak az számít, hogy ne legyen azonos a két objektum, és akkor felül lesz írva
                 Jatekos regiJatekos = (Jatekos) aktivJatekos.clone();
 
+                /*
                 // A mezőket is le kell másolni az előzőhöz hasonló okok miatt
                 ArrayList<Mezo> regiPalya = new ArrayList<>();
                 for (Mezo m : palya) {
                     regiPalya.add((Mezo) m.clone());
                 }
+               */
+
+                //shallowcopy a játékos mezejéről és a körülötte lévő 8 mezőről
+                 ArrayList<Mezo> scRegiMezok=new ArrayList<Mezo>();
+                 Mezo scAholAll=aktivJatekos.getTartozkodasiMezo();
+                 scRegiMezok.add(scAholAll);
+                 Irany arr[]=Irany.values(); //tömbre képezi le az enum irányokat, a felvétel sorrendjének megfelelően
+                 for(Irany i: arr){
+                     Mezo szomszed=scAholAll.getSzomszed(i);
+                     scRegiMezok.add(szomszed);
+                 }
+
+                 //deepcopy létrehozása a tartozkodási mezőről és a körülötte lévő mezőkről
+                ArrayList<Mezo> dcRegiMezok=new ArrayList<Mezo>();
+                Mezo dcAholAll= (Mezo)aktivJatekos.getTartozkodasiMezo().clone();
+                dcRegiMezok.add(dcAholAll);
+                for(Irany i: arr){
+                    Mezo szomszed2=(Mezo)dcAholAll.getSzomszed(i).clone();
+                    dcRegiMezok.add(szomszed2);
+                }
+
 
                 if (e.getKeyCode() == (KeyEvent.VK_NUMPAD8) || e.getKeyCode() == KeyEvent.VK_UP) {
                     aktivJatekos.lep(Irany.Fel);
@@ -319,13 +341,19 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
                 // ...
                 // A pályán végig kell menni, összehasonlítani az összes új mezőt a régiekkel
                 // Akkor kell fire "mezo", ha a mező nem ugyan olyan mint a régi
-                // Ilyenkor a View csakk azt a mezőt rajzolja újra amit kell
+                // Ilyenkor a View csak azt a mezőt rajzolja újra amit kell
 
                 //Frissíteni kell a View Aktív Játékosát
                 support.firePropertyChange("aktivJatekos", regiJatekos, aktivJatekos);
 
-                //Frisíteni kell a View pályályát
+               /* //Frisíteni kell a View pályályát
                 support.firePropertyChange("palya", regiPalya, palya);
+                */
+
+               //Frissíteni kell a mezőket ahol állt és ahova lépett
+                for (int i=0; i<scRegiMezok.size(); i++){
+                    support.firePropertyChange("mezo", dcRegiMezok.get(i), scRegiMezok.get(i));
+                }
 
                 //System.out.println(aktivJatekos.getTartozkodasiMezo().getID());
             } catch (CloneNotSupportedException cloneNotSupportedException) {
