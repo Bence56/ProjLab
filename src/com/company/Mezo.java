@@ -1,5 +1,6 @@
 package com.company;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ public abstract class Mezo implements Cloneable {
      */
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+           return super.clone();
     }
 
     protected Map<Irany, Mezo> szomszedok = new HashMap<>();

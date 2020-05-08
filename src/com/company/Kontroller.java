@@ -117,21 +117,56 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
      * A játék menete, minden játékos köre előtt detektálás van, utána pedig vihar
      */
     public void jatek() {
-        while (aktiv) {
-            for (Jatekos j : jatekosok) {
-                this.setAktivJatekos(j);
-                System.out.println("Játékos váltás");
-                detektal();
-                j.jatszik();
-                vihar();
-            }
-            //TODO
-            // Le kell másolni a jegesmedve mezőjét előtte meg utánna, majd FIrePropertyChange("jegesemedve", regi, uj);
+        try {
+            while (aktiv) {
+                for (Jatekos j : jatekosok) {
+                    this.setAktivJatekos(j);
+                    System.out.println("Játékos váltás");
+                    detektal();
+                    j.jatszik();
+                    ArrayList<Mezo> regiPalya = new ArrayList<>();
+                    //TODO
+                    // vihar előtti pálya klónozása és utána fireproperty a pályára.
+                    for (Mezo m : palya) {
+                        regiPalya.add((Mezo) m.clone());
+                    }
+                    vihar();
+                    support.firePropertyChange("palya", regiPalya, palya);
+                }
+                //TODO
+                // Le kell másolni a jegesmedve mezőjét és a körülötte lévő 8 mezőt előtte deep es shallow copyval, majd miután lépett,
+                // minden megfelelő mezőre FIrePropertyChange("jegesemedve", regi, uj); ELVILEG KÉSZ
+                //shallowcopy(sc)  a jegesmedve mezejéről és a körülötte lévő 8 mezőről
+                ArrayList<Mezo> scRegiMezok = new ArrayList<Mezo>();
+                Mezo scAholAll = jegesmedve.getTartozkodasiMezo();
+                scRegiMezok.add(scAholAll);
+                Irany arr[] = Irany.values(); //tömbre képezi le az enum irányokat, a felvétel sorrendjének megfelelően
+                for (Irany i : arr) {
+                    Mezo szomszed = scAholAll.getSzomszed(i);
+                    scRegiMezok.add(szomszed);
+                }
 
-            jegesmedve.jatszik();
+                //deepcopy létrehozása a tartozkodási mezőről és a körülötte lévő mezőkről
+                ArrayList<Mezo> dcRegiMezok = new ArrayList<Mezo>();
+                Mezo dcAholAll = (Mezo) jegesmedve.getTartozkodasiMezo().clone();
+                dcRegiMezok.add(dcAholAll);
+                for (Irany i : arr) {
+                    Mezo szomszed2 = (Mezo) dcAholAll.getSzomszed(i).clone();
+                    dcRegiMezok.add(szomszed2);
+                }
+
+                jegesmedve.jatszik();
+
+                //Frissíteni kell a mezőket ahol állt és ahova léphetett (8 féle irány) a jegesmedve
+                for (int i = 0; i < scRegiMezok.size(); i++) {
+                    support.firePropertyChange("mezo", dcRegiMezok.get(i), scRegiMezok.get(i));
+                }
+
+            }
+        } catch (CloneNotSupportedException cloneNotSupportedException) {
+            cloneNotSupportedException.printStackTrace();
         }
     }
-
 
     public void addJatekos(Jatekos j) {
         jatekosok.add(j);
@@ -294,7 +329,7 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
                 }
                */
 
-                //shallowcopy a játékos mezejéről és a körülötte lévő 8 mezőről
+                //shallowcopy(sc)  a játékos mezejéről és a körülötte lévő 8 mezőről
                  ArrayList<Mezo> scRegiMezok=new ArrayList<Mezo>();
                  Mezo scAholAll=aktivJatekos.getTartozkodasiMezo();
                  scRegiMezok.add(scAholAll);
