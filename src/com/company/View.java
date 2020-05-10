@@ -21,14 +21,20 @@ class View extends JFrame {
     View(Kontroller kontroller) {
         //A Frame beállítása
         super("Jatek");
+        //TODO
+        // Ezeket ki kéne olvasni a JSON-ből (Még bele sincs írva)
+        // A palyaView létrehozása már paraméterben kaphatja
+        int N = 4;
+        int M = 4;
         setSize(958, 758);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         this.setVisible(true);
-        this.setResizable(false);
+        //this.setResizable(false);
         this.setLocation(0, 0);
-        this.setSize(958, 758);
+        this.setSize(222*N+200, 222*M);
+        this.setMinimumSize(this.getSize());
 
         this.palyaView = new PalyaView(kontroller, this);
         this.jatekosView = new JatekosView(kontroller, this);

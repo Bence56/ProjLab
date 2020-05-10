@@ -155,6 +155,7 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
                 Mezo dcAholAll = (Mezo) jegesmedve.getTartozkodasiMezo().clone();
                 dcRegiMezok.add(dcAholAll);
                 for (Irany i : arr) {
+                    //TODO Try cacth NullPointerException ha nincs szomszédja valamerre
                     Mezo szomszed2 = (Mezo) dcAholAll.getSzomszed(i).clone();
                     dcRegiMezok.add(szomszed2);
                 }
