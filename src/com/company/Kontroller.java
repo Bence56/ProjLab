@@ -120,13 +120,17 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
         try {
             while (aktiv) {
                 for (Jatekos j : jatekosok) {
+                    //TODO
+                    // jatekosView mutassa az adott játékos cuccait. KESZ
+                    Jatekos elozoJatekos=(Jatekos)aktivJatekos.clone();
                     this.setAktivJatekos(j);
+                    support.firePropertyChange("aktivJatekos", elozoJatekos, aktivJatekos);
                     System.out.println("Játékos váltás");
                     detektal();
                     j.jatszik();
                     ArrayList<Mezo> regiPalya = new ArrayList<>();
                     //TODO
-                    // vihar előtti pálya klónozása és utána fireproperty a pályára.
+                    // vihar előtti pálya klónozása és utána fireproperty a pályára. KESZ
                     for (Mezo m : palya) {
                         regiPalya.add((Mezo) m.clone());
                     }
@@ -330,7 +334,7 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
                */
 
                 //shallowcopy(sc)  a játékos mezejéről és a körülötte lévő 8 mezőről
-                 ArrayList<Mezo> scRegiMezok=new ArrayList<Mezo>();
+                ArrayList<Mezo> scRegiMezok=new ArrayList<Mezo>();
                  Mezo scAholAll=aktivJatekos.getTartozkodasiMezo();
                  scRegiMezok.add(scAholAll);
                  Irany arr[]=Irany.values(); //tömbre képezi le az enum irányokat, a felvétel sorrendjének megfelelően
@@ -338,16 +342,14 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
                      Mezo szomszed=scAholAll.getSzomszed(i);
                      scRegiMezok.add(szomszed);
                  }
-
                  //deepcopy létrehozása a tartozkodási mezőről és a körülötte lévő mezőkről
                 ArrayList<Mezo> dcRegiMezok=new ArrayList<Mezo>();
                 Mezo dcAholAll= (Mezo)aktivJatekos.getTartozkodasiMezo().clone();
                 dcRegiMezok.add(dcAholAll);
                 for(Irany i: arr){
-                    Mezo szomszed2=(Mezo)dcAholAll.getSzomszed(i).clone();
+                    Mezo szomszed2=(Mezo)dcAholAll.getSzomszed(i);
                     dcRegiMezok.add(szomszed2);
                 }
-
 
                 if (e.getKeyCode() == (KeyEvent.VK_NUMPAD8) || e.getKeyCode() == KeyEvent.VK_UP) {
                     aktivJatekos.lep(Irany.Fel);

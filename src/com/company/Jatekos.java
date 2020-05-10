@@ -270,6 +270,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
      */
     public void vizbeEsik() {
         Mezo m = this.getTartozkodasiMezo();
+        m.setTeherbiras(0); //beállítjuk a mező teherbírását 0-ra, mert akkor már lyuknak minősül, aki odalép beleesik.
         m.setFagyottTargy(null);
         m.setFagyottAlk(null);
         m.setAlkatreszek(null, null, null);
