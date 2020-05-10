@@ -1,14 +1,12 @@
 package com.company;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import javax.swing.*;
+import java.awt.event.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
-public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud a kontroller osztályra referenciát tartalmazni a játékos osztály
+public class Kontroller implements ActionListener { // konstruktorban kapja meg a játékosokat. Akkor tud a kontroller osztályra referenciát tartalmazni a játékos osztály
     /**
      * Egy segéd objektum ami Listener-ek listáját kezeli, és PropertyChangeEvent-eket küld nekik.
      * Ezek a PropertyChangeLister-ek regisztrálhatnak egy bizonyos nevű attribútum/property -re, vagy
@@ -24,32 +22,6 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
     private volatile Jatekos aktivJatekos;
     private Jegesmedve jegesmedve = new Jegesmedve();
     Kontroller() {
-        mouseListener = new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("Click");
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        };
     }
 
     public MouseListener getMouseListener() {
@@ -120,11 +92,7 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
         try {
             while (aktiv) {
                 for (Jatekos j : jatekosok) {
-                    //TODO
-                    // jatekosView mutassa az adott játékos cuccait. KESZ
-                    Jatekos elozoJatekos=(Jatekos)aktivJatekos.clone();
                     this.setAktivJatekos(j);
-                    support.firePropertyChange("aktivJatekos", elozoJatekos, aktivJatekos);
                     System.out.println("Játékos váltás");
                     detektal();
                     j.jatszik();
@@ -146,8 +114,11 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
                 scRegiMezok.add(scAholAll);
                 Irany arr[] = Irany.values(); //tömbre képezi le az enum irányokat, a felvétel sorrendjének megfelelően
                 for (Irany i : arr) {
-                    Mezo szomszed = scAholAll.getSzomszed(i);
-                    scRegiMezok.add(szomszed);
+                    if (scAholAll.getSzomszed(i)!=null){
+                        Mezo szomszed = scAholAll.getSzomszed(i);
+                        scRegiMezok.add(szomszed);
+                    }
+
                 }
 
                 //deepcopy létrehozása a tartozkodási mezőről és a körülötte lévő mezőkről
@@ -156,8 +127,10 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
                 dcRegiMezok.add(dcAholAll);
                 for (Irany i : arr) {
                     //TODO Try cacth NullPointerException ha nincs szomszédja valamerre
-                    Mezo szomszed2 = (Mezo) dcAholAll.getSzomszed(i).clone();
-                    dcRegiMezok.add(szomszed2);
+                    if (dcAholAll.getSzomszed(i)!=null) {
+                        Mezo szomszed2 = (Mezo) dcAholAll.getSzomszed(i).clone();
+                        dcRegiMezok.add(szomszed2);
+                    }
                 }
 
                 jegesmedve.jatszik();
@@ -294,6 +267,33 @@ public class Kontroller { // konstruktorban kapja meg a játékosokat. Akkor tud
 
     public ArrayList<Mezo> getPalya() {
         return this.palya;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        String actionCommand=actionEvent.getActionCommand();
+      if (actionCommand.equals("lapatol")) {
+          aktivJatekos.lapatol();
+        }
+        if (actionCommand.equals("kihuzjobbra")) {
+            aktivJatekos.kihuz(Irany.Jobb); //TODO: átírni h merre húzzon ki
+        }
+        if (actionCommand.equals("satrat epit")) {
+            aktivJatekos.satratEpit();
+        }
+        if (actionCommand.equals("lerak")) {
+            aktivJatekos.lerak();
+        }
+        if (actionCommand.equals("kapar")) {
+            aktivJatekos.kapar();
+        }
+        if (actionCommand.equals("összeszerel")) {
+            aktivJatekos.osszeszerel();
+        }
+        if (actionCommand.equals("iglut epit")) {
+            aktivJatekos.epit();
+        }
+
     }
 
     /**

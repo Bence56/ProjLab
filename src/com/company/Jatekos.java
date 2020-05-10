@@ -81,11 +81,12 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
         Mezo aktualis = getTartozkodasiMezo();
         Mezo szomszed = aktualis.getSzomszed(i);
         if (szomszed != null) {
+            munkakSzama--;
             //eltávolítja a játékost
             aktualis.eltavolit(this);
             //Átadja magát a szomszédos játékosnak
             szomszed.elfogad(this);
-            munkakSzama--;
+
         }
         this.state();
     }
