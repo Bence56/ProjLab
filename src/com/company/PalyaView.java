@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.AreaAveragingScaleFilter;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -17,8 +16,6 @@ import java.util.Map;
 import static javax.imageio.ImageIO.read;
 
 public class PalyaView extends JPanel {
-    private View view;
-
     /**
      * A megjelenítendő mezők paneljei
      */
@@ -27,13 +24,10 @@ public class PalyaView extends JPanel {
      * A layouthoz kell
      */
     GridBagConstraints gbc = new GridBagConstraints();
-
     /**
      * Ebben lesznek tárolva a rajzoláshoz szükséges képek
      */
-    Map<String,BufferedImage> images = new HashMap<>();
-
-
+    Map<String, BufferedImage> images = new HashMap<>();
     /**
      * Egy Listener ami tagváltozók változását figyeli más osztályokban
      * Most csak egyet, de meg lehet írni máshogy is
@@ -47,38 +41,19 @@ public class PalyaView extends JPanel {
          */
         @Override
         public void propertyChange(PropertyChangeEvent event) {
-           propertyChangeHandler(event);
+            propertyChangeHandler(event);
         }
     };
-
-    private void propertyChangeHandler(PropertyChangeEvent event){
-        if (event.getPropertyName().equals("palya")) {
-            System.out.println("Pálya változott");
-
-            // A pálya frissítése
-            ArrayList<Mezo> palya = (ArrayList<Mezo>) event.getNewValue();
-
-            //Újra rajzolás
-            update(palya);
-        }
-        else if (event.getPropertyName().equals("mezo")) {
-            Mezo mezo = (Mezo) event.getNewValue();
-            update(mezo);
-        }
-        else if (event.getPropertyName().equals("vege")) {
-
-            //TODO...
-            //update();
-        }
-    }
+    private View view;
 
     /**
      * Létrehozza a pálya nézetet
      * Léterhoz N darab M hosszú MezoPanel ArrayList-et amin majd megjelennek a mezők
+     *
      * @param kontroller A kontroller amitől le kell kérni a pályát amit meg akarunk jeleníteni
-     * @param view Az a Frame amin látni akarjuk ezt a nézetet
+     * @param view       Az a Frame amin látni akarjuk ezt a nézetet
      */
-    PalyaView(Kontroller kontroller, View view){
+    PalyaView(Kontroller kontroller, View view) {
         this.view = view;
 
         //A Kontrollerhez hozzá kell adni a Listenerünket
@@ -92,30 +67,32 @@ public class PalyaView extends JPanel {
         int M = 2;
 
 
-        this.setSize(N*210, M*222);
+        this.setSize(N * 210, M * 222);
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         this.setLayout(new GridBagLayout());
 
         //Páratlan sorok betöltése
-        for(int i = 0; i< M; i++) {
+        for (int i = 0; i < M; i++) {
             ArrayList<MezoPanel> row = new ArrayList<>();
             int top, left;
             //Hogy az első sort ne tolja vissza
-            if(i == 0) top = 0; else top = -28;
+            if (i == 0) top = 0;
+            else top = -28;
             //Minden sorban 4 mező van
             for (int j = 0; j < N; j++) {
                 //Hogy az első oszlopot ne tolja vissza
-                if(j == 0) left = 0; else left = -28;
+                if (j == 0) left = 0;
+                else left = -28;
 
                 MezoPanel p = new MezoPanel();
 
-                gbc.insets = new Insets(top,left ,72,72 );
+                gbc.insets = new Insets(top, left, 72, 72);
                 gbc.gridx = j;
                 gbc.gridy = i;
 
-                p.setMinimumSize(new Dimension(128,128));
-                p.setMaximumSize(new Dimension(128,128));
-                p.setPreferredSize(new Dimension(128,128));
+                p.setMinimumSize(new Dimension(128, 128));
+                p.setMaximumSize(new Dimension(128, 128));
+                p.setPreferredSize(new Dimension(128, 128));
 
                 row.add(p);
                 add(p, gbc);
@@ -124,38 +101,59 @@ public class PalyaView extends JPanel {
         }
 
         //Páros sorok betöltése
-        for(int i = 0; i<M; i++) {
+        for (int i = 0; i < M; i++) {
             ArrayList<MezoPanel> row = new ArrayList<>();
             int top, left;
             //Hogy az második sort ne tolja vissza
-            if(i == 0) top = 100; else top = 72;
+            if (i == 0) top = 100;
+            else top = 72;
             //Minden sorban 4 mező van
             for (int j = 0; j < N; j++) {
                 //Hogy az második oszlopot ne tolja vissza
-                if(j == 0)left = 100; else left = 72;
+                if (j == 0) left = 100;
+                else left = 72;
 
                 MezoPanel p = new MezoPanel();
 
-                gbc.insets = new Insets(top,left,0 ,0 );
+                gbc.insets = new Insets(top, left, 0, 0);
                 gbc.gridx = j;
                 gbc.gridy = i;
 
-                p.setMinimumSize(new Dimension(128,128));
-                p.setMaximumSize(new Dimension(128,128));
-                p.setPreferredSize(new Dimension(128,128));
+                p.setMinimumSize(new Dimension(128, 128));
+                p.setMaximumSize(new Dimension(128, 128));
+                p.setPreferredSize(new Dimension(128, 128));
 
                 row.add(p);
                 add(p, gbc);
             }
-            panels.add(2*i+1,row);
+            panels.add(2 * i + 1, row);
+        }
+    }
+
+    private void propertyChangeHandler(PropertyChangeEvent event) {
+        if (event.getPropertyName().equals("palya")) {
+            System.out.println("Pálya változott");
+
+            // A pálya frissítése
+            ArrayList<Mezo> palya = (ArrayList<Mezo>) event.getNewValue();
+
+            //Újra rajzolás
+            update(palya);
+        } else if (event.getPropertyName().equals("mezo")) {
+            Mezo mezo = (Mezo) event.getNewValue();
+            update(mezo);
+        } else if (event.getPropertyName().equals("vege")) {
+
+            //TODO...
+            //update();
         }
     }
 
     /**
      * Az egész pályát újra rajzolja (Minden menzőre meghívja az update()-t.)
      */
-    private void update(ArrayList<Mezo> palya){
-        for (Mezo mezo: palya ){
+    private void update(ArrayList<Mezo> palya) {
+        for (Mezo mezo : palya) {
             update(mezo);
         }
     }
@@ -163,67 +161,111 @@ public class PalyaView extends JPanel {
     /**
      * Egy mezőt újra rajzol. A mezőhöz tartozó mezoPanel-t megkeresi és beállítja a rajta látható rétegeket,
      * majd ezt újra rajzolja.
+     *
      * @param mezo A paraméterként kapott mező amit újra fog rajzolni.
      */
-    public void update(Mezo mezo){
+    public void update(Mezo mezo) {
         int sor = mezo.getSor();
         int oszlop = mezo.getOszlop();
         System.out.println("Sor:" + sor + "Oszlop: " + oszlop);
-        MezoPanel mezoView  = panels.get(sor).get(oszlop);
+        MezoPanel mezoView = panels.get(sor).get(oszlop);
         ArrayList<BufferedImage> retegek = new ArrayList<>();
 
         //A legalsó réteg Jégtábla vagy lyuk
-        if (mezo.getID().contains("J")){ retegek.add(images.get("Jegtabla"));}
-        else if(mezo.getID().contains("Y")){retegek.add(images.get("Lyuk")); }
+        if (mezo.getID().contains("J")) {
+            retegek.add(images.get("Jegtabla"));
+        } else if (mezo.getID().contains("Y")) {
+            retegek.add(images.get("Lyuk"));
+        }
 
         //TODO A tárgyakat meg kell jeleníteni
 
         //A rakéta alkatrészek
-        if(mezo.getFagyottAlkatresz()!= null){retegek.add(images.get( mezo.getFagyottAlkatresz().getID() + "-Pisztoly"));}
+        if (mezo.getFagyottAlkatresz() != null) {
+            retegek.add(images.get(mezo.getFagyottAlkatresz().getID() + "-Pisztoly"));
+        }
 
         //A hó kirajzolása
-        if(mezo.getHotakaro()!= 0){retegek.add(images.get("Ho"));}
+        if (mezo.getHotakaro() != 0) {
+            retegek.add(images.get("Ho"));
+        }
 
         ArrayList<Jatekos> jatekosok = mezo.getAlloJatekos();
-        if(!jatekosok.isEmpty()) {
+        if (!jatekosok.isEmpty()) {
             for (Jatekos jatekos : jatekosok) {
                 System.out.println(jatekos.getID());
-                retegek.add(images.get( jatekos.getID()));
+                retegek.add(images.get(jatekos.getID()));
             }
         }
 
-        if(mezo.getAlloJegesmedve() != null){retegek.add(images.get("Medve"));}
+        if (mezo.getAlloJegesmedve() != null) {
+            retegek.add(images.get("Medve"));
+        }
 
+        KotelVisitor kv = new KotelVisitor();
+        if (mezo.getTargy() != null) {
+            if (mezo.getTargy().accept(kv)) {
+                retegek.add(images.get("Kotel"));
+            }
+        }
 
+        LapatVisitor lv = new LapatVisitor();
+        if (mezo.getTargy() != null) {
+            if (mezo.getTargy().accept(lv)) {
+                retegek.add(images.get("Lapat"));
+            }
+        }
+
+        BuvarruhaVisitor bv = new BuvarruhaVisitor();
+        if (mezo.getTargy() != null) {
+            if (mezo.getTargy().accept(bv)) {
+                retegek.add(images.get("Buvarruha"));
+            }
+        }
+
+        SatorVisitor sv = new SatorVisitor();
+        if (mezo.getTargy() != null) {
+            if (mezo.getTargy().accept(sv)) {
+                retegek.add(images.get("Sator"));
+            }
+        }
+
+        if(mezo.isIglu()){retegek.add(images.get("Iglu"));}
+
+        ElelemVisitor ev = new ElelemVisitor();
+        if (mezo.getTargy() != null) {
+            if (mezo.getTargy().accept(ev)) {
+                retegek.add(images.get("Etel"));
+            }
+        }
         mezoView.update(retegek);
     }
 
     /**
      * Textúrázva tölti ki a hátteret
+     *
      * @param g
      */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        if (g2==null)
-        {
+        if (g2 == null) {
             System.out.println("error");
             return;
         }
-        try
-        {
+        try {
             BufferedImage image = ImageIO.read(new File("Resources/Assets/Tenger.png"));
-            Rectangle2D rec = new   java.awt.geom.Rectangle2D.Double(0, 0, image.getWidth(), image.getHeight());
+            Rectangle2D rec = new java.awt.geom.Rectangle2D.Double(0, 0, image.getWidth(), image.getHeight());
             TexturePaint tp = new TexturePaint(image, rec);
             g2.setPaint(tp);
-            Rectangle2D  r = this.getBounds();
+            Rectangle2D r = this.getBounds();
             g2.fill(r);
+        } catch (java.io.IOException ex) {
         }
-        catch (java.io.IOException ex) {}
     }
 
-    void loadImages(){
+    void loadImages() {
         try {
             images.put("Jegtabla", read(new File("Resources/Assets/Jegtabla-01.png")));
             images.put("Lyuk", read(new File("Resources/Assets/Lyuk-01.png")));

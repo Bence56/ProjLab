@@ -69,7 +69,7 @@ public class JatekosView extends JPanel {
         //A Kontrollerhez hozzá kell adni a Listenerünket
         kontroller.addPropertyChangeListener(listener);
 
-        this.setPreferredSize(new Dimension(200, 758));
+        this.setPreferredSize(new Dimension(256, 758));
         this.setBackground(Color.DARK_GRAY);
 
         JLabel j2=new JLabel("Ki vagyok:");

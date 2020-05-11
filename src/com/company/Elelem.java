@@ -4,13 +4,14 @@ public class Elelem extends Targy{
     public Elelem() {
     }
 
+    //TODO Átírni a kommentet
     /**
      * Mivel az élelmet már a felvételkor "használjuk", ezért az accept függvényre nincs szükség, így false visszatérési értékkel implementáljuk.
      * @param v a paraméterül kapott visitor
      * @return
      */
     @Override
-    public boolean accept(TargyVisitor v) { return false; }
+    public boolean accept(TargyVisitor v) { return v.visit(this);}
 
     /**
      * A tárgy felvétele során (amennyiben a kikapart tárgy élelem), a this-t paraméterül adja a játékos ElelemFelvesz(Elelem e) függvényének.
