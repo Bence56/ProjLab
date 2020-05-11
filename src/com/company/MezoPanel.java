@@ -3,21 +3,13 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import static javax.imageio.ImageIO.read;
+import java.util.ArrayList;
 
 public class MezoPanel extends JPanel {
-    private BufferedImage image;
+    ArrayList<BufferedImage> images = new ArrayList<>();
 
     //Ez csak ,hogy megjelenjen valami a képen betölt egy képet
     public MezoPanel() {
-        try {
-            image = read(new File("Resources/Assets/Jegtabla-01.png"));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
         this.setOpaque(false);
     }
 
@@ -25,6 +17,22 @@ public class MezoPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(image, 0, 0, this);
+        if(!images.isEmpty()) {
+            for (BufferedImage image : images) {
+                g.drawImage(image, 0, 0, this);
+            }
+        }
+    }
+
+    /**
+     * Kicseréli a képet amit ki kell rajozolni
+     * @param im
+     */
+    public void update(ArrayList<BufferedImage> im){
+        images.clear();
+        for (BufferedImage image: im) {
+            images.add(image);
+        }
+        revalidate();
     }
 }

@@ -78,8 +78,8 @@ class KontrollerTest {
         Jegtabla j1=new Jegtabla(4,0,new Alkatresz());
         Jegtabla j2=new Jegtabla(4,0,new Alkatresz());
         Jegtabla jegtabla=new Jegtabla(1,0,new Alkatresz());
-        Eszkimo e1=new Eszkimo(k);
-        Eszkimo e2=new Eszkimo(k);
+        Eszkimo e1=new Eszkimo(k, 0);
+        Eszkimo e2=new Eszkimo(k, 1);
         e1.setTartozkodasiMezo(jegtabla);
         jegtabla.elfogad(e1);
         e2.setTartozkodasiMezo(jegtabla);

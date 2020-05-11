@@ -7,8 +7,8 @@ public class Eszkimo extends Jatekos implements Cloneable{
         super.setVedett(false);
     }
 
-    public Eszkimo(Kontroller k){
-        super(k, 5);
+    public Eszkimo(Kontroller k, int ID){
+        super(k, 5, "E" + ID);
     } // amikor létrejön, 5 a testhője
 
     /**

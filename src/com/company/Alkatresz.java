@@ -1,9 +1,21 @@
 package com.company;
 
-public class Alkatresz extends Targy{
+public class Alkatresz extends Targy {
+
+    int ID;
+
+    public int getID() {
+        return ID;
+    }
+
+    Alkatresz(){}
+    Alkatresz(int i) {
+        ID = i;
+    }
 
     /**
      * A függvény a kapott TargyVisitor visit(this) függvényét meghívja.
+     *
      * @param v a TargyVisitor, akinek a visit függvényét meghívja.
      * @return Amennyiben a paraméterül kapott TargyVisitor AlkatreszVisitor,
      * úgy a függvény visszatérési értéke true, ha bármi más a visszatérési értéke false.
@@ -15,19 +27,19 @@ public class Alkatresz extends Targy{
 
     /**
      * Alkatrészt felvesz a játékos.
+     *
      * @param jatekos aki felveszi.
      */
     @Override
-    public void felvesz(Jatekos jatekos){
-        jatekos.alkatreszFelvesz(this);
-    }
+    public void felvesz(Jatekos jatekos) { jatekos.alkatreszFelvesz(this); }
 
     /**
      * Üresen implementáljuk
-     * @param  j
+     *
+     * @param j
      */
     @Override
-    public void hasznal(Jatekos j){};
-
+    public void hasznal(Jatekos j) {
+    }
 }
 

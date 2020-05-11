@@ -4,8 +4,8 @@ public class Kutato extends Jatekos implements Cloneable{
     private int testho = 4;
 
 
-    public Kutato(Kontroller k){
-        super(k, 4);
+    public Kutato(Kontroller k, int ID){
+        super(k, 4, "K" + ID);
     }
     /**
      *Lekérdezi a mező teherbírását i irányú szomszéd

@@ -5,30 +5,35 @@ import java.util.ArrayList;
 public abstract class Jatekos extends Mozgathato implements Cloneable {
     private Kontroller kontroller;
     //Ha ez nem volatile akkor nem breakel a while loop
+    private String ID;
     private volatile int munkakSzama = 4;
     private volatile int testho;
     private volatile boolean vedett;
     private ArrayList<Alkatresz> alkatreszek = new ArrayList<>();
     private ArrayList<Targy> targyak = new ArrayList<>();
     private volatile FulladasiAllapot allapot = FulladasiAllapot.aktiv;
+    Jatekos() {
+        this.testho = 5;
+    }
+
+    Jatekos(Kontroller k, int testho, String ID) {
+        this.kontroller = k;
+        this.testho = testho;
+        this.ID = ID;
+    }
+
+    public String getID() {
+        return ID;
+    }
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        Jatekos jatekos = (Jatekos)super.clone();
+        Jatekos jatekos = (Jatekos) super.clone();
         jatekos.alkatreszek = new ArrayList<>();
         jatekos.alkatreszek.addAll(this.alkatreszek);
         jatekos.targyak = new ArrayList<>();
         jatekos.targyak.addAll(this.targyak);
         return jatekos;
-    }
-
-    Jatekos() {
-        this.testho = 5;
-    }
-
-    Jatekos(Kontroller k, int testho) {
-        this.kontroller = k;
-        this.testho = testho;
     }
 
     /**
@@ -37,7 +42,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
     public void state() {
         String id = this.getTartozkodasiMezo().getID();
         System.out.println("Tartozkodasi mezo: " + id + " " + "Testho: " + testho + " " + "Allapot: " + allapot
-                         + " " + "Munkák száma: " + munkakSzama);
+                + " " + "Munkák száma: " + munkakSzama);
     }
 
     /**
@@ -102,7 +107,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
             return;
         */
         while (true) {
-            if(allapot.equals(FulladasiAllapot.fuldoklik) || this.munkakSzama <= 0){
+            if (allapot.equals(FulladasiAllapot.fuldoklik) || this.munkakSzama <= 0) {
                 System.out.println("végeztem");
                 break;
             }
@@ -238,7 +243,6 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
     }
 
 
-
     /**
      * A játékos sátrat épít, ha van neki sátra.
      */
@@ -254,11 +258,11 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
         }
     }
 
-    public void lapatTorol(TorekenyLapat t){
+    public void lapatTorol(TorekenyLapat t) {
         targyak.remove(t);
     }
 
-    public void satratTorol(Sator s){
+    public void satratTorol(Sator s) {
         targyak.remove(s);
     }
 
@@ -340,6 +344,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
 
     /**
      * visszaadja a játékos fulladási állapotát
+     *
      * @return FulladasiAllapot a játékos aktuális fulladási állapota
      */
 
