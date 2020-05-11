@@ -13,6 +13,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static javax.imageio.ImageIO.read;
 import static javax.swing.BoxLayout.Y_AXIS;
@@ -20,12 +22,16 @@ import static javax.swing.BoxLayout.Y_AXIS;
 public class JatekosView extends JPanel {
     private volatile Jatekos aktivJatekos;
     private View view;
-
+    /**
+     * Ebben lesznek tárolva a rajzoláshoz szükséges képek
+     */
+    Map<String, BufferedImage> images = new HashMap<>();
     /**
      * Egy Listener ami tagváltozók változását figyeli más osztályokban
      * Most csak egyet, de meg lehet írni máshogy is
      */
     PropertyChangeListener listener = new PropertyChangeListener() {
+
 
         /**
          * Ha megváltozik az aktív játékos valamiért mert interakcióba lépett valamivel
@@ -237,5 +243,28 @@ public class JatekosView extends JPanel {
         revalidate();
        view.repaint();
 
+    }
+
+    void loadImages() {
+        try {
+            images.put("Sator", read(new File("Resources/Assets/Sator_I-01.png")));
+            images.put("Sator_NULL", read(new File("Resources/Assets/Sator_I_NULL-01.png")));
+            images.put("0-Pisztoly", read(new File("Resources/Assets/1-Pisztoly_I-01.png")));
+            images.put("1-Pisztoly", read(new File("Resources/Assets/2-Pisztoly_I-01.png")));
+            images.put("2-Pisztoly", read(new File("Resources/Assets/3-Pisztoly_I-01.png")));
+            images.put("Pisztoly_NULL", read(new File("Resources/Assets/Pisztoly_I_NULL-01.png")));
+            images.put("Buvarruha", read(new File("Resources/Assets/Buvarruha_I-01.png")));
+            images.put("Buvarruha_NULL", read(new File("Resources/Assets/Buvarruha_I_NULL-01.png")));
+            images.put("Kotel", read(new File("Resources/Assets/Kotel_I-01.png")));
+            images.put("Kotel_NULL", read(new File("Resources/Assets/Kotel_I_NULL-01.png")));
+            images.put("Lapat", read(new File("Resources/Assets/Lapat_I-01.png")));
+            images.put("Lapat_NULL", read(new File("Resources/Assets/Lapat_I_NULL-01.png")));
+            images.put("Etel", read(new File("Resources/Assets/Konzerv_I-01.png")));
+            images.put("Etel_NULL", read(new File("Resources/Assets/Konzerv_I_NULL-01.png")));
+            images.put("E", read(new File("Resources/Assets/Eszkimo_I-01.png")));
+            images.put("K", read(new File("Resources/Assets/Kutato_I.png")));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
