@@ -68,10 +68,45 @@ public class JatekosView extends JPanel {
 
         this.setPreferredSize(new Dimension(200, 758));
         this.setBackground(Color.DARK_GRAY);
-        //this.setLayout(new GridLayout(3,2));
+
+        JLabel j2=new JLabel("Ki vagyok:");
+        this.add(j2,BorderLayout.LINE_START);
+
+        /*JPanel jatekos=new JPanel();
+        GridLayout gl2=new GridLayout(1,2);
+        jatekos.setLayout(gl2);
+        //TODO: eldönteni vhogy, hogy kutató v eszkimó és aszerint 1 eszkimot és az iglutépít ikonját betenni, v a kutatót és a teherbírást vizsgált.
+
+        //if (aktivJatekos == eszkimo)
+        //ImageIcon eszkim = new ImageIcon("Resources/Assets/Eszkimo_Mid_Left-01.png");
+        ImageIcon eszkim=new ImageIcon("C:\\Users\\Pitz\\IdeaProjects\\Szoftprojlab\\out\\production\\Projlab\\Assets\\Kutató teljes.PNG");
+        JLabel eszkimo = new JLabel();
+        jatekos.add(eszkimo);
+        eszkimo.setIcon(eszkim);
+        ImageIcon iglu = new ImageIcon("Resources/Assets/Iglu-01.png");
+        JButton iglutepit = new JButton();
+        iglutepit.setIcon(iglu);
+        iglutepit.setActionCommand("iglut epit");
+        iglutepit.addActionListener(kontroller);
+        jatekos.add(iglutepit);
+        this.add(jatekos);
+        */
+        ImageIcon eszkim=new ImageIcon("C:\\Users\\Pitz\\IdeaProjects\\Szoftprojlab\\out\\production\\Projlab\\Assets\\Kutató teljes.PNG");
+        JLabel eszkimo = new JLabel();
+        eszkimo.setIcon(eszkim);
+        this.add(eszkimo, BorderLayout.AFTER_LINE_ENDS);
+
+
+        JTextField aktualisertek=new JTextField("Testhőm: " + aktivJatekos.getTestho());
+        aktualisertek.setEditable(false);
+        this.add(aktualisertek, BorderLayout.CENTER);
+        JTextField fulladasiAllapot=new JTextField("Állapotom: " + aktivJatekos.getAllapot());
+        fulladasiAllapot.setEditable(false);
+        this.add(fulladasiAllapot, BorderLayout.LINE_START);
+
 
         JLabel cimke=new JLabel("Cuccaim:");
-        this.add(cimke, BorderLayout.PAGE_START);
+        this.add(cimke, BorderLayout.LINE_START);
         //A Játékos tárgyak tömbjének tartalma. Összes tárgyat tartalmazza, de majd amik nincsenek a játékosnál, az szürke lesz. Ha ráklikkelünk
         //az esemény végrehajtásra kerül, de ha nincs lapát a visitor miatt nem fog lapátolni csak kézzel.
 
@@ -115,7 +150,7 @@ public class JatekosView extends JPanel {
 
         //Egyéb cselekvési lehetőségek, állandóak.
         JPanel egyeb=new JPanel();
-        GridLayout gl3=new GridLayout(1,2);
+        GridLayout gl3=new GridLayout(2,2);
         egyeb.setLayout(gl3);
         JButton kapar=new JButton("Kapar");
         kapar.setActionCommand("kapar");
@@ -127,38 +162,17 @@ public class JatekosView extends JPanel {
         osszeszerel.addActionListener(kontroller);
         egyeb.add(osszeszerel);
 
+        JButton vizsgal=new JButton("Vizsgál");
+        vizsgal.setActionCommand("vizsgal");
+        vizsgal.addActionListener(kontroller);
+        egyeb.add(vizsgal);
+
+        JButton iglutepit=new JButton("Iglut epít");
+        iglutepit.setActionCommand("iglut épłt");
+        iglutepit.addActionListener(kontroller);
+        egyeb.add(iglutepit);
+
         this.add(egyeb);
-
-        JLabel j2=new JLabel("Ki vagyok:");
-        this.add(j2,BorderLayout.AFTER_LAST_LINE);
-
-        JPanel jatekos=new JPanel();
-        GridLayout gl2=new GridLayout(1,2);
-        jatekos.setLayout(gl2);
-        //TODO: eldönteni vhogy, hogy kutató v eszkimó és aszerint 1 eszkimot és az iglutépít ikonját betenni, v a kutatót és a teherbírást vizsgált.
-
-        //if (aktivJatekos == eszkimo)
-            ImageIcon eszkim = new ImageIcon("Resources/Assets/Eszkimo_Mid_Left-01.png");
-            JLabel eszkimo = new JLabel();
-            jatekos.add(eszkimo);
-            eszkimo.setIcon(eszkim);
-            ImageIcon iglu = new ImageIcon("Resources/Assets/Iglu-01.png");
-            JButton iglutepit = new JButton();
-            iglutepit.setIcon(iglu);
-            iglutepit.setActionCommand("iglut epit");
-            iglutepit.addActionListener(kontroller);
-            jatekos.add(iglutepit);
-            this.add(jatekos);
-
-
-        JTextField aktualisertek=new JTextField("Testhőm: " + aktivJatekos.getTestho());
-        aktualisertek.setEditable(false);
-        this.add(aktualisertek, BorderLayout.CENTER);
-        JTextField fulladasiAllapot=new JTextField("Állapotom: " + aktivJatekos.getAllapot());
-        fulladasiAllapot.setEditable(false);
-        this.add(fulladasiAllapot, BorderLayout.LINE_START);
-
-
     }
 
     private void update() {
