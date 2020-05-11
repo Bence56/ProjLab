@@ -33,7 +33,7 @@ class View extends JFrame {
         this.setVisible(true);
         //this.setResizable(false);
         this.setLocation(0, 0);
-        this.setSize(222*N+200, 222*M);
+        this.setSize(222*N+256, 222*M+256);
         this.setMinimumSize(this.getSize());
 
         this.palyaView = new PalyaView(kontroller, this);

@@ -108,7 +108,7 @@ public class JatekosView extends JPanel {
         //az esemény végrehajtásra kerül, de ha nincs lapát a visitor miatt nem fog lapátolni csak kézzel.
 
         JPanel targyak=new JPanel();
-        targyak.setPreferredSize(new Dimension(200,200));
+        targyak.setPreferredSize(new Dimension(256,256));
         GridLayout gl1=new GridLayout(2,2);
         targyak.setLayout(gl1);
         ImageIcon lapatim=new ImageIcon("Resources/Assets/Lapat-01.png");
