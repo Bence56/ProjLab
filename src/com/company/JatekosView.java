@@ -2,6 +2,8 @@ package com.company;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.BoxLayout;
+import javax.swing.Box;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -13,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static javax.imageio.ImageIO.read;
+import static javax.swing.BoxLayout.Y_AXIS;
 
 public class JatekosView extends JPanel {
     private volatile Jatekos aktivJatekos;
@@ -70,85 +73,129 @@ public class JatekosView extends JPanel {
         this.setBackground(Color.DARK_GRAY);
 
         JLabel j2=new JLabel("Ki vagyok:");
-        this.add(j2,BorderLayout.LINE_START);
+        this.add(j2);
+        //adatok panel létrehozása: felirat, kis kutató vagy eszkimó ikon, testhő és fulladási állapot.
+        JPanel adatok=new JPanel();
+        adatok.setPreferredSize(new Dimension(200,250));
+        BoxLayout boxlayout= new BoxLayout(adatok, BoxLayout.Y_AXIS); //felülről lefelé adja hozzá az elemeket.
+        adatok.setLayout(boxlayout);
 
-        /*JPanel jatekos=new JPanel();
-        GridLayout gl2=new GridLayout(1,2);
-        jatekos.setLayout(gl2);
-        //TODO: eldönteni vhogy, hogy kutató v eszkimó és aszerint 1 eszkimot és az iglutépít ikonját betenni, v a kutatót és a teherbírást vizsgált.
-
+        //TODO: eldönteni vhogy, hogy kutató v eszkimó és aszerint 1 eszkimot  v a kutatót kirajzolni.
         //if (aktivJatekos == eszkimo)
-        //ImageIcon eszkim = new ImageIcon("Resources/Assets/Eszkimo_Mid_Left-01.png");
-        ImageIcon eszkim=new ImageIcon("C:\\Users\\Pitz\\IdeaProjects\\Szoftprojlab\\out\\production\\Projlab\\Assets\\Kutató teljes.PNG");
-        JLabel eszkimo = new JLabel();
-        jatekos.add(eszkimo);
-        eszkimo.setIcon(eszkim);
-        ImageIcon iglu = new ImageIcon("Resources/Assets/Iglu-01.png");
-        JButton iglutepit = new JButton();
-        iglutepit.setIcon(iglu);
-        iglutepit.setActionCommand("iglut epit");
-        iglutepit.addActionListener(kontroller);
-        jatekos.add(iglutepit);
-        this.add(jatekos);
-        */
-        ImageIcon eszkim=new ImageIcon("C:\\Users\\Pitz\\IdeaProjects\\Szoftprojlab\\out\\production\\Projlab\\Assets\\Kutató teljes.PNG");
+        ImageIcon eszkim=new ImageIcon("Resources/Assets/Kutato-teljes.png");
         JLabel eszkimo = new JLabel();
         eszkimo.setIcon(eszkim);
-        this.add(eszkimo, BorderLayout.AFTER_LINE_ENDS);
-
+        adatok.add(eszkimo);
 
         JTextField aktualisertek=new JTextField("Testhőm: " + aktivJatekos.getTestho());
         aktualisertek.setEditable(false);
-        this.add(aktualisertek, BorderLayout.CENTER);
+        adatok.add(aktualisertek);
         JTextField fulladasiAllapot=new JTextField("Állapotom: " + aktivJatekos.getAllapot());
         fulladasiAllapot.setEditable(false);
-        this.add(fulladasiAllapot, BorderLayout.LINE_START);
+        adatok.add(fulladasiAllapot);
+        JTextField buvarruha=new JTextField("Búvárruha: " + aktivJatekos.isVedett());
+        adatok.add(buvarruha);
+        this.add(adatok);
 
+        //TODO:  végigmenni a játékos tömbjén hogy van-e az adott tárgyból. Képek, plusz sötét képek kellenek, ha egy tárgyból nincs..
 
+        // Játékos cuccainak a panelja
         JLabel cimke=new JLabel("Cuccaim:");
-        this.add(cimke, BorderLayout.LINE_START);
+        this.add(cimke);
         //A Játékos tárgyak tömbjének tartalma. Összes tárgyat tartalmazza, de majd amik nincsenek a játékosnál, az szürke lesz. Ha ráklikkelünk
         //az esemény végrehajtásra kerül, de ha nincs lapát a visitor miatt nem fog lapátolni csak kézzel.
 
-        //TODO:  végigmenni a játékos tömbjén hogy van-e az adott tárgyból. Középső elrendezésű képek kellenek.
         JPanel targyak=new JPanel();
-        targyak.setBackground(Color.GRAY);
+        targyak.setPreferredSize(new Dimension(200,200));
         GridLayout gl1=new GridLayout(2,2);
         targyak.setLayout(gl1);
         ImageIcon lapatim=new ImageIcon("Resources/Assets/Lapat-01.png");
         JButton lapat=new JButton();
+        lapat.setPreferredSize(new Dimension(100,100));
         lapat.setIcon((lapatim));
         targyak.add(lapat);
         lapat.setActionCommand("lapatol");
         lapat.addActionListener(kontroller);
 
 
-        ImageIcon kotelim=new ImageIcon("Resources/Assets/Kotel-01.png");
-        JButton kotel=new JButton();
-        kotel.setIcon(kotelim);
-        targyak.add(kotel);
-        //TODO itt még kell vmi kell, hogy mind a 4 irányból legyen vmi gomb a kihúzásra
-        kotel.setActionCommand("kihuzjobbra");
-        kotel.addActionListener(kontroller);
-
         ImageIcon satorim=new ImageIcon("Resources/Assets/Sator-01.png");
         JButton sator=new JButton();
+        sator.setPreferredSize(new Dimension(100,100));
         sator.setIcon(satorim);
         targyak.add(sator);
         sator.setActionCommand("satrat epit");
         sator.addActionListener(kontroller);
 
+        //Kotel kihúz megvalósítása: kötél label és a 8 irány gomb
+        JPanel targyak2=new JPanel();
+        GridLayout gl5=new GridLayout(3,3);
+        targyak2.setLayout(gl5);
+        JButton balfel=new JButton();
+        ImageIcon x=new ImageIcon("Resources/Assets/x.png");
+        //balfel.setPreferredSize(new Dimension(60,60));
+        balfel.setIcon(x);
+        balfel.setActionCommand("balfentről");
+        balfel.addActionListener(kontroller);
+        targyak2.add(balfel);
+        JButton fel=new JButton();
+      //  fel.setPreferredSize(new Dimension(60,60));
+        fel.setIcon(x);
+        fel.setActionCommand("fentről");
+        fel.addActionListener(kontroller);
+        targyak2.add(fel);
+        JButton jobbfel=new JButton();
+      //  jobbfel.setPreferredSize(new Dimension(60,60));
+        jobbfel.setIcon(x);
+        jobbfel.setActionCommand("jobbfentről");
+        jobbfel.addActionListener(kontroller);
+        targyak2.add(jobbfel);
+        JButton bal=new JButton();
+       // bal.setPreferredSize(new Dimension(60,60));
+        bal.setIcon(x);
+        targyak2.add(bal);
+        JLabel kotel=new JLabel();
+        //kotel.setPreferredSize(new Dimension(60,60));
+        ImageIcon kotelim=new ImageIcon("Resources/Assets/Kotel-01.png");
+        kotel.setIcon(kotelim);
+        targyak2.add(kotel);
+        JButton jobb=new JButton();
+        //jobb.setPreferredSize(new Dimension(60,60));
+        jobb.setIcon(x);
+        targyak2.add(jobb);
+        JButton balle=new JButton();
+        //balle.setPreferredSize(new Dimension(60,60));
+        balle.setIcon(x);
+        balle.setActionCommand("ballentről");
+        balle.addActionListener(kontroller);
+        targyak2.add(balle);
+        JButton le=new JButton();
+       // le.setPreferredSize(new Dimension(60,60));
+        le.setIcon(x);
+        le.setActionCommand("lentről");
+        le.addActionListener(kontroller);
+        targyak2.add(le);
+        JButton jobble=new JButton();
+        //jobble.setPreferredSize(new Dimension(60,60));
+        jobble.setIcon(x);
+        jobble.setActionCommand("jobblentről");
+        jobble.addActionListener(kontroller);
+        targyak2.add(jobble);
+        targyak.add(targyak2);
+
         //Az alkatrész lerak úgy van megírva, hogy bármennyi alkatrészünk van, 1 lerak() hívással a 0. indexűt rakjuk le.  Itt 1 alkatrészt
-        ImageIcon alk1im=new ImageIcon("Resources/Assets/3-Pisztoly-01.png");
-        JButton alk1=new JButton();
-        alk1.setIcon(alk1im);
-        alk1.setActionCommand("lerak");
-        alk1.addActionListener(kontroller);
-        targyak.add(alk1);
+        ImageIcon alkim=new ImageIcon("Resources/Assets/Pisztoly-teljes.png");
+        JButton alkatresz=new JButton();
+        alkatresz.setPreferredSize(new Dimension(100,100));
+        alkatresz.setIcon(alkim);
+        alkatresz.setActionCommand("lerak");
+        alkatresz.addActionListener(kontroller);
+        targyak.add(alkatresz);
 
         this.add(targyak, BorderLayout.LINE_START);
 
         //Egyéb cselekvési lehetőségek, állandóak.
+        JLabel egyeblehetoseg=new JLabel("Egyéb lehetőségek: ");
+        this.add(egyeblehetoseg);
         JPanel egyeb=new JPanel();
         GridLayout gl3=new GridLayout(2,2);
         egyeb.setLayout(gl3);
@@ -184,8 +231,9 @@ public class JatekosView extends JPanel {
         setBackground(new Color(r,g,b));
 
         //Változás történt a nézeten, újra kell rajzolni
+
         revalidate();
-        view.repaint();
+       view.repaint();
 
     }
 }

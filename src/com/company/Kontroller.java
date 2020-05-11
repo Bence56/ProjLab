@@ -275,8 +275,29 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
       if (actionCommand.equals("lapatol")) {
           aktivJatekos.lapatol();
         }
-        if (actionCommand.equals("kihuzjobbra")) {
-            aktivJatekos.kihuz(Irany.Jobb); //TODO: átírni h merre húzzon ki
+      if (actionCommand.equals("balfentről")) {
+            aktivJatekos.kihuz(Irany.BalFel); //TODO: átírni h merre húzzon ki
+        }
+        if (actionCommand.equals("fentről")) {
+            aktivJatekos.kihuz(Irany.Fel); //TODO: átírni h merre húzzon ki
+        }
+        if (actionCommand.equals("jobbfentről")) {
+            aktivJatekos.kihuz(Irany.JobbFel);
+        }
+        if (actionCommand.equals("balról")) {
+            aktivJatekos.kihuz(Irany.Bal);
+        }
+        if (actionCommand.equals("jobbról")) {
+            aktivJatekos.kihuz(Irany.Jobb);
+        }
+        if (actionCommand.equals("ballentről")) {
+            aktivJatekos.kihuz(Irany.BalLe);
+        }
+        if (actionCommand.equals("lentről")) {
+            aktivJatekos.kihuz(Irany.Le);
+        }
+        if (actionCommand.equals("jobblentről")) {
+            aktivJatekos.kihuz(Irany.JobbLe);
         }
         if (actionCommand.equals("satrat epit")) {
             aktivJatekos.satratEpit();

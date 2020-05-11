@@ -365,4 +365,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
     }
 
 
+    public boolean isVedett() {
+        return vedett;
+    }
 }
