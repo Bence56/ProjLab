@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -380,7 +381,6 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 } else {
                     return;
                 }
-
                 //TODO
                 // -Comparable-t implementálja: Mező, Pály, Lyuk, Játékos Eszkimó
                 // Itt össze kell hasonlítani a régi játékost az új al
