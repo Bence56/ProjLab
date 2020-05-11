@@ -106,6 +106,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                     }
                     vihar();
                     support.firePropertyChange("palya", regiPalya, palya);
+
                 }
                 //TODO
                 // Le kell másolni a jegesmedve mezőjét és a körülötte lévő 8 mezőt előtte deep es shallow copyval, majd miután lépett,
@@ -315,7 +316,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         if (actionCommand.equals("iglut epit")) {
             aktivJatekos.epit();
         }
-
+        //views.get(0).palyaView.update();
     }
 
     /**

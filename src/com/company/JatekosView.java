@@ -94,7 +94,9 @@ public class JatekosView extends JPanel {
         fulladasiAllapot.setEditable(false);
         adatok.add(fulladasiAllapot);
         JTextField buvarruha=new JTextField("Búvárruha: " + aktivJatekos.isVedett());
+        JTextField munka=new JTextField("Munkák: " + aktivJatekos.getMunka());
         adatok.add(buvarruha);
+        adatok.add(munka);
         this.add(adatok);
 
         //TODO:  végigmenni a játékos tömbjén hogy van-e az adott tárgyból. Képek, plusz sötét képek kellenek, ha egy tárgyból nincs..

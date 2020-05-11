@@ -111,8 +111,8 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
                 System.out.println("végeztem");
                 break;
             }
-        }
-        System.out.println("Vége a munknak");
+        }System.out.println("Vége a munknak");
+
     }
 
     /**
@@ -372,5 +372,9 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
 
     public boolean isVedett() {
         return vedett;
+    }
+
+    public int getMunka(){
+        return munkakSzama;
     }
 }
