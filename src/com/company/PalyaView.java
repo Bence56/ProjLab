@@ -192,6 +192,8 @@ public class PalyaView extends JPanel {
             }
         }
 
+        if(mezo.getAlloJegesmedve() != null){retegek.add(images.get("Medve"));}
+
 
         mezoView.update(retegek);
     }
