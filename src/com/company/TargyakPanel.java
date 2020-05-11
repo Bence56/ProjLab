@@ -9,13 +9,14 @@ public class TargyakPanel extends JPanel {
     private JButton lapat=new JButton();
     private JButton sator=new JButton();
     private JButton alkatresz=new JButton();
+    private JLabel kotel=new JLabel();
 
 
     private JButton balfel=new JButton();
     private JButton fel=new JButton();
     private JButton bal=new JButton();
     private JButton jobbfel=new JButton();
-    private JLabel kotel=new JLabel();
+
     private JButton jobb=new JButton();
     private JButton balle=new JButton();
     private JButton le=new JButton();
@@ -28,8 +29,8 @@ public class TargyakPanel extends JPanel {
     private ImageIcon satorim=new ImageIcon("Resources/Assets/Sator_I-01.png");
     private ImageIcon satorimNULL=new ImageIcon("Resources/Assets/Sator_I_NULL-01.png");
     private ImageIcon x=new ImageIcon("Resources/Assets/x.png");
-    private ImageIcon kotelim=new ImageIcon("Resources/Assets/Kotel_I-01.png");
-    private ImageIcon kotelimNULL=new ImageIcon("Resources/Assets/Kotel_I_NULL-01.png");
+    private ImageIcon kotelim=new ImageIcon("Resources/Assets/Kotel_I-02.png");
+    private ImageIcon kotelimNULL=new ImageIcon("Resources/Assets/Kotel_I_NULL-02.png");
     private ImageIcon pisztolyegy=new ImageIcon("Resources/Assets/1-Pisztoly_I-01.png");
     private ImageIcon pisztolyket=new ImageIcon("Resources/Assets/2-Pisztoly_I-01.png");
     private ImageIcon pisztolyhar=new ImageIcon("Resources/Assets/3-Pisztoly_I-01.png");
@@ -117,14 +118,17 @@ public class TargyakPanel extends JPanel {
     public void update(Jatekos aktivJatekos){
         LapatVisitor lv=new LapatVisitor();
         SatorVisitor sv=new SatorVisitor();
+        KotelVisitor kv=new KotelVisitor();
         AlkatreszVisitor av=new AlkatreszVisitor();
         lapat.setIcon(lapatimNULL);
         sator.setIcon(satorimNULL);
         alkatresz.setIcon(pisztolyNULL);
+        kotel.setIcon(kotelimNULL);
         //TODO hogy kell összemergelni a képeket helyesen, ha csak két alkatrészem van pl.?
         for (Targy t:aktivJatekos.getTargyak()) {
             if (t.accept(lv))lapat.setIcon(lapatim);
             else if(t.accept(sv))sator.setIcon(satorim);
+            else if (t.accept(kv))kotel.setIcon(kotelim);
         }
     }
 }
