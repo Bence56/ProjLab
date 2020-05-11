@@ -115,6 +115,16 @@ public class TargyakPanel extends JPanel {
         this.add(targyak);
     }
     public void update(Jatekos aktivJatekos){
-
+        LapatVisitor lv=new LapatVisitor();
+        SatorVisitor sv=new SatorVisitor();
+        AlkatreszVisitor av=new AlkatreszVisitor();
+        lapat.setIcon(lapatimNULL);
+        sator.setIcon(satorimNULL);
+        alkatresz.setIcon(pisztolyNULL);
+        //TODO hogy kell összemergelni a képeket helyesen, ha csak két alkatrészem van pl.?
+        for (Targy t:aktivJatekos.getTargyak()) {
+            if (t.accept(lv))lapat.setIcon(lapatim);
+            else if(t.accept(sv))sator.setIcon(satorim);
+        }
     }
 }

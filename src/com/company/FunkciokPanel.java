@@ -21,7 +21,7 @@ public class FunkciokPanel extends JPanel {
         vizsgal.addActionListener(kontroller);
         this.add(vizsgal);
         JButton iglutepit=new JButton("Iglut epít");
-        iglutepit.setActionCommand("iglut épłt");
+        iglutepit.setActionCommand("iglut épít");
         iglutepit.addActionListener(kontroller);
         this.add(iglutepit);
     }
