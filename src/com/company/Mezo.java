@@ -1,26 +1,15 @@
 package com.company;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Mezo implements Cloneable {
 
-    /**
-     * Leklónoz egy mezőt, nem túl deep copy, de egy pálya lemásolásánál és összehasonlításánál,
-     * és ellenőrzésénél hogy megegyeznek e a pályák ha ezt a függvényt használjuk,
-     * már különböző lesz az eredmény és ennyi elég is.
-     * @return Egy Shallow Copyt a mezőről
-     * @throws CloneNotSupportedException
-     */
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-           return super.clone();
-    }
-
     protected Map<Irany, Mezo> szomszedok = new HashMap<>();
     private String id;
+    private int sor;
+    private int oszlop;
     private int teherbiras;
     private int hotakaro;
     private ArrayList<Jatekos> alloJatekos = new ArrayList<>();
@@ -30,19 +19,16 @@ public abstract class Mezo implements Cloneable {
         this.teherbiras = teherbiras;
         this.hotakaro = hotakaro;
     }
-
     public Mezo(String id, int teherbiras, int hotakaro) {
         this.id = id;
         this.teherbiras = teherbiras;
         this.hotakaro = hotakaro;
     }
-
     public Mezo(int teherbiras, int hotakaro, Jegesmedve medve) {
         this.teherbiras = teherbiras;
         this.hotakaro = hotakaro;
         this.alloJegesmedve = medve;
     }
-
     public Mezo(String id, int teherbiras, int hotakaro, Jegesmedve medve) {
         this.id = id;
         this.teherbiras = teherbiras;
@@ -51,7 +37,37 @@ public abstract class Mezo implements Cloneable {
     }
 
     /**
+     * Leklónoz egy mezőt, nem túl deep copy, de egy pálya lemásolásánál és összehasonlításánál,
+     * és ellenőrzésénél hogy megegyeznek e a pályák ha ezt a függvényt használjuk,
+     * már különböző lesz az eredmény és ennyi elég is.
+     *
+     * @return Egy Shallow Copyt a mezőről
+     * @throws CloneNotSupportedException
+     */
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public int getSor() {
+        return sor;
+    }
+
+    public void setSor(int sor) {
+        this.sor = sor;
+    }
+
+    public int getOszlop() {
+        return oszlop;
+    }
+
+    public void setOszlop(int oszlop) {
+        this.oszlop = oszlop;
+    }
+
+    /**
      * visszaadja a mező ID-ját.
+     *
      * @return
      */
     public String getID() {
@@ -60,6 +76,7 @@ public abstract class Mezo implements Cloneable {
 
     /**
      * setter, beállítja a mező szomszédját
+     *
      * @param i az irány amibe a szomszédot teszi
      * @param m a szomszéd mező
      */
@@ -69,6 +86,7 @@ public abstract class Mezo implements Cloneable {
 
     /**
      * visszaadja a mezőn befagyott tárgyat. A Jegtabla osztály felüldefiniálja
+     *
      * @return alapesetben nullt ad vissza.
      */
     Targy getTargy() {
@@ -77,6 +95,7 @@ public abstract class Mezo implements Cloneable {
 
     /**
      * setter, beállítja a mezőre letett alkatrészek értékeit.
+     *
      * @param a1 alkatrész
      * @param a2 alkatrész
      * @param a3 alkatrész
@@ -86,6 +105,7 @@ public abstract class Mezo implements Cloneable {
 
     /**
      * setter, beálllítja a táblába befagyott tárgyat. A leszármazottak felüldefiniálják.
+     *
      * @param t a kapott tárgy
      */
     public void setFagyottTargy(Targy t) {
@@ -93,6 +113,7 @@ public abstract class Mezo implements Cloneable {
 
     /**
      * setter, beálllítja a táblába befagyott alkatrészt. A leszármazottak felüldefiniálják.
+     *
      * @param t a kapott alkatrész
      */
     public void setFagyottAlk(Alkatresz t) {
@@ -100,9 +121,11 @@ public abstract class Mezo implements Cloneable {
 
     /**
      * Növeli a mező hórétegének értékét a paraméterben kapott értékkel.
+     * Ha már 5 hó van egy mezőn az nem növekszik tovább.
      * @param num ahány egységgel növelni kell a hóréteget.
      */
     public void horetegNovel(int num) {
+        if(hotakaro >= 5){return;}
         this.hotakaro += num;
     }
 
@@ -186,6 +209,7 @@ public abstract class Mezo implements Cloneable {
 
     /**
      * getter
+     *
      * @return visszaadja, hogy az adott mezőn van-e iglu. Ha a mező jégtábla, a függvény felüldefiniálódik, egyébként visszatérési értéke false.
      */
     public boolean isIglu() {
@@ -194,6 +218,7 @@ public abstract class Mezo implements Cloneable {
 
     /**
      * AAmennyiben a mező jégtábla, úgy beállítja a jégtábla iglu attribútumának értékét truera, egyébként nem csinál semmit.
+     *
      * @param iglu
      */
     public void setIglu(boolean iglu) {
@@ -208,6 +233,7 @@ public abstract class Mezo implements Cloneable {
 
     /**
      * getter
+     *
      * @return Ha a mező egy jégtábla, őgy a Jegtabla osztály felülírja ezt a függvényt(visszaadja, hogy mióta
      * áll a sátor az adott jégtáblán), amennyiben a mező Lyuk, úgy 0 a visszatérési érték.
      */
@@ -262,6 +288,7 @@ public abstract class Mezo implements Cloneable {
 
     /**
      * setter, beállítja a tábla teherbírásának értékét
+     *
      * @param teherbiras
      */
 

@@ -78,6 +78,8 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         KeyboardListener keyboardListener = new KeyboardListener();
         view.addKeyListener(keyboardListener);
         this.views.add(view);
+        //Amikor hozzáadjuk a nézetet az jelenjen is meg rögtön
+        support.firePropertyChange("palya",0,palya);
     }
 
 
@@ -109,10 +111,10 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 // Le kell másolni a jegesmedve mezőjét és a körülötte lévő 8 mezőt előtte deep es shallow copyval, majd miután lépett,
                 // minden megfelelő mezőre FIrePropertyChange("jegesemedve", regi, uj); ELVILEG KÉSZ
                 //shallowcopy(sc)  a jegesmedve mezejéről és a körülötte lévő 8 mezőről
-                ArrayList<Mezo> scRegiMezok = new ArrayList<Mezo>();
+                ArrayList<Mezo> scRegiMezok = new ArrayList<>();
                 Mezo scAholAll = jegesmedve.getTartozkodasiMezo();
                 scRegiMezok.add(scAholAll);
-                Irany arr[] = Irany.values(); //tömbre képezi le az enum irányokat, a felvétel sorrendjének megfelelően
+                Irany[] arr = Irany.values(); //tömbre képezi le az enum irányokat, a felvétel sorrendjének megfelelően
                 for (Irany i : arr) {
                     if (scAholAll.getSzomszed(i)!=null){
                         Mezo szomszed = scAholAll.getSzomszed(i);
@@ -122,11 +124,10 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 }
 
                 //deepcopy létrehozása a tartozkodási mezőről és a körülötte lévő mezőkről
-                ArrayList<Mezo> dcRegiMezok = new ArrayList<Mezo>();
+                ArrayList<Mezo> dcRegiMezok = new ArrayList<>();
                 Mezo dcAholAll = (Mezo) jegesmedve.getTartozkodasiMezo().clone();
                 dcRegiMezok.add(dcAholAll);
                 for (Irany i : arr) {
-                    //TODO Try cacth NullPointerException ha nincs szomszédja valamerre
                     if (dcAholAll.getSzomszed(i)!=null) {
                         Mezo szomszed2 = (Mezo) dcAholAll.getSzomszed(i).clone();
                         dcRegiMezok.add(szomszed2);
@@ -325,7 +326,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         /**
          * Nem csinál semmit
          *
-         * @param e
+         * @param e Az esemény
          */
         @Override
         public void keyTyped(KeyEvent e) {
@@ -354,24 +355,10 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                     regiPalya.add((Mezo) m.clone());
                 }
                */
+                ArrayList<Mezo> scRegiMezok = ShallowCopySzomszedok();
 
-                //shallowcopy(sc)  a játékos mezejéről és a körülötte lévő 8 mezőről
-                ArrayList<Mezo> scRegiMezok=new ArrayList<Mezo>();
-                 Mezo scAholAll=aktivJatekos.getTartozkodasiMezo();
-                 scRegiMezok.add(scAholAll);
-                 Irany arr[]=Irany.values(); //tömbre képezi le az enum irányokat, a felvétel sorrendjének megfelelően
-                 for(Irany i: arr){
-                     Mezo szomszed=scAholAll.getSzomszed(i);
-                     scRegiMezok.add(szomszed);
-                 }
                  //deepcopy létrehozása a tartozkodási mezőről és a körülötte lévő mezőkről
-                ArrayList<Mezo> dcRegiMezok=new ArrayList<Mezo>();
-                Mezo dcAholAll= (Mezo)aktivJatekos.getTartozkodasiMezo().clone();
-                dcRegiMezok.add(dcAholAll);
-                for(Irany i: arr){
-                    Mezo szomszed2=(Mezo)dcAholAll.getSzomszed(i);
-                    dcRegiMezok.add(szomszed2);
-                }
+                ArrayList<Mezo> dcRegiMezok = DeepCopySzomszedok();
 
                 if (e.getKeyCode() == (KeyEvent.VK_NUMPAD8) || e.getKeyCode() == KeyEvent.VK_UP) {
                     aktivJatekos.lep(Irany.Fel);
@@ -427,6 +414,43 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
          */
         @Override
         public void keyReleased(KeyEvent e) {
+        }
+
+        /**
+         * shallowcopy(sc)  a játékos mezejéről és a körülötte lévő szomszédos mezőről
+         * ha valamelyik szomszéd null, azt nem másolja le
+         * @return Egy Array List a lemásolt mezőkről
+         */
+        private ArrayList<Mezo> ShallowCopySzomszedok(){
+            ArrayList<Mezo> scRegiMezok=new ArrayList<>();
+            Mezo scAholAll=aktivJatekos.getTartozkodasiMezo();
+            scRegiMezok.add(scAholAll);
+
+            //tömbre képezi le az enum irányokat, a felvétel sorrendjének megfelelően
+            Irany[] arr =Irany.values();
+
+            for(Irany i: arr){
+                Mezo szomszed = scAholAll.getSzomszed(i);
+                if(szomszed != null) {
+                    scRegiMezok.add(szomszed);
+                }
+            }
+            return  scRegiMezok;
+        }
+
+        private ArrayList<Mezo> DeepCopySzomszedok() throws CloneNotSupportedException {
+            ArrayList<Mezo> dcRegiMezok=new ArrayList<>();
+            Mezo dcAholAll= (Mezo)aktivJatekos.getTartozkodasiMezo().clone();
+            dcRegiMezok.add(dcAholAll);
+
+            //tömbre képezi le az enum irányokat, a felvétel sorrendjének megfelelően
+            Irany[] arr = Irany.values();
+
+            for(Irany i: arr){
+                Mezo szomszed2= dcAholAll.getSzomszed(i);
+                dcRegiMezok.add(szomszed2);
+            }
+            return  dcRegiMezok;
         }
     }
 }

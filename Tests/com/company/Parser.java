@@ -90,10 +90,15 @@ public class Parser {
         JSONObject palya = obj.getJSONObject("palya");
         JSONArray mezok = palya.getJSONArray("mezok");
 
+        //Hányadik alkatrész, játékos.. az ID generáláshoz kell
+        int alk = 0; int esk = 0; int kut = 0;
+
         // Végigmegy a JSON mezőin és betölti őket a kontrollerbe
         for (int i = 0; i < mezok.length(); i++) {
             String id = mezok.getJSONObject(i).getString("id");
+            String pos = mezok.getJSONObject(i).getString("pozicio");
             Mezo mezo;
+
             if (id.charAt(0) == 'J') {
                 String targyString = mezok.getJSONObject(i).getString("targy");
                 Targy targy = CreateTargy(targyString);
@@ -109,10 +114,15 @@ public class Parser {
                         "Valószínűleg nem jó a" + i + ".mező id-je");
             }
 
+            //Beállítja a mező helyét a pályán
+            String[] idx = pos.split(",");
+            mezo.setSor(Integer.parseInt(idx[0]));
+            mezo.setOszlop(Integer.parseInt(idx[1]));
+
             // Ha van kutató a mezőn hozzáadjuk
             int kutatoNum = mezok.getJSONObject(i).getInt("kutato");
             for (int j = 0; j < kutatoNum; j++) {
-                Jatekos jatekos = new Kutato(kontroller);
+                Jatekos jatekos = new Kutato(kontroller, kut++);
                 jatekos.setMezo(mezo);
                 mezo.addAlloJatekos(jatekos);
                 kontroller.addJatekos(jatekos);
@@ -120,7 +130,7 @@ public class Parser {
             // Ha van eszkimó a mezőn hozzáadjuk
             int eszkimoNum = mezok.getJSONObject(i).getInt("eszkimo");
             for (int j = 0; j < eszkimoNum; j++) {
-                Jatekos jatekos = new Eszkimo(kontroller);
+                Jatekos jatekos = new Eszkimo(kontroller, esk++);
                 jatekos.setMezo(mezo);
                 mezo.addAlloJatekos(jatekos);
                 kontroller.addJatekos(jatekos);
@@ -137,8 +147,8 @@ public class Parser {
             //Ha van alkatrész hozzáadja az alkatrészhez
             boolean alkatresz = mezok.getJSONObject(i).getBoolean("alkatresz");
             if (alkatresz) {
-                Alkatresz a = new Alkatresz();
-                mezo.alkatreszNovel(a);
+                Alkatresz a = new Alkatresz(alk++);
+                mezo.setFagyottAlk(a);
             }
 
             if (mezo.getTeherbiras() < mezo.getAlloJatekos().size()) {
