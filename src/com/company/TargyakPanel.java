@@ -61,46 +61,68 @@ public class TargyakPanel extends JPanel {
         targyak2.setLayout(gl5);
 
 
+        //BalFel
         //balfel.setPreferredSize(new Dimension(60,60));
         balfel.setIcon(x);
         balfel.setActionCommand("balfentről");
         balfel.addActionListener(kontroller);
         targyak2.add(balfel);
+
+        //Fel
         //  fel.setPreferredSize(new Dimension(60,60));
         fel.setIcon(x);
         fel.setActionCommand("fentről");
         fel.addActionListener(kontroller);
         targyak2.add(fel);
+
+        //JobbFel
         //  jobbfel.setPreferredSize(new Dimension(60,60));
         jobbfel.setIcon(x);
         jobbfel.setActionCommand("jobbfentről");
         jobbfel.addActionListener(kontroller);
         targyak2.add(jobbfel);
+
+
+        //Bal
         // bal.setPreferredSize(new Dimension(60,60));
         bal.setIcon(x);
+        bal.setActionCommand("balról");
+        bal.addActionListener(kontroller);
         targyak2.add(bal);
-        //kotel.setPreferredSize(new Dimension(60,60));
 
+        //kotel.setPreferredSize(new Dimension(60,60));
         kotel.setIcon(kotelim);
         targyak2.add(kotel);
+
+        //Jobb
         //jobb.setPreferredSize(new Dimension(60,60));
         jobb.setIcon(x);
+        jobb.setActionCommand("jobbról");
+        jobb.addActionListener(kontroller);
         targyak2.add(jobb);
+
+
+        //BalLe
         //balle.setPreferredSize(new Dimension(60,60));
         balle.setIcon(x);
         balle.setActionCommand("ballentről");
         balle.addActionListener(kontroller);
         targyak2.add(balle);
+
+        //Le
         // le.setPreferredSize(new Dimension(60,60));
         le.setIcon(x);
         le.setActionCommand("lentről");
         le.addActionListener(kontroller);
         targyak2.add(le);
+
         //jobble.setPreferredSize(new Dimension(60,60));
         jobble.setIcon(x);
         jobble.setActionCommand("jobblentről");
         jobble.addActionListener(kontroller);
         targyak2.add(jobble);
+
+
         targyak.add(targyak2);
         //Az alkatrész lerak úgy van megírva, hogy bármennyi alkatrészünk van, 1 lerak() hívással a 0. indexűt rakjuk le.  Itt 1 alkatrészt
         alkatresz.setPreferredSize(new Dimension(100,100));

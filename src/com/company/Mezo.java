@@ -46,7 +46,7 @@ public abstract class Mezo implements Cloneable {
      */
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        return (Mezo) super.clone();
     }
 
     public int getSor() {
