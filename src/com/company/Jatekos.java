@@ -105,20 +105,22 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
      * A játékos játszik, cselekvéseket végezhet amíg a 4 munka el nem fogy.
      */
     public void jatszik() {
-       // if (getAllapot()==FulladasiAllapot.aktiv)
-        //    munkakSzama=4;
+        if (getAllapot()==FulladasiAllapot.aktiv)
+            munkakSzama=4;
         //ha elfogytak a munkák a következő játékos jön
         /*
         if (munkakSzama == 0)
 
             return;
         */
-        while (true) {
-            if (allapot.equals(FulladasiAllapot.fuldoklik) || this.munkakSzama <= 0) {
-                System.out.println("végeztem");
-                break;
-            }
-        }System.out.println("Vége a munknak");
+            while (true) {
+                if (allapot.equals(FulladasiAllapot.fuldoklik) || this.munkakSzama <= 0) {
+                    System.out.println("végeztem");
+                    break;
+                }
+            }System.out.println("Vége a munknak");
+
+
 
     }
 

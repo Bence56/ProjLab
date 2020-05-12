@@ -99,16 +99,19 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                     System.out.println("Játékos váltás");
                     detektal();
                     j.jatszik();
-                    ArrayList<Mezo> regiPalya = new ArrayList<>();
-                    //TODO
-                    // vihar előtti pálya klónozása és utána fireproperty a pályára. KESZ
-                    for (Mezo m : palya) {
-                        regiPalya.add((Mezo) m.clone());
-                    }
-                    vihar();
-                    support.firePropertyChange("palya", regiPalya, palya);
+
+                   //itt volt a vihar
 
                 }
+                //TODO
+                // vihar előtti pálya klónozása és utána fireproperty a pályára. KESZ
+                ArrayList<Mezo> regiPalya = new ArrayList<>();
+                for (Mezo m : palya) {
+                    regiPalya.add((Mezo) m.clone());
+                }
+                vihar();
+                support.firePropertyChange("palya", regiPalya, palya);
+
                 //TODO
                 // Le kell másolni a jegesmedve mezőjét és a körülötte lévő 8 mezőt előtte deep es shallow copyval, majd miután lépett,
                 // minden megfelelő mezőre FIrePropertyChange("jegesemedve", regi, uj); ELVILEG KÉSZ
@@ -124,6 +127,9 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                     }
 
                 }
+
+
+
 
                 //deepcopy létrehozása a tartozkodási mezőről és a körülötte lévő mezőkről
                 ArrayList<Mezo> dcRegiMezok = new ArrayList<>();
@@ -240,8 +246,8 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
      */
     //TODO
     // Fire "vege" meg kell jeleníteni a vége képernyőt
-    public void jatekVege(boolean nyer) {
-        this.aktiv = false;
+    public void jatekVege(boolean nyer){
+        aktiv=false;
 
         if (nyer) {
             System.out.println("NYERTEL");
@@ -281,10 +287,10 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
           aktivJatekos.lapatol();
         }
       if (actionCommand.equals("balfentről")) {
-            aktivJatekos.kihuz(Irany.BalFel);
+            aktivJatekos.kihuz(Irany.BalFel); //TODO: átírni h merre húzzon ki
         }
         if (actionCommand.equals("fentről")) {
-            aktivJatekos.kihuz(Irany.Fel);
+            aktivJatekos.kihuz(Irany.Fel); //TODO: átírni h merre húzzon ki
         }
         if (actionCommand.equals("jobbfentről")) {
             aktivJatekos.kihuz(Irany.JobbFel);
