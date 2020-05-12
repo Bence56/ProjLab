@@ -68,7 +68,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
     public void setAktivJatekos(Jatekos ujAktivJatekos) {
         Jatekos regiJatekos = aktivJatekos;
         this.aktivJatekos = ujAktivJatekos;
-        support.firePropertyChange("aktivJatekos", regiJatekos, ujAktivJatekos);
+
     }
 
     /**
@@ -101,9 +101,6 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                     System.out.println("Játékos váltás");
                     detektal();
                     j.jatszik();
-
-                    //itt volt a vihar
-
                 }
                 //TODO
                 // vihar előtti pálya klónozása és utána fireproperty a pályára. KESZ
@@ -406,14 +403,14 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 // Ahol előtte állt
                 support.firePropertyChange("mezo", regiTartozkodasiMezo, regiJatekos.getTartozkodasiMezo());
                 //Ahol az új játékos áll
-                support.firePropertyChange("aktiv mezo", regiJatekos.getTartozkodasiMezo(),aktivJatekos.getTartozkodasiMezo());
+                support.firePropertyChange("aktiv mezo", null,aktivJatekos.getTartozkodasiMezo());
 
-            } catch (CloneNotSupportedException cloneNotSupportedException) {
+        } catch (CloneNotSupportedException cloneNotSupportedException) {
                 cloneNotSupportedException.printStackTrace();
             }
         }
 
-        /**
+        /**4
          * Nem csinál semmit
          *
          * @param e
