@@ -95,6 +95,9 @@ public class JatekosView extends JPanel {
         this.add(egyeblehetoseg);
         funkciok=new FunkciokPanel(kontroller);
         this.add(funkciok);
+        adatok.update(aktivJatekos);
+        targyak.update(aktivJatekos);
+        funkciok.update(aktivJatekos);
     }
 
     private void update() {

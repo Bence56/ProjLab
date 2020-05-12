@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AdatokPanel extends JPanel{
-    private ImageIcon eszkim=new ImageIcon("Resources/Assets/Kutato-teljes.png");
-    private ImageIcon kuatato=new ImageIcon("Resources/Assets/Kutato-teljes.png");
+    private ImageIcon eszkim=new ImageIcon("Resources/Assets/Eszkimo_I-01.png");
+    private ImageIcon kuatato=new ImageIcon("Resources/Assets/Kutato_I-01.png");
     private JLabel kep=new JLabel();
     JTextField fulladasiAllapot=new JTextField("Állapotom: ");
     JTextField testho=new JTextField("Testhőm: ");
@@ -31,6 +31,9 @@ public class AdatokPanel extends JPanel{
                 this.add(munka);
             }
             public void update(Jatekos aktivjatekos){
+                //TODO típusellenőrzést kiszedni
+                if (aktivjatekos.getClass()==Eszkimo.class)kep.setIcon(eszkim);
+                else kep.setIcon(kuatato);
                 fulladasiAllapot.setText("Állapotom: "+aktivjatekos.getAllapot().toString());
                 testho.setText("Testhőm: "+aktivjatekos.getTestho());
                 buvarruha.setText("Búvárruha: "+aktivjatekos.isVedett());

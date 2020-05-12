@@ -28,6 +28,6 @@ public class FunkciokPanel extends JPanel {
     //Egyéb cselekvési lehetőségek, állandóak.
 
     public void update(Jatekos aktivJatekos){
-
+        revalidate();
     }
 }

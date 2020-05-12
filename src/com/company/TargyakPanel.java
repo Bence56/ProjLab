@@ -23,7 +23,6 @@ public class TargyakPanel extends JPanel {
     private JButton jobble=new JButton();
 
 
-
     private ImageIcon lapatim=new ImageIcon("Resources/Assets/Lapat_I-01.png");
     private ImageIcon lapatimNULL=new ImageIcon("Resources/Assets/Lapat_I_NULL-01.png");
     private ImageIcon satorim=new ImageIcon("Resources/Assets/Sator_I-01.png");
@@ -104,8 +103,6 @@ public class TargyakPanel extends JPanel {
         targyak2.add(jobble);
         targyak.add(targyak2);
         //Az alkatrész lerak úgy van megírva, hogy bármennyi alkatrészünk van, 1 lerak() hívással a 0. indexűt rakjuk le.  Itt 1 alkatrészt
-
-
         alkatresz.setPreferredSize(new Dimension(100,100));
         alkatresz.setIcon(pisztolyNULL);
         alkatresz.setActionCommand("lerak");
@@ -120,15 +117,36 @@ public class TargyakPanel extends JPanel {
         SatorVisitor sv=new SatorVisitor();
         KotelVisitor kv=new KotelVisitor();
         AlkatreszVisitor av=new AlkatreszVisitor();
+        fel.setIcon(x);
+        jobbfel.setIcon(x);
+        jobb.setIcon(x);
+        jobble.setIcon(x);
+        le.setIcon(x);
+        balle.setIcon(x);
+        bal.setIcon(x);
+        balfel.setIcon(x);
         lapat.setIcon(lapatimNULL);
         sator.setIcon(satorimNULL);
         alkatresz.setIcon(pisztolyNULL);
         kotel.setIcon(kotelimNULL);
         //TODO hogy kell összemergelni a képeket helyesen, ha csak két alkatrészem van pl.?
+        boolean vankotel=false;
         for (Targy t:aktivJatekos.getTargyak()) {
             if (t.accept(lv))lapat.setIcon(lapatim);
             else if(t.accept(sv))sator.setIcon(satorim);
-            else if (t.accept(kv))kotel.setIcon(kotelim);
+            else if (t.accept(kv)){kotel.setIcon(kotelim);vankotel=true;}
         }
+        Mezo m=aktivJatekos.getTartozkodasiMezo();
+        if (vankotel) {
+            if (m.getSzomszed(Irany.Fel) != null) fel.setIcon(kotelim);
+            else if (m.getSzomszed(Irany.JobbFel)!=null)jobbfel.setIcon(kotelim);
+            else if (m.getSzomszed(Irany.Jobb)!=null)jobb.setIcon(kotelim);
+            else if (m.getSzomszed(Irany.JobbLe)!=null)jobble.setIcon(kotelim);
+            else if (m.getSzomszed(Irany.Le)!=null)le.setIcon(kotelim);
+            else if (m.getSzomszed(Irany.BalLe)!=null)balle.setIcon(kotelim);
+            else if (m.getSzomszed(Irany.Bal)!=null)bal.setIcon(kotelim);
+            else if (m.getSzomszed(Irany.BalFel)!=null)balfel.setIcon(kotelim);
+        }
+        revalidate();
     }
 }
