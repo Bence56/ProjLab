@@ -144,13 +144,14 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
             if (targy != null) {
                 targy.felvesz(this);
                 m.setFagyottTargy(null);
+                this.munkakSzama--;
             }
             Alkatresz alk = this.getTartozkodasiMezo().getFagyottAlkatresz();
             if (alk != null) {
                 alk.felvesz(this);
+                this.munkakSzama--;
             }
 
-            this.munkakSzama--;
         }
     }
 
