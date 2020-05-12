@@ -6,6 +6,11 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
     private Kontroller kontroller;
     //Ha ez nem volatile akkor nem breakel a while loop
     private String ID;
+
+    public void setMunkakSzama(int munkakSzama) {
+        this.munkakSzama = munkakSzama;
+    }
+
     private volatile int munkakSzama = 4;
     private volatile int testho;
     private volatile boolean vedett;
@@ -100,6 +105,8 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
      * A játékos játszik, cselekvéseket végezhet amíg a 4 munka el nem fogy.
      */
     public void jatszik() {
+       // if (getAllapot()==FulladasiAllapot.aktiv)
+        //    munkakSzama=4;
         //ha elfogytak a munkák a következő játékos jön
         /*
         if (munkakSzama == 0)

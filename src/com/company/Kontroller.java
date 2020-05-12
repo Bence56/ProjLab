@@ -248,6 +248,8 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
             nyert = true;
         } else
             System.out.println("GAME OVER");
+            Frame f=new JFrame();
+            f.setVisible(true);
     }
 
     /**
@@ -279,10 +281,10 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
           aktivJatekos.lapatol();
         }
       if (actionCommand.equals("balfentről")) {
-            aktivJatekos.kihuz(Irany.BalFel); //TODO: átírni h merre húzzon ki
+            aktivJatekos.kihuz(Irany.BalFel);
         }
         if (actionCommand.equals("fentről")) {
-            aktivJatekos.kihuz(Irany.Fel); //TODO: átírni h merre húzzon ki
+            aktivJatekos.kihuz(Irany.Fel);
         }
         if (actionCommand.equals("jobbfentről")) {
             aktivJatekos.kihuz(Irany.JobbFel);
