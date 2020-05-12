@@ -327,7 +327,9 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         }
         for (View v:views) {
             v.ujra(this);
+            v.requestFocusInWindow();
         }
+
     }
 
     /**
