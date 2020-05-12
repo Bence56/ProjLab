@@ -326,10 +326,10 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
             aktivJatekos.epit();
         }
         for (View v:views) {
+            //TODO csak az aktív játékos körüli mezőket kell újra rajzolni
             v.ujra(this);
             v.requestFocusInWindow();
         }
-
     }
 
     /**

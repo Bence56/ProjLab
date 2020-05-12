@@ -52,7 +52,7 @@ public class JatekosView extends JPanel {
      */
     private void propertyChangeHandler(PropertyChangeEvent event) {
         if (event.getPropertyName().equals("aktivJatekos")) {
-            System.out.println("Aktív Játékos változott");
+            System.out.println("Aktív Játékos updatelve");
             // Az aktív játékos frissítése
             aktivJatekos = (Jatekos) event.getNewValue();
             //TODO Az inventory újrarajzolása

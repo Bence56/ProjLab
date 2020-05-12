@@ -115,10 +115,9 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
 
            while (true) {
                 if (allapot.equals(FulladasiAllapot.fuldoklik) || this.munkakSzama <= 0) {
-                    System.out.println("végeztem");
                     break;
                 }
-            }System.out.println("Vége a munknak");
+            }
 
 
 
