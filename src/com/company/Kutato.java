@@ -21,7 +21,10 @@ public class Kutato extends Jatekos implements Cloneable{
             }
             return -1;
     }
-
+    @Override
+    public void epit(){
+        System.out.println("\t\tKutato épít");
+    }
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return super.clone();

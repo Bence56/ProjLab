@@ -23,7 +23,6 @@ public class MezoPanel extends JPanel {
             }
         }
     }
-
     /**
      * Kicseréli a képet amit ki kell rajozolni
      * @param im

@@ -145,9 +145,10 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
                 m.setFagyottTargy(null);
                 this.munkakSzama--;
             }
-            Alkatresz alk = this.getTartozkodasiMezo().getFagyottAlkatresz();
+            Alkatresz alk = m.getFagyottAlkatresz();
             if (alk != null) {
                 alk.felvesz(this);
+                m.setFagyottAlk(null);
                 this.munkakSzama--;
             }
 
@@ -220,12 +221,21 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
             if (t.accept(kv)) {     //ha a tárgy kötél akkor true
                 int size = szomszed.getAlloJatekos().size();
                 if (size != 0) {
-                    for (int j = 0; j < size; j++) {  // a szomszéd mezőről minden játékost kihúz.
-                        Jatekos mentett = szomszed.getAlloJatekos().get(0);
-                        t.hasznal(mentett);
-                        szomszed.eltavolit(mentett);
-                        this.getTartozkodasiMezo().elfogad(mentett);
+                    ArrayList<Jatekos> niggas=new ArrayList<Jatekos>();
+                    for (Jatekos j:kontroller.getJatekosok()) {
+                        if (j.getTartozkodasiMezo()==szomszed)niggas.add(j);
                     }
+                    boolean munkat=false;
+                    for (int j = 0; j < size; j++) {  // a szomszéd mezőről minden játékost kihúz.
+                        if (niggas.get(j).getAllapot()==FulladasiAllapot.fuldoklik) {
+                            Jatekos mentett = szomszed.getAlloJatekos().get(0);
+                            t.hasznal(mentett);
+                            munkat=true;
+                            szomszed.eltavolit(mentett);
+                            this.getTartozkodasiMezo().elfogad(mentett);
+                        }
+                    }
+                    if(munkat)
                     munkakSzama--;
                 }
             }
@@ -349,8 +359,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
     /**
      * Az eszkimó valósítja meg
      */
-    public void epit() {
-    }
+    public abstract void epit();
 
     /**
      * visszaadja a játékos fulladási állapotát
