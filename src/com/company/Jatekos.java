@@ -2,22 +2,43 @@ package com.company;
 
 import java.util.ArrayList;
 
-public abstract class Jatekos extends Mozgathato {
+public abstract class Jatekos extends Mozgathato implements Cloneable {
     private Kontroller kontroller;
-    private int munkakSzama = 4;
-    private int testho;
-    private boolean vedett;
+    //Ha ez nem volatile akkor nem breakel a while loop
+    private String ID;
+
+    public void setMunkakSzama(int munkakSzama) {
+        this.munkakSzama = munkakSzama;
+    }
+
+    private volatile int munkakSzama = 4;
+    private volatile int testho;
+    private volatile boolean vedett;
     private ArrayList<Alkatresz> alkatreszek = new ArrayList<>();
     private ArrayList<Targy> targyak = new ArrayList<>();
-    private FulladasiAllapot allapot = FulladasiAllapot.aktiv;
-
+    private volatile FulladasiAllapot allapot = FulladasiAllapot.aktiv;
     Jatekos() {
         this.testho = 5;
     }
 
-    Jatekos(Kontroller k, int testho) {
+    Jatekos(Kontroller k, int testho, String ID) {
         this.kontroller = k;
         this.testho = testho;
+        this.ID = ID;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Jatekos jatekos = (Jatekos) super.clone();
+        jatekos.alkatreszek = new ArrayList<>();
+        jatekos.alkatreszek.addAll(this.alkatreszek);
+        jatekos.targyak = new ArrayList<>();
+        jatekos.targyak.addAll(this.targyak);
+        return jatekos;
     }
 
     /**
@@ -25,7 +46,8 @@ public abstract class Jatekos extends Mozgathato {
      */
     public void state() {
         String id = this.getTartozkodasiMezo().getID();
-        System.out.println("Tartozkodasi mezo: " + id + " " + "Testho: " + testho + " " + "Allapot: " + allapot);
+        System.out.println("Tartozkodasi mezo: " + id + " " + "Testho: " + testho + " " + "Allapot: " + allapot
+                + " " + "Munkák száma: " + munkakSzama);
     }
 
     /**
@@ -69,24 +91,38 @@ public abstract class Jatekos extends Mozgathato {
         Mezo aktualis = getTartozkodasiMezo();
         Mezo szomszed = aktualis.getSzomszed(i);
         if (szomszed != null) {
+            munkakSzama--;
             //eltávolítja a játékost
             aktualis.eltavolit(this);
             //Átadja magát a szomszédos játékosnak
             szomszed.elfogad(this);
-            munkakSzama--;
+
         }
+        this.state();
     }
 
     /**
      * A játékos játszik, cselekvéseket végezhet amíg a 4 munka el nem fogy.
      */
     public void jatszik() {
+        if (getAllapot() == FulladasiAllapot.aktiv)
+            munkakSzama = 4;
         //ha elfogytak a munkák a következő játékos jön
-        if (munkakSzama == 0)
 
-            return;
+       // if (munkakSzama == 0)
+
+          //  return;
+
+           while (true) {
+                if (allapot.equals(FulladasiAllapot.fuldoklik) || this.munkakSzama <= 0) {
+                    break;
+                }
+            }
+
+
 
     }
+
 
     /**
      * A játékos meghal.
@@ -107,13 +143,14 @@ public abstract class Jatekos extends Mozgathato {
             if (targy != null) {
                 targy.felvesz(this);
                 m.setFagyottTargy(null);
+                this.munkakSzama--;
             }
             Alkatresz alk = this.getTartozkodasiMezo().getFagyottAlkatresz();
             if (alk != null) {
                 alk.felvesz(this);
+                this.munkakSzama--;
             }
 
-            this.munkakSzama--;
         }
     }
 
@@ -215,18 +252,30 @@ public abstract class Jatekos extends Mozgathato {
         }
     }
 
+
     /**
      * A játékos sátrat épít, ha van neki sátra.
      */
     public void satratEpit() {
-        SatorVisitor sv = new SatorVisitor();
-        for (Targy t : targyak) {
-            if (t.accept(sv)) {
-                t.hasznal(this);
-                return;
+        if (!this.getTartozkodasiMezo().isIglu()) {
+            SatorVisitor sv = new SatorVisitor();
+            for (Targy t : targyak) {
+                if (t.accept(sv)) {
+                    t.hasznal(this);
+                    return;
+                }
             }
         }
     }
+
+    public void lapatTorol(TorekenyLapat t) {
+        targyak.remove(t);
+    }
+
+    public void satratTorol(Sator s) {
+        targyak.remove(s);
+    }
+
 
     /**
      * Beállítja a játékos allapot tagváltozójának értékét fuldoklikra,
@@ -236,6 +285,7 @@ public abstract class Jatekos extends Mozgathato {
      */
     public void vizbeEsik() {
         Mezo m = this.getTartozkodasiMezo();
+        m.setTeherbiras(0); //beállítjuk a mező teherbírását 0-ra, mert akkor már lyuknak minősül, aki odalép beleesik.
         m.setFagyottTargy(null);
         m.setFagyottAlk(null);
         m.setAlkatreszek(null, null, null);
@@ -304,6 +354,7 @@ public abstract class Jatekos extends Mozgathato {
 
     /**
      * visszaadja a játékos fulladási állapotát
+     *
      * @return FulladasiAllapot a játékos aktuális fulladási állapota
      */
 
@@ -329,4 +380,11 @@ public abstract class Jatekos extends Mozgathato {
     }
 
 
+    public boolean isVedett() {
+        return vedett;
+    }
+
+    public int getMunka(){
+        return munkakSzama;
+    }
 }

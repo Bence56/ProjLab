@@ -26,7 +26,7 @@ class JatekosTest {
     public void epit() {
         Kontroller k=new Kontroller();
         Mezo m = new Jegtabla(4, 4, null);
-        Jatekos j = new Eszkimo(k);
+        Jatekos j = new Eszkimo(k, 0);
         j.setTartozkodasiMezo(m);
 
         j.epit();
@@ -49,7 +49,7 @@ class JatekosTest {
     public void lep(String irany) {
         Kontroller k=new Kontroller();
         Irany i = Irany.StringToIrany(irany);
-        Jatekos j = new Eszkimo(k);
+        Jatekos j = new Eszkimo(k, 1);
         Mezo m = new Jegtabla("kezdomezo", 4, 4, null);
         Mezo m2 = new Jegtabla("szomszed " + irany, 4, 4, null);
         m.szomszedok.put(i, m2);
@@ -72,7 +72,7 @@ class JatekosTest {
         String iranyString = "Fel";
         Irany irany = Irany.StringToIrany(iranyString);
         Kontroller k=new Kontroller();
-        Jatekos j = new Eszkimo(k);
+        Jatekos j = new Eszkimo(k, 0);
         j.setAllapot(FulladasiAllapot.aktiv);
         Mezo m = new Jegtabla("kezdomezo", 4, 4, null);
         Mezo m2 = new Lyuk("szomszed " + iranyString, 0);
@@ -106,8 +106,8 @@ class JatekosTest {
     @Test
     public void lapatolTest(){
         Kontroller k=new Kontroller();
-        Eszkimo eszkimo=new Eszkimo(k);
-        Kutato kutato=new Kutato(k);
+        Eszkimo eszkimo=new Eszkimo(k,0 );
+        Kutato kutato=new Kutato(k, 1);
         Jegtabla j1=new Jegtabla(5,4,new Lapat());
         Jegtabla j2=new Jegtabla(5,4,new Buvarruha());
         Jegtabla j3=new Jegtabla(5,1,new Buvarruha());
@@ -181,7 +181,7 @@ class JatekosTest {
     public void osszeszerelTest(){
         Kontroller k = new Kontroller();
         Jegtabla jegtabla=new Jegtabla(5,0,null);
-        Eszkimo eszkimo=new Eszkimo(k);
+        Eszkimo eszkimo=new Eszkimo(k, 0);
         k.addJatekos(eszkimo);
         eszkimo.setTartozkodasiMezo(jegtabla);
         jegtabla.elfogad(eszkimo);
@@ -201,7 +201,7 @@ class JatekosTest {
     public void alkatreszFelveszTest(){
         Kontroller k=new Kontroller();
         Jegtabla jegtabla=new Jegtabla(5,0, new Alkatresz());
-        Eszkimo eszkimo=new Eszkimo(k);
+        Eszkimo eszkimo=new Eszkimo(k, 0);
         k.addJatekos(eszkimo);
         eszkimo.setTartozkodasiMezo(jegtabla);
         jegtabla.elfogad(eszkimo);
@@ -221,7 +221,7 @@ class JatekosTest {
     public void vizsgalTest(String irany) {
         Kontroller k=new Kontroller();
         Irany i = Irany.StringToIrany(irany);
-        Jatekos j = new Kutato(k);
+        Jatekos j = new Kutato(k, 0);
         Mezo m = new Jegtabla(3, 4, null);
         Mezo m2 = new Jegtabla(2, 4, null);
         m.szomszedok.put(i, m2);

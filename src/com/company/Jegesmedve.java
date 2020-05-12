@@ -5,6 +5,10 @@ import java.util.Random;
 
 public class Jegesmedve extends Mozgathato {
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
     /**
      * kiírja a jegesmedve állapotát
      */

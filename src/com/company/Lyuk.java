@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Lyuk extends Mezo {
 
+
     public Lyuk(int hotakaro) {   // a nulla teherbírású a Lyuk..
         super(0, hotakaro);
     }
