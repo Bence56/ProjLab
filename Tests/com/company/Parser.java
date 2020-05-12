@@ -103,7 +103,7 @@ public class Parser {
                 String targyString = mezok.getJSONObject(i).getString("targy");
                 Targy targy = CreateTargy(targyString);
                 // 0-3 között random teherbírás
-                mezo = new Jegtabla(id, (int) (Math.random() * (3 + 1)), 0, targy);
+                mezo = new Jegtabla(id, /*(int) (Math.random() * (3 + 1) )*/ 3, 0, targy);
             } else if (id.charAt(0) == 'Y') {
                 mezo = new Lyuk(id, 0);
             }
