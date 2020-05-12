@@ -83,7 +83,7 @@ public class JatekosView extends JPanel {
         //loadImages();
 
         this.add(adatok);
-        targyak=new TargyakPanel(kontroller,images);
+        targyak=new TargyakPanel(kontroller);
         JLabel cimke=new JLabel("Cuccaim:");
         this.add(cimke);
         this.add(targyak);

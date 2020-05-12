@@ -319,8 +319,32 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         if (actionCommand.equals("összeszerel")) {
             aktivJatekos.osszeszerel();
         }
-        if (actionCommand.equals("iglut epit")) {
+        if (actionCommand.equals("iglut épít")) {
             aktivJatekos.epit();
+        }
+        if (actionCommand.equals("vizsgál balfent")) {
+            aktivJatekos.vizsgal(Irany.BalFel);
+        }
+        if (actionCommand.equals("vizsgál fent")) {
+            aktivJatekos.vizsgal(Irany.Fel);
+        }
+        if (actionCommand.equals("vizsgál jobbfent")) {
+            aktivJatekos.vizsgal(Irany.JobbFel);
+        }
+        if (actionCommand.equals("vizsgál balra")) {
+            aktivJatekos.vizsgal(Irany.Bal);
+        }
+        if (actionCommand.equals("vizsgál jobbra")) {
+            aktivJatekos.vizsgal(Irany.Jobb);
+        }
+        if (actionCommand.equals("vizsgál ballent")) {
+            aktivJatekos.vizsgal(Irany.BalLe);
+        }
+        if (actionCommand.equals("vizsgál lent")) {
+            aktivJatekos.vizsgal(Irany.Le);
+        }
+        if (actionCommand.equals("vizsgál jobblent")) {
+            aktivJatekos.vizsgal(Irany.JobbLe);
         }
         for (View v : views) {
             //TODO csak az aktív játékos körüli mezőket kell újra rajzolni

@@ -1,45 +1,7 @@
-/*package com.company;
-
-import javax.swing.*;
-import java.awt.*;
-
-public class FunkciokPanel extends JPanel {
-    JButton kapar=new JButton("Kapar");
-    JButton osszeszerel=new JButton("Összeszerel");
-    JButton iglutepit=new JButton("Iglut épít");
-    JButton vizsgal=new JButton("Vizsgál");
-
-
-    public FunkciokPanel(Kontroller kontroller){
-
-        GridLayout gl3=new GridLayout(2,2);
-        //this.setLayout(gl3);
-        this.setLayout(gl3);
-        kapar.setActionCommand("kapar");
-        kapar.addActionListener(kontroller);
-        this.add(kapar);
-        osszeszerel.setActionCommand("összeszerel");
-        osszeszerel.addActionListener(kontroller);
-        this.add(osszeszerel);
-        vizsgal.setActionCommand("vizsgal");
-        vizsgal.addActionListener(kontroller);
-        this.add(vizsgal);
-        iglutepit.setActionCommand("iglut épít");
-        iglutepit.addActionListener(kontroller);
-        this.add(iglutepit);
-    }
-    //Egyéb cselekvési lehetőségek, állandóak.
-
-    public void update(Jatekos aktivJatekos){
-        revalidate();
-    }
-}
-*/
 package com.company;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class FunkciokPanel extends JPanel {
     // Játékos cuccainak a panelja
@@ -85,7 +47,7 @@ public class FunkciokPanel extends JPanel {
 
         osszeszerel.setIcon(osszeszerelim);
         targyak.add(osszeszerel);
-        osszeszerel.setActionCommand("osszeszerel");
+        osszeszerel.setActionCommand("összeszerel");
         osszeszerel.addActionListener(kontroller);
 
         //Vizsgál panel irányonként egy gombbal
@@ -97,21 +59,21 @@ public class FunkciokPanel extends JPanel {
         //BalFel
         //balfel.setPreferredSize(new Dimension(60,60));
         balfel.setIcon(x);
-        balfel.setActionCommand("balfentről");
+        balfel.setActionCommand("vizsgál balfent");
         balfel.addActionListener(kontroller);
         targyak2.add(balfel);
 
         //Fel
         //  fel.setPreferredSize(new Dimension(60,60));
         fel.setIcon(x);
-        fel.setActionCommand("fentről");
+        fel.setActionCommand("vizsgál fent");
         fel.addActionListener(kontroller);
         targyak2.add(fel);
 
         //JobbFel
         //  jobbfel.setPreferredSize(new Dimension(60,60));
         jobbfel.setIcon(x);
-        jobbfel.setActionCommand("jobbfentről");
+        jobbfel.setActionCommand("vizsgál jobbfent");
         jobbfel.addActionListener(kontroller);
         targyak2.add(jobbfel);
 
@@ -119,7 +81,7 @@ public class FunkciokPanel extends JPanel {
         //Bal
         // bal.setPreferredSize(new Dimension(60,60));
         bal.setIcon(x);
-        bal.setActionCommand("balról");
+        bal.setActionCommand("vizsgál balra");
         bal.addActionListener(kontroller);
         targyak2.add(bal);
 
@@ -130,7 +92,7 @@ public class FunkciokPanel extends JPanel {
         //Jobb
         //jobb.setPreferredSize(new Dimension(60,60));
         jobb.setIcon(x);
-        jobb.setActionCommand("jobbról");
+        jobb.setActionCommand("vizsgál jobbra");
         jobb.addActionListener(kontroller);
         targyak2.add(jobb);
 
@@ -138,20 +100,20 @@ public class FunkciokPanel extends JPanel {
         //BalLe
         //balle.setPreferredSize(new Dimension(60,60));
         balle.setIcon(x);
-        balle.setActionCommand("ballentről");
+        balle.setActionCommand("vizsgál ballent");
         balle.addActionListener(kontroller);
         targyak2.add(balle);
 
         //Le
         // le.setPreferredSize(new Dimension(60,60));
         le.setIcon(x);
-        le.setActionCommand("lentről");
+        le.setActionCommand("vizsgál lent");
         le.addActionListener(kontroller);
         targyak2.add(le);
 
         //jobble.setPreferredSize(new Dimension(60,60));
         jobble.setIcon(x);
-        jobble.setActionCommand("jobblentről");
+        jobble.setActionCommand("vizsgál jobblent");
         jobble.addActionListener(kontroller);
         targyak2.add(jobble);
         targyak.add(targyak2);
@@ -160,7 +122,7 @@ public class FunkciokPanel extends JPanel {
         //Az alkatrész lerak úgy van megírva, hogy bármennyi alkatrészünk van, 1 lerak() hívással a 0. indexűt rakjuk le.  Itt 1 alkatrészt
         iglutepit.setPreferredSize(new Dimension(90,90));
         iglutepit.setIcon(igluim); //pisztolyNULL
-        iglutepit.setActionCommand("iglut epít");
+        iglutepit.setActionCommand("iglut épít");
         iglutepit.addActionListener(kontroller);
         targyak.add(iglutepit);
 
@@ -168,6 +130,16 @@ public class FunkciokPanel extends JPanel {
         this.add(targyak);
     }
     public void update(Jatekos aktivJatekos){
+        //TODO aszerint h kutató vagy eszkimo, a vizsgál vagy az iglu szürke kell legyen.
+        Mezo m = aktivJatekos.getTartozkodasiMezo();
+            if (m.getSzomszed(Irany.Fel) != null) fel.setIcon(nagyitoim);
+            if (m.getSzomszed(Irany.JobbFel) != null) jobbfel.setIcon(nagyitoim);
+            if (m.getSzomszed(Irany.Jobb) != null) jobb.setIcon(nagyitoim);
+            if (m.getSzomszed(Irany.JobbLe) != null) jobble.setIcon(nagyitoim);
+            if (m.getSzomszed(Irany.Le) != null) le.setIcon(nagyitoim);
+            if (m.getSzomszed(Irany.BalLe) != null) balle.setIcon(nagyitoim);
+            if (m.getSzomszed(Irany.Bal) != null) bal.setIcon(nagyitoim);
+            if (m.getSzomszed(Irany.BalFel) != null) balfel.setIcon(nagyitoim);
         revalidate();
     }
 }
