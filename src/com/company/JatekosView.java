@@ -116,7 +116,13 @@ public class JatekosView extends JPanel {
        view.repaint();
 
     }
-
+    public void ujra(){
+        adatok.update(aktivJatekos);
+        targyak.update(aktivJatekos);
+        funkciok.update(aktivJatekos);
+        revalidate();
+        view.repaint();
+    }
     void loadImages() {
         try {
             images.put("Sator", read(new File("Resources/Assets/Sator_I-01.png")));

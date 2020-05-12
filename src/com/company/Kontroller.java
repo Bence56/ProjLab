@@ -325,7 +325,9 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         if (actionCommand.equals("iglut epit")) {
             aktivJatekos.epit();
         }
-        //views.get(0).palyaView.update();
+        for (View v:views) {
+            v.ujra(this);
+        }
     }
 
     /**

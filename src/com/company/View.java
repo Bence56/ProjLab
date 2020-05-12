@@ -9,12 +9,12 @@ class View extends JFrame {
     /**
      * Az aktuális Játékos Inventory-jének nézete.
      */
-    JPanel jatekosView;
+    JatekosView jatekosView;
 
     /**
      * A pálya nézete
      */
-    JPanel palyaView;
+    PalyaView palyaView;
 
 
     // Konstruktor
@@ -41,5 +41,9 @@ class View extends JFrame {
 
         this.getContentPane().add(palyaView, BorderLayout.CENTER);
         this.getContentPane().add(jatekosView, BorderLayout.EAST);
+    }
+    public void ujra(Kontroller k){
+        jatekosView.ujra();
+        palyaView.ujra(k);
     }
 }

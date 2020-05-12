@@ -264,7 +264,9 @@ public class PalyaView extends JPanel {
         } catch (java.io.IOException ex) {
         }
     }
-
+    public void ujra(Kontroller k){
+        update(k.getPalya());
+    }
     void loadImages() {
         try {
             images.put("Jegtabla", read(new File("Resources/Assets/Jegtabla-01.png")));

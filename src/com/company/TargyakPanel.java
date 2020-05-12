@@ -139,13 +139,13 @@ public class TargyakPanel extends JPanel {
         Mezo m=aktivJatekos.getTartozkodasiMezo();
         if (vankotel) {
             if (m.getSzomszed(Irany.Fel) != null) fel.setIcon(kotelim);
-            else if (m.getSzomszed(Irany.JobbFel)!=null)jobbfel.setIcon(kotelim);
-            else if (m.getSzomszed(Irany.Jobb)!=null)jobb.setIcon(kotelim);
-            else if (m.getSzomszed(Irany.JobbLe)!=null)jobble.setIcon(kotelim);
-            else if (m.getSzomszed(Irany.Le)!=null)le.setIcon(kotelim);
-            else if (m.getSzomszed(Irany.BalLe)!=null)balle.setIcon(kotelim);
-            else if (m.getSzomszed(Irany.Bal)!=null)bal.setIcon(kotelim);
-            else if (m.getSzomszed(Irany.BalFel)!=null)balfel.setIcon(kotelim);
+            if (m.getSzomszed(Irany.JobbFel)!=null)jobbfel.setIcon(kotelim);
+            if (m.getSzomszed(Irany.Jobb)!=null)jobb.setIcon(kotelim);
+            if (m.getSzomszed(Irany.JobbLe)!=null)jobble.setIcon(kotelim);
+            if (m.getSzomszed(Irany.Le)!=null)le.setIcon(kotelim);
+            if (m.getSzomszed(Irany.BalLe)!=null)balle.setIcon(kotelim);
+            if (m.getSzomszed(Irany.Bal)!=null)bal.setIcon(kotelim);
+            if (m.getSzomszed(Irany.BalFel)!=null)balfel.setIcon(kotelim);
         }
         revalidate();
     }
