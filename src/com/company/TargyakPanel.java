@@ -37,9 +37,14 @@ public class TargyakPanel extends JPanel {
     private ImageIcon pisztolyhar = new ImageIcon("Resources/Assets/3-Pisztoly_I-01.png");
     private ImageIcon pisztolyNULL = new ImageIcon("Resources/Assets/Pisztoly_I_NULL-01.png");
 
+    /**
+     * Tárgyal panel inicializásála és ikonok hozzáadása.
+     * Egér esemény kezeléséhez actioncommandot és actionlistenert adtunk a tárgyakhoz.
+     *
+     * @param kontroller A kontroller, amely figyeli a játék eseményeit.
+     */
+
     public TargyakPanel(Kontroller kontroller) {
-
-
         JPanel targyak = new JPanel();
         targyak.setPreferredSize(new Dimension(220, 220));
         GridLayout gl1 = new GridLayout(2, 2);
@@ -137,6 +142,12 @@ public class TargyakPanel extends JPanel {
         targyak.add(targyak2, BorderLayout.LINE_START);
         this.add(targyak);
     }
+
+    /**
+     * A használandó tárgyak kiválasztása és ikonjaik frissítése.
+     *
+     * @param aktivJatekos A játékos, akinek a tárgyait frissítjük.
+     */
 
     public void update(Jatekos aktivJatekos) {
         LapatVisitor lv = new LapatVisitor();

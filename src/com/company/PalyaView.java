@@ -130,6 +130,11 @@ public class PalyaView extends JPanel {
         }
     }
 
+    /**
+     *Tulajdonság változását kezeli.
+     *
+     * @param event Az esemány, amely a változást jelzi.
+     */
     private void propertyChangeHandler(PropertyChangeEvent event) {
         if (event.getPropertyName().equals("palya")) {
             System.out.println("Pálya változott");
@@ -280,9 +285,18 @@ public class PalyaView extends JPanel {
         }
     }
 
+    /**
+     * Pálya frissítése.
+     *
+     * @param k A kontroller amitől lekérjük a pályát amit frissiteni szeretnénk.
+     */
     public void ujra(Kontroller k) {
         update(k.getPalya());
     }
+
+    /**
+     * Ikonok betöltése
+     */
 
     void loadImages() {
         try {

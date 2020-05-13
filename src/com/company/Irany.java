@@ -10,6 +10,11 @@ public enum Irany{
     Jobb,
     JobbLe;
 
+
+    /**
+     * Visszaadja az irányok ellentétes irányát..
+     *
+     */
     public Irany ellentetes() {
         if(this==Irany.Fel)
         {
@@ -20,6 +25,11 @@ public enum Irany{
         else return Jobb;
     }
 
+    /**
+     * Egy kapott stringből visszaadjuk az annak megfelelő Irany enumot.
+     *
+     * @param string Az irány stringje, amit vissza szeretnénk adni Irany típusban.
+     */
     public static Irany StringToIrany(String string){
         if (string.equals("Fel")){
             return Fel;

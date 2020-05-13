@@ -11,8 +11,6 @@ public class FunkciokPanel extends JPanel {
     JLabel vizsgal=new JLabel();
 
 
-
-
     private JButton balfel=new JButton();
     private JButton fel=new JButton();
     private JButton bal=new JButton();
@@ -28,6 +26,13 @@ public class FunkciokPanel extends JPanel {
     private ImageIcon x=new ImageIcon("Resources/Assets/x.png");
     private ImageIcon csakanyim=new ImageIcon("Resources/Assets/csákány.png");
     private ImageIcon igluim=new ImageIcon("Resources/Assets/Iglu_I-01_kisebb.png");
+
+    /**
+     * Funkciók ikonjait hozzáadjuk a panelhez.
+     *Actioncommandot és actionlistenert fűzünk hozzájuk, hogy le tudjuk kezelni az egérkattintásokat.
+     *
+     * @param kontroller A játékot irányító kontroller
+     */
 
     public FunkciokPanel(Kontroller kontroller){
 
@@ -129,6 +134,12 @@ public class FunkciokPanel extends JPanel {
         targyak.add(targyak2, BorderLayout.LINE_START);
         this.add(targyak);
     }
+
+    /**
+     * Funkciók ikonjainak frissítése.
+     *
+     * @param aktivJatekos A játékos, akinek az adatait szeretnénk updatelni.
+     */
     public void update(Jatekos aktivJatekos){
         //TODO aszerint h kutató vagy eszkimo, a vizsgál vagy az iglu szürke kell legyen.
         Mezo m = aktivJatekos.getTartozkodasiMezo();
