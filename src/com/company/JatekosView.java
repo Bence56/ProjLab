@@ -48,7 +48,9 @@ public class JatekosView extends JPanel {
     };
 
     /**
-     * @param event
+     * Ha az aktív játékosnak változott bármely tulajdonsága, akkor frissíti az adatokat.
+     *
+     * @param event Az esemény, amely értesít a változásról.
      */
     private void propertyChangeHandler(PropertyChangeEvent event) {
         if (event.getPropertyName().equals("aktivJatekos")) {
@@ -100,6 +102,10 @@ public class JatekosView extends JPanel {
         funkciok.update(aktivJatekos);
     }
 
+    /**
+     * Változás esetén érvénytelenítjük és újrarajzoljuk az adatokat.
+     */
+
     private void update() {
         //Itt most csak ranodm átszínezzük
         int r = (int)(Math.random() * 255);
@@ -124,6 +130,10 @@ public class JatekosView extends JPanel {
         revalidate();
         view.repaint();
     }
+
+    /**
+     * Ikonok betöltése.
+     */
     void loadImages() {
         try {
             images.put("Sator", read(new File("Resources/Assets/Sator_I-01.png")));

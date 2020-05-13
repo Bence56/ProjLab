@@ -11,6 +11,11 @@ public class AdatokPanel extends JPanel{
     JTextField testho=new JTextField("Testhőm: ");
     JTextField buvarruha=new JTextField("Búvárruha: " );
     JTextField munka=new JTextField("Munkák: ");
+
+    /**
+     * Adatokat megjelenítő panel inicializálása, textfieldek és ikon hozzáadása.
+     *
+     */
             public AdatokPanel(){
                 this.setPreferredSize(new Dimension(256,270));
                 JLabel j2=new JLabel("Ki vagyok:");
@@ -29,6 +34,12 @@ public class AdatokPanel extends JPanel{
                 munka.setEditable(false);
                 this.add(munka);
             }
+
+    /**
+     * Az aktív játékos adatainak lekérése és beállítása.
+     *
+     * @param aktivjatekos A játékos, akinek frissítjük az adatait
+     */
             public void update(Jatekos aktivjatekos){
                 //TODO típusellenőrzést kiszedni
                 String strg=aktivjatekos.getID();
