@@ -16,6 +16,7 @@ public class Eszkimo extends Jatekos implements Cloneable{
      */
     @Override
     public void epit(){
+        System.out.println("\t\tEszkimó épít");
         this.getTartozkodasiMezo().setIglu(true);
         if (this.getTartozkodasiMezo().getTeherbiras() !=0)
             this.munkaLevon(1);

@@ -15,13 +15,14 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
      */
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     protected ArrayList<Mezo> palya = new ArrayList<>();
-    boolean aktiv = true;
+    volatile boolean aktiv = true;
     boolean nyert = false;
     ArrayList<View> views = new ArrayList<>();
     MouseListener mouseListener;
-    private ArrayList<Jatekos> jatekosok = new ArrayList<>();
+    private final ArrayList<Jatekos> jatekosok = new ArrayList<>();
     private volatile Jatekos aktivJatekos;
     private Jegesmedve jegesmedve = new Jegesmedve();
+
     Kontroller() {
     }
 
@@ -67,7 +68,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
     public void setAktivJatekos(Jatekos ujAktivJatekos) {
         Jatekos regiJatekos = aktivJatekos;
         this.aktivJatekos = ujAktivJatekos;
-        support.firePropertyChange("aktivJatekos", regiJatekos, ujAktivJatekos);
+
     }
 
     /**
@@ -80,7 +81,8 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         view.addKeyListener(keyboardListener);
         this.views.add(view);
         //Amikor hozzáadjuk a nézetet az jelenjen is meg rögtön
-        support.firePropertyChange("palya",0,palya);
+        support.firePropertyChange("palya", 0, palya);
+        support.firePropertyChange("aktiv mezo",null, aktivJatekos.getTartozkodasiMezo());
     }
 
 
@@ -99,9 +101,6 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                     System.out.println("Játékos váltás");
                     detektal();
                     j.jatszik();
-
-                   //itt volt a vihar
-
                 }
                 //TODO
                 // vihar előtti pálya klónozása és utána fireproperty a pályára. KESZ
@@ -121,7 +120,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 scRegiMezok.add(scAholAll);
                 Irany[] arr = Irany.values(); //tömbre képezi le az enum irányokat, a felvétel sorrendjének megfelelően
                 for (Irany i : arr) {
-                    if (scAholAll.getSzomszed(i)!=null){
+                    if (scAholAll.getSzomszed(i) != null) {
                         Mezo szomszed = scAholAll.getSzomszed(i);
                         scRegiMezok.add(szomszed);
                     }
@@ -129,14 +128,12 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 }
 
 
-
-
                 //deepcopy létrehozása a tartozkodási mezőről és a körülötte lévő mezőkről
                 ArrayList<Mezo> dcRegiMezok = new ArrayList<>();
                 Mezo dcAholAll = (Mezo) jegesmedve.getTartozkodasiMezo().clone();
                 dcRegiMezok.add(dcAholAll);
                 for (Irany i : arr) {
-                    if (dcAholAll.getSzomszed(i)!=null) {
+                    if (dcAholAll.getSzomszed(i) != null) {
                         Mezo szomszed2 = (Mezo) dcAholAll.getSzomszed(i).clone();
                         dcRegiMezok.add(szomszed2);
                     }
@@ -202,11 +199,26 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         int alkatreszSzam = 0;
 
         for (Jatekos j : jatekosok) {
+            FulladasiAllapot allapot = j.getAllapot();
+            if (allapot == FulladasiAllapot.fuldoklik){
+                j.setAllapot(FulladasiAllapot.kimentheto);
+            }
+            else{
+                if(allapot == FulladasiAllapot.kimentheto){
+                    j.setAllapot(FulladasiAllapot.halott);
+                    System.out.println("Megfulladtál.");
+                    j.meghal();
+                }
+            }
+        }
+
+        for (Jatekos j : jatekosok) {
             int ho = j.getTestho();
 
             if (ho == 0) {
-                j.setAllapot(FulladasiAllapot.halott);
-                jatekVege(false);
+                //j.setAllapot(FulladasiAllapot.halott);
+                System.out.println("Kihűltél.");
+                j.meghal();
             }
         }
 
@@ -225,6 +237,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         }
 
         if (alkatreszSzam < 3) {
+            System.out.println("Nincs meg az összes alkatrész.");
             jatekVege(false);
         }
 
@@ -246,16 +259,17 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
      */
     //TODO
     // Fire "vege" meg kell jeleníteni a vége képernyőt
-    public void jatekVege(boolean nyer){
-        aktiv=false;
+    public void jatekVege(boolean nyer) {
+        aktiv = false;
 
         if (nyer) {
             System.out.println("NYERTEL");
             nyert = true;
         } else
             System.out.println("GAME OVER");
-            Frame f=new JFrame();
-            f.setVisible(true);
+        Frame f = new JFrame();
+        f.setVisible(true);
+        System.exit(0);
     }
 
     /**
@@ -282,11 +296,11 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        String actionCommand=actionEvent.getActionCommand();
-      if (actionCommand.equals("lapatol")) {
-          aktivJatekos.lapatol();
+        String actionCommand = actionEvent.getActionCommand();
+        if (actionCommand.equals("lapatol")) {
+            aktivJatekos.lapatol();
         }
-      if (actionCommand.equals("balfentről")) {
+        if (actionCommand.equals("balfentről")) {
             aktivJatekos.kihuz(Irany.BalFel); //TODO: átírni h merre húzzon ki
         }
         if (actionCommand.equals("fentről")) {
@@ -322,10 +336,34 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         if (actionCommand.equals("összeszerel")) {
             aktivJatekos.osszeszerel();
         }
-        if (actionCommand.equals("iglut epit")) {
+        if (actionCommand.equals("iglut épít")) {
             aktivJatekos.epit();
         }
-        for (View v:views) {
+        if (actionCommand.equals("vizsgál balfent")) {
+            aktivJatekos.vizsgal(Irany.BalFel);
+        }
+        if (actionCommand.equals("vizsgál fent")) {
+            aktivJatekos.vizsgal(Irany.Fel);
+        }
+        if (actionCommand.equals("vizsgál jobbfent")) {
+            aktivJatekos.vizsgal(Irany.JobbFel);
+        }
+        if (actionCommand.equals("vizsgál balra")) {
+            aktivJatekos.vizsgal(Irany.Bal);
+        }
+        if (actionCommand.equals("vizsgál jobbra")) {
+            aktivJatekos.vizsgal(Irany.Jobb);
+        }
+        if (actionCommand.equals("vizsgál ballent")) {
+            aktivJatekos.vizsgal(Irany.BalLe);
+        }
+        if (actionCommand.equals("vizsgál lent")) {
+            aktivJatekos.vizsgal(Irany.Le);
+        }
+        if (actionCommand.equals("vizsgál jobblent")) {
+            aktivJatekos.vizsgal(Irany.JobbLe);
+        }
+        for (View v : views) {
             //TODO csak az aktív játékos körüli mezőket kell újra rajzolni
             v.ujra(this);
             v.requestFocusInWindow();
@@ -362,65 +400,58 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 // Csak az számít, hogy ne legyen azonos a két objektum, és akkor felül lesz írva
                 Jatekos regiJatekos = (Jatekos) aktivJatekos.clone();
 
-                /*
-                // A mezőket is le kell másolni az előzőhöz hasonló okok miatt
-                ArrayList<Mezo> regiPalya = new ArrayList<>();
-                for (Mezo m : palya) {
-                    regiPalya.add((Mezo) m.clone());
-                }
-               */
-                ArrayList<Mezo> scRegiMezok = ShallowCopySzomszedok();
 
-                 //deepcopy létrehozása a tartozkodási mezőről és a körülötte lévő mezőkről
-                ArrayList<Mezo> dcRegiMezok = DeepCopySzomszedok();
+                //Az a mező lesz ahová megérkezik majd az aktív játékos a lépés után
+                Mezo ujTarozkodasiMezo = null;
+
+                Mezo regiTartozkodasiMezo = (Mezo)aktivJatekos.getTartozkodasiMezo().clone();
 
                 if (e.getKeyCode() == (KeyEvent.VK_NUMPAD8) || e.getKeyCode() == KeyEvent.VK_UP) {
+                    ujTarozkodasiMezo = copySzomszed(Irany.Fel);
                     aktivJatekos.lep(Irany.Fel);
                 } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD9)) {
+                    ujTarozkodasiMezo = copySzomszed(Irany.JobbFel);
                     aktivJatekos.lep(Irany.JobbFel);
                 } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD6) || e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    ujTarozkodasiMezo = copySzomszed(Irany.Jobb);
                     aktivJatekos.lep(Irany.Jobb);
                 } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD3)) {
+                    ujTarozkodasiMezo = copySzomszed(Irany.JobbLe);
                     aktivJatekos.lep(Irany.JobbLe);
                 } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD2) || e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    ujTarozkodasiMezo = copySzomszed(Irany.Le);
                     aktivJatekos.lep(Irany.Le);
                 } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD1)) {
+                    ujTarozkodasiMezo = copySzomszed(Irany.BalLe);
                     aktivJatekos.lep(Irany.BalLe);
                 } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD4) || e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    ujTarozkodasiMezo = copySzomszed(Irany.Bal);
                     aktivJatekos.lep(Irany.Bal);
                 } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD7)) {
+                    ujTarozkodasiMezo = copySzomszed(Irany.BalFel);
                     aktivJatekos.lep(Irany.BalFel);
                 } else {
                     return;
                 }
-                //TODO
-                // -Comparable-t implementálja: Mező, Pály, Lyuk, Játékos Eszkimó
-                // Itt össze kell hasonlítani a régi játékost az új al
-                // De ez úgyis megváltozik ezt valószínű minden cselekvés után újra kell rajzolni
-                // ...
-                // A pályán végig kell menni, összehasonlítani az összes új mezőt a régiekkel
-                // Akkor kell fire "mezo", ha a mező nem ugyan olyan mint a régi
-                // Ilyenkor a View csak azt a mezőt rajzolja újra amit kell
 
                 //Frissíteni kell a View Aktív Játékosát
                 support.firePropertyChange("aktivJatekos", regiJatekos, aktivJatekos);
 
-               /* //Frisíteni kell a View pályályát
-                support.firePropertyChange("palya", regiPalya, palya);
-                */
+                // Frissíteni kell:
+                // Ahová megérkezett
+                if(ujTarozkodasiMezo != null)
+                    support.firePropertyChange("mezo", null, ujTarozkodasiMezo);
+                // Ahol előtte állt
+                support.firePropertyChange("mezo", regiTartozkodasiMezo, regiJatekos.getTartozkodasiMezo());
+                //Ahol az új játékos áll
+                support.firePropertyChange("aktiv mezo", null,aktivJatekos.getTartozkodasiMezo());
 
-               //Frissíteni kell a mezőket ahol állt és ahova lépett
-                for (int i=0; i<scRegiMezok.size(); i++){
-                    support.firePropertyChange("mezo", dcRegiMezok.get(i), scRegiMezok.get(i));
-                }
-
-                //System.out.println(aktivJatekos.getTartozkodasiMezo().getID());
-            } catch (CloneNotSupportedException cloneNotSupportedException) {
+        } catch (CloneNotSupportedException cloneNotSupportedException) {
                 cloneNotSupportedException.printStackTrace();
             }
         }
 
-        /**
+        /**4
          * Nem csinál semmit
          *
          * @param e
@@ -430,40 +461,16 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         }
 
         /**
-         * shallowcopy(sc)  a játékos mezejéről és a körülötte lévő szomszédos mezőről
-         * ha valamelyik szomszéd null, azt nem másolja le
-         * @return Egy Array List a lemásolt mezőkről
+         * Visszadja az akív játékos paraméterként kapott irányában a tartózkodási mező szomszédjának másolatát
+         * @param i az irány amerrer a mezőt visszadja
+         * @return Az aktív szomszéd másolatát
          */
-        private ArrayList<Mezo> ShallowCopySzomszedok(){
-            ArrayList<Mezo> scRegiMezok=new ArrayList<>();
-            Mezo scAholAll=aktivJatekos.getTartozkodasiMezo();
-            scRegiMezok.add(scAholAll);
-
-            //tömbre képezi le az enum irányokat, a felvétel sorrendjének megfelelően
-            Irany[] arr =Irany.values();
-
-            for(Irany i: arr){
-                Mezo szomszed = scAholAll.getSzomszed(i);
-                if(szomszed != null) {
-                    scRegiMezok.add(szomszed);
-                }
+        private Mezo copySzomszed(Irany i){
+            Mezo mezo = aktivJatekos.getTartozkodasiMezo().getSzomszed(i);
+            if (mezo != null){
+                return mezo;
             }
-            return  scRegiMezok;
-        }
-
-        private ArrayList<Mezo> DeepCopySzomszedok() throws CloneNotSupportedException {
-            ArrayList<Mezo> dcRegiMezok=new ArrayList<>();
-            Mezo dcAholAll= (Mezo)aktivJatekos.getTartozkodasiMezo().clone();
-            dcRegiMezok.add(dcAholAll);
-
-            //tömbre képezi le az enum irányokat, a felvétel sorrendjének megfelelően
-            Irany[] arr = Irany.values();
-
-            for(Irany i: arr){
-                Mezo szomszed2= dcAholAll.getSzomszed(i);
-                dcRegiMezok.add(szomszed2);
-            }
-            return  dcRegiMezok;
+            return null;
         }
     }
 }

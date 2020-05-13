@@ -80,7 +80,7 @@ public class JatekosView extends JPanel {
 
         this.setPreferredSize(new Dimension(256, 758));
         this.setBackground(Color.DARK_GRAY);
-
+        //loadImages();
 
         this.add(adatok);
         targyak=new TargyakPanel(kontroller);
@@ -113,7 +113,7 @@ public class JatekosView extends JPanel {
         targyak.update(aktivJatekos);
         funkciok.update(aktivJatekos);
         revalidate();
-       view.repaint();
+        view.repaint();
 
     }
     public void ujra(){
@@ -141,6 +141,7 @@ public class JatekosView extends JPanel {
             images.put("Etel_NULL", read(new File("Resources/Assets/Konzerv_I_NULL-01.png")));
             images.put("E", read(new File("Resources/Assets/Eszkimo_I-01.png")));
             images.put("K", read(new File("Resources/Assets/Kutato_I.png")));
+            images.put("x", read(new File("Resources/Assets/x.png")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }

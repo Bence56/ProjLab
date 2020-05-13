@@ -46,7 +46,7 @@ public abstract class Mezo implements Cloneable {
      */
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        return (Mezo) super.clone();
     }
 
     public int getSor() {
@@ -183,6 +183,7 @@ public abstract class Mezo implements Cloneable {
     public void utkozik(Jegesmedve j) {
         if (j != null) {
             if (!isIglu() && alloJatekos.size() >= 1) {
+                System.out.println("Megevett a medve.");
                 alloJatekos.get(0).meghal();
                 alloJatekos.remove(0);
             }
