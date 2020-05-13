@@ -109,10 +109,6 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
             munkakSzama = 4;
         //ha elfogytak a munkák a következő játékos jön
 
-       // if (munkakSzama == 0)
-
-          //  return;
-
            while (true) {
                 if (allapot.equals(FulladasiAllapot.fuldoklik) || this.munkakSzama <= 0) {
                     break;

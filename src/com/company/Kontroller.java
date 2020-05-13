@@ -199,11 +199,26 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         int alkatreszSzam = 0;
 
         for (Jatekos j : jatekosok) {
+            FulladasiAllapot allapot = j.getAllapot();
+            if (allapot == FulladasiAllapot.fuldoklik){
+                j.setAllapot(FulladasiAllapot.kimentheto);
+            }
+            else{
+                if(allapot == FulladasiAllapot.kimentheto){
+                    j.setAllapot(FulladasiAllapot.halott);
+                    System.out.println("Megfulladtál.");
+                    j.meghal();
+                }
+            }
+        }
+
+        for (Jatekos j : jatekosok) {
             int ho = j.getTestho();
 
             if (ho == 0) {
-                j.setAllapot(FulladasiAllapot.halott);
-                jatekVege(false);
+                //j.setAllapot(FulladasiAllapot.halott);
+                System.out.println("Kihűltél.");
+                j.meghal();
             }
         }
 
@@ -222,6 +237,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         }
 
         if (alkatreszSzam < 3) {
+            System.out.println("Nincs meg az összes alkatrész.");
             jatekVege(false);
         }
 
@@ -253,6 +269,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
             System.out.println("GAME OVER");
         Frame f = new JFrame();
         f.setVisible(true);
+        System.exit(0);
     }
 
     /**
