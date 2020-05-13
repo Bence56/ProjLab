@@ -17,6 +17,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
     private ArrayList<Alkatresz> alkatreszek = new ArrayList<>();
     private ArrayList<Targy> targyak = new ArrayList<>();
     private volatile FulladasiAllapot allapot = FulladasiAllapot.aktiv;
+
     Jatekos() {
         this.testho = 5;
     }
@@ -109,12 +110,11 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
             munkakSzama = 4;
         //ha elfogytak a munkák a következő játékos jön
 
-           while (true) {
-                if (allapot.equals(FulladasiAllapot.fuldoklik) || this.munkakSzama <= 0) {
-                    break;
-                }
+        while (true) {
+            if (allapot.equals(FulladasiAllapot.fuldoklik) || this.munkakSzama <= 0) {
+                break;
             }
-
+        }
 
 
     }
@@ -216,24 +216,21 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
         for (Targy t : targyak) {
             if (t.accept(kv)) {     //ha a tárgy kötél akkor true
                 int size = szomszed.getAlloJatekos().size();
+                boolean munkat = false;
                 if (size != 0) {
-                    ArrayList<Jatekos> niggas=new ArrayList<Jatekos>();
-                    for (Jatekos j:kontroller.getJatekosok()) {
-                        if (j.getTartozkodasiMezo()==szomszed)niggas.add(j);
-                    }
-                    boolean munkat=false;
                     for (int j = 0; j < size; j++) {  // a szomszéd mezőről minden játékost kihúz.
-                        if (niggas.get(j).getAllapot()==FulladasiAllapot.fuldoklik) {
-                            Jatekos mentett = szomszed.getAlloJatekos().get(0);
+                        Jatekos mentett = szomszed.getAlloJatekos().get(0);
+                        if (mentett.getAllapot() == FulladasiAllapot.fuldoklik|| mentett.getAllapot()==FulladasiAllapot.kimentheto) {
                             t.hasznal(mentett);
-                            munkat=true;
                             szomszed.eltavolit(mentett);
                             this.getTartozkodasiMezo().elfogad(mentett);
                         }
                     }
-                    if(munkat)
-                    munkakSzama--;
                 }
+                if(munkat)
+                    munkakSzama--;
+
+
             }
         }
     }
@@ -389,7 +386,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
         return vedett;
     }
 
-    public int getMunka(){
+    public int getMunka() {
         return munkakSzama;
     }
 }

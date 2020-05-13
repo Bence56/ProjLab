@@ -282,6 +282,7 @@ public class PalyaView extends JPanel {
 
     public void ujra(Kontroller k) {
         update(k.getPalya());
+
     }
 
     void loadImages() {

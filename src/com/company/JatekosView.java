@@ -116,7 +116,8 @@ public class JatekosView extends JPanel {
         view.repaint();
 
     }
-    public void ujra(){
+    public void ujra(Jatekos ujaktiv){
+        aktivJatekos=(ujaktiv);
         adatok.update(aktivJatekos);
         targyak.update(aktivJatekos);
         funkciok.update(aktivJatekos);

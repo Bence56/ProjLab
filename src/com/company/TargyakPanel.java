@@ -1,8 +1,13 @@
 package com.company;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class TargyakPanel extends JPanel {
     // Játékos cuccainak a panelja
@@ -22,23 +27,33 @@ public class TargyakPanel extends JPanel {
     private JButton le = new JButton();
     private JButton jobble = new JButton();
 
+    private ArrayList<BufferedImage> retegek=new ArrayList<BufferedImage>();
 
     private ImageIcon kotelim=new ImageIcon("Resources/Assets/Kotel_I-02_kisebb.png");
     private ImageIcon kotelimNULL=new ImageIcon("Resources/Assets/Kotel_I_NULL-02_kisebb.png");
     private ImageIcon lapatim = new ImageIcon("Resources/Assets/Lapat_I-01.png");
     private ImageIcon lapatimNULL = new ImageIcon("Resources/Assets/Lapat_I_NULL-01.png");
     private ImageIcon satorim = new ImageIcon("Resources/Assets/Sator_I-01_kisebb.png");
-    private ImageIcon satorimNULL = new ImageIcon("Resources/Assets/Sator_I-01_kisebb.png");
+    private ImageIcon satorimNULL = new ImageIcon("Resources/Assets/Sator_I_NULL-01_kisebb.png");
     private ImageIcon x = new ImageIcon("Resources/Assets/x.png");
     private ImageIcon kotelim1 = new ImageIcon("Resources/Assets/Kotel_I-02.png");
     private ImageIcon kotelimNULL1 = new ImageIcon("Resources/Assets/Kotel_I_NULL-02.png");
-    private ImageIcon pisztolyegy = new ImageIcon("Resources/Assets/1-Pisztoly_I-01.png");
-    private ImageIcon pisztolyket = new ImageIcon("Resources/Assets/2-Pisztoly_I-01.png");
-    private ImageIcon pisztolyhar = new ImageIcon("Resources/Assets/3-Pisztoly_I-01.png");
-    private ImageIcon pisztolyNULL = new ImageIcon("Resources/Assets/Pisztoly_I_NULL-01.png");
+    private BufferedImage pisztolyNULL;
+    private BufferedImage pisztolyegy;
+    private BufferedImage pisztolyket;
+    private BufferedImage pisztolyhar;
 
     public TargyakPanel(Kontroller kontroller) {
 
+        try {
+            pisztolyNULL = ImageIO.read(new File("Resources/Assets/Pisztoly_I_NULL-01.png"));
+            pisztolyegy = ImageIO.read(new File("Resources/Assets/1-Pisztoly_I-01.png"));
+            pisztolyket = ImageIO.read(new File("Resources/Assets/2-Pisztoly_I-01.png"));
+            pisztolyhar = ImageIO.read(new File("Resources/Assets/3-Pisztoly_I-01.png"));
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        retegek.add(pisztolyNULL);
 
         JPanel targyak = new JPanel();
         targyak.setPreferredSize(new Dimension(220, 220));
@@ -53,7 +68,7 @@ public class TargyakPanel extends JPanel {
 
 
       //  sator.setPreferredSize(new Dimension(80, 80));
-        sator.setIcon(satorim);
+        sator.setIcon(satorimNULL);
         targyak.add(sator);
         sator.setActionCommand("satrat epit");
         sator.addActionListener(kontroller);
@@ -129,7 +144,7 @@ public class TargyakPanel extends JPanel {
         targyak.add(targyak2);
         //Az alkatrész lerak úgy van megírva, hogy bármennyi alkatrészünk van, 1 lerak() hívással a 0. indexűt rakjuk le.  Itt 1 alkatrészt
        // alkatresz.setPreferredSize(new Dimension(80, 80));
-        alkatresz.setIcon(pisztolyNULL);
+        //alkatresz.setIcon(pisztolyNULL);
         alkatresz.setActionCommand("lerak");
         alkatresz.addActionListener(kontroller);
         targyak.add(alkatresz);
@@ -153,7 +168,7 @@ public class TargyakPanel extends JPanel {
         balfel.setIcon(x);
         lapat.setIcon(lapatimNULL);
         sator.setIcon(satorimNULL);
-        alkatresz.setIcon(pisztolyNULL);
+        //alkatresz.setIcon(pisztolyNULL);
         kotel.setIcon(kotelimNULL);
         //TODO hogy kell összemergelni a képeket helyesen, ha csak két alkatrészem van pl.?
         boolean vankotel = false;
@@ -176,6 +191,27 @@ public class TargyakPanel extends JPanel {
             if (m.getSzomszed(Irany.Bal) != null) bal.setIcon(kotelim);
             if (m.getSzomszed(Irany.BalFel) != null) balfel.setIcon(kotelim);
         }
+
+        retegek.clear();
+        retegek.add(pisztolyNULL);
+        for (Alkatresz a:aktivJatekos.getAlkatreszek()) {
+            if (a.ID==0)retegek.add(pisztolyegy);
+            if (a.ID==1)retegek.add(pisztolyket);
+            if (a.ID==2)retegek.add(pisztolyhar);
+        }
         revalidate();
+
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        BufferedImage combined = new BufferedImage(pisztolyegy.getWidth(), pisztolyegy.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+        Graphics ger = combined.getGraphics();
+        for (BufferedImage img:retegek) {
+            ger.drawImage(img,0,0,null);
+        }
+        ger.dispose();
+        alkatresz.setIcon(new ImageIcon(combined));
     }
 }
