@@ -17,7 +17,6 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
     private ArrayList<Alkatresz> alkatreszek = new ArrayList<>();
     private ArrayList<Targy> targyak = new ArrayList<>();
     private volatile FulladasiAllapot allapot = FulladasiAllapot.aktiv;
-
     Jatekos() {
         this.testho = 5;
     }
@@ -115,6 +114,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
                 break;
             }
         }
+
 
 
     }
@@ -223,6 +223,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
                         Jatekos mentett = szomszed.getAlloJatekos().get(0);
                         if (mentett.getAllapot() == FulladasiAllapot.fuldoklik|| mentett.getAllapot()==FulladasiAllapot.kimentheto) {
                             t.hasznal(mentett);
+                            munkat=true;
                             szomszed.eltavolit(mentett);
                             this.getTartozkodasiMezo().elfogad(mentett);
                         }
@@ -230,7 +231,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
                 }
                 if(munkat)
                     munkakSzama--;
-
+                System.out.println("Kihuz");
 
             }
         }
@@ -269,13 +270,25 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
                     return;
                 }
             }
+            System.out.println("Satrat epit" );
         }
     }
+
+    /**
+     * Törékeny lapátot kitöröl.
+     *
+     * @param t A törékeny lapát, amit törölni szeretnénk..
+     */
 
     public void lapatTorol(TorekenyLapat t) {
         targyak.remove(t);
     }
 
+    /**
+     * Sátrat kitöröl.
+     *
+     * @param s A sátor, amit törölni szeretnénk..
+     */
     public void satratTorol(Sator s) {
         targyak.remove(s);
     }
@@ -382,12 +395,17 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
         return -1;
     }
 
-
+    /**
+     * Visszaadja, hogy egy játékos védett-e.
+     */
     public boolean isVedett() {
         return vedett;
     }
 
-    public int getMunka() {
+    /**
+     * Visszaadja a játékos megmaradt munkáinak számát.
+     */
+    public int getMunka(){
         return munkakSzama;
     }
 }
