@@ -109,6 +109,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                     regiPalya.add((Mezo) m.clone());
                 }
                 vihar();
+                //A vihar után az egész pályát újra kell rajzolni
                 support.firePropertyChange("palya", regiPalya, palya);
 
                 //TODO
@@ -401,6 +402,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 */
             } else {
                 support.firePropertyChange("aktivJatekos", regiJatekos, aktivJatekos);
+                support.firePropertyChange("mezo", regiTartozkodasiMezo, regiJatekos.getTartozkodasiMezo());
                 support.firePropertyChange("aktiv mezo", regiTartozkodasiMezo, aktivJatekos.getTartozkodasiMezo());
             }
             for (View v:views) {
