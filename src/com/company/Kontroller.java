@@ -112,42 +112,20 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 //A vihar után az egész pályát újra kell rajzolni
                 support.firePropertyChange("palya", regiPalya, palya);
 
-                //TODO
-                // Le kell másolni a jegesmedve mezőjét és a körülötte lévő 8 mezőt előtte deep es shallow copyval, majd miután lépett,
-                // minden megfelelő mezőre FIrePropertyChange("jegesemedve", regi, uj); ELVILEG KÉSZ
-                //shallowcopy(sc)  a jegesmedve mezejéről és a körülötte lévő 8 mezőről
-                ArrayList<Mezo> scRegiMezok = new ArrayList<>();
-                Mezo scAholAll = jegesmedve.getTartozkodasiMezo();
-                scRegiMezok.add(scAholAll);
-                Irany[] arr = Irany.values(); //tömbre képezi le az enum irányokat, a felvétel sorrendjének megfelelően
-                for (Irany i : arr) {
-                    if (scAholAll.getSzomszed(i) != null) {
-                        Mezo szomszed = scAholAll.getSzomszed(i);
-                        scRegiMezok.add(szomszed);
-                    }
+               //a mezo
+                //Az a mező lesz ahová megérkezik majd az aktív játékos a lépés után
 
-                }
-
-
-                //deepcopy létrehozása a tartozkodási mezőről és a körülötte lévő mezőkről
-                ArrayList<Mezo> dcRegiMezok = new ArrayList<>();
-                Mezo dcAholAll = (Mezo) jegesmedve.getTartozkodasiMezo().clone();
-                dcRegiMezok.add(dcAholAll);
-                for (Irany i : arr) {
-                    if (dcAholAll.getSzomszed(i) != null) {
-                        Mezo szomszed2 = (Mezo) dcAholAll.getSzomszed(i).clone();
-                        dcRegiMezok.add(szomszed2);
-                    }
-                }
-
+                Mezo regiTartozkodasiMezo = (Mezo)jegesmedve.getTartozkodasiMezo().clone();
                 jegesmedve.jatszik();
+                Mezo ujTartozkodasiMezo=jegesmedve.getTartozkodasiMezo();
 
-                //Frissíteni kell a mezőket ahol állt és ahova léphetett (8 féle irány) a jegesmedve
-                for (int i = 0; i < scRegiMezok.size(); i++) {
-                    support.firePropertyChange("mezo", dcRegiMezok.get(i), scRegiMezok.get(i));
+                if(ujTartozkodasiMezo != null)
+                    support.firePropertyChange("mezo", null, ujTartozkodasiMezo);
+                // Ahol előtte állt
+                support.firePropertyChange("mezo", regiTartozkodasiMezo, jegesmedve.getTartozkodasiMezo());
                 }
 
-            }
+
         } catch (CloneNotSupportedException cloneNotSupportedException) {
             cloneNotSupportedException.printStackTrace();
         }
