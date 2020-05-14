@@ -70,7 +70,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
     public void setAktivJatekos(Jatekos ujAktivJatekos) {
         Jatekos regiJatekos = aktivJatekos;
         this.aktivJatekos = ujAktivJatekos;
-        support.firePropertyChange("aktivJatekos",regiJatekos,aktivJatekos);
+        support.firePropertyChange("aktivJatekos",null,aktivJatekos);
     }
 
     /**
@@ -103,6 +103,8 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                     System.out.println("Játékos váltás");
                     detektal();
                     j.jatszik();
+                    if (j.getAllapot() == FulladasiAllapot.aktiv)
+                        j.setMunkakSzama(4);
                 }
                 //TODO
                 // vihar előtti pálya klónozása és utána fireproperty a pályára. KESZ
