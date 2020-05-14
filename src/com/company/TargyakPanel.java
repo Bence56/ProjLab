@@ -33,12 +33,12 @@ public class TargyakPanel extends JPanel {
     private ImageIcon kotelimNULL=new ImageIcon("Resources/Assets/Kotel_I_NULL-02_kisebb.png");
     private ImageIcon lapatim = new ImageIcon("Resources/Assets/Lapat_I-01.png");
     private ImageIcon lapatimNULL = new ImageIcon("Resources/Assets/Lapat_I_NULL-01.png");
-    private ImageIcon satorim = new ImageIcon("Resources/Assets/Sator_I-01_kisebb.png");
-    private ImageIcon satorimNULL = new ImageIcon("Resources/Assets/Sator_I_NULL-01_kisebb.png");
+    private ImageIcon satorim = new ImageIcon("Resources/Assets/Sator_I-01.png");
+    private ImageIcon satorimNULL = new ImageIcon("Resources/Assets/Sator_I_NULL-01.png");
    // private ImageIcon x = new ImageIcon("Resources/Assets/x.png");
 
     private ImageIcon jobbraim = new ImageIcon("Resources/Assets/Jobbra-01.png");
-    private ImageIcon jobbraimNULL = new ImageIcon("Resources/Assets/Jobbra_NULL.01.png");
+    private ImageIcon jobbraimNULL = new ImageIcon("Resources/Assets/Jobbra_NULL-01.png");
     private ImageIcon balraim = new ImageIcon("Resources/Assets/Balra-01.png");
     private ImageIcon balraimNULL = new ImageIcon("Resources/Assets/Balra_NULL-01.png");
     private ImageIcon jobbfelim = new ImageIcon("Resources/Assets/JobbraFel-01.png");
@@ -46,7 +46,7 @@ public class TargyakPanel extends JPanel {
     private ImageIcon felim = new ImageIcon("Resources/Assets/Fel-01.png");
     private ImageIcon felimNULL = new ImageIcon("Resources/Assets/Fel_NULL-01.png");
     private ImageIcon balfelim = new ImageIcon("Resources/Assets/BalraFel-01.png");
-    private ImageIcon balfelimNULL = new ImageIcon("Resources/Assets/BalraFel_NULL.01.png");
+    private ImageIcon balfelimNULL = new ImageIcon("Resources/Assets/BalraFel_NULL-01.png");
     private ImageIcon balleim= new ImageIcon("Resources/Assets/BalraLe-01.png");
     private ImageIcon balleimNULL = new ImageIcon("Resources/Assets/BalraLe_NULL-01.png");
     private ImageIcon leim= new ImageIcon("Resources/Assets/Le-01.png");
