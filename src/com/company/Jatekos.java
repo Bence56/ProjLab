@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Jatekos extends Mozgathato implements Cloneable {
     private Kontroller kontroller;
-    //Ha ez nem volatile akkor nem breakel a while loop
+    //Ha ez nem volatile akkor nem breakel a while loop.
     private String ID;
 
     public void setMunkakSzama(int munkakSzama) {
