@@ -213,6 +213,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
     public void kihuz(Irany i) {
         KotelVisitor kv = new KotelVisitor();
         Mezo szomszed = this.getTartozkodasiMezo().getSzomszed(i);
+        System.out.println("Kihuz");
         for (Targy t : targyak) {
             if (t.accept(kv)) {     //ha a tárgy kötél akkor true
                 int size = szomszed.getAlloJatekos().size();
@@ -269,6 +270,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
                     return;
                 }
             }
+            System.out.println("Satrat epit" );
         }
     }
 
