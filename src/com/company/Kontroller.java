@@ -226,6 +226,10 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
             }
         }
     }
+    public void frissitLerak(Jatekos aktivJatekos, Mezo mezo){
+        support.firePropertyChange("aktivJatekos",null,aktivJatekos);
+        support.firePropertyChange("aktiv mezo",null, mezo);
+    }
 
     /**
      * Véget vet a játéknak

@@ -162,7 +162,7 @@ public class FunkciokPanel extends JPanel {
         //TODO aszerint h kutató vagy eszkimo, a vizsgál vagy az iglu szürke kell legyen.
         fel.setIcon(felNyilNULL);
         jobbfel.setIcon(jobbfelNyilNULL);
-        jobb.setIcon(jobbleNyilNULL);
+        jobb.setIcon(jobbNyilNULL);
         jobble.setIcon(jobbleNyilNULL);
         le.setIcon(leNyilNULL);
         balle.setIcon(balleNyilNULL);

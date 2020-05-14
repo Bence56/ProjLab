@@ -328,11 +328,15 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
      * Lerak egy alkatrészt a mezőre hogy azt majd el lehessen sütni
      */
     public void lerak() {
-        if (alkatreszek.size() > 0) {
-            Alkatresz alk = this.alkatreszek.remove(0);
-            this.getTartozkodasiMezo().alkatreszNovel(alk);
-        }
-        this.getTartozkodasiMezo().alkatreszNovel(null);
+
+            if (alkatreszek.size() > 0) {
+                Alkatresz alk = this.alkatreszek.remove(0);
+                Mezo m=this.getTartozkodasiMezo();
+                m.alkatreszNovel(alk);
+                kontroller.frissitLerak(this,m);
+            }
+            //this.getTartozkodasiMezo().alkatreszNovel(null);
+
     }
 
     /**
