@@ -24,7 +24,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
     private Jegesmedve jegesmedve = new Jegesmedve();
 
     private volatile boolean kihuz;
-
+    private volatile Irany kihuzIrany=Irany.Jobb;
     Kontroller() {
     }
 
@@ -70,7 +70,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
     public void setAktivJatekos(Jatekos ujAktivJatekos) {
         Jatekos regiJatekos = aktivJatekos;
         this.aktivJatekos = ujAktivJatekos;
-
+        support.firePropertyChange("aktivJatekos",regiJatekos,aktivJatekos);
     }
 
     /**
@@ -162,8 +162,6 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
     public void addMezo(Mezo mezo) {
         this.palya.add(mezo);
     }
-
-
     /**
      * Végig megy az összes mezőn és megnöveli a hóréteget egy random számmal (negatív lineáris eloszlással)
      * 0 és a maxHoreteg kozott Között, tehát jóval kisebb a valószínűsége nagy hónak mint a semminek.
@@ -303,47 +301,72 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         try {
             Jatekos regiJatekos = (Jatekos) aktivJatekos.clone();
 
-
             //Az a mező lesz ahová megérkezik majd az aktív játékos a lépés után
             Mezo ujTarozkodasiMezo;
 
             Mezo regiTartozkodasiMezo = (Mezo) aktivJatekos.getTartozkodasiMezo().clone();
             String actionCommand = actionEvent.getActionCommand();
             kihuz  = false;
+
+
+            Mezo regiszomszed=null;
+            Mezo ujSzomszed=null;
             if (actionCommand.equals("lapatol")) {
                 aktivJatekos.lapatol();
             }
             if (actionCommand.equals("balfentről")) {
                 aktivJatekos.kihuz(Irany.BalFel); //TODO: átírni h merre húzzon ki
                 kihuz = true;
+                kihuzIrany=Irany.BalFel;
             }
             if (actionCommand.equals("fentről")) {
+                regiszomszed=(Mezo)aktivJatekos.getTartozkodasiMezo().getSzomszed(Irany.Fel).clone();
                 aktivJatekos.kihuz(Irany.Fel); //TODO: átírni h merre húzzon ki
                 kihuz = true;
+                kihuzIrany=Irany.Fel;
+                ujSzomszed=(Mezo)aktivJatekos.getTartozkodasiMezo().getSzomszed(Irany.Fel).clone();
             }
             if (actionCommand.equals("jobbfentről")) {
+                regiszomszed=(Mezo)aktivJatekos.getTartozkodasiMezo().getSzomszed(Irany.JobbFel).clone();
                 aktivJatekos.kihuz(Irany.JobbFel);
                 kihuz = true;
+                kihuzIrany=Irany.JobbFel;
+                ujSzomszed=(Mezo)aktivJatekos.getTartozkodasiMezo().getSzomszed(Irany.JobbFel).clone();
             }
             if (actionCommand.equals("balról")) {
+                regiszomszed=(Mezo)aktivJatekos.getTartozkodasiMezo().getSzomszed(Irany.Bal).clone();
                 aktivJatekos.kihuz(Irany.Bal);
                 kihuz = true;
+                kihuzIrany=Irany.Bal;
+                ujSzomszed=(Mezo)aktivJatekos.getTartozkodasiMezo().getSzomszed(Irany.Bal).clone();
             }
             if (actionCommand.equals("jobbról")) {
+                regiszomszed=(Mezo)aktivJatekos.getTartozkodasiMezo().getSzomszed(Irany.Jobb).clone();
                 aktivJatekos.kihuz(Irany.Jobb);
                 kihuz = true;
+                kihuzIrany=Irany.Jobb;
+                ujSzomszed=(Mezo)aktivJatekos.getTartozkodasiMezo().getSzomszed(Irany.Jobb).clone();
             }
             if (actionCommand.equals("ballentről")) {
+                regiszomszed=(Mezo)aktivJatekos.getTartozkodasiMezo().getSzomszed(Irany.BalLe).clone();
                 aktivJatekos.kihuz(Irany.BalLe);
                 kihuz = true;
+                kihuzIrany=Irany.BalLe;
+                ujSzomszed=(Mezo)aktivJatekos.getTartozkodasiMezo().getSzomszed(Irany.BalLe).clone();
             }
             if (actionCommand.equals("lentről")) {
+                regiszomszed=(Mezo)aktivJatekos.getTartozkodasiMezo().getSzomszed(Irany.Le).clone();
                 aktivJatekos.kihuz(Irany.Le);
                 kihuz = true;
+                kihuzIrany=Irany.Le;
+                ujSzomszed=(Mezo)aktivJatekos.getTartozkodasiMezo().getSzomszed(Irany.Le).clone();
             }
             if (actionCommand.equals("jobblentről")) {
+                regiszomszed=(Mezo)aktivJatekos.getTartozkodasiMezo().getSzomszed(Irany.JobbLe).clone();
                 aktivJatekos.kihuz(Irany.JobbLe);
                 kihuz = true;
+                kihuzIrany=Irany.JobbLe;
+                ujSzomszed=(Mezo)aktivJatekos.getTartozkodasiMezo().getSzomszed(Irany.JobbLe).clone();
             }
             if (actionCommand.equals("satrat epit")) {
                 aktivJatekos.satratEpit();
@@ -386,23 +409,10 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 aktivJatekos.vizsgal(Irany.JobbLe);
             }
             if (kihuz) {
-               /* ArrayList<Mezo> szomszedok = new ArrayList<Mezo>();
-                Mezo tarMez = aktivJatekos.getTartozkodasiMezo();
-                if (tarMez.getSzomszed(Irany.Fel) != null) szomszedok.add(tarMez.getSzomszed(Irany.Fel));
-                if (tarMez.getSzomszed(Irany.JobbFel) != null) szomszedok.add(tarMez.getSzomszed(Irany.JobbFel));
-                if (tarMez.getSzomszed(Irany.Jobb) != null) szomszedok.add(tarMez.getSzomszed(Irany.Jobb));
-                if (tarMez.getSzomszed(Irany.JobbLe) != null) szomszedok.add(tarMez.getSzomszed(Irany.JobbLe));
-                if (tarMez.getSzomszed(Irany.Le) != null) szomszedok.add(tarMez.getSzomszed(Irany.Le));
-                if (tarMez.getSzomszed(Irany.BalLe) != null) szomszedok.add(tarMez.getSzomszed(Irany.BalLe));
-                if (tarMez.getSzomszed(Irany.Bal) != null) szomszedok.add(tarMez.getSzomszed(Irany.Bal));
-                if (tarMez.getSzomszed(Irany.BalFel) != null) szomszedok.add(tarMez.getSzomszed(Irany.BalFel));
-                for (Mezo m : szomszedok) {
-                    support.firePropertyChange("mezo", null, m);
-                }
+                support.firePropertyChange("mezo",regiszomszed,ujSzomszed);
                 support.firePropertyChange("aktivJatekos", regiJatekos, aktivJatekos);
-                support.firePropertyChange("aktivMezo", null, aktivJatekos.getTartozkodasiMezo());
-
-                */
+                support.firePropertyChange("mezo", regiTartozkodasiMezo, regiJatekos.getTartozkodasiMezo());
+                support.firePropertyChange("aktiv mezo", regiTartozkodasiMezo, aktivJatekos.getTartozkodasiMezo());
             } else {
                 System.out.println("valami");
                 support.firePropertyChange("aktivJatekos", regiJatekos, aktivJatekos);
