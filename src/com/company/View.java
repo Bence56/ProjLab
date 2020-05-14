@@ -44,6 +44,6 @@ class View extends JFrame {
     }
     public void ujra(Kontroller k,Jatekos aktiv){
         jatekosView.ujra(aktiv);
-        palyaView.ujra(k);
+        //palyaView.ujra(k);
     }
 }

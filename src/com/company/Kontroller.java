@@ -67,10 +67,9 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
      */
     public void setAktivJatekos(Jatekos ujAktivJatekos) {
         Jatekos regiJatekos = aktivJatekos;
-        this.aktivJatekos = ujAktivJatekos;for (View v:views) {
-            v.ujra(this,aktivJatekos); }
-        }
+        this.aktivJatekos = ujAktivJatekos;
 
+    }
 
     /**
      * Hozzáad egy új nézetet a kontroller nézeteihez, és felveszi hozzá a mod kontrollerillenytű eseménykezelőjét.
@@ -100,12 +99,8 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 for (Jatekos j : jatekosok) {
                     this.setAktivJatekos(j);
                     System.out.println("Játékos váltás");
-                    for (View v:views) {
-                        v.ujra(this,aktivJatekos);
-                    }
                     detektal();
                     j.jatszik();
-
                 }
                 //TODO
                 // vihar előtti pálya klónozása és utána fireproperty a pályára. KESZ
@@ -221,9 +216,8 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
             int ho = j.getTestho();
 
             if (ho == 0) {
-                //j.setAllapot(FulladasiAllapot.halott);
-                System.out.println("Kihűltél.");
-                j.meghal();
+                j.setAllapot(FulladasiAllapot.halott);
+                jatekVege(false);
             }
         }
 
@@ -341,7 +335,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         if (actionCommand.equals("összeszerel")) {
             aktivJatekos.osszeszerel();
         }
-        if (actionCommand.equals("iglut épít")) {
+        if (actionCommand.equals("iglut epit")) {
             aktivJatekos.epit();
         }
         if (actionCommand.equals("vizsgál balfent")) {
@@ -370,7 +364,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         }
         for (View v : views) {
             //TODO csak az aktív játékos körüli mezőket kell újra rajzolni
-            v.ujra(this,aktivJatekos);
+            v.ujra(this, aktivJatekos);
             v.requestFocusInWindow();
         }
     }
@@ -407,7 +401,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
 
 
                 //Az a mező lesz ahová megérkezik majd az aktív játékos a lépés után
-                Mezo ujTarozkodasiMezo = null;
+                Mezo ujTarozkodasiMezo;
 
                 Mezo regiTartozkodasiMezo = (Mezo)aktivJatekos.getTartozkodasiMezo().clone();
 
@@ -451,10 +445,9 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 //Ahol az új játékos áll
                 support.firePropertyChange("aktiv mezo", null,aktivJatekos.getTartozkodasiMezo());
 
-        } catch (CloneNotSupportedException cloneNotSupportedException) {
+            } catch (CloneNotSupportedException cloneNotSupportedException) {
                 cloneNotSupportedException.printStackTrace();
             }
-
         }
 
         /**4
@@ -473,10 +466,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
          */
         private Mezo copySzomszed(Irany i){
             Mezo mezo = aktivJatekos.getTartozkodasiMezo().getSzomszed(i);
-            if (mezo != null){
-                return mezo;
-            }
-            return null;
+            return mezo;
         }
     }
 }
