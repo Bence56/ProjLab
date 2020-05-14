@@ -23,6 +23,8 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
     private volatile Jatekos aktivJatekos;
     private Jegesmedve jegesmedve = new Jegesmedve();
 
+    private volatile boolean kihuz;
+
     Kontroller() {
     }
 
@@ -307,7 +309,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
 
             Mezo regiTartozkodasiMezo = (Mezo) aktivJatekos.getTartozkodasiMezo().clone();
             String actionCommand = actionEvent.getActionCommand();
-            boolean kihuz = false;
+            kihuz  = false;
             if (actionCommand.equals("lapatol")) {
                 aktivJatekos.lapatol();
             }
@@ -402,6 +404,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
 
                 */
             } else {
+                System.out.println("valami");
                 support.firePropertyChange("aktivJatekos", regiJatekos, aktivJatekos);
                 support.firePropertyChange("mezo", regiTartozkodasiMezo, regiJatekos.getTartozkodasiMezo());
                 support.firePropertyChange("aktiv mezo", regiTartozkodasiMezo, aktivJatekos.getTartozkodasiMezo());
