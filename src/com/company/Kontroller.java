@@ -119,9 +119,9 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
 
                 jegesmedve.jatszik();
 
-                    support.firePropertyChange("mezo", null, jegesmedve.getTartozkodasiMezo());
+                support.firePropertyChange("mezo", null, jegesmedve.getTartozkodasiMezo());
                     // Ahol előtte állt
-                    support.firePropertyChange("mezo", null, regimedve.getTartozkodasiMezo());
+                support.firePropertyChange("mezo", null, regimedve.getTartozkodasiMezo());
                 }
 
 

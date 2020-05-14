@@ -35,7 +35,25 @@ public class TargyakPanel extends JPanel {
     private ImageIcon lapatimNULL = new ImageIcon("Resources/Assets/Lapat_I_NULL-01.png");
     private ImageIcon satorim = new ImageIcon("Resources/Assets/Sator_I-01_kisebb.png");
     private ImageIcon satorimNULL = new ImageIcon("Resources/Assets/Sator_I_NULL-01_kisebb.png");
-    private ImageIcon x = new ImageIcon("Resources/Assets/x.png");
+   // private ImageIcon x = new ImageIcon("Resources/Assets/x.png");
+
+    private ImageIcon jobbraim = new ImageIcon("Resources/Assets/Jobbra-01.png");
+    private ImageIcon jobbraimNULL = new ImageIcon("Resources/Assets/Jobbra_NULL.01.png");
+    private ImageIcon balraim = new ImageIcon("Resources/Assets/Balra-01.png");
+    private ImageIcon balraimNULL = new ImageIcon("Resources/Assets/Balra_NULL-01.png");
+    private ImageIcon jobbfelim = new ImageIcon("Resources/Assets/JobbraFel-01.png");
+    private ImageIcon jobbfelimNULL = new ImageIcon("Resources/Assets/JobbraFel_NULL-01.png");
+    private ImageIcon felim = new ImageIcon("Resources/Assets/Fel-01.png");
+    private ImageIcon felimNULL = new ImageIcon("Resources/Assets/Fel_NULL-01.png");
+    private ImageIcon balfelim = new ImageIcon("Resources/Assets/BalraFel-01.png");
+    private ImageIcon balfelimNULL = new ImageIcon("Resources/Assets/BalraFel_NULL.01.png");
+    private ImageIcon balleim= new ImageIcon("Resources/Assets/BalraLe-01.png");
+    private ImageIcon balleimNULL = new ImageIcon("Resources/Assets/BalraLe_NULL-01.png");
+    private ImageIcon leim= new ImageIcon("Resources/Assets/Le-01.png");
+    private ImageIcon leimNULL = new ImageIcon("Resources/Assets/Le_NULL-01.png");
+    private ImageIcon jobbleim= new ImageIcon("Resources/Assets/JobbraLe-01.png");
+    private ImageIcon jobbleimNULL = new ImageIcon("Resources/Assets/JobbraLe_NULL-01.png");
+
     private ImageIcon kotelim1 = new ImageIcon("Resources/Assets/Kotel_I-02.png");
     private ImageIcon kotelimNULL1 = new ImageIcon("Resources/Assets/Kotel_I_NULL-02.png");
     private BufferedImage pisztolyNULL;
@@ -81,21 +99,21 @@ public class TargyakPanel extends JPanel {
 
         //BalFel
         //balfel.setPreferredSize(new Dimension(60,60));
-        balfel.setIcon(x);
+        balfel.setIcon(balfelimNULL);
         balfel.setActionCommand("balfentről");
         balfel.addActionListener(kontroller);
         targyak2.add(balfel);
 
         //Fel
         //  fel.setPreferredSize(new Dimension(60,60));
-        fel.setIcon(x);
+        fel.setIcon(felimNULL);
         fel.setActionCommand("fentről");
         fel.addActionListener(kontroller);
         targyak2.add(fel);
 
         //JobbFel
         //  jobbfel.setPreferredSize(new Dimension(60,60));
-        jobbfel.setIcon(x);
+        jobbfel.setIcon(jobbfelimNULL);
         jobbfel.setActionCommand("jobbfentről");
         jobbfel.addActionListener(kontroller);
         targyak2.add(jobbfel);
@@ -103,7 +121,7 @@ public class TargyakPanel extends JPanel {
 
         //Bal
         // bal.setPreferredSize(new Dimension(60,60));
-        bal.setIcon(x);
+        bal.setIcon(balraimNULL);
         bal.setActionCommand("balról");
         bal.addActionListener(kontroller);
         targyak2.add(bal);
@@ -114,7 +132,7 @@ public class TargyakPanel extends JPanel {
 
         //Jobb
         //jobb.setPreferredSize(new Dimension(60,60));
-        jobb.setIcon(x);
+        jobb.setIcon(jobbraimNULL);
         jobb.setActionCommand("jobbról");
         jobb.addActionListener(kontroller);
         targyak2.add(jobb);
@@ -122,20 +140,20 @@ public class TargyakPanel extends JPanel {
 
         //BalLe
         //balle.setPreferredSize(new Dimension(60,60));
-        balle.setIcon(x);
+        balle.setIcon(balleimNULL);
         balle.setActionCommand("ballentről");
         balle.addActionListener(kontroller);
         targyak2.add(balle);
 
         //Le
         // le.setPreferredSize(new Dimension(60,60));
-        le.setIcon(x);
+        le.setIcon(leimNULL);
         le.setActionCommand("lentről");
         le.addActionListener(kontroller);
         targyak2.add(le);
 
         //jobble.setPreferredSize(new Dimension(60,60));
-        jobble.setIcon(x);
+        jobble.setIcon(jobbleimNULL);
         jobble.setActionCommand("jobblentről");
         jobble.addActionListener(kontroller);
         targyak2.add(jobble);
@@ -158,17 +176,17 @@ public class TargyakPanel extends JPanel {
         SatorVisitor sv = new SatorVisitor();
         KotelVisitor kv = new KotelVisitor();
         AlkatreszVisitor av = new AlkatreszVisitor();
-        fel.setIcon(x);
-        jobbfel.setIcon(x);
-        jobb.setIcon(x);
-        jobble.setIcon(x);
-        le.setIcon(x);
-        balle.setIcon(x);
-        bal.setIcon(x);
-        balfel.setIcon(x);
+        fel.setIcon(felimNULL);
+        jobbfel.setIcon(jobbfelimNULL);
+        jobb.setIcon(jobbraimNULL);
+        jobble.setIcon(jobbleimNULL);
+        le.setIcon(leimNULL);
+        balle.setIcon(balleimNULL);
+        bal.setIcon(balraimNULL);
+        balfel.setIcon(balfelimNULL);
         lapat.setIcon(lapatimNULL);
         sator.setIcon(satorimNULL);
-        //alkatresz.setIcon(pisztolyNULL);
+       // alkatresz.setIcon(pisztolyNULL);
         kotel.setIcon(kotelimNULL);
         //TODO hogy kell összemergelni a képeket helyesen, ha csak két alkatrészem van pl.?
         boolean vankotel = false;
@@ -182,14 +200,14 @@ public class TargyakPanel extends JPanel {
         }
         Mezo m = aktivJatekos.getTartozkodasiMezo();
         if (vankotel) {
-            if (m.getSzomszed(Irany.Fel) != null) fel.setIcon(kotelim);
-            if (m.getSzomszed(Irany.JobbFel) != null) jobbfel.setIcon(kotelim);
-            if (m.getSzomszed(Irany.Jobb) != null) jobb.setIcon(kotelim);
-            if (m.getSzomszed(Irany.JobbLe) != null) jobble.setIcon(kotelim);
-            if (m.getSzomszed(Irany.Le) != null) le.setIcon(kotelim);
-            if (m.getSzomszed(Irany.BalLe) != null) balle.setIcon(kotelim);
-            if (m.getSzomszed(Irany.Bal) != null) bal.setIcon(kotelim);
-            if (m.getSzomszed(Irany.BalFel) != null) balfel.setIcon(kotelim);
+            if (m.getSzomszed(Irany.Fel) != null) fel.setIcon(felim);
+            if (m.getSzomszed(Irany.JobbFel) != null) jobbfel.setIcon(jobbfelim);
+            if (m.getSzomszed(Irany.Jobb) != null) jobb.setIcon(jobbraim);
+            if (m.getSzomszed(Irany.JobbLe) != null) jobble.setIcon(jobbleim);
+            if (m.getSzomszed(Irany.Le) != null) le.setIcon(leim);
+            if (m.getSzomszed(Irany.BalLe) != null) balle.setIcon(balleim);
+            if (m.getSzomszed(Irany.Bal) != null) bal.setIcon(balraim);
+            if (m.getSzomszed(Irany.BalFel) != null) balfel.setIcon(balfelim);
         }
 
         retegek.clear();
