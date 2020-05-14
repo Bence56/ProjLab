@@ -230,7 +230,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
                 }
                 if(munkat)
                     munkakSzama--;
-
+                System.out.println("Kihuz");
 
             }
         }
