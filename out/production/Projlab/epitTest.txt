@@ -1,2 +1,0 @@
-JatekosTest jt create
-JatekosTest jt epit
