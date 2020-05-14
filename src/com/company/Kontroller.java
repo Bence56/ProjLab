@@ -116,17 +116,13 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 //A vihar után az egész pályát újra kell rajzolni
                 support.firePropertyChange("palya", regiPalya, palya);
 
-               //a mezo
-                //Az a mező lesz ahová megérkezik majd az aktív játékos a lépés után
+                Jegesmedve regimedve=(Jegesmedve)jegesmedve.clone();
 
-                Mezo regiTartozkodasiMezo = (Mezo)jegesmedve.getTartozkodasiMezo().clone();
                 jegesmedve.jatszik();
-                Mezo ujTartozkodasiMezo=jegesmedve.getTartozkodasiMezo();
 
-                if(ujTartozkodasiMezo != null)
-                    support.firePropertyChange("mezo", null, ujTartozkodasiMezo);
-                // Ahol előtte állt
-                support.firePropertyChange("mezo", regiTartozkodasiMezo, jegesmedve.getTartozkodasiMezo());
+                    support.firePropertyChange("mezo", null, jegesmedve.getTartozkodasiMezo());
+                    // Ahol előtte állt
+                    support.firePropertyChange("mezo", null, regimedve.getTartozkodasiMezo());
                 }
 
 

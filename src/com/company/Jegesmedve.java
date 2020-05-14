@@ -3,11 +3,12 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Jegesmedve extends Mozgathato {
+public class Jegesmedve extends Mozgathato implements Cloneable{
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        Jegesmedve medve = (Jegesmedve) super.clone();
+        return medve;
     }
     /**
      * kiírja a jegesmedve állapotát
