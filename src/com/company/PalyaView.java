@@ -195,11 +195,6 @@ public class PalyaView extends JPanel {
             retegek.add(images.get(mezo.getFagyottAlkatresz().getID() + "-Pisztoly"));
         }
 
-        //A hó kirajzolása
-        if (mezo.getHotakaro() != 0) {
-            retegek.add(images.get("Ho"));
-        }
-
         ArrayList<Jatekos> jatekosok = mezo.getAlloJatekos();
         if (!jatekosok.isEmpty()) {
             for (Jatekos jatekos : jatekosok) {
@@ -233,6 +228,18 @@ public class PalyaView extends JPanel {
             }
         }
 
+        ElelemVisitor ev = new ElelemVisitor();
+        if (mezo.getTargy() != null) {
+            if (mezo.getTargy().accept(ev)) {
+                retegek.add(images.get("Etel"));
+            }
+        }
+
+        //A hó kirajzolása
+        if (mezo.getHotakaro() != 0) {
+            retegek.add(images.get("Ho"));
+        }
+
         SatorVisitor sv = new SatorVisitor();
         if (mezo.getTargy() != null) {
             if (mezo.getTargy().accept(sv)) {
@@ -242,13 +249,6 @@ public class PalyaView extends JPanel {
 
         if (mezo.isIglu()) {
             retegek.add(images.get("Iglu"));
-        }
-
-        ElelemVisitor ev = new ElelemVisitor();
-        if (mezo.getTargy() != null) {
-            if (mezo.getTargy().accept(ev)) {
-                retegek.add(images.get("Etel"));
-            }
         }
 
         for(String s: aktiv){
