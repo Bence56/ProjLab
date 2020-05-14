@@ -122,14 +122,6 @@ public class JatekosView extends JPanel {
         view.repaint();
 
     }
-    public void ujra(Jatekos ujaktiv){
-        aktivJatekos=(ujaktiv);
-        adatok.update(aktivJatekos);
-        targyak.update(aktivJatekos);
-        funkciok.update(aktivJatekos);
-        revalidate();
-        view.repaint();
-    }
 
     /**
      * Ikonok betöltése.

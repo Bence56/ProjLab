@@ -67,10 +67,9 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
      */
     public void setAktivJatekos(Jatekos ujAktivJatekos) {
         Jatekos regiJatekos = aktivJatekos;
-        this.aktivJatekos = ujAktivJatekos;for (View v:views) {
-            v.ujra(this,aktivJatekos); }
-        }
+        this.aktivJatekos = ujAktivJatekos;
 
+    }
 
     /**
      * Hozzáad egy új nézetet a kontroller nézeteihez, és felveszi hozzá a mod kontrollerillenytű eseménykezelőjét.
@@ -100,12 +99,8 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 for (Jatekos j : jatekosok) {
                     this.setAktivJatekos(j);
                     System.out.println("Játékos váltás");
-                    for (View v:views) {
-                        v.ujra(this,aktivJatekos);
-                    }
                     detektal();
                     j.jatszik();
-
                 }
                 //TODO
                 // vihar előtti pálya klónozása és utána fireproperty a pályára. KESZ
@@ -221,9 +216,8 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
             int ho = j.getTestho();
 
             if (ho == 0) {
-                //j.setAllapot(FulladasiAllapot.halott);
-                System.out.println("Kihűltél.");
-                j.meghal();
+                j.setAllapot(FulladasiAllapot.halott);
+                jatekVege(false);
             }
         }
 
@@ -301,78 +295,119 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        String actionCommand = actionEvent.getActionCommand();
-        if (actionCommand.equals("lapatol")) {
-            aktivJatekos.lapatol();
+        // Ez az állapota a cselekvés előtt a Játékosnak, mindegy, hogy mennyire Deep a másolat,
+        // Csak az számít, hogy ne legyen azonos a két objektum, és akkor felül lesz írva
+        try {
+            Jatekos regiJatekos = (Jatekos) aktivJatekos.clone();
+
+
+            //Az a mező lesz ahová megérkezik majd az aktív játékos a lépés után
+            Mezo ujTarozkodasiMezo;
+
+            Mezo regiTartozkodasiMezo = (Mezo) aktivJatekos.getTartozkodasiMezo().clone();
+            String actionCommand = actionEvent.getActionCommand();
+            boolean kihuz = false;
+            if (actionCommand.equals("lapatol")) {
+                aktivJatekos.lapatol();
+            }
+            if (actionCommand.equals("balfentről")) {
+                aktivJatekos.kihuz(Irany.BalFel); //TODO: átírni h merre húzzon ki
+                kihuz = true;
+            }
+            if (actionCommand.equals("fentről")) {
+                aktivJatekos.kihuz(Irany.Fel); //TODO: átírni h merre húzzon ki
+                kihuz = true;
+            }
+            if (actionCommand.equals("jobbfentről")) {
+                aktivJatekos.kihuz(Irany.JobbFel);
+                kihuz = true;
+            }
+            if (actionCommand.equals("balról")) {
+                aktivJatekos.kihuz(Irany.Bal);
+                kihuz = true;
+            }
+            if (actionCommand.equals("jobbról")) {
+                aktivJatekos.kihuz(Irany.Jobb);
+                kihuz = true;
+            }
+            if (actionCommand.equals("ballentről")) {
+                aktivJatekos.kihuz(Irany.BalLe);
+                kihuz = true;
+            }
+            if (actionCommand.equals("lentről")) {
+                aktivJatekos.kihuz(Irany.Le);
+                kihuz = true;
+            }
+            if (actionCommand.equals("jobblentről")) {
+                aktivJatekos.kihuz(Irany.JobbLe);
+                kihuz = true;
+            }
+            if (actionCommand.equals("satrat epit")) {
+                aktivJatekos.satratEpit();
+            }
+            if (actionCommand.equals("lerak")) {
+                aktivJatekos.lerak();
+            }
+            if (actionCommand.equals("kapar")) {
+                aktivJatekos.kapar();
+            }
+            if (actionCommand.equals("összeszerel")) {
+                aktivJatekos.osszeszerel();
+            }
+            if (actionCommand.equals("iglut epit")) {
+                aktivJatekos.epit();
+            }
+            if (actionCommand.equals("vizsgál balfent")) {
+                aktivJatekos.vizsgal(Irany.BalFel);
+            }
+            if (actionCommand.equals("vizsgál fent")) {
+                aktivJatekos.vizsgal(Irany.Fel);
+            }
+            if (actionCommand.equals("vizsgál jobbfent")) {
+                aktivJatekos.vizsgal(Irany.JobbFel);
+            }
+            if (actionCommand.equals("vizsgál balra")) {
+                aktivJatekos.vizsgal(Irany.Bal);
+            }
+            if (actionCommand.equals("vizsgál jobbra")) {
+                aktivJatekos.vizsgal(Irany.Jobb);
+            }
+            if (actionCommand.equals("vizsgál ballent")) {
+                aktivJatekos.vizsgal(Irany.BalLe);
+            }
+            if (actionCommand.equals("vizsgál lent")) {
+                aktivJatekos.vizsgal(Irany.Le);
+            }
+            if (actionCommand.equals("vizsgál jobblent")) {
+                aktivJatekos.vizsgal(Irany.JobbLe);
+            }
+            if (kihuz) {
+               /* ArrayList<Mezo> szomszedok = new ArrayList<Mezo>();
+                Mezo tarMez = aktivJatekos.getTartozkodasiMezo();
+                if (tarMez.getSzomszed(Irany.Fel) != null) szomszedok.add(tarMez.getSzomszed(Irany.Fel));
+                if (tarMez.getSzomszed(Irany.JobbFel) != null) szomszedok.add(tarMez.getSzomszed(Irany.JobbFel));
+                if (tarMez.getSzomszed(Irany.Jobb) != null) szomszedok.add(tarMez.getSzomszed(Irany.Jobb));
+                if (tarMez.getSzomszed(Irany.JobbLe) != null) szomszedok.add(tarMez.getSzomszed(Irany.JobbLe));
+                if (tarMez.getSzomszed(Irany.Le) != null) szomszedok.add(tarMez.getSzomszed(Irany.Le));
+                if (tarMez.getSzomszed(Irany.BalLe) != null) szomszedok.add(tarMez.getSzomszed(Irany.BalLe));
+                if (tarMez.getSzomszed(Irany.Bal) != null) szomszedok.add(tarMez.getSzomszed(Irany.Bal));
+                if (tarMez.getSzomszed(Irany.BalFel) != null) szomszedok.add(tarMez.getSzomszed(Irany.BalFel));
+                for (Mezo m : szomszedok) {
+                    support.firePropertyChange("mezo", null, m);
+                }
+                support.firePropertyChange("aktivJatekos", regiJatekos, aktivJatekos);
+                support.firePropertyChange("aktivMezo", null, aktivJatekos.getTartozkodasiMezo());
+
+                */
+            } else {
+                support.firePropertyChange("aktivJatekos", regiJatekos, aktivJatekos);
+                support.firePropertyChange("aktiv mezo", regiTartozkodasiMezo, aktivJatekos.getTartozkodasiMezo());
+            }
+            for (View v:views) {
+                v.requestFocusInWindow();
+            }
         }
-        if (actionCommand.equals("balfentről")) {
-            aktivJatekos.kihuz(Irany.BalFel); //TODO: átírni h merre húzzon ki
-        }
-        if (actionCommand.equals("fentről")) {
-            aktivJatekos.kihuz(Irany.Fel); //TODO: átírni h merre húzzon ki
-        }
-        if (actionCommand.equals("jobbfentről")) {
-            aktivJatekos.kihuz(Irany.JobbFel);
-        }
-        if (actionCommand.equals("balról")) {
-            aktivJatekos.kihuz(Irany.Bal);
-        }
-        if (actionCommand.equals("jobbról")) {
-            aktivJatekos.kihuz(Irany.Jobb);
-        }
-        if (actionCommand.equals("ballentről")) {
-            aktivJatekos.kihuz(Irany.BalLe);
-        }
-        if (actionCommand.equals("lentről")) {
-            aktivJatekos.kihuz(Irany.Le);
-        }
-        if (actionCommand.equals("jobblentről")) {
-            aktivJatekos.kihuz(Irany.JobbLe);
-        }
-        if (actionCommand.equals("satrat epit")) {
-            aktivJatekos.satratEpit();
-        }
-        if (actionCommand.equals("lerak")) {
-            aktivJatekos.lerak();
-        }
-        if (actionCommand.equals("kapar")) {
-            aktivJatekos.kapar();
-        }
-        if (actionCommand.equals("összeszerel")) {
-            aktivJatekos.osszeszerel();
-        }
-        if (actionCommand.equals("iglut épít")) {
-            aktivJatekos.epit();
-        }
-        if (actionCommand.equals("vizsgál balfent")) {
-            aktivJatekos.vizsgal(Irany.BalFel);
-        }
-        if (actionCommand.equals("vizsgál fent")) {
-            aktivJatekos.vizsgal(Irany.Fel);
-        }
-        if (actionCommand.equals("vizsgál jobbfent")) {
-            aktivJatekos.vizsgal(Irany.JobbFel);
-        }
-        if (actionCommand.equals("vizsgál balra")) {
-            aktivJatekos.vizsgal(Irany.Bal);
-        }
-        if (actionCommand.equals("vizsgál jobbra")) {
-            aktivJatekos.vizsgal(Irany.Jobb);
-        }
-        if (actionCommand.equals("vizsgál ballent")) {
-            aktivJatekos.vizsgal(Irany.BalLe);
-        }
-        if (actionCommand.equals("vizsgál lent")) {
-            aktivJatekos.vizsgal(Irany.Le);
-        }
-        if (actionCommand.equals("vizsgál jobblent")) {
-            aktivJatekos.vizsgal(Irany.JobbLe);
-        }
-        for (View v : views) {
-            //TODO csak az aktív játékos körüli mezőket kell újra rajzolni
-            v.ujra(this,aktivJatekos);
-            v.requestFocusInWindow();
-        }
+        catch (Exception e){}
     }
 
     /**
@@ -407,7 +442,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
 
 
                 //Az a mező lesz ahová megérkezik majd az aktív játékos a lépés után
-                Mezo ujTarozkodasiMezo = null;
+                Mezo ujTarozkodasiMezo;
 
                 Mezo regiTartozkodasiMezo = (Mezo)aktivJatekos.getTartozkodasiMezo().clone();
 
@@ -451,10 +486,9 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 //Ahol az új játékos áll
                 support.firePropertyChange("aktiv mezo", null,aktivJatekos.getTartozkodasiMezo());
 
-        } catch (CloneNotSupportedException cloneNotSupportedException) {
+            } catch (CloneNotSupportedException cloneNotSupportedException) {
                 cloneNotSupportedException.printStackTrace();
             }
-
         }
 
         /**4
@@ -473,10 +507,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
          */
         private Mezo copySzomszed(Irany i){
             Mezo mezo = aktivJatekos.getTartozkodasiMezo().getSzomszed(i);
-            if (mezo != null){
-                return mezo;
-            }
-            return null;
+            return mezo;
         }
     }
 }
