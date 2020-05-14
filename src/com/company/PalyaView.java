@@ -290,10 +290,12 @@ public class PalyaView extends JPanel {
      *
      * @param k A kontroller amitől lekérjük a pályát amit frissiteni szeretnénk.
      */
-    public void ujra(Kontroller k) {
+   /* public void ujra(Kontroller k) {
         update(k.getPalya());
 
     }
+
+    */
 
     /**
      * Ikonok betöltése
