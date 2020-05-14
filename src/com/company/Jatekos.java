@@ -269,6 +269,7 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
                     return;
                 }
             }
+            System.out.println("Satrat epit" );
         }
     }
 
