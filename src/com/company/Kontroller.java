@@ -22,7 +22,6 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
     private final ArrayList<Jatekos> jatekosok = new ArrayList<>();
     private volatile Jatekos aktivJatekos;
     private Jegesmedve jegesmedve = new Jegesmedve();
-
     private volatile boolean kihuz;
     private volatile Irany kihuzIrany=Irany.Jobb;
     Kontroller() {
@@ -287,6 +286,9 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
 
             Mezo regiszomszed=null;
             Mezo ujSzomszed=null;
+            if (actionCommand.equals("munka levon")){
+                aktivJatekos.munkaLevon(1);
+            }
             if (actionCommand.equals("lapatol")) {
                 aktivJatekos.lapatol();
             }
