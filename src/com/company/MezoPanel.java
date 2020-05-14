@@ -13,7 +13,9 @@ public class MezoPanel extends JPanel {
         this.setOpaque(false);
     }
 
-    //Azt a képet rajzolja ki amit betöltött
+    /**
+     * Betöltött kép kirajzolása
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -25,7 +27,7 @@ public class MezoPanel extends JPanel {
     }
     /**
      * Kicseréli a képet amit ki kell rajozolni
-     * @param im
+     * @param im Képek listája, amit be szeretnénk rakni.
      */
     public void update(ArrayList<BufferedImage> im){
         images.clear();

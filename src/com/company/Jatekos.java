@@ -109,10 +109,6 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
             munkakSzama = 4;
         //ha elfogytak a munkák a következő játékos jön
 
-       // if (munkakSzama == 0)
-
-          //  return;
-
            while (true) {
                 if (allapot.equals(FulladasiAllapot.fuldoklik) || this.munkakSzama <= 0) {
                     break;
@@ -278,10 +274,21 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
         }
     }
 
+    /**
+     * Törékeny lapátot kitöröl.
+     *
+     * @param t A törékeny lapát, amit törölni szeretnénk..
+     */
+
     public void lapatTorol(TorekenyLapat t) {
         targyak.remove(t);
     }
 
+    /**
+     * Sátrat kitöröl.
+     *
+     * @param s A sátor, amit törölni szeretnénk..
+     */
     public void satratTorol(Sator s) {
         targyak.remove(s);
     }
@@ -388,11 +395,16 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
         return -1;
     }
 
-
+    /**
+     * Visszaadja, hogy egy játékos védett-e.
+     */
     public boolean isVedett() {
         return vedett;
     }
 
+    /**
+     * Visszaadja a játékos megmaradt munkáinak számát.
+     */
     public int getMunka(){
         return munkakSzama;
     }
