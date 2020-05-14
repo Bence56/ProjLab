@@ -42,7 +42,8 @@ public class AdatokPanel extends JPanel{
      */
             public void update(Jatekos aktivjatekos){
                 //TODO típusellenőrzést kiszedni
-                if (aktivjatekos.getClass()==Eszkimo.class)kep.setIcon(eszkim);
+                String strg=aktivjatekos.getID();
+                if (strg.charAt(0)=='E')kep.setIcon(eszkim);
                 else kep.setIcon(kuatato);
                 fulladasiAllapot.setText("Állapotom: "+aktivjatekos.getAllapot().toString());
                 testho.setText("Testhőm: "+aktivjatekos.getTestho());

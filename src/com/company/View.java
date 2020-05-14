@@ -17,11 +17,7 @@ class View extends JFrame {
     PalyaView palyaView;
 
 
-    /**
-     * Játék fő ablakának konstruktora.
-     *
-     * @param kontroller A kontroller, amely vezérli a játékot.
-     */
+    // Konstruktor
     View(Kontroller kontroller) {
         //A Frame beállítása
         super("Jatek");
@@ -46,14 +42,8 @@ class View extends JFrame {
         this.getContentPane().add(palyaView, BorderLayout.CENTER);
         this.getContentPane().add(jatekosView, BorderLayout.EAST);
     }
-
-    /**
-     *Updatelni szeretnénk a játékos és a pálya nézetet is
-     *
-     * @param k A kontroller, amely vezérli a játékot.
-     */
-    public void ujra(Kontroller k){
-        jatekosView.ujra();
+    public void ujra(Kontroller k,Jatekos aktiv){
+        jatekosView.ujra(aktiv);
         palyaView.ujra(k);
     }
 }

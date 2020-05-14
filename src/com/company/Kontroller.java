@@ -67,9 +67,10 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
      */
     public void setAktivJatekos(Jatekos ujAktivJatekos) {
         Jatekos regiJatekos = aktivJatekos;
-        this.aktivJatekos = ujAktivJatekos;
+        this.aktivJatekos = ujAktivJatekos;for (View v:views) {
+            v.ujra(this,aktivJatekos); }
+        }
 
-    }
 
     /**
      * Hozzáad egy új nézetet a kontroller nézeteihez, és felveszi hozzá a mod kontrollerillenytű eseménykezelőjét.
@@ -99,8 +100,12 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 for (Jatekos j : jatekosok) {
                     this.setAktivJatekos(j);
                     System.out.println("Játékos váltás");
+                    for (View v:views) {
+                        v.ujra(this,aktivJatekos);
+                    }
                     detektal();
                     j.jatszik();
+
                 }
                 //TODO
                 // vihar előtti pálya klónozása és utána fireproperty a pályára. KESZ
@@ -365,7 +370,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         }
         for (View v : views) {
             //TODO csak az aktív játékos körüli mezőket kell újra rajzolni
-            v.ujra(this);
+            v.ujra(this,aktivJatekos);
             v.requestFocusInWindow();
         }
     }
@@ -449,6 +454,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         } catch (CloneNotSupportedException cloneNotSupportedException) {
                 cloneNotSupportedException.printStackTrace();
             }
+
         }
 
         /**4
