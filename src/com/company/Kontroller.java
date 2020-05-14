@@ -355,7 +355,8 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
             if (actionCommand.equals("összeszerel")) {
                 aktivJatekos.osszeszerel();
             }
-            if (actionCommand.equals("iglut epit")) {
+            if (actionCommand.equals("iglut épít")) {
+                System.out.println("IGLUUUU");
                 aktivJatekos.epit();
             }
             if (actionCommand.equals("vizsgál balfent")) {
