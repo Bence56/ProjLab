@@ -26,6 +26,7 @@ public class FunkciokPanel extends JPanel {
     private ImageIcon x=new ImageIcon("Resources/Assets/x.png");
     private ImageIcon csakanyim=new ImageIcon("Resources/Assets/csákány.png");
     private ImageIcon igluim=new ImageIcon("Resources/Assets/Iglu_I-01_kisebb.png");
+    private ImageIcon igluimNULL=new ImageIcon("Resources/Assets/Iglu_I_NULL-01_kisebb.png");
 
     private ImageIcon felNyil=new ImageIcon("Resources/Assets/Fel-01.png");private ImageIcon felNyilNULL=new ImageIcon("Resources/Assets/Fel_NULL-01.png");
     private ImageIcon jobbfelNyil=new ImageIcon("Resources/Assets/JobbraFel-01.png");private ImageIcon jobbfelNyilNULL=new ImageIcon("Resources/Assets/JobbraFel_NULL-01.png");
@@ -54,7 +55,6 @@ public class FunkciokPanel extends JPanel {
         this.setLayout(forths);
 
         this.add(kapar);
-        //kapar.setPreferredSize(new Dimension(90,90));
         kapar.setIcon(csakanyim);
         targyak.add(kapar);
         kapar.setActionCommand("kapar");
@@ -134,9 +134,8 @@ public class FunkciokPanel extends JPanel {
         targyak.add(targyak2);
 
 
-        //Az alkatrész lerak úgy van megírva, hogy bármennyi alkatrészünk van, 1 lerak() hívással a 0. indexűt rakjuk le.  Itt 1 alkatrészt
         iglutepit.setPreferredSize(new Dimension(90,90));
-        iglutepit.setIcon(igluim); //pisztolyNULL
+        iglutepit.setIcon(igluim);
         iglutepit.setActionCommand("iglut épít");
         iglutepit.addActionListener(kontroller);
         targyak.add(iglutepit);
@@ -179,7 +178,11 @@ public class FunkciokPanel extends JPanel {
             if (m.getSzomszed(Irany.BalLe) != null) balle.setIcon(balleNyil);
             if (m.getSzomszed(Irany.Bal) != null) bal.setIcon(balNyil);
             if (m.getSzomszed(Irany.BalFel) != null) balfel.setIcon(balfelNyil);
+            iglutepit.setIcon(igluimNULL);
         }
+        else iglutepit.setIcon(igluim);
+
         revalidate();
     }
 }
+

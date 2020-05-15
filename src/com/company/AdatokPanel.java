@@ -22,7 +22,6 @@ public class AdatokPanel extends JPanel{
                 this.add(j2);
                 BoxLayout boxlayout= new BoxLayout(this, BoxLayout.Y_AXIS); //felülről lefelé adja hozzá az elemeket.
                 this.setLayout(boxlayout);
-                //TODO: eldönteni vhogy, hogy kutató v eszkimó és aszerint 1 eszkimot  v a kutatót kirajzolni.
                 kep.setIcon(eszkim);
                 this.add(kep);
                 testho.setEditable(false);
