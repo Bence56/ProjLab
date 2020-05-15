@@ -195,17 +195,6 @@ public class PalyaView extends JPanel {
             retegek.add(images.get(mezo.getFagyottAlkatresz().getID() + "-Pisztoly"));
         }
 
-        ArrayList<Jatekos> jatekosok = mezo.getAlloJatekos();
-        if (!jatekosok.isEmpty()) {
-            for (Jatekos jatekos : jatekosok) {
-                retegek.add(images.get(jatekos.getID()));
-            }
-        }
-
-        //A megfelelő rétegeket kell rárajzolni egy mezőPanelra ami megfelel a mezőnek
-        if (mezo.getAlloJegesmedve() != null) {
-            retegek.add(images.get("Medve"));
-        }
 
         KotelVisitor kv = new KotelVisitor();
         if (mezo.getTargy() != null) {
@@ -235,16 +224,28 @@ public class PalyaView extends JPanel {
             }
         }
 
-        //A hó kirajzolása
-        if (mezo.getHotakaro() != 0) {
-            retegek.add(images.get("Ho"));
-        }
-
         SatorVisitor sv = new SatorVisitor();
         if (mezo.getTargy() != null) {
             if (mezo.getTargy().accept(sv)) {
                 retegek.add(images.get("Sator_T"));
             }
+        }
+
+        //A hó kirajzolása
+        if (mezo.getHotakaro() != 0) {
+            retegek.add(images.get("Ho"));
+        }
+
+        ArrayList<Jatekos> jatekosok = mezo.getAlloJatekos();
+        if (!jatekosok.isEmpty()) {
+            for (Jatekos jatekos : jatekosok) {
+                retegek.add(images.get(jatekos.getID()));
+            }
+        }
+
+        //A megfelelő rétegeket kell rárajzolni egy mezőPanelra ami megfelel a mezőnek
+        if (mezo.getAlloJegesmedve() != null) {
+            retegek.add(images.get("Medve"));
         }
 
         if (mezo.isIglu()) {
