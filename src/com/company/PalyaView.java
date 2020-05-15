@@ -131,7 +131,7 @@ public class PalyaView extends JPanel {
     }
 
     /**
-     *Tulajdonság változását kezeli.
+     * Tulajdonság változását kezeli.
      *
      * @param event Az esemány, amely a változást jelzi.
      */
@@ -144,19 +144,13 @@ public class PalyaView extends JPanel {
 
             //Újra rajzolás
             update(palya);
-        }
-
-        else if (event.getPropertyName().equals("mezo")) {
+        } else if (event.getPropertyName().equals("mezo")) {
             Mezo mezo = (Mezo) event.getNewValue();
             update(mezo);
-        }
-
-        else if(event.getPropertyName().equals("aktiv mezo")){
+        } else if (event.getPropertyName().equals("aktiv mezo")) {
             Mezo mezo = (Mezo) event.getNewValue();
             update(mezo, "aktiv");
-        }
-
-        else if (event.getPropertyName().equals("vege")) {
+        } else if (event.getPropertyName().equals("vege")) {
 
             //TODO...
             //update();
@@ -243,6 +237,14 @@ public class PalyaView extends JPanel {
             }
         }
 
+        if (mezo.getAlkatreszek() != null) {
+            if (!mezo.getAlkatreszek().isEmpty()) {
+                for (Alkatresz alk : mezo.getAlkatreszek()) {
+                    retegek.add(images.get(alk.getID() + "-Pisztoly_Le"));
+                }
+            }
+        }
+
         //A megfelelő rétegeket kell rárajzolni egy mezőPanelra ami megfelel a mezőnek
         if (mezo.getAlloJegesmedve() != null) {
             retegek.add(images.get("Medve"));
@@ -252,12 +254,12 @@ public class PalyaView extends JPanel {
             retegek.add(images.get("Iglu"));
         }
 
-        if (mezo.getSatorMiotaVan()!=0) {
+        if (mezo.getSatorMiotaVan() != 0) {
             retegek.add(images.get("Sator"));
         }
 
-        for(String s: aktiv){
-            if (s.equals("aktiv")){
+        for (String s : aktiv) {
+            if (s.equals("aktiv")) {
                 retegek.add(images.get("Aktiv"));
             }
         }
@@ -306,6 +308,9 @@ public class PalyaView extends JPanel {
             images.put("0-Pisztoly", read(new File("Resources/Assets/1-Pisztoly-01.png")));
             images.put("1-Pisztoly", read(new File("Resources/Assets/2-Pisztoly-01.png")));
             images.put("2-Pisztoly", read(new File("Resources/Assets/3-Pisztoly-01.png")));
+            images.put("0-Pisztoly_Le", read(new File("Resources/Assets/1-Pisztoly_Le-01.png")));
+            images.put("1-Pisztoly_Le", read(new File("Resources/Assets/2-Pisztoly_Le-01.png")));
+            images.put("2-Pisztoly_Le", read(new File("Resources/Assets/3-Pisztoly_Le-01.png")));
             images.put("Buvarruha", read(new File("Resources/Assets/Buvarruha-01.png")));
             images.put("Kotel", read(new File("Resources/Assets/Kotel-01.png")));
             images.put("Lapat", read(new File("Resources/Assets/Lapat-01.png")));
