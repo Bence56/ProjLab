@@ -160,10 +160,14 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
 
             int i = mezo.getSatorMiotaVan();
             // ha nincs sátor ill iglu, csökken a testhő
-            if (!(mezo.isIglu()) || i == 0)
-                for (Jatekos j : mezo.getAlloJatekos()) {
-                    j.setTestho(j.getTestho() - 1);
+            if (mezo.isIglu()==false){
+                if (mezo.getSatorMiotaVan()==0){
+                    for (Jatekos j:mezo.getAlloJatekos()) {
+                        j.setTestho(j.getTestho()-1);
+                    }
                 }
+            }
+
         }
     }
 
