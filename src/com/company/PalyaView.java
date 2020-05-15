@@ -251,6 +251,10 @@ public class PalyaView extends JPanel {
             retegek.add(images.get("Iglu"));
         }
 
+        if (mezo.getSatorMiotaVan()!=0) {
+            retegek.add(images.get("Sator"));
+        }
+
         for(String s: aktiv){
             if (s.equals("aktiv")){
                 retegek.add(images.get("Aktiv"));
