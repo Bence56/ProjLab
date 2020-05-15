@@ -243,7 +243,7 @@ public class PalyaView extends JPanel {
         SatorVisitor sv = new SatorVisitor();
         if (mezo.getTargy() != null) {
             if (mezo.getTargy().accept(sv)) {
-                retegek.add(images.get("Sator"));
+                retegek.add(images.get("Sator_T"));
             }
         }
 
@@ -286,32 +286,22 @@ public class PalyaView extends JPanel {
             Rectangle2D r = this.getBounds();
             g2.fill(r);
         } catch (java.io.IOException ex) {
+            ex.printStackTrace();
         }
     }
 
-    /**
-     * Pálya frissítése.
-     *
-     * @param k A kontroller amitől lekérjük a pályát amit frissiteni szeretnénk.
-     */
-   /* public void ujra(Kontroller k) {
-        update(k.getPalya());
-
-    }
-
-    */
 
     /**
      * Ikonok betöltése
      */
-
     void loadImages() {
         try {
             images.put("Jegtabla", read(new File("Resources/Assets/Jegtabla-01.png")));
             images.put("Lyuk", read(new File("Resources/Assets/Lyuk-01.png")));
             images.put("Ho", read(new File("Resources/Assets/Ho-01.png")));
             images.put("Iglu", read(new File("Resources/Assets/Iglu-01.png")));
-            images.put("Sator", read(new File("Resources/Assets/Sator-01.png")));
+            images.put("Sator_T", read(new File("Resources/Assets/Sator-01.png")));
+            images.put("Sator", read(new File("Resources/Assets/Sator_Le-01.png")));
             images.put("0-Pisztoly", read(new File("Resources/Assets/1-Pisztoly-01.png")));
             images.put("1-Pisztoly", read(new File("Resources/Assets/2-Pisztoly-01.png")));
             images.put("2-Pisztoly", read(new File("Resources/Assets/3-Pisztoly-01.png")));

@@ -42,10 +42,4 @@ class View extends JFrame {
         this.getContentPane().add(palyaView, BorderLayout.CENTER);
         this.getContentPane().add(jatekosView, BorderLayout.EAST);
     }
-    /*
-    public void ujra(Kontroller k,Jatekos aktiv){
-        jatekosView.ujra(aktiv);
-        //palyaView.ujra(k);
-    }
-     */
 }
