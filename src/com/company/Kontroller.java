@@ -23,7 +23,8 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
     private volatile Jatekos aktivJatekos;
     private Jegesmedve jegesmedve = new Jegesmedve();
     private volatile boolean kihuz;
-    private volatile Irany kihuzIrany=Irany.Jobb;
+    private volatile Irany kihuzIrany = Irany.Jobb;
+
     Kontroller() {
     }
 
@@ -69,7 +70,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
     public void setAktivJatekos(Jatekos ujAktivJatekos) {
         Jatekos regiJatekos = aktivJatekos;
         this.aktivJatekos = ujAktivJatekos;
-        support.firePropertyChange("aktivJatekos",null,aktivJatekos);
+        support.firePropertyChange("aktivJatekos", null, aktivJatekos);
     }
 
     /**
@@ -83,7 +84,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
         this.views.add(view);
         //Amikor hozzáadjuk a nézetet az jelenjen is meg rögtön
         support.firePropertyChange("palya", 0, palya);
-        support.firePropertyChange("aktiv mezo",null, aktivJatekos.getTartozkodasiMezo());
+        support.firePropertyChange("aktiv mezo", null, aktivJatekos.getTartozkodasiMezo());
     }
 
 
@@ -115,14 +116,14 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
                 //A vihar után az egész pályát újra kell rajzolni
                 support.firePropertyChange("palya", regiPalya, palya);
 
-                Jegesmedve regimedve=(Jegesmedve)jegesmedve.clone();
+                Jegesmedve regimedve = (Jegesmedve) jegesmedve.clone();
 
                 jegesmedve.jatszik();
 
                 support.firePropertyChange("mezo", null, jegesmedve.getTartozkodasiMezo());
-                    // Ahol előtte állt
+                // Ahol előtte állt
                 support.firePropertyChange("mezo", null, regimedve.getTartozkodasiMezo());
-                }
+            }
 
 
         } catch (CloneNotSupportedException cloneNotSupportedException) {
@@ -137,6 +138,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
     public void addMezo(Mezo mezo) {
         this.palya.add(mezo);
     }
+
     /**
      * Végig megy az összes mezőn és megnöveli a hóréteget egy random számmal (negatív lineáris eloszlással)
      * 0 és a maxHoreteg kozott Között, tehát jóval kisebb a valószínűsége nagy hónak mint a semminek.
@@ -160,7 +162,7 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
 
             int i = mezo.getSatorMiotaVan();
             // ha nincs sátor ill iglu, csökken a testhő
-            if (!(mezo.isIglu()) || i == 0)
+            if (!(mezo.isIglu()) || (i == 0))
                 for (Jatekos j : mezo.getAlloJatekos()) {
                     j.setTestho(j.getTestho() - 1);
                 }
@@ -171,61 +173,75 @@ public class Kontroller implements ActionListener { // konstruktorban kapja meg 
      * vizsgaljuk a játékosok állapotát, nem e hűlt ki, nem e fulladt meg
      */
     public void detektal() {
+        try {
+            int alkatreszSzam = 0;
 
-        int alkatreszSzam = 0;
-
-        for (Jatekos j : jatekosok) {
-            FulladasiAllapot allapot = j.getAllapot();
-            if (allapot == FulladasiAllapot.fuldoklik){
-                j.setAllapot(FulladasiAllapot.kimentheto);
-            }
-            else{
-                if(allapot == FulladasiAllapot.kimentheto){
-                    j.setAllapot(FulladasiAllapot.halott);
-                    System.out.println("Megfulladtál.");
-                    j.meghal();
+            for (Jatekos j : jatekosok) {
+                FulladasiAllapot allapot = j.getAllapot();
+                if (allapot == FulladasiAllapot.fuldoklik) {
+                    j.setAllapot(FulladasiAllapot.kimentheto);
+                } else {
+                    if (allapot == FulladasiAllapot.kimentheto) {
+                        j.setAllapot(FulladasiAllapot.halott);
+                        System.out.println("Megfulladtál.");
+                        j.meghal();
+                    }
                 }
             }
-        }
 
-        for (Jatekos j : jatekosok) {
-            int ho = j.getTestho();
+            for (Jatekos j : jatekosok) {
+                int ho = j.getTestho();
 
-            if (ho == 0) {
-                j.setAllapot(FulladasiAllapot.halott);
-                jatekVege(false);
+                if (ho == 0) {
+                    j.setAllapot(FulladasiAllapot.halott);
+                    jatekVege(false);
+                }
             }
-        }
 
-        for (Jatekos j : jatekosok) {
-            ArrayList<Alkatresz> alkatreszek = j.getAlkatreszek();
-            alkatreszSzam += alkatreszek.size();
-        }
-        for (Mezo m : palya) {
-            ArrayList<Alkatresz> alkatreszek = m.getAlkatreszek();
-            if (alkatreszek != null) {
+            for (Jatekos j : jatekosok) {
+                ArrayList<Alkatresz> alkatreszek = j.getAlkatreszek();
                 alkatreszSzam += alkatreszek.size();
             }
-            if (m.getFagyottAlkatresz() != null) {
-                alkatreszSzam++;
+            for (Mezo m : palya) {
+                ArrayList<Alkatresz> alkatreszek = m.getAlkatreszek();
+                if (alkatreszek != null) {
+                    alkatreszSzam += alkatreszek.size();
+                }
+                if (m.getFagyottAlkatresz() != null) {
+                    alkatreszSzam++;
+                }
             }
-        }
 
-        if (alkatreszSzam < 3) {
-            System.out.println("Nincs meg az összes alkatrész.");
-            jatekVege(false);
-        }
-
-        for (Mezo m : palya) {
-            int satorMiotaVan = m.getSatorMiotaVan();
-            if (satorMiotaVan == ((jatekosok.size()))) { // ha lement egy kör eltűnteti a sátrat
-                m.satratNullaz();
-            } else {
-                if (m.getSatorMiotaVan() > 0) // ha van a mezőn sátor
-                    m.satorIdoNovel();  // 1-gyel nő a felállítástúl eltelt idő
+            if (alkatreszSzam < 3) {
+                System.out.println("Nincs meg az összes alkatrész.");
+                jatekVege(false);
             }
+
+            //frissítjük a pályát, hogy eltűntesse a sátrat egy kör után.
+            ArrayList<Mezo> regiPalya = new ArrayList<>();
+            for (Mezo m : palya) {
+                regiPalya.add((Mezo) m.clone());
+            }
+
+            for (Mezo m : palya) {
+                int satorMiotaVan = m.getSatorMiotaVan();
+                if (satorMiotaVan == ((jatekosok.size()))) { // ha lement egy kör eltűnteti a sátrat
+                    m.satratNullaz();
+                } else {
+                    if (m.getSatorMiotaVan() > 0) {// ha van a mezőn sátor
+                        m.satorIdoNovel();  // 1-gyel nő a felállítástúl eltelt idő
+                    }
+                }
+            }
+
+            support.firePropertyChange("palya", regiPalya, palya);
+
+        } catch (
+                CloneNotSupportedException cloneNotSupportedException) {
+            cloneNotSupportedException.printStackTrace();
         }
     }
+
     public void frissitLerak(Jatekos aktivJatekos, Mezo mezo){
         support.firePropertyChange("aktivJatekos",null,aktivJatekos);
         support.firePropertyChange("aktiv mezo",null, mezo);
