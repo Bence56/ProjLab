@@ -24,11 +24,11 @@ public class Lapat extends Targy{
         if (horeteg>=2) {
             j.getTartozkodasiMezo().horetegCsokkent();
             j.getTartozkodasiMezo().horetegCsokkent();
-            j.munkaLevon(1);
+            j.munkaLevon();
         }
             else if (horeteg==1) {
             j.getTartozkodasiMezo().horetegCsokkent();
-            j.munkaLevon(1);
+            j.munkaLevon();
         }
 
     }

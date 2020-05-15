@@ -27,7 +27,7 @@ public class TargyakPanel extends JPanel {
     private JButton le = new JButton();
     private JButton jobble = new JButton();
 
-    private ArrayList<BufferedImage> retegek=new ArrayList<BufferedImage>();
+    private ArrayList<BufferedImage> retegek=new ArrayList<>();
 
     private ImageIcon kotelim=new ImageIcon("Resources/Assets/Kotel_I-02_kisebb.png");
     private ImageIcon kotelimNULL=new ImageIcon("Resources/Assets/Kotel_I_NULL-02_kisebb.png");
@@ -88,7 +88,7 @@ public class TargyakPanel extends JPanel {
       //  sator.setPreferredSize(new Dimension(80, 80));
         sator.setIcon(satorimNULL);
         targyak.add(sator);
-        sator.setActionCommand("satrat epit");
+        sator.setActionCommand("satratEpit");
         sator.addActionListener(kontroller);
 
         //Kihúz panel irányonként egy gombbal
@@ -100,21 +100,21 @@ public class TargyakPanel extends JPanel {
         //BalFel
         //balfel.setPreferredSize(new Dimension(60,60));
         balfel.setIcon(balfelimNULL);
-        balfel.setActionCommand("balfentről");
+        balfel.setActionCommand("BalFel");
         balfel.addActionListener(kontroller);
         targyak2.add(balfel);
 
         //Fel
         //  fel.setPreferredSize(new Dimension(60,60));
         fel.setIcon(felimNULL);
-        fel.setActionCommand("fentről");
+        fel.setActionCommand("Fel");
         fel.addActionListener(kontroller);
         targyak2.add(fel);
 
         //JobbFel
         //  jobbfel.setPreferredSize(new Dimension(60,60));
         jobbfel.setIcon(jobbfelimNULL);
-        jobbfel.setActionCommand("jobbfentről");
+        jobbfel.setActionCommand("JobbFel");
         jobbfel.addActionListener(kontroller);
         targyak2.add(jobbfel);
 
@@ -122,7 +122,7 @@ public class TargyakPanel extends JPanel {
         //Bal
         // bal.setPreferredSize(new Dimension(60,60));
         bal.setIcon(balraimNULL);
-        bal.setActionCommand("balról");
+        bal.setActionCommand("Bal");
         bal.addActionListener(kontroller);
         targyak2.add(bal);
 
@@ -133,7 +133,7 @@ public class TargyakPanel extends JPanel {
         //Jobb
         //jobb.setPreferredSize(new Dimension(60,60));
         jobb.setIcon(jobbraimNULL);
-        jobb.setActionCommand("jobbról");
+        jobb.setActionCommand("Jobb");
         jobb.addActionListener(kontroller);
         targyak2.add(jobb);
 
@@ -141,20 +141,20 @@ public class TargyakPanel extends JPanel {
         //BalLe
         //balle.setPreferredSize(new Dimension(60,60));
         balle.setIcon(balleimNULL);
-        balle.setActionCommand("ballentről");
+        balle.setActionCommand("BalLe");
         balle.addActionListener(kontroller);
         targyak2.add(balle);
 
         //Le
         // le.setPreferredSize(new Dimension(60,60));
         le.setIcon(leimNULL);
-        le.setActionCommand("lentről");
+        le.setActionCommand("Le");
         le.addActionListener(kontroller);
         targyak2.add(le);
 
         //jobble.setPreferredSize(new Dimension(60,60));
         jobble.setIcon(jobbleimNULL);
-        jobble.setActionCommand("jobblentről");
+        jobble.setActionCommand("JobbLe");
         jobble.addActionListener(kontroller);
         targyak2.add(jobble);
 

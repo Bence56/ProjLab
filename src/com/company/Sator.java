@@ -36,7 +36,7 @@ public class Sator extends Targy{
         if (j.getTartozkodasiMezo().getTeherbiras()!=0) {
             j.getTartozkodasiMezo().satorIdoNovel();
             j.satratTorol(this);
-            j.munkaLevon(1);
+            j.munkaLevon();
         }
 
 

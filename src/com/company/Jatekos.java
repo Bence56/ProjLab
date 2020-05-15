@@ -339,12 +339,10 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
     }
 
     /**
-     * Csökkenti a hátramaradó munkát számát.
-     *
-     * @param i Ennyivel csökkentjük a munkák számát.
+     * Csökkenti a hátramaradó munkát számát egyel.
      */
-    public void munkaLevon(int i) {
-        munkakSzama = munkakSzama - i;
+    public void munkaLevon() {
+        munkakSzama--;
     }
 
     /**
