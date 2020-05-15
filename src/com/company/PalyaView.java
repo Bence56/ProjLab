@@ -240,7 +240,8 @@ public class PalyaView extends JPanel {
         if (mezo.getAlkatreszek() != null) {
             if (!mezo.getAlkatreszek().isEmpty()) {
                 for (Alkatresz alk : mezo.getAlkatreszek()) {
-                    retegek.add(images.get(alk.getID() + "-Pisztoly_Le"));
+                    if(alk != null)
+                        retegek.add(images.get((alk.getID()) + "-Pisztoly_Le"));
                 }
             }
         }
@@ -262,6 +263,9 @@ public class PalyaView extends JPanel {
             if (s.equals("aktiv")) {
                 retegek.add(images.get("Aktiv"));
             }
+        }
+        if (mezo.isVizsgalt()){
+            retegek.add(images.get(String.valueOf(mezo.getTeherbiras())));
         }
 
         //Ki kell rajzolni
@@ -329,6 +333,13 @@ public class PalyaView extends JPanel {
             images.put("K4", read(new File("Resources/Assets/Kutato_Top_Center-01.png")));
             images.put("K5", read(new File("Resources/Assets/Kutato_Top_Right-01.png")));
             images.put("Aktiv", read(new File("Resources/Assets/Active-01.png")));
+            images.put("0", read(new File("Resources/Assets/0-01.png")));
+            images.put("1", read(new File("Resources/Assets/1-01.png")));
+            images.put("2", read(new File("Resources/Assets/2-01.png")));
+            images.put("3", read(new File("Resources/Assets/3-01.png")));
+            images.put("4", read(new File("Resources/Assets/4-01.png")));
+            images.put("5", read(new File("Resources/Assets/5-01.png")));
+            images.put("6", read(new File("Resources/Assets/6-01.png")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }

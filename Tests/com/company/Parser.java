@@ -18,7 +18,7 @@ public class Parser {
     private ArrayList<Parancs> lista;
 
     public Parser() {
-        lista = new ArrayList<Parancs>();
+        lista = new ArrayList<>();
     }
 
     public void addParancs(Parancs p) {
@@ -56,8 +56,8 @@ public class Parser {
 
                 for (int i = 0; i < size; i++) {
 
-                    pt.add(line[3 + (i * 2) + 0]);
-                    paramTypes[cnt] = line[3 + (i * 2) + 0];
+                    pt.add(line[3 + (i * 2)]);
+                    paramTypes[cnt] = line[3 + (i * 2)];
                     p.add(line[3 + (i * 2) + 1]);
                     params[cnt] = line[3 + (i * 2) + 1];
                     cnt++;
@@ -103,7 +103,7 @@ public class Parser {
                 String targyString = mezok.getJSONObject(i).getString("targy");
                 Targy targy = CreateTargy(targyString);
                 // 0-3 között random teherbírás
-                mezo = new Jegtabla(id, /*(int) (Math.random() * (3 + 1) )*/ 3, 0, targy);
+                mezo = new Jegtabla(id, (int) (Math.random() * (6 + 1) ) , 0, targy);
             } else if (id.charAt(0) == 'Y') {
                 mezo = new Lyuk(id, 0);
             }
@@ -198,15 +198,7 @@ public class Parser {
         try {
             return executer.construct(targyString, classes);
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (ClassNotFoundException | InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();
         }
         return null;

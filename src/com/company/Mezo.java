@@ -14,26 +14,42 @@ public abstract class Mezo implements Cloneable {
     private int hotakaro;
     private ArrayList<Jatekos> alloJatekos = new ArrayList<>();
     private Jegesmedve alloJegesmedve;
+    private boolean vizsgalt;
 
     public Mezo(int teherbiras, int hotakaro) {
         this.teherbiras = teherbiras;
         this.hotakaro = hotakaro;
+        vizsgalt = false;
     }
+
     public Mezo(String id, int teherbiras, int hotakaro) {
         this.id = id;
         this.teherbiras = teherbiras;
         this.hotakaro = hotakaro;
+        vizsgalt = false;
     }
+
     public Mezo(int teherbiras, int hotakaro, Jegesmedve medve) {
         this.teherbiras = teherbiras;
         this.hotakaro = hotakaro;
         this.alloJegesmedve = medve;
+        vizsgalt = false;
     }
+
     public Mezo(String id, int teherbiras, int hotakaro, Jegesmedve medve) {
         this.id = id;
         this.teherbiras = teherbiras;
         this.hotakaro = hotakaro;
         this.alloJegesmedve = medve;
+        vizsgalt = false;
+    }
+
+    public boolean isVizsgalt() {
+        return vizsgalt;
+    }
+
+    public void setVizsgalt(boolean vizsgalt) {
+        this.vizsgalt = vizsgalt;
     }
 
     /**
@@ -46,7 +62,7 @@ public abstract class Mezo implements Cloneable {
      */
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        return (Mezo) super.clone();
+        return super.clone();
     }
 
     public int getSor() {
@@ -122,10 +138,13 @@ public abstract class Mezo implements Cloneable {
     /**
      * Növeli a mező hórétegének értékét a paraméterben kapott értékkel.
      * Ha már 5 hó van egy mezőn az nem növekszik tovább.
+     *
      * @param num ahány egységgel növelni kell a hóréteget.
      */
     public void horetegNovel(int num) {
-        if(hotakaro >= 5){return;}
+        if (hotakaro >= 5) {
+            return;
+        }
         this.hotakaro += num;
     }
 

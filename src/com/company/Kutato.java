@@ -17,6 +17,7 @@ public class Kutato extends Jatekos implements Cloneable{
             Mezo m=this.getTartozkodasiMezo().getSzomszed(i);
             if (m!=null){
                 munkaLevon(1);
+                m.setVizsgalt(true);
                 return m.getTeherbiras();
             }
             return -1;
