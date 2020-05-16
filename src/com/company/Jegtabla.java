@@ -183,4 +183,8 @@ public class Jegtabla extends Mezo{
         return this.alkatreszek;
     }
 
+    @Override
+    public void setSatorMiotaVan(int satorMiotaVan) {
+        this.satorMiotaVan = satorMiotaVan;
+    }
 }

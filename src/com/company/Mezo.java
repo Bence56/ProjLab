@@ -260,6 +260,7 @@ public abstract class Mezo implements Cloneable {
     public int getSatorMiotaVan() {
         return 0;
     }
+    public void setSatorMiotaVan(int i){};
 
     /**
      * Amennyiben a mező jégtábla, úgy nullára állítja az adott jégtáblán lévő sátor satorIdo attribútumát (eltűnik a sátor a jégtábláról)

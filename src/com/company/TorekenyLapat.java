@@ -19,7 +19,7 @@ public class TorekenyLapat extends Lapat {
             } else if (horeteg == 1) {
                 j.getTartozkodasiMezo().horetegCsokkent();
                 j.munkaLevon();
-            }
+            } else hasznalatSzama--;
             if (hasznalatSzama==2)
                 j.lapatTorol(this);
 

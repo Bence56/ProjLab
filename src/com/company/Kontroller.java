@@ -179,60 +179,60 @@ public class Kontroller implements ActionListener {
      * vizsgaljuk a játékosok állapotát, nem e hűlt ki, nem e fulladt meg
      */
     public void detektal() {
+            int alkatreszSzam = 0;
 
-        int alkatreszSzam = 0;
+            for (Jatekos j : jatekosok) {
+                FulladasiAllapot allapot = j.getAllapot();
+                if (allapot == FulladasiAllapot.fuldoklik) {
+                    j.setAllapot(FulladasiAllapot.kimentheto);
+                } else {
+                    if (allapot == FulladasiAllapot.kimentheto) {
+                        j.setAllapot(FulladasiAllapot.halott);
+                        System.out.println("Megfulladtál.");
+                        j.meghal();
+                    }
+                }
+            }
 
-        for (Jatekos j : jatekosok) {
-            FulladasiAllapot allapot = j.getAllapot();
-            if (allapot == FulladasiAllapot.fuldoklik) {
-                j.setAllapot(FulladasiAllapot.kimentheto);
-            } else {
-                if (allapot == FulladasiAllapot.kimentheto) {
+            for (Jatekos j : jatekosok) {
+                int ho = j.getTestho();
+
+                if (ho == 0) {
                     j.setAllapot(FulladasiAllapot.halott);
-                    System.out.println("Megfulladtál.");
-                    j.meghal();
+                    jatekVege(false);
+                }
+            }
+
+            for (Jatekos j : jatekosok) {
+                ArrayList<Alkatresz> alkatreszek = j.getAlkatreszek();
+                alkatreszSzam += alkatreszek.size();
+            }
+            for (Mezo m : palya) {
+                ArrayList<Alkatresz> alkatreszek = m.getAlkatreszek();
+                if (alkatreszek != null) {
+                    alkatreszSzam += alkatreszek.size();
+                }
+                if (m.getFagyottAlkatresz() != null) {
+                    alkatreszSzam++;
+                }
+            }
+
+            if (alkatreszSzam < 3) {
+                System.out.println("Nincs meg az összes alkatrész.");
+                jatekVege(false);
+            }
+
+
+            for (Mezo m : palya) {
+                int satorMiotaVan = m.getSatorMiotaVan();
+                if (satorMiotaVan == ((jatekosok.size()))) { // ha lement egy kör eltűnteti a sátrat
+                    m.satratNullaz();
+                } else {
+                    if (m.getSatorMiotaVan() > 0) // ha van a mezőn sátor
+                        m.satorIdoNovel();  // 1-gyel nő a felállítástúl eltelt idő
                 }
             }
         }
-
-        for (Jatekos j : jatekosok) {
-            int ho = j.getTestho();
-
-            if (ho == 0) {
-                j.setAllapot(FulladasiAllapot.halott);
-                jatekVege(false);
-            }
-        }
-
-        for (Jatekos j : jatekosok) {
-            ArrayList<Alkatresz> alkatreszek = j.getAlkatreszek();
-            alkatreszSzam += alkatreszek.size();
-        }
-        for (Mezo m : palya) {
-            ArrayList<Alkatresz> alkatreszek = m.getAlkatreszek();
-            if (alkatreszek != null) {
-                alkatreszSzam += alkatreszek.size();
-            }
-            if (m.getFagyottAlkatresz() != null) {
-                alkatreszSzam++;
-            }
-        }
-
-        if (alkatreszSzam < 3) {
-            System.out.println("Nincs meg az összes alkatrész.");
-            jatekVege(false);
-        }
-
-        for (Mezo m : palya) {
-            int satorMiotaVan = m.getSatorMiotaVan();
-            if (satorMiotaVan == ((jatekosok.size()))) { // ha lement egy kör eltűnteti a sátrat
-                m.satratNullaz();
-            } else {
-                if (m.getSatorMiotaVan() > 0) // ha van a mezőn sátor
-                    m.satorIdoNovel();  // 1-gyel nő a felállítástúl eltelt idő
-            }
-        }
-    }
 
     public void frissitLerak(Jatekos aktivJatekos, Mezo mezo) {
         support.firePropertyChange("aktivJatekos", null, aktivJatekos);
@@ -256,7 +256,7 @@ public class Kontroller implements ActionListener {
             System.out.println("GAME OVER");
         Frame f = new JFrame();
         f.setVisible(true);
-        System.exit(0);
+       // System.exit(0);
     }
 
     /**
