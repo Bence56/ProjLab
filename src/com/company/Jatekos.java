@@ -303,6 +303,8 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
         m.setFagyottTargy(null);
         m.setFagyottAlk(null);
         m.setAlkatreszek(null, null, null);
+        m.setIglu(false);
+        m.setSatorMiotaVan(0);
         if (!vedett) {
             allapot = FulladasiAllapot.fuldoklik;
             munkakSzama = 0;
