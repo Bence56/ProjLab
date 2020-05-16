@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.*;
+import javax.swing.plaf.ComponentUI;
 import java.awt.*;
 
 public class FunkciokPanel extends JPanel {
@@ -46,12 +47,32 @@ public class FunkciokPanel extends JPanel {
 
     public FunkciokPanel(Kontroller kontroller){
 
+        //Egyedi UI
+        this.setBackground(new Color(41, 54, 63));
+        kapar.setUI(new CustomButtonUI());
+        kapar.setText("Kapar");
+        osszeszerel.setUI(new CustomButtonUI());
+        osszeszerel.setText("Összeszerel");
+        iglutepit.setUI(new CustomButtonUI());
+        iglutepit.setText("Épít");
+        fel.setUI(new CustomButtonUI());
+        jobbfel.setUI(new CustomButtonUI());
+        jobb.setUI(new CustomButtonUI());
+        jobble.setUI(new CustomButtonUI());
+        le.setUI(new CustomButtonUI());
+        balle.setUI(new CustomButtonUI());
+        bal.setUI(new CustomButtonUI());
+        balfel.setUI(new CustomButtonUI());
 
         JPanel targyak=new JPanel();
+        targyak.setBackground(new Color(41, 54, 63));
         targyak.setPreferredSize(new Dimension(220,220));
         GridLayout gl1=new GridLayout(2,2);
+        gl1.setHgap(15);
+        gl1.setVgap(10);
         targyak.setLayout(gl1);
-        GridLayout forths=new GridLayout(2,1);
+        GridLayout forths=new GridLayout(3,1);
+        forths.setVgap(10);
         this.setLayout(forths);
 
         this.add(kapar);
@@ -68,7 +89,10 @@ public class FunkciokPanel extends JPanel {
         //Vizsgál panel irányonként egy gombbal
         JPanel targyak2=new JPanel();
         GridLayout gl5=new GridLayout(3,3);
+        gl5.setHgap(2);
+        gl5.setVgap(2);
         targyak2.setLayout(gl5);
+        targyak2.setBackground(new Color(41, 54, 63));
 
 
         //BalFel
@@ -141,15 +165,19 @@ public class FunkciokPanel extends JPanel {
         targyak.add(iglutepit);
 
         targyak.add(targyak2, BorderLayout.LINE_START);
-
-        JPanel MunkaGombPanel=new JPanel();
-        JButton gomb=new JButton("Munkat levon");
+        JPanel munkaGombPanel=new JPanel();
+        munkaGombPanel.setPreferredSize(new Dimension(220,30));
+        munkaGombPanel.setLayout(gl5);
+        munkaGombPanel.setBackground(new Color(41, 54, 63));
+        JButton gomb=new JButton("Munkát levon");
+        gomb.setUI(new CustomButtonUI(false));
+       // gomb.setPreferredSize(new Dimension(220,60));
         gomb.setActionCommand("munkaLevon");
         gomb.addActionListener(kontroller);
-        MunkaGombPanel.add(gomb);
+        munkaGombPanel.add(gomb);
 
         this.add(targyak);
-        this.add(MunkaGombPanel);
+        this.add(munkaGombPanel);
     }
 
     /**

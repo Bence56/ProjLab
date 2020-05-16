@@ -327,6 +327,7 @@ public class Kontroller implements ActionListener {
              */
             if (kihuzIrany != null) {
                 ujSzomszed = copySzomszed(kihuzIrany);
+                //TODO itt exceptiont dob
                 regiszomszed = (Mezo) aktivJatekos.getTartozkodasiMezo().getSzomszed(kihuzIrany).clone();
                 aktivJatekos.kihuz(kihuzIrany);
 

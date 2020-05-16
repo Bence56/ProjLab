@@ -26,14 +26,13 @@ class View extends JFrame {
         // A palyaView létrehozása már paraméterben kaphatja
         int N = 4;
         int M = 4;
-        setSize(958, 758);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         this.setVisible(true);
         //this.setResizable(false);
         this.setLocation(0, 0);
-        this.setSize(222*N+256, 222*M);
+        this.setSize(222*N+256, 222*M + 20);
         this.setMinimumSize(this.getSize());
 
         this.palyaView = new PalyaView(kontroller, this);

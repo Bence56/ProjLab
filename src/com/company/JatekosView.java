@@ -1,23 +1,13 @@
 package com.company;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.BoxLayout;
-import javax.swing.Box;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static javax.imageio.ImageIO.read;
-import static javax.swing.BoxLayout.Y_AXIS;
 
 public class JatekosView extends JPanel {
     private volatile Jatekos aktivJatekos;
@@ -81,7 +71,7 @@ public class JatekosView extends JPanel {
         kontroller.addPropertyChangeListener(listener);
 
         this.setPreferredSize(new Dimension(256, 758));
-        this.setBackground(Color.DARK_GRAY);
+        this.setBackground(new Color(41, 54, 63));
         //loadImages();
 
         this.add(adatok);
@@ -107,19 +97,11 @@ public class JatekosView extends JPanel {
      */
 
     private void update() {
-        //Itt most csak ranodm átszínezzük
-        int r = (int)(Math.random() * 255);
-        int g = (int)(Math.random() * 255);
-        int b = (int)(Math.random() * 255);
-
-        setBackground(new Color(r,g,b));
-
         //Változás történt a nézeten, újra kell rajzolni
         adatok.update(aktivJatekos);
         targyak.update(aktivJatekos);
         funkciok.update(aktivJatekos);
         revalidate();
         view.repaint();
-
     }
 }

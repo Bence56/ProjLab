@@ -63,6 +63,25 @@ public class TargyakPanel extends JPanel {
 
     public TargyakPanel(Kontroller kontroller) {
 
+        //Beállítja az egyedi UI-t
+        this.setBackground(new Color(41, 54, 63));
+        lapat.setUI(new CustomButtonUI());
+        lapat.setText("Lapátol");
+        sator.setUI(new CustomButtonUI());
+        sator.setText("Épít");
+        alkatresz.setUI(new CustomButtonUI());
+        alkatresz.setText("Letesz");
+        fel.setUI(new CustomButtonUI());
+        jobbfel.setUI(new CustomButtonUI());
+        jobb.setUI(new CustomButtonUI());
+        jobble.setUI(new CustomButtonUI());
+        le.setUI(new CustomButtonUI());
+        balle.setUI(new CustomButtonUI());
+        bal.setUI(new CustomButtonUI());
+        balfel.setUI(new CustomButtonUI());
+
+
+
         try {
             pisztolyNULL = ImageIO.read(new File("Resources/Assets/Pisztoly_I_NULL-01.png"));
             pisztolyegy = ImageIO.read(new File("Resources/Assets/1-Pisztoly_I-01.png"));
@@ -74,8 +93,11 @@ public class TargyakPanel extends JPanel {
         retegek.add(pisztolyNULL);
 
         JPanel targyak = new JPanel();
+        targyak.setBackground(new Color(41, 54, 63));
         targyak.setPreferredSize(new Dimension(220, 220));
         GridLayout gl1 = new GridLayout(2, 2);
+        gl1.setHgap(15);
+        gl1.setVgap(10);
         targyak.setLayout(gl1);
 
       //  lapat.setPreferredSize(new Dimension(80, 80));
@@ -93,7 +115,10 @@ public class TargyakPanel extends JPanel {
 
         //Kihúz panel irányonként egy gombbal
         JPanel targyak2 = new JPanel();
+        targyak2.setBackground(new Color(41, 54, 63));
         GridLayout gl5 = new GridLayout(3, 3);
+        gl5.setHgap(2);
+        gl5.setVgap(2);
         targyak2.setLayout(gl5);
 
 
