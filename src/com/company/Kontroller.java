@@ -406,25 +406,25 @@ public class Kontroller implements ActionListener {
                 if (e.getKeyCode() == (KeyEvent.VK_NUMPAD8) || e.getKeyCode() == KeyEvent.VK_UP) {
                     ujTarozkodasiMezo = copySzomszed(Irany.Fel);
                     aktivJatekos.lep(Irany.Fel);
-                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD9)) {
+                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD9) || e.getKeyCode() == KeyEvent.VK_E) {
                     ujTarozkodasiMezo = copySzomszed(Irany.JobbFel);
                     aktivJatekos.lep(Irany.JobbFel);
                 } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD6) || e.getKeyCode() == KeyEvent.VK_RIGHT) {
                     ujTarozkodasiMezo = copySzomszed(Irany.Jobb);
                     aktivJatekos.lep(Irany.Jobb);
-                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD3)) {
+                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD3) || e.getKeyCode() == KeyEvent.VK_X ){
                     ujTarozkodasiMezo = copySzomszed(Irany.JobbLe);
                     aktivJatekos.lep(Irany.JobbLe);
                 } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD2) || e.getKeyCode() == KeyEvent.VK_DOWN) {
                     ujTarozkodasiMezo = copySzomszed(Irany.Le);
                     aktivJatekos.lep(Irany.Le);
-                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD1)) {
+                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD1) || e.getKeyCode() == KeyEvent.VK_Y) {
                     ujTarozkodasiMezo = copySzomszed(Irany.BalLe);
                     aktivJatekos.lep(Irany.BalLe);
                 } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD4) || e.getKeyCode() == KeyEvent.VK_LEFT) {
                     ujTarozkodasiMezo = copySzomszed(Irany.Bal);
                     aktivJatekos.lep(Irany.Bal);
-                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD7)) {
+                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD7) || e.getKeyCode() == KeyEvent.VK_Q) {
                     ujTarozkodasiMezo = copySzomszed(Irany.BalFel);
                     aktivJatekos.lep(Irany.BalFel);
                 } else {

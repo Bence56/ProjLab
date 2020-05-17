@@ -1,15 +1,19 @@
 package com.company;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class JatekosView extends JPanel {
+    JPanel panel = new JPanel();
     private volatile Jatekos aktivJatekos;
     private View view;
     private AdatokPanel adatok;
@@ -61,7 +65,7 @@ public class JatekosView extends JPanel {
      * @param view       Az a Frame amin látni akarjuk ezt a nézetet
      */
     JatekosView(Kontroller kontroller, View view) {
-
+        this.add(panel);
         this.view = view;
         adatok=new AdatokPanel();
         // A jelenleg aktív játékos inventory-jét is meg kell jeleníteni
@@ -70,26 +74,53 @@ public class JatekosView extends JPanel {
         //A Kontrollerhez hozzá kell adni a Listenerünket
         kontroller.addPropertyChangeListener(listener);
 
-        this.setPreferredSize(new Dimension(256, 758));
-        this.setBackground(new Color(41, 54, 63));
+        panel.setPreferredSize(new Dimension(256, 878));
+        panel.setBackground(new Color(41, 54, 63));
         //loadImages();
 
-        this.add(adatok);
+        panel.add(adatok);
         targyak=new TargyakPanel(kontroller);
         JLabel cimke=new JLabel("Cuccaim:");
-        this.add(cimke);
-        this.add(targyak);
+        panel.add(cimke);
+        panel.add(targyak);
         //TODO:  végigmenni a játékos tömbjén hogy van-e az adott tárgyból. Képek, plusz sötét képek kellenek, ha egy tárgyból nincs..
 
 
 
         JLabel egyeblehetoseg=new JLabel("Egyéb lehetőségek: ");
-        this.add(egyeblehetoseg);
+        panel.add(egyeblehetoseg);
         funkciok=new FunkciokPanel(kontroller);
-        this.add(funkciok);
+        panel.add(funkciok);
         adatok.update(aktivJatekos);
         targyak.update(aktivJatekos);
         funkciok.update(aktivJatekos);
+    }
+
+
+    /**
+     * Textúrázva tölti ki a hátteret
+     *
+     * @param g
+     */
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        if (g2 == null) {
+            System.out.println("error");
+            return;
+        }
+        try {
+            BufferedImage image = ImageIO.read(new File("Resources/Assets/Tenger.png"));
+            System.out.println(view.getWidth() + " " + view.getHeight());
+            Rectangle2D rec = new java.awt.geom.Rectangle2D.Double(view.getWidth() - 266, 0 , image.getWidth(), image.getHeight());
+            TexturePaint tp = new TexturePaint(image, rec);
+            g2.setPaint(tp);
+            Rectangle2D r = new Rectangle(0, 0, this.getWidth(), this.getHeight());
+            g2.fill(r);
+        } catch (java.io.IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**

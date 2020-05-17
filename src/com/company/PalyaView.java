@@ -3,7 +3,11 @@ package com.company;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -12,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static javax.imageio.ImageIO.read;
 
@@ -44,7 +49,41 @@ public class PalyaView extends JPanel {
             propertyChangeHandler(event);
         }
     };
+
     private View view;
+
+    /**
+     * Ez az időzítő a képrenyőn mozgatja a tengeri élőlényeket
+     */
+    Timer t = new Timer(30, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            move(transformHal1, 2, 2 * Math.sin(time += 0.01), h1X, h1Y, "Hal 1");
+            move(transformHal2, 4, -2 * Math.sin(time += 0.01), h2X, h2Y, "Hal 2");
+            move(transformPolip, -3, 2.2 * Math.sin(time += 0.01), pX, pY, "Polip");
+            move(transformTintahal, -2, 3 * Math.sin(time += 0.01), tX, tY, "Tintahal");
+            move(transformRak, 1, 2.2 * Math.sin(0.25 * (time += 0.01)), rX, rY, "Rak");
+            repaint();
+        }
+    });
+
+    AffineTransform transformPolip = new AffineTransform();
+    AffineTransform transformHal1 = new AffineTransform();
+    AffineTransform transformHal2 = new AffineTransform();
+    AffineTransform transformTintahal = new AffineTransform();
+    AffineTransform transformRak = new AffineTransform();
+
+    double time = 0;
+    AtomicInteger h1X = new AtomicInteger(1);
+    AtomicInteger h1Y = new AtomicInteger(1);
+    AtomicInteger h2X = new AtomicInteger(1);
+    AtomicInteger h2Y = new AtomicInteger(1);
+    AtomicInteger pX = new AtomicInteger(1);
+    AtomicInteger pY = new AtomicInteger(1);
+    AtomicInteger tX = new AtomicInteger(1);
+    AtomicInteger tY = new AtomicInteger(1);
+    AtomicInteger rX = new AtomicInteger(1);
+    AtomicInteger rY = new AtomicInteger(1);
 
     /**
      * Létrehozza a pálya nézetet
@@ -54,6 +93,15 @@ public class PalyaView extends JPanel {
      * @param view       Az a Frame amin látni akarjuk ezt a nézetet
      */
     PalyaView(Kontroller kontroller, View view) {
+
+        //Ahonnan indulnak az állatok
+        transformHal1.translate(-1, 100);
+        transformHal2.translate(700, 500);
+        transformPolip.translate(200,200);
+        transformTintahal.translate(300,800);
+        transformRak.translate(400,400);
+
+        // A nézet amin minden elhelyezkedik
         this.view = view;
 
         //A Kontrollerhez hozzá kell adni a Listenerünket
@@ -128,6 +176,7 @@ public class PalyaView extends JPanel {
             }
             panels.add(2 * i + 1, row);
         }
+        t.start();
     }
 
     /**
@@ -292,11 +341,17 @@ public class PalyaView extends JPanel {
             g2.setPaint(tp);
             Rectangle2D r = this.getBounds();
             g2.fill(r);
+
+            g2.drawImage(images.get("Hal 1"), transformHal1, this);
+            g2.drawImage(images.get("Hal 2"), transformHal2, this);
+            g2.drawImage(images.get("Polip"), transformPolip, this);
+            g2.drawImage(images.get("Tintahal"), transformTintahal, this);
+            g2.drawImage(images.get("Rak"), transformRak, this);
+
         } catch (java.io.IOException ex) {
             ex.printStackTrace();
         }
     }
-
 
     /**
      * Ikonok betöltése
@@ -320,6 +375,11 @@ public class PalyaView extends JPanel {
             images.put("Lapat", read(new File("Resources/Assets/Lapat-01.png")));
             images.put("Etel", read(new File("Resources/Assets/Konzerv-01.png")));
             images.put("Medve", read(new File("Resources/Assets/Medve-01.png")));
+            images.put("Hal 1", read(new File("Resources/Assets/Hal-01.png")));
+            images.put("Hal 2", read(new File("Resources/Assets/Hal-01.png")));
+            images.put("Polip", read(new File("Resources/Assets/Polip-01.png")));
+            images.put("Tintahal", read(new File("Resources/Assets/Tintahal-01.png")));
+            images.put("Rak", read(new File("Resources/Assets/Rak-01.png")));
             images.put("E0", read(new File("Resources/Assets/Eszkimo_Top-01.png")));
             images.put("E1", read(new File("Resources/Assets/Eszkimo_Mid_Left-01.png")));
             images.put("E2", read(new File("Resources/Assets/Eszkimo_Mid_Right-01.png")));
@@ -342,6 +402,34 @@ public class PalyaView extends JPanel {
             images.put("6", read(new File("Resources/Assets/6-01.png")));
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Elmozgatja a képernyőn a vízben az élőlényeket
+     * @param transform Az élőlény transzformációs mátrixa
+     * @param X mennyivel szeretnénk, hogy arréb menjen X irányba
+     * @param Y mennyivel szeretnénk, hogy arrébb menjen Y irányba
+     * @param xElojel ha kimegy a képernyőről egy idő után vissza téríti ezért kell ez az előjel, azért AtomicInteger,
+     *                mert így át lehet állítani az értékét a függvényből
+     * @param yElojel ha kimegy a képernyőről egy idő után vissza téríti ezért kell ez az előjel, azért AtomicInteger,
+     *      *                mert így át lehet állítani az értékét a függvényből
+     * @param name A kép neve amit ki szeretnénk rajzolni.
+     */
+    private void move(AffineTransform transform, double X, double Y, AtomicInteger xElojel, AtomicInteger yElojel, String name){
+        transform.translate(X * xElojel.get(), (Y + Math.random()) * yElojel.get());
+        BufferedImage im = images.get(name);
+        if(transform.getTranslateX() + im.getWidth() < 0 || transform.getTranslateX() - im.getWidth() > this.getWidth()){
+
+            xElojel.set( xElojel.get() * -1);
+
+            AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+            tx.translate(-im.getWidth(null),0);
+            AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+            images.put(name,op.filter(im, null));
+        }
+        if(transform.getTranslateY() + im.getHeight() < 0 || transform.getTranslateY() - im.getHeight() > this.getHeight()){
+            yElojel.set(yElojel.get() * -1);
         }
     }
 }
