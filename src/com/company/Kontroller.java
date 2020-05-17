@@ -209,6 +209,10 @@ public class Kontroller implements ActionListener {
             }
             for (Mezo m : palya) {
                 ArrayList<Alkatresz> alkatreszek = m.getAlkatreszek();
+                //for (int i=0; i<alkatreszek.size(); i++){
+                //   if (alkatreszek.get(i)!=null){
+                //       alkatreszSzam+=1;
+                //  }
                 if (alkatreszek != null) {
                     alkatreszSzam += alkatreszek.size();
                 }

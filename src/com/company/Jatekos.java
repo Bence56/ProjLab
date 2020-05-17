@@ -131,21 +131,22 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
     public void kapar() {
         // Ezekből csak egy futhat le mert egy mezőn vagy alkatrész vagy tárgy van
         Mezo m = this.getTartozkodasiMezo();
-        int hotakaro = m.getHotakaro();
-        if (hotakaro == 0) {
-            Targy targy = m.getTargy();
-            if (targy != null) {
-                targy.felvesz(this);
-                m.setFagyottTargy(null);
-                this.munkakSzama--;
+        if (m.getTeherbiras()!=0) {
+            int hotakaro = m.getHotakaro();
+            if (hotakaro == 0) {
+                Targy targy = m.getTargy();
+                if (targy != null) {
+                    targy.felvesz(this);
+                    m.setFagyottTargy(null);
+                    this.munkakSzama--;
+                }
+                Alkatresz alk = m.getFagyottAlkatresz();
+                if (alk != null) {
+                    alk.felvesz(this);
+                    m.setFagyottAlk(null);
+                    this.munkakSzama--;
+                }
             }
-            Alkatresz alk = m.getFagyottAlkatresz();
-            if (alk != null) {
-                alk.felvesz(this);
-                m.setFagyottAlk(null);
-                this.munkakSzama--;
-            }
-
         }
     }
 
@@ -239,19 +240,21 @@ public abstract class Jatekos extends Mozgathato implements Cloneable {
      * A játékos lapátol, ha van lapátja, a lapáttal, ha nincs, akkor lapát nélkül, de úgy csak 1 hóréteget tud eltávolítani.
      */
     public void lapatol() {
-        LapatVisitor lv = new LapatVisitor();
-        boolean van_lapat = false;
-        for (Targy t : targyak) {
-            if (t.accept(lv)) {
-                t.hasznal(this);
-                van_lapat = true;
-                return;
+        if (getTartozkodasiMezo().getTeherbiras() != 0) {
+            LapatVisitor lv = new LapatVisitor();
+            boolean van_lapat = false;
+            for (Targy t : targyak) {
+                if (t.accept(lv)) {
+                    t.hasznal(this);
+                    van_lapat = true;
+                    return;
+                }
             }
-        }
 
-        if (!van_lapat && this.getTartozkodasiMezo().getHotakaro() >= 1) {
-            this.getTartozkodasiMezo().horetegCsokkent();
-            munkakSzama--;
+            if (!van_lapat && this.getTartozkodasiMezo().getHotakaro() >= 1) {
+                this.getTartozkodasiMezo().horetegCsokkent();
+                munkakSzama--;
+            }
         }
     }
 
