@@ -22,7 +22,7 @@ public class Kontroller implements ActionListener {
     private final ArrayList<Jatekos> jatekosok = new ArrayList<>();
     protected ArrayList<Mezo> palya = new ArrayList<>();
     boolean nyert = false;
-    AtomicBoolean aktiv = new AtomicBoolean(true);
+    boolean aktiv = (true);
     ArrayList<View> views = new ArrayList<>();
     MouseListener mouseListener;
     private volatile Jatekos aktivJatekos;
@@ -110,7 +110,9 @@ public class Kontroller implements ActionListener {
      */
     public void jatek() {
         try {
-            while (aktiv.get()) {
+
+            while (aktiv) {
+                System.out.println("Jatek fgv");
                 for (Jatekos j : jatekosok) {
                     this.setAktivJatekos(j);
                     detektal();
@@ -269,7 +271,7 @@ public class Kontroller implements ActionListener {
     //TODO
     // Fire "vege" meg kell jeleníteni a vége képernyőt
     public void jatekVege(boolean nyer) {
-        aktiv.set(false);
+        aktiv=(false);
 
         View view = this.views.get(0);
         synchronized (view) {
@@ -322,97 +324,109 @@ public class Kontroller implements ActionListener {
         // Csak az számít, hogy ne legyen azonos a két objektum, és akkor felül lesz írva
         if (actionEvent.getActionCommand()=="vege")System.exit(0);
         if (actionEvent.getActionCommand()=="ujjatek") {
-            System.exit(0);
-            //TODO Itt kell meghívni az ujrakezd() függvényt
+            try {
+                ujrakezd();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
         }
-        try {
-            Jatekos regiJatekos = (Jatekos) aktivJatekos.clone();
-
-            //Az a mező lesz ahová megérkezik majd az aktív játékos a lépés után
-            Mezo ujTarozkodasiMezo;
-
-            Mezo regiTartozkodasiMezo = (Mezo) aktivJatekos.getTartozkodasiMezo().clone();
-            String actionCommand = actionEvent.getActionCommand();
-
-
-            Mezo regiszomszed = null;
-
-            //Az a mező amiről el kell tűnjenek a  kihúzott játékosok
-            Mezo ujSzomszed = null;
-
-            // Az irányok amerre majd vizsgálni vagy kihúzni kell ha nem null -ok.
-            kihuzIrany = Irany.StringToIrany(actionCommand);
-
-            // Ha nincs szóköz és nem tudja elválasztani akkor biztos nem vizsgálás volt tehát null lesz az irány.
-            String[] parts = actionCommand.split(" ");
+        else {
             try {
-                vizsgalIrany = Irany.StringToIrany(parts[1]);
-            } catch (ArrayIndexOutOfBoundsException ex) {
-                vizsgalIrany = null;
-            }
+                Jatekos regiJatekos = (Jatekos) aktivJatekos.clone();
 
-            /**
-             * Kihúz a megfelelő irányba
-             */
-            if (kihuzIrany != null) {
-                ujSzomszed = copySzomszed(kihuzIrany);
-                //TODO itt exceptiont dob
-                regiszomszed = (Mezo) aktivJatekos.getTartozkodasiMezo().getSzomszed(kihuzIrany).clone();
-                aktivJatekos.kihuz(kihuzIrany);
+                //Az a mező lesz ahová megérkezik majd az aktív játékos a lépés után
+                Mezo ujTarozkodasiMezo;
 
-                support.firePropertyChange("mezo", regiszomszed, ujSzomszed);
-                support.firePropertyChange("aktivJatekos", regiJatekos, aktivJatekos);
-                support.firePropertyChange("mezo", regiTartozkodasiMezo, regiJatekos.getTartozkodasiMezo());
-                support.firePropertyChange("aktiv mezo", regiTartozkodasiMezo, aktivJatekos.getTartozkodasiMezo());
-            }
-            /**
-             * Megvizsgálja a mezőt a megfelelő irányban
-             */
-            else if (vizsgalIrany != null) {
-                Mezo vizsgaltMezo = copySzomszed(vizsgalIrany);
-                aktivJatekos.vizsgal(vizsgalIrany);
-                support.firePropertyChange("mezo", null, vizsgaltMezo);
-            }
+                Mezo regiTartozkodasiMezo = (Mezo) aktivJatekos.getTartozkodasiMezo().clone();
+                String actionCommand = actionEvent.getActionCommand();
 
-            /**
-             * Ha nem vizsgálás vagy kihúzás történéik akkor a többi, ezeket invokeolni lehet név alapján
-             */
-            else {
-                Class c = aktivJatekos.getClass();
-                Method m = c.getMethod(actionCommand);
-                m.invoke(aktivJatekos);
-            }
 
-            if (kihuzIrany == null) {
-                support.firePropertyChange("aktivJatekos", regiJatekos, aktivJatekos);
-                support.firePropertyChange("mezo", regiTartozkodasiMezo, regiJatekos.getTartozkodasiMezo());
-                support.firePropertyChange("aktiv mezo", regiTartozkodasiMezo, aktivJatekos.getTartozkodasiMezo());
+                Mezo regiszomszed = null;
+
+                //Az a mező amiről el kell tűnjenek a  kihúzott játékosok
+                Mezo ujSzomszed = null;
+
+                // Az irányok amerre majd vizsgálni vagy kihúzni kell ha nem null -ok.
+                kihuzIrany = Irany.StringToIrany(actionCommand);
+
+                // Ha nincs szóköz és nem tudja elválasztani akkor biztos nem vizsgálás volt tehát null lesz az irány.
+                String[] parts = actionCommand.split(" ");
+                try {
+                    vizsgalIrany = Irany.StringToIrany(parts[1]);
+                } catch (ArrayIndexOutOfBoundsException ex) {
+                    vizsgalIrany = null;
+                }
+
+                /**
+                 * Kihúz a megfelelő irányba
+                 */
+                if (kihuzIrany != null) {
+                    ujSzomszed = copySzomszed(kihuzIrany);
+                    //TODO itt exceptiont dob
+                    regiszomszed = (Mezo) aktivJatekos.getTartozkodasiMezo().getSzomszed(kihuzIrany).clone();
+                    aktivJatekos.kihuz(kihuzIrany);
+
+                    support.firePropertyChange("mezo", regiszomszed, ujSzomszed);
+                    support.firePropertyChange("aktivJatekos", regiJatekos, aktivJatekos);
+                    support.firePropertyChange("mezo", regiTartozkodasiMezo, regiJatekos.getTartozkodasiMezo());
+                    support.firePropertyChange("aktiv mezo", regiTartozkodasiMezo, aktivJatekos.getTartozkodasiMezo());
+                }
+                /**
+                 * Megvizsgálja a mezőt a megfelelő irányban
+                 */
+                else if (vizsgalIrany != null) {
+                    Mezo vizsgaltMezo = copySzomszed(vizsgalIrany);
+                    aktivJatekos.vizsgal(vizsgalIrany);
+                    support.firePropertyChange("mezo", null, vizsgaltMezo);
+                }
+
+                /**
+                 * Ha nem vizsgálás vagy kihúzás történéik akkor a többi, ezeket invokeolni lehet név alapján
+                 */
+                else {
+                    Class c = aktivJatekos.getClass();
+                    Method m = c.getMethod(actionCommand);
+                    m.invoke(aktivJatekos);
+                }
+
+                if (kihuzIrany == null) {
+                    support.firePropertyChange("aktivJatekos", regiJatekos, aktivJatekos);
+                    support.firePropertyChange("mezo", regiTartozkodasiMezo, regiJatekos.getTartozkodasiMezo());
+                    support.firePropertyChange("aktiv mezo", regiTartozkodasiMezo, aktivJatekos.getTartozkodasiMezo());
+                }
+                for (View v : views) {
+                    v.requestFocusInWindow();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            for (View v : views) {
-                v.requestFocusInWindow();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
     public void ujrakezd() throws IOException {
-        //views.get(0).getContentPane().removeAll();
         jatekosok.clear();
         palya.clear();
         nyert = false;
-        aktiv.set(true);
+        //aktiv=true;
         //ArrayList<View> views = new ArrayList<>();
-        //MouseListener mouseListener;
-        //private volatile Jatekos aktivJatekos;
-        //private Jegesmedve jegesmedve = new Jegesmedve();
+
         kihuzIrany = null;
         vizsgalIrany = null;
         Parser parser=new Parser();
         parser.loadPalya(this,"palya.json");
-        views.get(0).vegeView.setVisible(false);
+
+
+        System.out.println("Ujrakezd");
         support.firePropertyChange("palya",null,palya);
+        support.firePropertyChange("aktiv mezo",null,jatekosok.get(0).getTartozkodasiMezo());
+        support.firePropertyChange("aktivJatekos",null,jatekosok.get(0));
+        aktiv=true;
         jatek();
+        CardLayout cl = (CardLayout) views.get(0).getContentPane().getLayout();
+        cl.show(views.get(0).getContentPane(), "panel");
+        views.get(0).setLayout(cl);
+        views.get(0).requestFocus();
     }
     /**
      * A billenytűk eseménykezelőjének belső osztálya.

@@ -86,7 +86,7 @@ class KontrollerTest {
         jegtabla.elfogad(e2);
         k.detektal();
         try{
-            assertTrue(!k.nyert && !k.aktiv.get());
+            assertTrue(!k.nyert && !k.aktiv);
             System.out.println(ANSI_GREEN + "Siker, vége a játéknak" + ANSI_RESET);
         } catch(AssertionFailedError e){
             System.out.println(ANSI_RED + "Fail: Nem süllyedt el az alkatrész" + ANSI_RESET);
