@@ -63,6 +63,7 @@ public class PalyaView extends JPanel {
             move(transformPolip, -3, 2.2 * Math.sin(time += 0.01), pX, pY, "Polip");
             move(transformTintahal, -2, 3 * Math.sin(time += 0.01), tX, tY, "Tintahal");
             move(transformRak, 1, 2.2 * Math.sin(0.25 * (time += 0.01)), rX, rY, "Rak");
+            move(transformCapa, -1, 2.2 * Math.sin(0.01*(time += 0.01)), cX, cY, "Capa");
             repaint();
         }
     });
@@ -72,6 +73,7 @@ public class PalyaView extends JPanel {
     AffineTransform transformHal2 = new AffineTransform();
     AffineTransform transformTintahal = new AffineTransform();
     AffineTransform transformRak = new AffineTransform();
+    AffineTransform transformCapa = new AffineTransform();
 
     double time = 0;
     AtomicInteger h1X = new AtomicInteger(1);
@@ -84,6 +86,8 @@ public class PalyaView extends JPanel {
     AtomicInteger tY = new AtomicInteger(1);
     AtomicInteger rX = new AtomicInteger(1);
     AtomicInteger rY = new AtomicInteger(1);
+    AtomicInteger cX = new AtomicInteger(1);
+    AtomicInteger cY = new AtomicInteger(1);
 
     /**
      * Létrehozza a pálya nézetet
@@ -100,6 +104,7 @@ public class PalyaView extends JPanel {
         transformPolip.translate(200,200);
         transformTintahal.translate(300,800);
         transformRak.translate(400,400);
+        transformCapa.translate(700,700);
 
         // A nézet amin minden elhelyezkedik
         this.view = view;
@@ -347,6 +352,7 @@ public class PalyaView extends JPanel {
             g2.drawImage(images.get("Polip"), transformPolip, this);
             g2.drawImage(images.get("Tintahal"), transformTintahal, this);
             g2.drawImage(images.get("Rak"), transformRak, this);
+            g2.drawImage(images.get("Capa"), transformCapa, this);
 
         } catch (java.io.IOException ex) {
             ex.printStackTrace();
@@ -379,6 +385,7 @@ public class PalyaView extends JPanel {
             images.put("Hal 2", read(new File("Resources/Assets/Hal-01.png")));
             images.put("Polip", read(new File("Resources/Assets/Polip-01.png")));
             images.put("Tintahal", read(new File("Resources/Assets/Tintahal-01.png")));
+            images.put("Capa", read(new File("Resources/Assets/Capa-01.png")));
             images.put("Rak", read(new File("Resources/Assets/Rak-01.png")));
             images.put("E0", read(new File("Resources/Assets/Eszkimo_Top-01.png")));
             images.put("E1", read(new File("Resources/Assets/Eszkimo_Mid_Left-01.png")));

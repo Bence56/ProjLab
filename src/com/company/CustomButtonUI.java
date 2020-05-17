@@ -89,7 +89,6 @@ class CustomButtonUI extends BasicButtonUI implements java.io.Serializable,
         //Le kell csökkenteni a betűméretet ha túl nagy
         while (true)
             if (fm.stringWidth(caption) > d.getWidth() - 10) {
-                System.out.println(fm.stringWidth(caption));
                 m_font = new Font(m_font.getName(), m_font.getStyle(), m_font.getSize() - 2);
                 g.setFont(m_font);
                 fm = g.getFontMetrics(g.getFont());

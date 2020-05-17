@@ -3,10 +3,12 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 // konstruktorban kapja meg a játékosokat. Akkor tud a kontroller osztályra referenciát tartalmazni a játékos osztály
 public class Kontroller implements ActionListener {
@@ -18,8 +20,8 @@ public class Kontroller implements ActionListener {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private final ArrayList<Jatekos> jatekosok = new ArrayList<>();
     protected ArrayList<Mezo> palya = new ArrayList<>();
-    volatile boolean aktiv = true;
     boolean nyert = false;
+    AtomicBoolean aktiv = new AtomicBoolean(true);
     ArrayList<View> views = new ArrayList<>();
     MouseListener mouseListener;
     private volatile Jatekos aktivJatekos;
@@ -99,7 +101,7 @@ public class Kontroller implements ActionListener {
      */
     public void jatek() {
         try {
-            while (aktiv) {
+            while (aktiv.get()) {
                 for (Jatekos j : jatekosok) {
                     this.setAktivJatekos(j);
                     System.out.println("Játékos váltás");
@@ -209,10 +211,6 @@ public class Kontroller implements ActionListener {
             }
             for (Mezo m : palya) {
                 ArrayList<Alkatresz> alkatreszek = m.getAlkatreszek();
-                //for (int i=0; i<alkatreszek.size(); i++){
-                //   if (alkatreszek.get(i)!=null){
-                //       alkatreszSzam+=1;
-                //  }
                 if (alkatreszek != null) {
                     alkatreszSzam += alkatreszek.size();
                 }
@@ -251,16 +249,16 @@ public class Kontroller implements ActionListener {
     //TODO
     // Fire "vege" meg kell jeleníteni a vége képernyőt
     public void jatekVege(boolean nyer) {
-        aktiv = false;
+        aktiv.set(false);
 
+        View view = this.views.get(0);
         if (nyer) {
-            System.out.println("NYERTEL");
+            view.setText("Nyertél!");
             nyert = true;
         } else
-            System.out.println("GAME OVER");
-        Frame f = new JFrame();
-        f.setVisible(true);
-       // System.exit(0);
+            view.setText("Vesztettél");
+        CardLayout cl = (CardLayout) view.getLayout();
+        cl.next(view.getContentPane());
     }
 
     /**

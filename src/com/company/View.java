@@ -1,13 +1,11 @@
 package com.company;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.util.ArrayList;
-import javax.imageio.ImageIO;
-import javax.swing.*;
 
 class View extends JFrame {
     /**
@@ -19,7 +17,14 @@ class View extends JFrame {
      * A pálya nézete
      */
     PalyaView palyaView;
+    /**
+     * A vége nézet
+     */
 
+    //Ezen helyezkendnek el a Játék nézetei
+    JPanel panel = new JPanel(new BorderLayout());
+    VegeView vegeView = new VegeView();
+    CardLayout cl = new CardLayout();
 
     // Konstruktor
     View(Kontroller kontroller) {
@@ -31,19 +36,29 @@ class View extends JFrame {
         int N = 4;
         int M = 4;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setLayout(cl);
 
         this.setVisible(true);
         //this.setResizable(false);
         this.setLocation(0, 0);
-        this.setSize(222*N+256 + 30, 222*M + 40);
+        this.setSize(222 * N + 256 + 30, 222 * M + 40);
         this.setMinimumSize(this.getSize());
+
 
         this.palyaView = new PalyaView(kontroller, this);
         this.jatekosView = new JatekosView(kontroller, this);
 
-        this.getContentPane().add(palyaView, BorderLayout.CENTER);
-        this.getContentPane().add(jatekosView, BorderLayout.EAST);
+        panel.add(palyaView, BorderLayout.CENTER);
+        panel.add(jatekosView, BorderLayout.EAST);
+
+        this.getContentPane().add(panel);
+        this.getContentPane().add(vegeView);
+
+        //cl.show(this.getContentPane(), "jatekosView");
+    }
+
+    public VegeView getVegeView() {
+        return vegeView;
     }
 
     /**
@@ -61,7 +76,7 @@ class View extends JFrame {
         try {
             BufferedImage image = ImageIO.read(new File("Resources/Assets/Tenger.png"));
             System.out.println(this.getWidth() + " " + this.getHeight());
-            Rectangle2D rec = new java.awt.geom.Rectangle2D.Double(0, 0 , image.getWidth(), image.getHeight());
+            Rectangle2D rec = new java.awt.geom.Rectangle2D.Double(0, 0, image.getWidth(), image.getHeight());
             TexturePaint tp = new TexturePaint(image, rec);
             g2.setPaint(tp);
             Rectangle2D r = new Rectangle(0, 0, this.getWidth(), this.getHeight());
@@ -69,5 +84,19 @@ class View extends JFrame {
         } catch (java.io.IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    /**
+     * Visszaadja a CardLayout-ot
+     *
+     * @return A nézetek CardLayout-ja
+     */
+    @Override
+    public LayoutManager getLayout() {
+        return this.cl;
+    }
+
+    void setText(String s){
+        this.vegeView.setText(s);
     }
 }
