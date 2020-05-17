@@ -7,10 +7,10 @@ public class AdatokPanel extends JPanel{
     private ImageIcon eszkim=new ImageIcon("Resources/Assets/Eszkimo_I-01.png");
     private ImageIcon kuatato=new ImageIcon("Resources/Assets/Kutato_I-01.png");
     private JLabel kep=new JLabel();
-    JTextField fulladasiAllapot=new JTextField("Állapotom: ");
-    JTextField testho=new JTextField("Testhőm: ");
-    JTextField buvarruha=new JTextField("Búvárruha: " );
-    JTextField munka=new JTextField("Munkák: ");
+    JTextField fulladasiAllapot=new JTextField();
+    JTextField testho=new JTextField();
+    JTextField buvarruha=new JTextField();
+    JTextField munka=new JTextField();
 
     /**
      * Adatokat megjelenítő panel inicializálása, textfieldek és ikon hozzáadása.

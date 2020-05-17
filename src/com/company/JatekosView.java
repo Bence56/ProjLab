@@ -48,7 +48,6 @@ public class JatekosView extends JPanel {
      */
     private void propertyChangeHandler(PropertyChangeEvent event) {
         if (event.getPropertyName().equals("aktivJatekos")) {
-            System.out.println("Aktív Játékos updatelve");
             // Az aktív játékos frissítése
             aktivJatekos = (Jatekos) event.getNewValue();
             //TODO Az inventory újrarajzolása
@@ -112,7 +111,6 @@ public class JatekosView extends JPanel {
         }
         try {
             BufferedImage image = ImageIO.read(new File("Resources/Assets/Tenger.png"));
-            System.out.println(view.getWidth() + " " + view.getHeight());
             Rectangle2D rec = new java.awt.geom.Rectangle2D.Double(view.getWidth() - 266, 0 , image.getWidth(), image.getHeight());
             TexturePaint tp = new TexturePaint(image, rec);
             g2.setPaint(tp);
@@ -125,14 +123,17 @@ public class JatekosView extends JPanel {
 
     /**
      * Változás esetén érvénytelenítjük és újrarajzoljuk az adatokat.
+     * Szinkronizálni kell a frissítést, mert ha éppen amikor vége lenne a játéknak frissül a view ott hibák keletkezhetnek
      */
 
     private void update() {
+        synchronized (view) {
         //Változás történt a nézeten, újra kell rajzolni
         adatok.update(aktivJatekos);
         targyak.update(aktivJatekos);
         funkciok.update(aktivJatekos);
-        revalidate();
-        view.repaint();
+            revalidate();
+            view.repaint();
+        }
     }
 }

@@ -51,10 +51,8 @@ class View extends JFrame {
         panel.add(palyaView, BorderLayout.CENTER);
         panel.add(jatekosView, BorderLayout.EAST);
 
-        this.getContentPane().add(panel);
-        this.getContentPane().add(vegeView);
-
-        //cl.show(this.getContentPane(), "jatekosView");
+        this.getContentPane().add(panel, "panel");
+        this.getContentPane().add(vegeView, "vegeView");
     }
 
     public VegeView getVegeView() {

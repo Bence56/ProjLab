@@ -104,7 +104,6 @@ public class Kontroller implements ActionListener {
             while (aktiv.get()) {
                 for (Jatekos j : jatekosok) {
                     this.setAktivJatekos(j);
-                    System.out.println("Játékos váltás");
                     detektal();
                     j.jatszik();
                     if (j.getAllapot() == FulladasiAllapot.aktiv)
@@ -191,7 +190,8 @@ public class Kontroller implements ActionListener {
                     if (allapot == FulladasiAllapot.kimentheto) {
                         j.setAllapot(FulladasiAllapot.halott);
                         System.out.println("Megfulladtál.");
-                        j.meghal();
+                        //j.meghal();
+                        jatekVege(false);
                     }
                 }
             }
@@ -252,13 +252,15 @@ public class Kontroller implements ActionListener {
         aktiv.set(false);
 
         View view = this.views.get(0);
+        synchronized (view) {
         if (nyer) {
             view.setText("Nyertél!");
             nyert = true;
         } else
             view.setText("Vesztettél");
-        CardLayout cl = (CardLayout) view.getLayout();
-        cl.next(view.getContentPane());
+        CardLayout cl = (CardLayout) view.getContentPane().getLayout();
+            cl.show(view.getContentPane(), "vegeView");
+        }
     }
 
     /**
