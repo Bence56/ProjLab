@@ -22,7 +22,7 @@ public class Kontroller implements ActionListener {
     private final ArrayList<Jatekos> jatekosok = new ArrayList<>();
     protected ArrayList<Mezo> palya = new ArrayList<>();
     boolean nyert = false;
-    boolean aktiv = (true);
+    volatile boolean aktiv=true;
     ArrayList<View> views = new ArrayList<>();
     MouseListener mouseListener;
     private volatile Jatekos aktivJatekos;
@@ -408,7 +408,7 @@ public class Kontroller implements ActionListener {
         jatekosok.clear();
         palya.clear();
         nyert = false;
-        //aktiv=true;
+        aktiv=true;
         //ArrayList<View> views = new ArrayList<>();
 
         kihuzIrany = null;
@@ -418,15 +418,16 @@ public class Kontroller implements ActionListener {
 
 
         System.out.println("Ujrakezd");
-        support.firePropertyChange("palya",null,palya);
-        support.firePropertyChange("aktiv mezo",null,jatekosok.get(0).getTartozkodasiMezo());
-        support.firePropertyChange("aktivJatekos",null,jatekosok.get(0));
+
         aktiv=true;
-        jatek();
+
         CardLayout cl = (CardLayout) views.get(0).getContentPane().getLayout();
         cl.show(views.get(0).getContentPane(), "panel");
         views.get(0).setLayout(cl);
         views.get(0).requestFocus();
+        synchronized (views.get(0)) {
+            jatek();
+        }
     }
     /**
      * A billenytűk eseménykezelőjének belső osztálya.
