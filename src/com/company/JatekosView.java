@@ -125,7 +125,6 @@ public class JatekosView extends JPanel {
      * Változás esetén érvénytelenítjük és újrarajzoljuk az adatokat.
      * Szinkronizálni kell a frissítést, mert ha éppen amikor vége lenne a játéknak frissül a view ott hibák keletkezhetnek
      */
-
     private void update() {
         synchronized (view) {
         //Változás történt a nézeten, újra kell rajzolni

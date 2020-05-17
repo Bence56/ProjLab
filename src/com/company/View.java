@@ -26,7 +26,10 @@ class View extends JFrame {
     VegeView vegeView = new VegeView();
     CardLayout cl = new CardLayout();
 
-    // Konstruktor
+    /**
+     * Konstruktor
+     * @param kontroller
+     */
     View(Kontroller kontroller) {
         //A Frame beállítása
         super("Jatek");
@@ -55,6 +58,10 @@ class View extends JFrame {
         this.getContentPane().add(vegeView, "vegeView");
     }
 
+    /**
+     * Visszaadja a játék végét ábrázoló képet
+     * @return
+     */
     public VegeView getVegeView() {
         return vegeView;
     }

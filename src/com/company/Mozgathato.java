@@ -3,6 +3,9 @@ package com.company;
 public abstract class Mozgathato {
     private Mezo tartozkodasiMezo;
 
+    /**
+     * Absztrakt függvények, a leszármozottak implementálják
+     */
     public abstract void jatszik();
     public abstract void lep(Irany i);
 

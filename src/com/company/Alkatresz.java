@@ -4,11 +4,23 @@ public class Alkatresz extends Targy {
 
     int ID;
 
+    /**
+     * Visszaadja a tárgy ID-ját
+     * @return id
+     */
     public int getID() {
         return ID;
     }
 
+    /**
+     * Konstruktor
+     */
     Alkatresz(){}
+
+    /**
+     * Konstruktor
+     * @param i az ID
+     */
     Alkatresz(int i) {
         ID = i;
     }

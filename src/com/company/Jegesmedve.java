@@ -5,11 +5,17 @@ import java.util.Random;
 
 public class Jegesmedve extends Mozgathato implements Cloneable{
 
+    /**
+     * Lemásolja a jegesmedve objektumot.
+     * @return a másolat
+     * @throws CloneNotSupportedException
+     */
     @Override
     protected Object clone() throws CloneNotSupportedException {
         Jegesmedve medve = (Jegesmedve) super.clone();
         return medve;
     }
+
     /**
      * kiírja a jegesmedve állapotát
      */
@@ -60,8 +66,7 @@ public class Jegesmedve extends Mozgathato implements Cloneable{
      * a jatszik() függvény hívásával új random irányba lépteti a medvét.
      * @param i az irány amerre a jegesmedve lépjen
      */
-
-            @Override
+    @Override
     public void lep(Irany i) { // miután a mezőre lépett csekkolja, hogy van-e iglu, ha nincs, akkor öl.
 
                 Mezo szomszed = getTartozkodasiMezo().getSzomszed(i);

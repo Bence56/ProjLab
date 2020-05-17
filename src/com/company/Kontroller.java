@@ -32,6 +32,10 @@ public class Kontroller implements ActionListener {
     Kontroller() {
     }
 
+    /**
+     * Visszaadja a mouseListenert
+     * @return
+     */
     public MouseListener getMouseListener() {
         return mouseListener;
     }
@@ -91,7 +95,11 @@ public class Kontroller implements ActionListener {
         support.firePropertyChange("aktiv mezo", null, aktivJatekos.getTartozkodasiMezo());
     }
 
-
+    /**
+     *Visszaadja az i-dik mezőt
+     * @param i, hanyadik mező
+     * @return a mező
+     */
     public Mezo getPalya(int i) {
         return palya.get(i);
     }
@@ -109,8 +117,7 @@ public class Kontroller implements ActionListener {
                     if (j.getAllapot() == FulladasiAllapot.aktiv)
                         j.setMunkakSzama(4);
                 }
-                //TODO
-                // vihar előtti pálya klónozása és utána fireproperty a pályára. KESZ
+
                 ArrayList<Mezo> regiPalya = new ArrayList<>();
                 for (Mezo m : palya) {
                     regiPalya.add((Mezo) m.clone());
@@ -134,10 +141,18 @@ public class Kontroller implements ActionListener {
         }
     }
 
+    /**
+     * Hozzáad egy játékost a játékhoz
+     * @param j a játékos
+     */
     public void addJatekos(Jatekos j) {
         jatekosok.add(j);
     }
 
+    /**
+     * Hozzáad egy mezőt q játékhoz
+     * @param mezo a mező
+     */
     public void addMezo(Mezo mezo) {
         this.palya.add(mezo);
     }
@@ -147,8 +162,7 @@ public class Kontroller implements ActionListener {
      * 0 és a maxHoreteg kozott Között, tehát jóval kisebb a valószínűsége nagy hónak mint a semminek.
      * Lecsökkenti a mezőkön álló játékosok testhőjét, ha nincs iglu a mezőn vagy a sátor már
      */
-    //TODO
-    // Akkor kell fire "palya", miután a lement a vihar
+
     public void vihar() {
         int maxHoreteg = 5;
 
@@ -177,7 +191,7 @@ public class Kontroller implements ActionListener {
     }
 
     /**
-     * vizsgaljuk a játékosok állapotát, nem e hűlt ki, nem e fulladt meg
+     * Vizsgaljuk a játékosok állapotát, nem e hűlt ki, nem e fulladt meg
      */
     public void detektal() {
             int alkatreszSzam = 0;
@@ -453,7 +467,7 @@ public class Kontroller implements ActionListener {
         }
 
         /**
-         * 4
+         *
          * Nem csinál semmit
          *
          * @param e

@@ -1,14 +1,16 @@
 package com.company;
 
 public class Buvarruha extends Targy {
+    /**
+     * Konstruktor
+     */
     public Buvarruha() {
     }
 
-    //TODO Átírni a kommentet
     /**
-     * Mivel a búvárruhát már a felvételkor "használjuk", ezért az accept függvényre nincs szükség, így false visszatérési értékkel implementáljuk.
+     * A TargyVisitor-t fogadja, meghivja a visit függvényét. True ha a tárgy búvárruha.
      *
-     * @param t a paraméterül kapott visitor
+     * @param v a paraméterül kapott visitor
      * @return
      */
     @Override

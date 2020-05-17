@@ -10,6 +10,12 @@ public class Jegtabla extends Mezo{
     private int satorMiotaVan;
     private boolean iglu;
 
+    /**
+     * Konstruktor
+     * @param teherbiras a jégtábla teherbírása
+     * @param hotakaro a jégtáblán lévő hótakaró
+     * @param targy a jégtáblába fagyott tárgy
+     */
     public Jegtabla(int teherbiras, int hotakaro, Targy targy) {
         super(teherbiras, hotakaro);
         this.fagyotttargy = targy;
@@ -17,6 +23,13 @@ public class Jegtabla extends Mezo{
         this.iglu = false;
     }
 
+    /**
+     * KOnstruktor
+     * @param id a jégtábla azonosítója
+     * @param teherbiras a jégtábla teherbírása
+     * @param hotakaro a jégtáblán lévő hótakaró
+     * @param targy a jégtáblába fagyott tárgy
+     */
     public Jegtabla(String id, int teherbiras, int hotakaro, Targy targy) {
         super(id, teherbiras, hotakaro);
         this.fagyotttargy = targy;
@@ -24,6 +37,13 @@ public class Jegtabla extends Mezo{
         this.iglu = false;
     }
 
+    /**
+     * Konstruktor
+     * @param teherbiras a jégtábla teherbírása
+     * @param hotakaro a jégtáblán lévő hótakaró
+     * @param targy a jégtáblán lévő tárgy
+     * @param alkatresz a jégtáblán lévő alkatrész
+     */
     public Jegtabla(int teherbiras, int hotakaro, Targy targy,Alkatresz alkatresz) {
         super(teherbiras, hotakaro);
         this.fagyotttargy = targy;
@@ -183,6 +203,10 @@ public class Jegtabla extends Mezo{
         return this.alkatreszek;
     }
 
+    /**
+     * Beállítja, hogy a sátor mióta van felállítva
+     * @param satorMiotaVan erre állítja be
+     */
     @Override
     public void setSatorMiotaVan(int satorMiotaVan) {
         this.satorMiotaVan = satorMiotaVan;

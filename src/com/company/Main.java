@@ -7,20 +7,12 @@ import java.util.Scanner;
 
 
 public class Main {
-
+    /**
+     * A játékot elindítja
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
-        /*
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNextLine()) {
-            System.out.println("Adj meg egy teszt fájl nevet: ");
-            String parancs = scanner.nextLine();
-            if (parancs.equals("q")) {
-                break;
-            }
-            Tester tester = new Tester();
-            tester.testfromfile(parancs);
-        }
-         */
+
         Parser parser = new Parser();
 
         Kontroller kontroller = new Kontroller();

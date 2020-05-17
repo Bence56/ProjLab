@@ -4,11 +4,19 @@ import java.util.ArrayList;
 
 public class Lyuk extends Mezo {
 
-
+    /**
+     * Konstruktor
+     * @param hotakaro a lyukon lévő hóréteg száma
+     */
     public Lyuk(int hotakaro) {   // a nulla teherbírású a Lyuk..
         super(0, hotakaro);
     }
 
+    /**
+     * Konstruktor
+     * @param id azonosító
+     * @param hotakaro a lyukon lévő hóréteg száma
+     */
     public Lyuk(String id, int hotakaro) {   // a nulla teherbírású a Lyuk..
         super(id, 0, hotakaro);
     }

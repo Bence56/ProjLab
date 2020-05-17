@@ -1,12 +1,14 @@
 package com.company;
 
 public class Elelem extends Targy{
+    /**
+     * Konstruktor
+     */
     public Elelem() {
     }
 
-    //TODO Átírni a kommentet
     /**
-     * Mivel az élelmet már a felvételkor "használjuk", ezért az accept függvényre nincs szükség, így false visszatérési értékkel implementáljuk.
+     * A kapott TargyVisitor visit függvényét hívja meg, ami true ha a tárgy élelem.
      * @param v a paraméterül kapott visitor
      * @return
      */

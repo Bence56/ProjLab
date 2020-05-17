@@ -61,6 +61,10 @@ public class TargyakPanel extends JPanel {
     private BufferedImage pisztolyket;
     private BufferedImage pisztolyhar;
 
+    /**
+     * Konstruktor
+     * @param kontroller
+     */
     public TargyakPanel(Kontroller kontroller) {
 
         //Beállítja az egyedi UI-t
@@ -196,6 +200,10 @@ public class TargyakPanel extends JPanel {
         this.add(targyak);
     }
 
+    /**
+     * Frissíti a játkos paneljét
+     * @param aktivJatekos
+     */
     public void update(Jatekos aktivJatekos) {
         LapatVisitor lv = new LapatVisitor();
         SatorVisitor sv = new SatorVisitor();
@@ -245,6 +253,11 @@ public class TargyakPanel extends JPanel {
         revalidate();
 
     }
+
+    /**
+     * Kirajzolja a képeket
+     * @param g
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
