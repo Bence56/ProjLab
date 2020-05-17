@@ -293,7 +293,7 @@ public class Kontroller implements ActionListener {
     }
 
     /**
-     * setter
+     * setter a jegesmedvéhez
      *
      * @param jegesmedve a játék jegesmedvéje
      */
