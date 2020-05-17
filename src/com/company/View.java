@@ -23,7 +23,7 @@ class View extends JFrame {
 
     //Ezen helyezkendnek el a Játék nézetei
     JPanel panel = new JPanel(new BorderLayout());
-    VegeView vegeView = new VegeView();
+    VegeView vegeView;
     CardLayout cl = new CardLayout();
 
     /**
@@ -50,6 +50,7 @@ class View extends JFrame {
 
         this.palyaView = new PalyaView(kontroller, this);
         this.jatekosView = new JatekosView(kontroller, this);
+        this.vegeView=new VegeView(kontroller);
 
         panel.add(palyaView, BorderLayout.CENTER);
         panel.add(jatekosView, BorderLayout.EAST);

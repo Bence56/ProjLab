@@ -7,15 +7,20 @@ public class VegeView extends JPanel {
 
     JLabel label = new JLabel("Nyertél!");
 
-    VegeView() {
+    VegeView(Kontroller k) {
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         JButton kilep = new JButton("Kilépés");
         kilep.setPreferredSize(new Dimension(220, 80));
         kilep.setUI(new CustomButtonUI(false));
+        kilep.addActionListener(k);
+        kilep.setActionCommand("vege");
         JButton ujJatek = new JButton("Új játék");
         ujJatek.setPreferredSize(new Dimension(220, 80));
         ujJatek.setUI(new CustomButtonUI(false));
+        ujJatek.addActionListener(k);
+        ujJatek.setActionCommand("ujjatek");
+
         setBackground(new Color(41, 54, 63));
         gbc.gridx = 0;
         gbc.gridy = 1;

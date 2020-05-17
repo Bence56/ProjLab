@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -225,15 +226,20 @@ public class Kontroller implements ActionListener {
             }
             for (Mezo m : palya) {
                 ArrayList<Alkatresz> alkatreszek = m.getAlkatreszek();
-                if (alkatreszek != null) {
-                    alkatreszSzam += alkatreszek.size();
-                }
+                String id = m.getID();
+                if (id.charAt(0)=='J'){
+
+
+                    if (alkatreszek != null) {
+                        alkatreszSzam += alkatreszek.size();
+                    }
                 if (m.getFagyottAlkatresz() != null) {
                     alkatreszSzam++;
                 }
             }
+            }
 
-            if (alkatreszSzam < 3) {
+            if (alkatreszSzam != 3) {
                 System.out.println("Nincs meg az összes alkatrész.");
                 jatekVege(false);
             }
@@ -314,6 +320,12 @@ public class Kontroller implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         // Ez az állapota a cselekvés előtt a Játékosnak, mindegy, hogy mennyire Deep a másolat,
         // Csak az számít, hogy ne legyen azonos a két objektum, és akkor felül lesz írva
+        if (actionEvent.getActionCommand()=="vege")System.exit(0);
+        if (actionEvent.getActionCommand()=="ujjatek") {
+            System.exit(0);
+            //TODO Itt kell meghívni az ujrakezd() függvényt
+
+        }
         try {
             Jatekos regiJatekos = (Jatekos) aktivJatekos.clone();
 
@@ -384,7 +396,24 @@ public class Kontroller implements ActionListener {
             e.printStackTrace();
         }
     }
-
+    public void ujrakezd() throws IOException {
+        //views.get(0).getContentPane().removeAll();
+        jatekosok.clear();
+        palya.clear();
+        nyert = false;
+        aktiv.set(true);
+        //ArrayList<View> views = new ArrayList<>();
+        //MouseListener mouseListener;
+        //private volatile Jatekos aktivJatekos;
+        //private Jegesmedve jegesmedve = new Jegesmedve();
+        kihuzIrany = null;
+        vizsgalIrany = null;
+        Parser parser=new Parser();
+        parser.loadPalya(this,"palya.json");
+        views.get(0).vegeView.setVisible(false);
+        support.firePropertyChange("palya",null,palya);
+        jatek();
+    }
     /**
      * A billenytűk eseménykezelőjének belső osztálya.
      */
