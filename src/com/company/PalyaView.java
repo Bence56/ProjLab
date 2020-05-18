@@ -191,7 +191,6 @@ public class PalyaView extends JPanel {
      */
     private void propertyChangeHandler(PropertyChangeEvent event) {
         if (event.getPropertyName().equals("palya")) {
-            System.out.println("Pálya változott");
 
             // A pálya frissítése
             ArrayList<Mezo> palya = (ArrayList<Mezo>) event.getNewValue();

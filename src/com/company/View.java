@@ -81,7 +81,6 @@ class View extends JFrame {
         }
         try {
             BufferedImage image = ImageIO.read(new File("Resources/Assets/Tenger.png"));
-            System.out.println(this.getWidth() + " " + this.getHeight());
             Rectangle2D rec = new java.awt.geom.Rectangle2D.Double(0, 0, image.getWidth(), image.getHeight());
             TexturePaint tp = new TexturePaint(image, rec);
             g2.setPaint(tp);

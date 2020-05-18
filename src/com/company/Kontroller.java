@@ -112,7 +112,6 @@ public class Kontroller implements ActionListener {
         try {
 
             while (aktiv.get()) {
-                System.out.println("Jatek fgv");
                 for (Jatekos j : jatekosok) {
                     this.setAktivJatekos(j);
                     detektal();

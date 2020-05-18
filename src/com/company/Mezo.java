@@ -182,7 +182,6 @@ public abstract class Mezo implements Cloneable {
     public void eltavolit(Jatekos j) {
 
         alloJatekos.remove(j);
-        System.out.println(alloJatekos.size());
     }
 
     /**
@@ -202,7 +201,6 @@ public abstract class Mezo implements Cloneable {
     public void utkozik(Jegesmedve j) {
         if (j != null) {
             if (!isIglu() && alloJatekos.size() >= 1) {
-                System.out.println("Megevett a medve.");
                 alloJatekos.get(0).meghal();
                 alloJatekos.remove(0);
             }
