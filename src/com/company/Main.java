@@ -11,12 +11,15 @@ public class Main {
      * A játékot elindítja
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)throws IOException {
 
         Parser parser = new Parser();
 
         Kontroller kontroller = new Kontroller();
-        parser.loadPalya(kontroller, "palya.json");
+        try {
+            parser.loadPalya(kontroller, "palya.json");
+        }
+        catch (IOException e){e.printStackTrace();}
 
         View view = new View(kontroller);
         kontroller.addView(view);
