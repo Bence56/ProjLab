@@ -1,9 +1,7 @@
 package com.company;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
@@ -22,7 +20,7 @@ public class Kontroller implements ActionListener {
     private final ArrayList<Jatekos> jatekosok = new ArrayList<>();
     protected ArrayList<Mezo> palya = new ArrayList<>();
     boolean nyert = false;
-    volatile boolean aktiv=true;
+    AtomicBoolean aktiv = new AtomicBoolean(true);
     ArrayList<View> views = new ArrayList<>();
     MouseListener mouseListener;
     private volatile Jatekos aktivJatekos;
@@ -35,6 +33,7 @@ public class Kontroller implements ActionListener {
 
     /**
      * Visszaadja a mouseListenert
+     *
      * @return
      */
     public MouseListener getMouseListener() {
@@ -97,7 +96,8 @@ public class Kontroller implements ActionListener {
     }
 
     /**
-     *Visszaadja az i-dik mezőt
+     * Visszaadja az i-dik mezőt
+     *
      * @param i, hanyadik mező
      * @return a mező
      */
@@ -111,7 +111,7 @@ public class Kontroller implements ActionListener {
     public void jatek() {
         try {
 
-            while (aktiv) {
+            while (aktiv.get()) {
                 System.out.println("Jatek fgv");
                 for (Jatekos j : jatekosok) {
                     this.setAktivJatekos(j);
@@ -146,6 +146,7 @@ public class Kontroller implements ActionListener {
 
     /**
      * Hozzáad egy játékost a játékhoz
+     *
      * @param j a játékos
      */
     public void addJatekos(Jatekos j) {
@@ -154,6 +155,7 @@ public class Kontroller implements ActionListener {
 
     /**
      * Hozzáad egy mezőt q játékhoz
+     *
      * @param mezo a mező
      */
     public void addMezo(Mezo mezo) {
@@ -197,66 +199,66 @@ public class Kontroller implements ActionListener {
      * Vizsgaljuk a játékosok állapotát, nem e hűlt ki, nem e fulladt meg
      */
     public void detektal() {
-            int alkatreszSzam = 0;
+        int alkatreszSzam = 0;
 
-            for (Jatekos j : jatekosok) {
-                FulladasiAllapot allapot = j.getAllapot();
-                if (allapot == FulladasiAllapot.fuldoklik) {
-                    j.setAllapot(FulladasiAllapot.kimentheto);
-                } else {
-                    if (allapot == FulladasiAllapot.kimentheto) {
-                        j.setAllapot(FulladasiAllapot.halott);
-                        System.out.println("Megfulladtál.");
-                        //j.meghal();
-                        jatekVege(false);
-                    }
-                }
-            }
-
-            for (Jatekos j : jatekosok) {
-                int ho = j.getTestho();
-
-                if (ho == 0) {
+        for (Jatekos j : jatekosok) {
+            FulladasiAllapot allapot = j.getAllapot();
+            if (allapot == FulladasiAllapot.fuldoklik) {
+                j.setAllapot(FulladasiAllapot.kimentheto);
+            } else {
+                if (allapot == FulladasiAllapot.kimentheto) {
                     j.setAllapot(FulladasiAllapot.halott);
+                    System.out.println("Megfulladtál.");
+                    //j.meghal();
                     jatekVege(false);
                 }
             }
+        }
 
-            for (Jatekos j : jatekosok) {
-                ArrayList<Alkatresz> alkatreszek = j.getAlkatreszek();
-                alkatreszSzam += alkatreszek.size();
+        for (Jatekos j : jatekosok) {
+            int ho = j.getTestho();
+
+            if (ho == 0) {
+                j.setAllapot(FulladasiAllapot.halott);
+                jatekVege(false);
             }
-            for (Mezo m : palya) {
-                ArrayList<Alkatresz> alkatreszek = m.getAlkatreszek();
-                String id = m.getID();
-                if (id.charAt(0)=='J'){
+        }
+
+        for (Jatekos j : jatekosok) {
+            ArrayList<Alkatresz> alkatreszek = j.getAlkatreszek();
+            alkatreszSzam += alkatreszek.size();
+        }
+        for (Mezo m : palya) {
+            ArrayList<Alkatresz> alkatreszek = m.getAlkatreszek();
+            String id = m.getID();
+            if (id.charAt(0) == 'J') {
 
 
-                    if (alkatreszek != null) {
-                        alkatreszSzam += alkatreszek.size();
-                    }
+                if (alkatreszek != null) {
+                    alkatreszSzam += alkatreszek.size();
+                }
                 if (m.getFagyottAlkatresz() != null) {
                     alkatreszSzam++;
                 }
             }
-            }
+        }
 
-            if (alkatreszSzam != 3) {
-                System.out.println("Nincs meg az összes alkatrész.");
-                jatekVege(false);
-            }
+        if (alkatreszSzam != 3) {
+            System.out.println("Nincs meg az összes alkatrész.");
+            jatekVege(false);
+        }
 
 
-            for (Mezo m : palya) {
-                int satorMiotaVan = m.getSatorMiotaVan();
-                if (satorMiotaVan == ((jatekosok.size()))) { // ha lement egy kör eltűnteti a sátrat
-                    m.satratNullaz();
-                } else {
-                    if (m.getSatorMiotaVan() > 0) // ha van a mezőn sátor
-                        m.satorIdoNovel();  // 1-gyel nő a felállítástúl eltelt idő
-                }
+        for (Mezo m : palya) {
+            int satorMiotaVan = m.getSatorMiotaVan();
+            if (satorMiotaVan == ((jatekosok.size()))) { // ha lement egy kör eltűnteti a sátrat
+                m.satratNullaz();
+            } else {
+                if (m.getSatorMiotaVan() > 0) // ha van a mezőn sátor
+                    m.satorIdoNovel();  // 1-gyel nő a felállítástúl eltelt idő
             }
         }
+    }
 
     public void frissitLerak(Jatekos aktivJatekos, Mezo mezo) {
         support.firePropertyChange("aktivJatekos", null, aktivJatekos);
@@ -271,16 +273,16 @@ public class Kontroller implements ActionListener {
     //TODO
     // Fire "vege" meg kell jeleníteni a vége képernyőt
     public void jatekVege(boolean nyer) {
-        aktiv=(false);
+        aktiv.set(false);
 
         View view = this.views.get(0);
         synchronized (view) {
-        if (nyer) {
-            view.setText("Nyertél!");
-            nyert = true;
-        } else
-            view.setText("Vesztettél");
-        CardLayout cl = (CardLayout) view.getContentPane().getLayout();
+            if (nyer) {
+                view.setText("Nyertél!");
+                nyert = true;
+            } else
+                view.setText("Vesztettél");
+            CardLayout cl = (CardLayout) view.getContentPane().getLayout();
             cl.show(view.getContentPane(), "vegeView");
         }
     }
@@ -322,8 +324,8 @@ public class Kontroller implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         // Ez az állapota a cselekvés előtt a Játékosnak, mindegy, hogy mennyire Deep a másolat,
         // Csak az számít, hogy ne legyen azonos a két objektum, és akkor felül lesz írva
-        if (actionEvent.getActionCommand()=="vege")System.exit(0);
-        if (actionEvent.getActionCommand()=="ujjatek") {
+        if (actionEvent.getActionCommand() == "vege") System.exit(0);
+        if (actionEvent.getActionCommand() == "ujjatek") {
             try {
                 ujrakezd();
             } catch (IOException e) {
@@ -331,8 +333,7 @@ public class Kontroller implements ActionListener {
             }
 
 
-        }
-        else {
+        } else {
             try {
                 Jatekos regiJatekos = (Jatekos) aktivJatekos.clone();
 
@@ -404,31 +405,34 @@ public class Kontroller implements ActionListener {
             }
         }
     }
+
     public void ujrakezd() throws IOException {
-        jatekosok.clear();
-        palya.clear();
-        nyert = false;
-        aktiv=true;
-        //ArrayList<View> views = new ArrayList<>();
 
-        kihuzIrany = null;
-        vizsgalIrany = null;
-        Parser parser=new Parser();
-        parser.loadPalya(this,"palya.json");
-
-
-        System.out.println("Ujrakezd");
-
-        aktiv=true;
-
-        CardLayout cl = (CardLayout) views.get(0).getContentPane().getLayout();
-        cl.show(views.get(0).getContentPane(), "panel");
-        views.get(0).setLayout(cl);
-        views.get(0).requestFocus();
-        synchronized (views.get(0)) {
-            jatek();
+        View view = this.views.get(0);
+        synchronized (view) {
+            CardLayout cl = (CardLayout) view.getContentPane().getLayout();
+            cl.show(view.getContentPane(), "panel");
         }
+        synchronized (this){
+            aktiv.set(false);
+            jatekosok.clear();
+            palya.clear();
+            Parser parser = new Parser();
+            parser.loadPalya(this, "palya.json");
+            view.dispose();
+            this.views.clear();
+            View v = new View(this);
+            addView(v);
+
+            nyert = false;
+            //aktiv.set(false);
+            kihuzIrany = null;
+            vizsgalIrany = null;
+
+        }
+
     }
+
     /**
      * A billenytűk eseménykezelőjének belső osztálya.
      */
@@ -474,7 +478,7 @@ public class Kontroller implements ActionListener {
                 } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD6) || e.getKeyCode() == KeyEvent.VK_RIGHT) {
                     ujTarozkodasiMezo = copySzomszed(Irany.Jobb);
                     aktivJatekos.lep(Irany.Jobb);
-                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD3) || e.getKeyCode() == KeyEvent.VK_X ){
+                } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD3) || e.getKeyCode() == KeyEvent.VK_X) {
                     ujTarozkodasiMezo = copySzomszed(Irany.JobbLe);
                     aktivJatekos.lep(Irany.JobbLe);
                 } else if (e.getKeyCode() == (KeyEvent.VK_NUMPAD2) || e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -511,7 +515,6 @@ public class Kontroller implements ActionListener {
         }
 
         /**
-         *
          * Nem csinál semmit
          *
          * @param e

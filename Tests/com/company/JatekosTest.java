@@ -191,7 +191,7 @@ class JatekosTest {
         jegtabla.setAlkatreszek(a1,a2,a3);
         eszkimo.osszeszerel();
         try{
-            assertTrue(k.nyert && !k.aktiv);
+            assertTrue(k.nyert && !k.aktiv.get());
             System.out.println(ANSI_GREEN + "Siker: A pisztoly elsült." + ANSI_RESET);
         } catch(AssertionFailedError e){
             System.out.println(ANSI_RED + "Fail: Nem működik az összeszerelés" +ANSI_RESET);

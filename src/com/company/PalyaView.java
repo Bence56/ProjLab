@@ -271,6 +271,12 @@ public class PalyaView extends JPanel {
                 retegek.add(images.get("Etel"));
             }
         }
+        if (mezo.getID().contains("J") && mezo.getTeherbiras() >= mezo.getAlloJatekos().size()) {
+            retegek.add(images.get("Zuzmara"));
+        }
+        else if (mezo.getID().contains("Y") || mezo.getTeherbiras() < mezo.getAlloJatekos().size()) {
+            retegek.add(images.get("Zuzmara_Lyuk"));
+        }
 
         SatorVisitor sv = new SatorVisitor();
         if (mezo.getTargy() != null) {
@@ -400,6 +406,8 @@ public class PalyaView extends JPanel {
             images.put("K4", read(new File("Resources/Assets/Kutato_Top_Center-01.png")));
             images.put("K5", read(new File("Resources/Assets/Kutato_Top_Right-01.png")));
             images.put("Aktiv", read(new File("Resources/Assets/Active-01.png")));
+            images.put("Zuzmara", read(new File("Resources/Assets/Zuzmara-01.png")));
+            images.put("Zuzmara_Lyuk", read(new File("Resources/Assets/Zuzmara_Lyuk-01.png")));
             images.put("0", read(new File("Resources/Assets/0-01.png")));
             images.put("1", read(new File("Resources/Assets/1-01.png")));
             images.put("2", read(new File("Resources/Assets/2-01.png")));
