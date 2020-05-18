@@ -428,7 +428,6 @@ public class Kontroller implements ActionListener {
             //aktiv.set(false);
             kihuzIrany = null;
             vizsgalIrany = null;
-
         }
 
     }
