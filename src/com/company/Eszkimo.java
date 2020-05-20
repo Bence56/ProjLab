@@ -24,9 +24,11 @@ public class Eszkimo extends Jatekos implements Cloneable{
      */
     @Override
     public void epit(){
-        this.getTartozkodasiMezo().setIglu(true);
-        if (this.getTartozkodasiMezo().getTeherbiras() !=0)
-            this.munkaLevon();
+        if(this.getTartozkodasiMezo().isIglu()==false) {
+            this.getTartozkodasiMezo().setIglu(true);
+            if (this.getTartozkodasiMezo().getTeherbiras() != 0)
+                this.munkaLevon();
+        }
     }
 
     /**
