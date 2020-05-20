@@ -365,10 +365,15 @@ public class Kontroller implements ActionListener {
                 if (kihuzIrany != null) {
                     ujSzomszed = copySzomszed(kihuzIrany);
                     //TODO itt exceptiont dob
-                    regiszomszed = (Mezo) aktivJatekos.getTartozkodasiMezo().getSzomszed(kihuzIrany).clone();
-                    aktivJatekos.kihuz(kihuzIrany);
+                    if(aktivJatekos.getTartozkodasiMezo().getSzomszed(kihuzIrany) != null) {
+                        regiszomszed = (Mezo) aktivJatekos.getTartozkodasiMezo().getSzomszed(kihuzIrany).clone();
+                        aktivJatekos.kihuz(kihuzIrany);
+                    }
 
-                    support.firePropertyChange("mezo", regiszomszed, ujSzomszed);
+
+                    if(regiszomszed != null) {
+                        support.firePropertyChange("mezo", regiszomszed, ujSzomszed);
+                    }
                     support.firePropertyChange("aktivJatekos", regiJatekos, aktivJatekos);
                     support.firePropertyChange("mezo", regiTartozkodasiMezo, regiJatekos.getTartozkodasiMezo());
                     support.firePropertyChange("aktiv mezo", regiTartozkodasiMezo, aktivJatekos.getTartozkodasiMezo());
@@ -379,7 +384,9 @@ public class Kontroller implements ActionListener {
                 else if (vizsgalIrany != null) {
                     Mezo vizsgaltMezo = copySzomszed(vizsgalIrany);
                     aktivJatekos.vizsgal(vizsgalIrany);
-                    support.firePropertyChange("mezo", null, vizsgaltMezo);
+                    if(vizsgaltMezo != null) {
+                        support.firePropertyChange("mezo", null, vizsgaltMezo);
+                    }
                 }
 
                 /**
